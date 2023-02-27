@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+
+}
+
+#nprogress .bar {
+	@apply bg-brand-500;
+}
+
+#nprogress .spinner-icon {
+	@apply border-t-brand-500 border-r-brand-500;
+}

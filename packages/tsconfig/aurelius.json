@@ -1,0 +1,21 @@
+{
+    "$schema": "https://json.schemastore.org/tsconfig",
+    "display": "Rescribe",
+    "extends": "./base.json",
+    "compilerOptions": {
+        "jsx": "react-jsx",
+        "lib": [
+            "DOM",
+            "ES2019"
+        ],
+        "module": "ESNext",
+        "target": "es6",
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+        "paths": {
+            "~/*": [
+                "../rescribe/src/"
+            ]
+        }
+    }
+}

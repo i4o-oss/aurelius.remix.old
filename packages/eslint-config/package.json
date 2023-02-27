@@ -1,0 +1,22 @@
+{
+    "name": "@aurelius/eslint-config",
+    "version": "0.0.0",
+    "main": "index.js",
+    "license": "MIT",
+    "dependencies": {
+        "@remix-run/eslint-config": "1.13.0",
+        "eslint": "^8.34.0",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-react": "7.31.8",
+        "eslint-config-turbo": "latest"
+    },
+    "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "^5.53.0",
+        "@typescript-eslint/parser": "^5.53.0",
+        "react": "^18.2.0",
+        "typescript": "^4.9.5"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
+}
