@@ -32,29 +32,48 @@ export const links: LinksFunction = () => {
 		{ rel: 'stylesheet', href: styles },
 		{ rel: 'stylesheet', href: nProgressStyles },
 		{ rel: 'stylesheet', href: cuiStyles },
+		{ rel: 'manifest', href: '/site.webmanifest' },
+		{
+			rel: 'apple-touch-icon',
+			sizes: '180x180',
+			href: '/apple-touch-icon.png',
+		},
+		{
+			rel: 'icon',
+			type: 'image/png',
+			sizes: '32x32',
+			href: '/favicon-32x32.png',
+		},
+		{
+			rel: 'icon',
+			type: 'image/png',
+			sizes: '16x16',
+			href: '/favicon-16x16.png',
+		},
+		{ rel: 'mask-icon', color: '#5bbad5', href: '/safari-pinned-tab.svg' },
 	]
 }
 
+// TODO: Add favicons and logo
 export const meta: MetaFunction = () => ({
-	// TODO: Fill out the empty strings as required
 	charset: 'utf-8',
 	'msapplication-TileColor': '#2b5797',
-	'og:site': '',
-	'og:url': 'https://stack.i4o.dev',
-	'og:title': 'Synthwave Stack',
+	'og:site': 'https://aurelius.ink',
+	'og:url': 'https://aurelius.ink',
+	'og:title': 'Aurelius',
 	'og:description':
-		'A custom Remix stack for building web apps using React, Tailwind, and TypeScript.',
-	'og:image': '',
-	'theme-color': '',
-	title: '',
+		'Beautiful, minimal writing app. Eliminate distractions when writing, build a writing habit, track your daily writing goal, and more.',
+	'og:image': '/images/aurelius_open_graph.png',
+	'theme-color': '#ffffff',
+	title: 'Aurelius',
 	'twitter:card': 'summary_large_image',
-	'twitter:site': '',
-	'twitter:url': 'https://stack.i4o.dev',
-	'twitter:creator': 'Ilango Rajagopal',
-	'twitter:title': 'Synthwave Stack',
+	'twitter:site': '@_ilango',
+	'twitter:url': 'https://aurelius.ink/',
+	'twitter:creator': '@_ilango',
+	'twitter:title': 'Aurelius',
 	'twitter:description':
-		'A custom Remix stack for building web apps using React, Tailwind, and TypeScript.',
-	'twitter:image': '',
+		'Beautiful, minimal writing app. Eliminate distractions when writing, build a writing habit, track your daily writing goal, and more.',
+	'twitter:image': 'https://www.aurelius.ink/images/aurelius_open_graph.png',
 	viewport: 'width=device-width,initial-scale=1',
 })
 
@@ -93,7 +112,6 @@ const Document = (props: DocumentProps) => {
 			<head>
 				<Meta />
 				<Links />
-				<title>Synthwave Stack</title>
 			</head>
 			<body className='h-full w-full bg-[#040303] font-sans'>
 				{process.env.NODE_ENV === 'production' ? (
