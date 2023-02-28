@@ -1,0 +1,11 @@
+{
+    "extends": "@aurelius/tsconfig/aurelius.json",
+    "include": [
+        "."
+    ],
+    "exclude": [
+        "dist",
+        "build",
+        "node_modules"
+    ]
+}

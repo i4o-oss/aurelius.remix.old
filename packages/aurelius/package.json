@@ -1,12 +1,57 @@
 {
     "name": "@i4o/aurelius",
     "version": "0.0.0",
-    "description": "",
-    "main": "index.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+    "files": [
+        "dist"
+    ],
+    "main": "./dist/index.js",
+    "module": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
+    "style": "./dist/main.css",
+    "exports": {
+        ".": "./dist/index.js",
+        "./main.css": "./dist/main.css"
     },
-    "keywords": [],
-    "author": "",
-    "license": "ISC"
+    "scripts": {
+        "dev": "concurrently \"pnpm run dev:css\" \"pnpm dev:lib\"",
+        "dev:css": "tailwindcss -w -i ./styles/main.css -o ./dist/main.css",
+        "dev:lib": "tsup --watch",
+        "build": "pnpm run build:css && pnpm build:lib",
+        "build:css": "tailwindcss -m -i ./styles/main.css -o ./dist/main.css",
+        "build:lib": "tsup"
+    },
+    "devDependencies": {
+        "@aurelius/eslint-config": "workspace:*",
+        "@aurelius/tsconfig": "workspace:*",
+        "@types/react": "^18.0.28",
+        "@types/react-dom": "^18.0.11",
+        "autoprefixer": "^10.4.13",
+        "concurrently": "^7.6.0",
+        "postcss": "^8.4.21",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "tailwindcss": "^3.2.7",
+        "tsup": "^6.6.3",
+        "typescript": "^4.9.5"
+    },
+    "peerDependencies": {
+        "@i4o-oss/catalystui": "0.6.1",
+        "@remix-run/dev": "^1.13.0",
+        "@remix-run/node": "^1.11.1",
+        "@remix-run/react": "^1.11.1",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "dependencies": {
+        "@i4o-oss/catalystui": "0.6.1",
+        "@radix-ui/react-icons": "^1.2.0",
+        "@remix-run/dev": "^1.13.0",
+        "@remix-run/node": "^1.13.0",
+        "@remix-run/react": "^1.13.0",
+        "@tailwindcss/typography": "^0.5.9",
+        "clsx": "^1.2.1"
+    }
 }
