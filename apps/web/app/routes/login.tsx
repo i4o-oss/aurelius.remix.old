@@ -26,7 +26,7 @@ export default function () {
 	let { magicLinkSent } = useLoaderData<{ magicLinkSent: boolean }>()
 
 	return (
-		<main className='flex flex-col items-center justify-between p-24 min-h-screen'>
+		<main className='flex min-h-screen flex-col items-center justify-between p-24'>
 			<Form action='/login' method='post'>
 				<div className='flex flex-col items-center justify-center'>
 					<div className='mb-8 flex flex-col items-center justify-center space-y-8'>
@@ -54,7 +54,7 @@ export default function () {
 								required
 							/>
 						</div>
-						<button className='flex h-12 w-full items-center justify-center rounded-md bg-brand-500'>
+						<button className='bg-brand-500 flex h-12 w-full items-center justify-center rounded-md'>
 							Sign In
 						</button>
 					</div>
@@ -75,13 +75,6 @@ export default function () {
 				<div className='flex w-96 flex-col items-center justify-center space-y-4'>
 					<button className='flex h-12 w-full items-center justify-center space-x-2 rounded-md bg-gray-800'>
 						<span>Sign In with Google</span>
-					</button>
-				</div>
-			</Form>
-			<Form action='/auth/twitter' method='post'>
-				<div className='flex w-96 flex-col items-center justify-center space-y-4'>
-					<button className='flex h-12 w-full items-center justify-center space-x-2 rounded-md bg-gray-800'>
-						<span>Sign In with Twitter</span>
 					</button>
 				</div>
 			</Form>
