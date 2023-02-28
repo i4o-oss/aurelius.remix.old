@@ -1,5 +1,6 @@
 import { Link } from '@remix-run/react'
 import { PrimaryButton } from '@i4o-oss/catalystui'
+import { Footer, Header } from '@i4o/aurelius'
 import {
 	ArrowTopRightIcon,
 	Crosshair2Icon,
@@ -38,6 +39,7 @@ const features = [
 export default function Home() {
 	return (
 		<>
+			<Header />
 			<div className='flex min-h-[calc(100vh-10rem)] w-full flex-col'>
 				<div className='isolate h-full'>
 					<div className='absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]'>
@@ -186,6 +188,7 @@ export default function Home() {
 					</div>
 				</div>
 			</div>
+			<Footer />
 		</>
 	)
 }
