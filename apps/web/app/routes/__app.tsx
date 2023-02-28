@@ -1,8 +1,8 @@
-import { Outlet, useLoaderData } from '@remix-run/react'
+import { Outlet } from '@remix-run/react'
 import { json } from '@remix-run/node'
 import type { LoaderFunction } from '@remix-run/node'
-import type { User } from '~/models/user.server'
 import { auth } from '~/services/auth.server'
+import { Header } from '@i4o/aurelius'
 
 export let loader: LoaderFunction = async ({ request }) => {
 	// If the user is here, it's already authenticated, if not redirect them to
@@ -12,10 +12,9 @@ export let loader: LoaderFunction = async ({ request }) => {
 }
 
 export default function App() {
-	const { user } = useLoaderData<{ user: User }>()
-
 	return (
 		<main className='flex h-full w-full flex-col items-center justify-start'>
+			<Header />
 			<Outlet />
 		</main>
 	)
