@@ -1,4 +1,4 @@
-import { GitHubLogoIcon, TwitterLogoIcon } from '@radix-ui/react-icons'
+import { TwitterLogoIcon } from '@radix-ui/react-icons'
 
 export default function Footer() {
 	return (
