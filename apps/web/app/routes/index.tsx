@@ -1,59 +1,12 @@
 import { Link } from '@remix-run/react'
-import { PrimaryButton, CopyToClipboard } from '@i4o-oss/catalystui'
-import {
-	MagnifyingGlassIcon,
-	DashboardIcon,
-	CheckCircledIcon,
-	HeartFilledIcon,
-	MixIcon,
-	GlobeIcon,
-} from '@radix-ui/react-icons'
-
-const features = [
-	{
-		name: 'Easy to use',
-		description:
-			'Copy-paste some code, customize it to your liking, and you have a feature-rich documentation site in minutes.',
-		icon: CheckCircledIcon,
-	},
-	{
-		name: 'Built for Remix',
-		description:
-			"Leverage the intuitiveness of Remix's file-based routing and built-in MDX support to build fast docs and blog sites.",
-		icon: HeartFilledIcon,
-	},
-	{
-		name: 'Out-of-the-box components',
-		description:
-			'Enhance the UX of your docs site with components like Cards, Callouts, and more.',
-		icon: DashboardIcon,
-	},
-	{
-		name: 'Zero-config full-text search (coming soon)',
-		description:
-			'Give your users blazing fast full-text search without writing any code.',
-		icon: MagnifyingGlassIcon,
-	},
-	{
-		name: 'Simple I18n (coming soon)',
-		description:
-			'Create docs in different languages by naming directories with locales and Rescribe will take care of the rest.',
-		icon: GlobeIcon,
-	},
-	{
-		name: 'Versioning (coming soon)',
-		description:
-			'Maintain different versions of your docs for your apps, APIs, or libraries.',
-		icon: MixIcon,
-	},
-]
+import { PrimaryButton } from '@i4o-oss/catalystui'
 
 export default function Home() {
 	return (
 		<>
-			<div className='flex min-h-[calc(100vh-10rem)] w-full flex-col '>
-				<div className='isolate w-full'>
-					<div className='absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]'>
+			<div className='flex h-full min-h-[calc(100vh-10rem)] w-full flex-col '>
+				<div className='isolate flex h-full w-full items-center'>
+					<div className='absolute inset-x-0 top-[10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[20rem]'>
 						<svg
 							className='relative left-[calc(50%-11rem)] -z-10 h-[21.1875rem] max-w-none -translate-x-1/2 rotate-[30deg] sm:left-[calc(50%-30rem)] sm:h-[42.375rem]'
 							viewBox='0 0 1155 678'
@@ -78,17 +31,17 @@ export default function Home() {
 							</defs>
 						</svg>
 					</div>
-					<main className='w-full'>
+					<main className='flex h-full w-full items-center'>
 						<div className='relative mx-auto flex w-full max-w-5xl justify-center px-6 lg:px-8'>
-							<div className='w-full max-w-2xl py-20 sm:py-32 lg:py-40'>
+							<div className='w-full max-w-4xl py-20 sm:py-32 lg:py-40'>
 								<div className='text-center'>
-									<h1 className='text-4xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-6xl sm:leading-tight'>
-										Build beautiful docs and blog sites with
-										Remix
+									<h1 className='text-4xl font-bold tracking-tight text-gray-100 dark:text-gray-100 sm:text-6xl sm:leading-tight'>
+										Beautiful, minimal writing app
 									</h1>
-									<p className='mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300'>
-										Save tons of time and effort with
-										customizable components and utilites
+									<p className='mt-6 text-lg leading-8 text-gray-300 dark:text-gray-300'>
+										Eliminate distractions when writing,
+										build a writing habit, and track your
+										daily writing goal.
 									</p>
 									<div className='mt-10 flex items-center justify-center gap-x-6'>
 										<Link to='/docs'>
@@ -100,13 +53,6 @@ export default function Home() {
 												Get Started
 											</PrimaryButton>
 										</Link>
-
-										<pre className='flex h-12 w-96 items-center justify-between space-x-2 rounded-lg border border-slate-100 bg-white !pl-4 !pr-2 dark:border-slate-700 dark:bg-[#040303]'>
-											<code className='flex w-full items-center justify-between font-mono text-sm font-semibold text-slate-900 dark:text-slate-50'>
-												npm install @i4o/rescribe
-												<CopyToClipboard text='npm add @i4o/rescribe' />
-											</code>
-										</pre>
 									</div>
 								</div>
 							</div>
@@ -140,48 +86,6 @@ export default function Home() {
 							</div>
 						</div>
 					</main>
-				</div>
-				<div className='py-24 sm:py-32'>
-					<div className='mx-auto max-w-7xl px-6 lg:px-8'>
-						<div className='mx-auto max-w-2xl lg:text-center'>
-							<h2 className='text-brand-500 text-base font-semibold leading-7'>
-								Build sites faster
-							</h2>
-							<p className='mt-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-tight'>
-								Everything you need to build excellent
-								documentations
-							</p>
-							{/* <p className='mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300'> */}
-							{/* 	Quis tellus eget adipiscing convallis sit sit */}
-							{/* 	eget aliquet quis. Suspendisse eget egestas a */}
-							{/* 	elementum pulvinar et feugiat blandit at. In mi */}
-							{/* 	viverra elit nunc. */}
-							{/* </p> */}
-						</div>
-						<div className='mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-5xl'>
-							<dl className='grid max-w-xl grid-cols-2 gap-y-10 gap-x-8 lg:max-w-none lg:grid-cols-2 lg:gap-y-16'>
-								{features.map((feature) => (
-									<div
-										key={feature.name}
-										className='relative pl-16'
-									>
-										<dt className='text-base font-semibold leading-7 text-gray-900 dark:text-gray-100'>
-											<div className='bg-brand-500 absolute top-0 left-0 flex h-10 w-10 items-center justify-center rounded-lg'>
-												<feature.icon
-													className='h-5 w-5 text-white'
-													aria-hidden='true'
-												/>
-											</div>
-											{feature.name}
-										</dt>
-										<dd className='mt-2 text-base leading-7 text-gray-600 dark:text-gray-300'>
-											{feature.description}
-										</dd>
-									</div>
-								))}
-							</dl>
-						</div>
-					</div>
 				</div>
 			</div>
 		</>
