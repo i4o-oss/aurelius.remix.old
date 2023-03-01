@@ -69,9 +69,9 @@ export const meta: MetaFunction = () => ({
 	'theme-color': '#ffffff',
 	title: 'Aurelius',
 	'twitter:card': 'summary_large_image',
-	'twitter:site': '@_ilango',
+	'twitter:site': '@i4o_dev',
 	'twitter:url': 'https://aurelius.ink/',
-	'twitter:creator': '@_ilango',
+	'twitter:creator': '@i4o_dev',
 	'twitter:title': 'Aurelius',
 	'twitter:description':
 		'Beautiful, minimal writing app. Eliminate distractions when writing, build a writing habit, track your daily writing goal, and more.',
