@@ -10,7 +10,16 @@
             ],
             "outputs": [
                 "dist/**",
-                ".next/**"
+            ]
+        },
+        "web#build": {
+            "dependsOn": [
+                "^build"
+            ],
+            "outputs": [
+                "api/index.js",
+                "api/build/**",
+                "public/build/**"
             ]
         },
         "lint": {
