@@ -15,7 +15,7 @@ import { useEffect } from 'react'
 import NProgress from 'nprogress'
 import nProgressStyles from 'nprogress/nprogress.css'
 import styles from '~/main.css'
-import cuiStyles from '@i4o-oss/catalystui/main.css'
+import cuiStyles from '@i4o/catalystui/main.css'
 import aureliusStyles from '@i4o/aurelius/main.css'
 
 interface DocumentProps {
@@ -110,7 +110,7 @@ const Document = (props: DocumentProps) => {
 	}, [transition.state, state])
 
 	return (
-		<html lang='en' className='h-full'>
+		<html lang='en' className='dark h-full'>
 			<head>
 				<Meta />
 				<Links />

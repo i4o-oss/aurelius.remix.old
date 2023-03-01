@@ -26,16 +26,16 @@ export default function () {
 	let { magicLinkSent } = useLoaderData<{ magicLinkSent: boolean }>()
 
 	return (
-		<main className='flex min-h-screen flex-col items-center justify-between p-24'>
+		<main className='flex min-h-screen w-full flex-col items-center justify-center p-24'>
 			<Form action='/login' method='post'>
-				<div className='flex flex-col items-center justify-center'>
+				<div className='flex max-w-3xl flex-col items-center justify-center'>
 					<div className='mb-8 flex flex-col items-center justify-center space-y-8'>
 						<img
 							className='w-48'
-							src='/images/logoipsum.svg'
+							src='/images/logo_dark.png'
 							alt='Logo'
 						/>
-						<div className='flex flex-col items-center justify-center space-y-4'>
+						<div className='flex flex-col items-center justify-center space-y-4 text-white'>
 							<h1 className='text-3xl font-bold'>Sign In</h1>
 							<p className='text-lg font-semibold'>
 								Sign in with an existing account or create a new
@@ -43,7 +43,7 @@ export default function () {
 							</p>
 						</div>
 					</div>
-					<div className='flex w-96 flex-col items-center justify-center space-y-4'>
+					<div className='flex w-96 flex-col items-center justify-center space-y-4 text-white'>
 						<div className='w-full space-y-2'>
 							<label htmlFor='email'>Email address</label>
 							<input
@@ -68,12 +68,12 @@ export default function () {
 					)}
 				</div>
 			</Form>
-			<div className='before:relative before:w-1/2 before:border-t before:border-gray-300 before:content-[""] after:relative after:w-1/2 after:border-t after:border-gray-300 after:content-[""]'>
-				<span className='mx-4 text-lg'>or</span>
+			<div className='my-4 flex w-full max-w-[24rem] items-center justify-center text-white before:relative before:w-1/2 before:border-t before:border-white before:content-[""] after:relative after:w-1/2 after:border-t after:border-white after:content-[""]'>
+				<span className='text-md mx-4'>or</span>
 			</div>
 			<Form action='/auth/google' method='post'>
 				<div className='flex w-96 flex-col items-center justify-center space-y-4'>
-					<button className='flex h-12 w-full items-center justify-center space-x-2 rounded-md bg-gray-800'>
+					<button className='flex h-12 w-full items-center justify-center space-x-2 rounded-md bg-gray-800 text-white'>
 						<span>Sign In with Google</span>
 					</button>
 				</div>
