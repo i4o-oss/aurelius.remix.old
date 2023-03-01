@@ -6,7 +6,7 @@
     "scripts": {
         "build": "remix build",
         "dev": "remix dev",
-        "start": "remix-serve build",
+        "start": "pnpm prisma generate && remix-serve build",
         "typecheck": "tsc -b"
     },
     "dependencies": {
