@@ -12,6 +12,7 @@ import {
 } from '@radix-ui/react-icons'
 import { Button } from '@i4o-oss/catalystui'
 
+// TODO: Fix types here
 export default function EditorToolbar({ editor }: EditorToolbarProps) {
 	const linkInputRef = useRef<HTMLInputElement>(null)
 	const [link, setLink] = useState('')
@@ -39,60 +40,83 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
 		}
 	}
 
-	const toolbarOptions = [
+	const items = [
 		{
-			value: 'bold',
-			label: 'Bold',
-			node: <FontBoldIcon />,
-			onClick: () => editor?.chain().focus().toggleBold().run(),
+			type: 'toggle-group',
+			groupType: 'multiple',
+			groupItems: [
+				{
+					id: 'bold',
+					icon: <FontBoldIcon />,
+					onSelect: () => editor?.chain().focus().toggleBold().run(),
+				},
+				{
+					id: 'italic',
+					icon: <FontItalicIcon />,
+					onSelect: () =>
+						editor?.chain().focus().toggleItalic().run(),
+				},
+			],
 		},
+		{ type: 'separator' },
 		{
-			value: 'italic',
-			label: 'Italic',
-			node: <FontItalicIcon />,
-			onClick: () => editor?.chain().focus().toggleItalic().run(),
+			type: 'toggle-group',
+			groupType: 'single',
+			groupItems: [
+				{
+					id: 'h2',
+					icon: <span className='text-sm font-semibold'>H</span>,
+					onSelect: () =>
+						editor
+							?.chain()
+							.focus()
+							.toggleHeading({ level: 2 })
+							.run(),
+				},
+				{
+					id: 'h3',
+					icon: <span className='text-[12px] font-semibold'>H</span>,
+					onSelect: () =>
+						editor
+							?.chain()
+							.focus()
+							.toggleHeading({ level: 3 })
+							.run(),
+				},
+			],
 		},
+		{ type: 'separator' },
 		{
-			value: 'heading',
-			level: 2,
-			label: 'Heading 2',
-			node: <span className='text-sm font-semibold'>H</span>,
-			onClick: () =>
-				editor?.chain().focus().toggleHeading({ level: 2 }).run(),
-		},
-		{
-			value: 'heading',
-			level: 3,
-			label: 'Heading 3',
-			node: <span className='text-[12px] font-semibold'>H</span>,
-			onClick: () =>
-				editor?.chain().focus().toggleHeading({ level: 3 }).run(),
-		},
-		{
-			value: 'quote',
-			label: 'Quote',
-			node: <QuoteIcon />,
-			onClick: () => editor?.chain().focus().toggleBlockquote().run(),
-		},
-		{
-			value: 'link',
-			label: 'Link',
-			node: <Link2Icon />,
-			onClick: () => setToggleLink(true),
-		},
-		{
-			value: 'code',
-			label: 'Code',
-			node: <CodeIcon />,
-			onClick: () => editor?.chain().focus().toggleCode().run(),
+			type: 'toggle-group',
+			groupType: 'multiple',
+			groupItems: [
+				{
+					id: 'quote',
+					icon: <QuoteIcon />,
+					onSelect: () =>
+						editor?.chain().focus().toggleBlockquote().run(),
+				},
+				{
+					id: 'link',
+					icon: <Link2Icon />,
+					onSelect: () => setToggleLink(true),
+				},
+				{
+					id: 'code',
+					icon: <CodeIcon />,
+					onSelect: () => editor?.chain().focus().toggleCode().run(),
+				},
+			],
 		},
 	]
 
 	return (
-		<Toolbar
-			ariaLabel='Text Formatting Options'
-			className='rounded-md bg-gray-800'
-		>
+		<>
+			<Toolbar
+				ariaLabel='Text Formatting Options'
+				className='rounded-md bg-gray-800'
+				items={items}
+			/>
 			<div className='flex h-12 items-center justify-center space-x-1 overflow-hidden rounded-md p-2 shadow-md'>
 				{toggleLink ? (
 					<div className='flex h-full w-full items-center justify-center space-x-2'>
@@ -125,28 +149,8 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
 							</Button>
 						)}
 					</div>
-				) : (
-					toolbarOptions.map((option, index) => (
-						<Button
-							key={index}
-							aria-label={option.label}
-							bg='bg-transparent'
-							className={`flex h-8 w-8 items-center justify-center rounded-md ${
-								editor?.isActive(option.value, {
-									level: option?.level,
-								})
-									? 'bg-brand-100 text-brand-800 font-semibold'
-									: ''
-							}`}
-							onClick={option.onClick}
-							padding='p-0'
-							textColor='text-white'
-						>
-							{option.node}
-						</Button>
-					))
-				)}
+				) : null}
 			</div>
-		</Toolbar>
+		</>
 	)
 }
