@@ -1,5 +1,5 @@
 import { Link } from '@remix-run/react'
-import { PrimaryButton } from '@i4o-oss/catalystui'
+import { PrimaryButton } from '@i4o/catalystui'
 
 export default function Header() {
 	return (

@@ -1,6 +1,6 @@
 import type { EditorToolbarProps } from '../../types'
-// import type { ToolbarItem } from '@i4o-oss/catalystui'
-import { Toolbar } from '@i4o-oss/catalystui'
+// import type { ToolbarItem } from '@i4o/catalystui'
+import { Toolbar } from '@i4o/catalystui'
 
 // TODO: Fix the types here
 export default function ImageToolbar({ editor }: EditorToolbarProps) {
@@ -79,7 +79,7 @@ export default function ImageToolbar({ editor }: EditorToolbarProps) {
 	return (
 		<Toolbar
 			ariaLabel='Text Formatting Options'
-			className='rounded-md bg-gray-800'
+			className='w-full'
 			items={items}
 		/>
 	)

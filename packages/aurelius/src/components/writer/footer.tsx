@@ -3,7 +3,7 @@ import type { FooterProps } from '../../types'
 import React, { useState } from 'react'
 import { default as _ReactPlayer } from 'react-player/youtube'
 import { PlayIcon, PauseIcon } from '@radix-ui/react-icons'
-import { Button } from '@i4o-oss/catalystui'
+import { Button } from '@i4o/catalystui'
 import { MUSIC_STATIONS } from '../../constants'
 
 // fixes react-player typescript issue

@@ -35,7 +35,7 @@
         "typescript": "^4.9.5"
     },
     "peerDependencies": {
-        "@i4o-oss/catalystui": "0.6.1",
+        "@i4o/catalystui": "0.7.1",
         "@remix-run/dev": "^1.13.0",
         "@remix-run/node": "^1.11.1",
         "@remix-run/react": "^1.11.1",
@@ -47,7 +47,7 @@
     },
     "dependencies": {
         "@headlessui/react": "^1.7.12",
-        "@i4o-oss/catalystui": "0.6.1",
+        "@i4o/catalystui": "0.7.1",
         "@radix-ui/react-icons": "^1.2.0",
         "@rehooks/local-storage": "^2.4.4",
         "@remix-run/dev": "^1.13.0",

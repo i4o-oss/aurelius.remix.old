@@ -6,9 +6,8 @@ export default function Footer() {
 			<div className='flex w-[88rem] items-center justify-between sm:px-2 lg:px-8 xl:px-12'>
 				<div className='flex items-center gap-2 text-gray-300 dark:text-gray-300'>
 					<svg
+						className='h-5 w-5'
 						xmlns='http://www.w3.org/2000/svg'
-						width='24'
-						height='24'
 						viewBox='0 0 24 24'
 						fill='none'
 						stroke='currentColor'
@@ -27,7 +26,7 @@ export default function Footer() {
 							ry='2'
 						></rect>
 					</svg>
-					<p>
+					<p className='text-sm'>
 						Built by{' '}
 						<a
 							className='underline'
@@ -36,6 +35,15 @@ export default function Footer() {
 							rel='noreferrer noopener'
 						>
 							i4o
+						</a>
+						. Illustrations by{' '}
+						<a
+							className='underline'
+							href='https://popsy.co'
+							target='_blank'
+							rel='noreferrer noopener'
+						>
+							popsy.co
 						</a>
 						.
 					</p>
@@ -55,7 +63,7 @@ export default function Footer() {
 						target='_blank'
 						rel='noreferrer noopener'
 					>
-						<TwitterLogoIcon className='h-6 w-6 text-gray-100 dark:text-gray-100' />
+						<TwitterLogoIcon className='h-5 w-5 text-gray-100 dark:text-gray-100' />
 					</a>
 				</div>
 			</div>
