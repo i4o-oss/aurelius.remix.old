@@ -1,5 +1,7 @@
+import type { Dispatch, SetStateAction } from 'react'
 import { Dropdown, IconButton } from '@i4o/catalystui'
 import {
+	Crosshair2Icon,
 	DownloadIcon,
 	FileIcon,
 	FileTextIcon,
@@ -12,7 +14,12 @@ import {
 	TwitterLogoIcon,
 } from '@radix-ui/react-icons'
 
-export default function MainMenu() {
+interface MainMenuProps {
+	focusMode: boolean
+	setFocusMode: Dispatch<SetStateAction<boolean>>
+}
+
+export default function MainMenu(props: MainMenuProps) {
 	const dropdownItems = [
 		{
 			label: 'New',
@@ -35,6 +42,11 @@ export default function MainMenu() {
 			label: 'Save',
 			icon: <DownloadIcon />,
 			shortcut: 'Ctrl + S',
+		},
+		{
+			label: 'Focus Mode',
+			icon: <Crosshair2Icon />,
+			onSelect: () => props.setFocusMode(!props.focusMode),
 		},
 		{
 			label: 'Reset Editor',

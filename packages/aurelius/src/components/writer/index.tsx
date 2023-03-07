@@ -12,8 +12,12 @@ export default function Writer() {
 
 	return (
 		<main className='flex h-full w-full flex-col items-center justify-start'>
-			<div className='absolute top-4 left-4'>
-				<MainMenu />
+			<div
+				className={`absolute top-4 left-4 transition-all duration-200 hover:opacity-100 ${
+					focusMode ? 'opacity-5' : 'opacity-100'
+				}`}
+			>
+				<MainMenu focusMode={focusMode} setFocusMode={setFocusMode} />
 			</div>
 			<section className='flex h-full w-full flex-grow flex-col items-center justify-start'>
 				<div className='flex h-full w-full flex-col items-center justify-start space-y-4 py-16'>

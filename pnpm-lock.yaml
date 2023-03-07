@@ -129,7 +129,7 @@ importers:
       '@aurelius/eslint-config': workspace:*
       '@aurelius/tsconfig': workspace:*
       '@headlessui/react': ^1.7.12
-      '@i4o/catalystui': 0.7.1
+      '@i4o/catalystui': 0.7.2
       '@radix-ui/react-icons': ^1.2.0
       '@rehooks/local-storage': ^2.4.4
       '@remix-run/dev': ^1.13.0
@@ -163,7 +163,7 @@ importers:
       typescript: ^4.9.5
     dependencies:
       '@headlessui/react': 1.7.12_biqbaboplfbrettd7655fr4n2y
-      '@i4o/catalystui': 0.7.1_zula6vjvt3wdocc4mwcxqa6nzi
+      '@i4o/catalystui': 0.7.2_zula6vjvt3wdocc4mwcxqa6nzi
       '@radix-ui/react-icons': 1.2.0_react@18.2.0
       '@rehooks/local-storage': 2.4.4_react@18.2.0
       '@remix-run/dev': 1.13.0
@@ -2857,8 +2857,8 @@ packages:
       - '@types/react'
     dev: false
 
-  /@i4o/catalystui/0.7.1_zula6vjvt3wdocc4mwcxqa6nzi:
-    resolution: {integrity: sha512-Y5hB5BCaxYGzFDaklj6+opuXzJmg7bGPKdlGKm7nGUKHUQsmFexX4bQt6TBr/uQrS7fExAeLHJ7oHdNqHDHu0A==}
+  /@i4o/catalystui/0.7.2_zula6vjvt3wdocc4mwcxqa6nzi:
+    resolution: {integrity: sha512-unU9o0jJeElARfCEbFXgOCPb7U9WCTfOSam2QK7/cagwa16Y+LRyDzP09F/G2IpYP1vrcJ+Z/JLN2NMsld5VOA==}
     peerDependencies:
       react: ^18.2.0
       react-dom: ^18.2.0
