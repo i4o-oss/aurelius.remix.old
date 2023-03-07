@@ -116,21 +116,14 @@ const Document = (props: DocumentProps) => {
 				<Links />
 			</head>
 			<body className='h-full w-full bg-[#040303] font-sans'>
-				{process.env.NODE_ENV === 'production' ? (
-					<>
-						{/*
-							TODO: fill data-code
-							// get data-code by visiting dashboard.pirsch.io and clicking on the website you want to track
-						*/}
-						<script
-							defer
-							type='text/javascript'
-							src='https://api.pirsch.io/pirsch.js'
-							id='pirschjs'
-							data-code=''
-						></script>
-					</>
-				) : null}
+				<script
+					defer
+					type='text/javascript'
+					src='https://api.pirsch.io/pirsch.js'
+					id='pirschjs'
+					data-code='M01aHtNN6Pimeeo6xH2NxJYgN9vfJBTP'
+					data-dev={process.env.NODE_ENV === 'development'}
+				></script>
 				{props.children}
 				<ScrollRestoration />
 				<Scripts />
