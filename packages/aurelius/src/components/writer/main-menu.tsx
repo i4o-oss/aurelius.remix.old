@@ -19,6 +19,7 @@ interface MainMenuProps {
 	focusMode: boolean
 	setFocusMode: Dispatch<SetStateAction<boolean>>
 	onResetEditorClick: (state: boolean) => void
+	setShowAboutDialog: Dispatch<SetStateAction<boolean>>
 }
 
 export default function MainMenu(props: MainMenuProps) {
@@ -79,6 +80,7 @@ export default function MainMenu(props: MainMenuProps) {
 		{
 			label: 'About',
 			icon: <InfoCircledIcon />,
+			onSelect: () => props.setShowAboutDialog(true),
 		},
 	]
 
