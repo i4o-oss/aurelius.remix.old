@@ -1,5 +1,5 @@
 import type { TipTapProps } from '../../types'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import {
 	useEditor,
 	BubbleMenu,
@@ -13,8 +13,7 @@ import StarterKit from '@tiptap/starter-kit'
 import SuperImage from '../extensions/super-image'
 import VideoEmbed from '../extensions/video-embed'
 import VisualBookmark from '../extensions/visual-bookmark'
-import { deleteFromStorage, useLocalStorage } from '@rehooks/local-storage'
-import { Alert, DangerButton, PrimaryButton } from '@i4o/catalystui'
+import { useLocalStorage } from '@rehooks/local-storage'
 import { POST_LOCAL_STORAGE_KEY } from '../../constants'
 import EditorToolbar from './editor-toolbar'
 import ImageToolbar from './image-toolbar'
@@ -29,7 +28,6 @@ export default function TipTap({
 }: TipTapProps) {
 	const [localPost] = useLocalStorage(POST_LOCAL_STORAGE_KEY)
 	const fileUploadInputRef = useRef(null)
-	const [localPostAlertOpen, setLocalPostAlertOpen] = useState(false)
 
 	const editor = useEditor({
 		content,
@@ -69,17 +67,13 @@ export default function TipTap({
 
 	useEffect(() => {
 		if (editor && localPost) {
-			setLocalPostAlertOpen(true)
+			loadLocalPost()
 		}
-	}, [editor])
+	}, [editor, localPost])
 
 	const updateEditorWordCount = (content: string) => {
 		const wordCount = content.split(' ').length
 		setWordCount(wordCount)
-	}
-
-	const discardLocalPost = () => {
-		deleteFromStorage(POST_LOCAL_STORAGE_KEY)
 	}
 
 	const loadLocalPost = () => {
@@ -93,9 +87,6 @@ export default function TipTap({
 				editor.commands.setContent(content)
 				updateEditorWordCount(editor.state.doc.textContent)
 			}
-			// if (user) {
-			// 	discardLocalPost()
-			// }
 		}
 	}
 
@@ -127,41 +118,26 @@ export default function TipTap({
 	}
 
 	return (
-		<>
-			<div className='editor-wrapper flex h-auto min-h-max w-full items-start justify-center pb-12'>
-				{editor && (
-					<>
-						<BubbleMenu editor={editor}>{activeToolbar}</BubbleMenu>
-						<FloatingMenu editor={editor}>
-							<EditorFloatingMenu
-								fileUploadInputRef={fileUploadInputRef}
-							/>
-							<input
-								accept='image/*'
-								className='hidden'
-								multiple={false}
-								onChange={uploadImage}
-								ref={fileUploadInputRef}
-								type='file'
-							/>
-						</FloatingMenu>
-					</>
-				)}
-				<EditorContent editor={editor} />
-			</div>
-			<Alert
-				cancel={
-					<DangerButton onClick={discardLocalPost}>
-						Discard Post
-					</DangerButton>
-				}
-				action={
-					<PrimaryButton onClick={loadLocalPost}>
-						Load Saved Post
-					</PrimaryButton>
-				}
-				description='We found your post from a previous session. Do you want to load it?'
-			/>
-		</>
+		<div className='editor-wrapper flex h-auto min-h-max w-full items-start justify-center pb-12'>
+			{editor && (
+				<>
+					<BubbleMenu editor={editor}>{activeToolbar}</BubbleMenu>
+					<FloatingMenu editor={editor}>
+						<EditorFloatingMenu
+							fileUploadInputRef={fileUploadInputRef}
+						/>
+						<input
+							accept='image/*'
+							className='hidden'
+							multiple={false}
+							onChange={uploadImage}
+							ref={fileUploadInputRef}
+							type='file'
+						/>
+					</FloatingMenu>
+				</>
+			)}
+			<EditorContent editor={editor} />
+		</div>
 	)
 }
