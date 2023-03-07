@@ -18,6 +18,7 @@ import {
 interface MainMenuProps {
 	focusMode: boolean
 	setFocusMode: Dispatch<SetStateAction<boolean>>
+	setShowResetAlert: Dispatch<SetStateAction<boolean>>
 }
 
 export default function MainMenu(props: MainMenuProps) {
@@ -52,6 +53,7 @@ export default function MainMenu(props: MainMenuProps) {
 		{
 			label: 'Reset Editor',
 			icon: <TrashIcon />,
+			onSelect: () => props.setShowResetAlert(true),
 		},
 		{
 			label: 'Settings',

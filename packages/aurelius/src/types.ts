@@ -20,7 +20,7 @@ export interface EditorToolbarProps {
 }
 
 export interface TipTapProps {
-	content: string
+	editor: Editor | null
 	setContent: Dispatch<SetStateAction<string>>
 	setTitle: Dispatch<SetStateAction<string>>
 	setWordCount: Dispatch<SetStateAction<number>>

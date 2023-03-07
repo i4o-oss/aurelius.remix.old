@@ -1,27 +1,14 @@
 import type { TipTapProps } from '../../types'
 import { useEffect, useRef } from 'react'
-import {
-	useEditor,
-	BubbleMenu,
-	EditorContent,
-	FloatingMenu,
-} from '@tiptap/react'
-import BubbleMenuExt from '@tiptap/extension-bubble-menu'
-import { Link } from '@tiptap/extension-link'
-import { Placeholder } from '@tiptap/extension-placeholder'
-import StarterKit from '@tiptap/starter-kit'
-import SuperImage from '../extensions/super-image'
-import VideoEmbed from '../extensions/video-embed'
-import VisualBookmark from '../extensions/visual-bookmark'
+import { BubbleMenu, EditorContent, FloatingMenu } from '@tiptap/react'
 import { useLocalStorage } from '@rehooks/local-storage'
 import { POST_LOCAL_STORAGE_KEY } from '../../constants'
 import EditorToolbar from './editor-toolbar'
 import ImageToolbar from './image-toolbar'
 import EditorFloatingMenu from './floating-menu'
-// import { uploadImageToS3 } from '@utils/save-post'
 
 export default function TipTap({
-	content,
+	editor,
 	setContent,
 	setTitle,
 	setWordCount,
@@ -29,54 +16,18 @@ export default function TipTap({
 	const [localPost] = useLocalStorage(POST_LOCAL_STORAGE_KEY)
 	const fileUploadInputRef = useRef(null)
 
-	const editor = useEditor({
-		content,
-		editorProps: {
-			attributes: {
-				class: '',
-			},
-		},
-		extensions: [
-			BubbleMenuExt.configure({
-				tippyOptions: {
-					arrow: true,
-				},
-			}),
-			SuperImage,
-			VideoEmbed,
-			VisualBookmark,
-			Link.configure({ linkOnPaste: true, openOnClick: false }),
-			Placeholder.configure({
-				placeholder: 'Start writing...',
-			}),
-			// @ts-ignore
-			StarterKit.configure({
-				heading: {
-					levels: [2, 3],
-				},
-			}),
-		],
-		onUpdate({ editor }) {
-			const html = editor.getHTML()
-			const contentText = editor?.state?.doc?.textContent
-			const wordCount = contentText?.split(' ').length
-			setContent(html)
-			setWordCount(wordCount)
-		},
-	})
-
 	useEffect(() => {
 		if (editor && localPost) {
 			loadLocalPost()
 		}
 	}, [editor, localPost])
 
-	const updateEditorWordCount = (content: string) => {
+	function updateEditorWordCount(content: string) {
 		const wordCount = content.split(' ').length
 		setWordCount(wordCount)
 	}
 
-	const loadLocalPost = () => {
+	function loadLocalPost() {
 		if (editor && localPost) {
 			const { title, content } = JSON.parse(JSON.stringify(localPost))
 
@@ -97,12 +48,6 @@ export default function TipTap({
 		if (file) {
 			const formData = new FormData()
 			formData.append('image', file)
-
-			// const url = await uploadImageToS3(formData)
-			// if (url) {
-			// 	editor?.chain().focus().setImage({ src: url }).run()
-			// 	event.target.value = ''
-			// }
 		}
 	}
 
