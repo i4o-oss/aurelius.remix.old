@@ -68,6 +68,7 @@
         "prosemirror-model": "^1.18.1",
         "prosemirror-state": "^1.4.2",
         "prosemirror-view": "^1.29.0",
+        "react-autosave": "^0.4.2",
         "react-player": "^2.11.2"
     }
 }

@@ -3,4 +3,4 @@ export const MUSIC_STATIONS = {
 	LOFI_GIRL_CHILL: 'https://www.youtube.com/watch?v=zFhfksjf_mY',
 }
 
-export const POST_LOCAL_STORAGE_KEY = 'aurelius_guest_user_post'
+export const POST_LOCAL_STORAGE_KEY = '__aurelius_guest_user_post'

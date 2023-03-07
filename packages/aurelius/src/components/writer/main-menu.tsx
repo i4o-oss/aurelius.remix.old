@@ -7,6 +7,7 @@ import {
 	FileTextIcon,
 	GitHubLogoIcon,
 	HamburgerMenuIcon,
+	InfoCircledIcon,
 	MixerHorizontalIcon,
 	Pencil1Icon,
 	StarFilledIcon,
@@ -52,6 +53,10 @@ export default function MainMenu(props: MainMenuProps) {
 			label: 'Reset Editor',
 			icon: <TrashIcon />,
 		},
+		{
+			label: 'Settings',
+			icon: <MixerHorizontalIcon />,
+		},
 		{ type: 'separator' },
 		{
 			label: 'Aurelius+',
@@ -69,10 +74,9 @@ export default function MainMenu(props: MainMenuProps) {
 			icon: <GitHubLogoIcon />,
 			link: 'https://github.com/i4o-oss/aurelius',
 		},
-		{ type: 'separator' },
 		{
-			label: 'Settings',
-			icon: <MixerHorizontalIcon />,
+			label: 'About',
+			icon: <InfoCircledIcon />,
 		},
 	]
 

@@ -1,7 +1,10 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
+import { Autosave } from 'react-autosave'
+import { writeStorage } from '@rehooks/local-storage'
 import TipTap from './tiptap'
 import WriterFooter from './footer'
 import MainMenu from './main-menu'
+import { POST_LOCAL_STORAGE_KEY } from '../../constants'
 
 export default function Writer() {
 	const [content, setContent] = useState('')
@@ -10,8 +13,38 @@ export default function Writer() {
 	const [title, setTitle] = useState('')
 	const [wordCount, setWordCount] = useState(0)
 
+	async function savePost(data: any) {
+		if (data.title && data.content && data.wordCount) {
+			setIsSaving(true)
+
+			let saveTimeout
+
+			clearTimeout(saveTimeout)
+
+			const update = {
+				title,
+				content,
+				wordCount,
+			}
+
+			writeStorage(POST_LOCAL_STORAGE_KEY, update)
+
+			saveTimeout = setTimeout(() => {
+				setIsSaving(false)
+			}, 1000)
+		}
+	}
+
+	const autoSavePost = useCallback(savePost, [title, content])
+	const autoSaveData = { title, content, wordCount }
+
 	return (
 		<main className='flex h-full w-full flex-col items-center justify-start'>
+			<Autosave
+				data={autoSaveData}
+				interval={5000}
+				onSave={autoSavePost}
+			/>
 			<div
 				className={`absolute top-4 left-4 transition-all duration-200 hover:opacity-100 ${
 					focusMode ? 'opacity-5' : 'opacity-100'
