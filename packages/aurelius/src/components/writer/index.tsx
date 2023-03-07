@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import TipTap from './tiptap'
 import WriterFooter from './footer'
+import MainMenu from './main-menu'
 
 export default function Writer() {
 	const [content, setContent] = useState('')
@@ -11,6 +12,9 @@ export default function Writer() {
 
 	return (
 		<main className='flex h-full w-full flex-col items-center justify-start'>
+			<div className='absolute top-4 left-4'>
+				<MainMenu />
+			</div>
 			<section className='flex h-full w-full flex-grow flex-col items-center justify-start'>
 				<div className='flex h-full w-full flex-col items-center justify-start space-y-4 py-16'>
 					<div className='w-full max-w-3xl'>
