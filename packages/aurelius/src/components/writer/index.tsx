@@ -89,10 +89,15 @@ export default function Writer() {
 		setTitle('')
 		setContent('')
 		editor?.commands.clearContent(true)
+		setWordCount(0)
 		setShowResetAlert(false)
 	}
 
-	console.log(showResetAlert)
+	function onResetEditorClick(state: boolean) {
+		if (title && content) {
+			setShowResetAlert(state)
+		}
+	}
 
 	return (
 		<>
@@ -110,7 +115,7 @@ export default function Writer() {
 					<MainMenu
 						focusMode={focusMode}
 						setFocusMode={setFocusMode}
-						setShowResetAlert={setShowResetAlert}
+						onResetEditorClick={onResetEditorClick}
 					/>
 				</div>
 				<section className='flex h-full w-full flex-grow flex-col items-center justify-start'>
