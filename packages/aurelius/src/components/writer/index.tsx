@@ -1,4 +1,11 @@
-import { useCallback, useState } from 'react'
+import {
+	Dispatch,
+	SetStateAction,
+	useCallback,
+	useEffect,
+	useRef,
+	useState,
+} from 'react'
 import { useEditor } from '@tiptap/react'
 import BubbleMenuExt from '@tiptap/extension-bubble-menu'
 import { Link } from '@tiptap/extension-link'
@@ -15,7 +22,61 @@ import WriterFooter from './footer'
 import MainMenu from './main-menu'
 import { POST_LOCAL_STORAGE_KEY } from '../../constants'
 
+function Reset({
+	showResetAlert,
+	setShowResetAlert,
+	confirmResetEditor,
+}: {
+	showResetAlert: boolean
+	setShowResetAlert: Dispatch<SetStateAction<boolean>>
+	confirmResetEditor: () => void
+}) {
+	return (
+		<Alert
+			isOpen={showResetAlert}
+			cancel={
+				<Button onClick={() => setShowResetAlert(false)}>Cancel</Button>
+			}
+			action={
+				<PrimaryButton onClick={confirmResetEditor}>
+					Confirm
+				</PrimaryButton>
+			}
+			title='Are you sure?'
+			description='This will clear all the content from the editor. This action cannot be undone.'
+		/>
+	)
+}
+
+function About({ showAboutDialog }: { showAboutDialog: boolean }) {
+	return (
+		<Dialog
+			isOpen={showAboutDialog}
+			title={<h3 className='px-2 text-lg'>About</h3>}
+			trigger={null}
+		>
+			<div className='flex flex-col items-start gap-4 px-2 text-white'>
+				<p>
+					Aurelius was born out of a requirement for a writing app
+					that suited my needs. After trying many writing apps — code
+					editors to note taking app — none of them help with
+					maintaining a writing habit. Some of them have a poor
+					writing experience by doing too much stuff.
+				</p>
+				<p>
+					I wanted a simple writing app that has the features for
+					building a writing habit while having an enjoyable writing
+					experience. While the current state only supports single
+					posts suited for articles, I want to support more use-cases
+					like book writing, daily journals, and more.
+				</p>
+			</div>
+		</Dialog>
+	)
+}
+
 export default function Writer() {
+	const titleRef = useRef<HTMLInputElement>(null)
 	const [content, setContent] = useState('')
 	const [focusMode, setFocusMode] = useState(false)
 	const [isSaving, setIsSaving] = useState(false)
@@ -23,6 +84,12 @@ export default function Writer() {
 	const [showResetAlert, setShowResetAlert] = useState(false)
 	const [showAboutDialog, setShowAboutDialog] = useState(false)
 	const [wordCount, setWordCount] = useState(0)
+
+	useEffect(() => {
+		if (!title && !content) {
+			titleRef.current?.focus()
+		}
+	}, [title, content])
 
 	const editor = useEditor({
 		content,
@@ -92,6 +159,7 @@ export default function Writer() {
 		editor?.commands.clearContent(true)
 		setWordCount(0)
 		setShowResetAlert(false)
+		titleRef?.current?.focus()
 	}
 
 	function onResetEditorClick(state: boolean) {
@@ -124,9 +192,11 @@ export default function Writer() {
 					<div className='flex h-full w-full flex-col items-center justify-start space-y-4 py-16'>
 						<div className='w-full max-w-3xl'>
 							<input
+								autoFocus
 								className='h-24 w-full bg-transparent text-5xl font-semibold text-white focus:outline-none'
 								onChange={(e) => setTitle(e.target.value)}
 								placeholder='Title'
+								ref={titleRef}
 								type='text'
 								value={title}
 							/>
@@ -148,47 +218,14 @@ export default function Writer() {
 			</main>
 
 			{showResetAlert ? (
-				<Alert
-					isOpen={showResetAlert}
-					cancel={
-						<Button onClick={() => setShowResetAlert(false)}>
-							Cancel
-						</Button>
-					}
-					action={
-						<PrimaryButton onClick={confirmResetEditor}>
-							Confirm
-						</PrimaryButton>
-					}
-					title='Are you sure?'
-					description='This will clear all the content from the editor. This action cannot be undone.'
+				<Reset
+					showResetAlert={showResetAlert}
+					setShowResetAlert={setShowResetAlert}
+					confirmResetEditor={confirmResetEditor}
 				/>
 			) : null}
 			{showAboutDialog ? (
-				<Dialog
-					isOpen={showAboutDialog}
-					title={<h3 className='px-2 text-lg'>About</h3>}
-					trigger={null}
-				>
-					<div className='flex flex-col items-start gap-4 px-2 text-white'>
-						<p>
-							Aurelius was born out of a requirement for a writing
-							app that suited my needs. After trying many writing
-							apps — code editors to note taking app — none of
-							them help with maintaining a writing habit. Some of
-							them have a poor writing experience by doing too
-							much stuff.
-						</p>
-						<p>
-							I wanted a simple writing app that has the features
-							for building a writing habit while having an
-							enjoyable writing experience. While the current
-							state only supports single posts suited for
-							articles, I want to support more use-cases like book
-							writing, daily journals, and more.
-						</p>
-					</div>
-				</Dialog>
+				<About showAboutDialog={showAboutDialog} />
 			) : null}
 		</>
 	)

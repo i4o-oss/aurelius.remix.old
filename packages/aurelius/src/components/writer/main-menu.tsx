@@ -32,6 +32,7 @@ export default function MainMenu(props: MainMenuProps) {
 					label: 'Post',
 					icon: <FileTextIcon />,
 					shortcut: 'Ctrl + P',
+					onSelect: () => props.onResetEditorClick(true),
 				},
 				{
 					label: 'Writing Session',
