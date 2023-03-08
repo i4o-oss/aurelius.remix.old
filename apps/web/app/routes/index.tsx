@@ -1,6 +1,6 @@
 import { Link } from '@remix-run/react'
 import { PrimaryButton } from '@i4o/catalystui'
-import { Footer, Header } from '@i4o/aurelius'
+import { Footer, Header } from '~/components'
 import {
 	ArrowTopRightIcon,
 	Crosshair2Icon,
