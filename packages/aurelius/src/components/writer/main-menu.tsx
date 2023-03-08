@@ -17,9 +17,10 @@ import {
 
 interface MainMenuProps {
 	focusMode: boolean
-	setFocusMode: Dispatch<SetStateAction<boolean>>
 	onResetEditorClick: (state: boolean) => void
+	setFocusMode: Dispatch<SetStateAction<boolean>>
 	setShowAboutDialog: Dispatch<SetStateAction<boolean>>
+	setShowNewSessionDialog: Dispatch<SetStateAction<boolean>>
 }
 
 export default function MainMenu(props: MainMenuProps) {
@@ -38,6 +39,7 @@ export default function MainMenu(props: MainMenuProps) {
 					label: 'Writing Session',
 					icon: <Pencil1Icon />,
 					shortcut: 'Ctrl + N',
+					onSelect: () => props.setShowNewSessionDialog(true),
 				},
 			],
 			type: 'submenu',

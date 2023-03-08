@@ -21,6 +21,7 @@ import TipTap from './tiptap'
 import WriterFooter from './footer'
 import MainMenu from './main-menu'
 import { POST_LOCAL_STORAGE_KEY } from '../../constants'
+import NewSession from './new-session'
 
 function Reset({
 	showResetAlert,
@@ -42,7 +43,7 @@ function Reset({
 					Confirm
 				</PrimaryButton>
 			}
-			title='Are you sure?'
+			title={<h3 className='px-2 text-lg'>Are you sure?</h3>}
 			description='This will clear all the content from the editor. This action cannot be undone.'
 		/>
 	)
@@ -80,9 +81,10 @@ export default function Writer() {
 	const [content, setContent] = useState('')
 	const [focusMode, setFocusMode] = useState(false)
 	const [isSaving, setIsSaving] = useState(false)
-	const [title, setTitle] = useState('')
-	const [showResetAlert, setShowResetAlert] = useState(false)
 	const [showAboutDialog, setShowAboutDialog] = useState(false)
+	const [showNewSessionDialog, setShowNewSessionDialog] = useState(false)
+	const [showResetAlert, setShowResetAlert] = useState(false)
+	const [title, setTitle] = useState('')
 	const [wordCount, setWordCount] = useState(0)
 
 	useEffect(() => {
@@ -183,9 +185,10 @@ export default function Writer() {
 				>
 					<MainMenu
 						focusMode={focusMode}
-						setFocusMode={setFocusMode}
 						onResetEditorClick={onResetEditorClick}
+						setFocusMode={setFocusMode}
 						setShowAboutDialog={setShowAboutDialog}
+						setShowNewSessionDialog={setShowNewSessionDialog}
 					/>
 				</div>
 				<section className='flex h-full w-full flex-grow flex-col items-center justify-start'>
@@ -226,6 +229,12 @@ export default function Writer() {
 			) : null}
 			{showAboutDialog ? (
 				<About showAboutDialog={showAboutDialog} />
+			) : null}
+			{showNewSessionDialog ? (
+				<NewSession
+					showNewSessionDialog={showNewSessionDialog}
+					setShowNewSessionDialog={setShowNewSessionDialog}
+				/>
 			) : null}
 		</>
 	)
