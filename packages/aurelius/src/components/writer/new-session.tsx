@@ -43,6 +43,7 @@ export default function NewSession({
 		>
 			<Dialog
 				isOpen={showNewSessionDialog}
+				onOpenChange={(open: boolean) => setShowNewSessionDialog(open)}
 				title={<h3 className='px-2 text-lg'>New Writing Session</h3>}
 				action={
 					<PrimaryButton type='submit'>

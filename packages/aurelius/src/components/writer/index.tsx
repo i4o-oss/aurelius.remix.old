@@ -35,6 +35,7 @@ function Reset({
 	return (
 		<Alert
 			isOpen={showResetAlert}
+			onOpenChange={(open: boolean) => setShowResetAlert(open)}
 			cancel={
 				<Button onClick={() => setShowResetAlert(false)}>Cancel</Button>
 			}
@@ -53,6 +54,7 @@ function About({ showAboutDialog }: { showAboutDialog: boolean }) {
 	return (
 		<Dialog
 			isOpen={showAboutDialog}
+			onOpenChange={(open: boolean) => setShowAboutDialog(open)}
 			title={<h3 className='px-2 text-lg'>About</h3>}
 			trigger={null}
 		>
