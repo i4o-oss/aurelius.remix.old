@@ -74,7 +74,7 @@ export default function Settings({
 			onOpenChange={setShowSettingsDialog}
 			title='Settings'
 		>
-			<div className='max-h-[96rem] min-h-[24rem] w-[48rem] [&_div[role="tablist"]]:!gap-2'>
+			<div className='max-h-[96rem] min-h-[40rem] w-[48rem] [&_div[role="tablist"]]:!gap-2'>
 				<Tabs
 					defaultValue='goals'
 					tabs={[
