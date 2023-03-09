@@ -47,7 +47,7 @@
     },
     "dependencies": {
         "@headlessui/react": "^1.7.12",
-        "@i4o/catalystui": "0.7.5",
+        "@i4o/catalystui": "0.7.13",
         "@radix-ui/react-icons": "^1.2.0",
         "@rehooks/local-storage": "^2.4.4",
         "@remix-run/dev": "1.14.0",
