@@ -22,6 +22,7 @@ import WriterFooter from './footer'
 import MainMenu from './main-menu'
 import { POST_LOCAL_STORAGE_KEY } from '../../constants'
 import NewSession from './new-session'
+import Settings from './settings'
 
 function Reset({
 	showResetAlert,
@@ -35,7 +36,7 @@ function Reset({
 	return (
 		<Alert
 			isOpen={showResetAlert}
-			onOpenChange={(open: boolean) => setShowResetAlert(open)}
+			onOpenChange={setShowResetAlert}
 			cancel={
 				<Button onClick={() => setShowResetAlert(false)}>Cancel</Button>
 			}
@@ -50,11 +51,17 @@ function Reset({
 	)
 }
 
-function About({ showAboutDialog }: { showAboutDialog: boolean }) {
+function About({
+	showAboutDialog,
+	setShowAboutDialog,
+}: {
+	showAboutDialog: boolean
+	setShowAboutDialog: Dispatch<SetStateAction<boolean>>
+}) {
 	return (
 		<Dialog
 			isOpen={showAboutDialog}
-			onOpenChange={(open: boolean) => setShowAboutDialog(open)}
+			onOpenChange={setShowAboutDialog}
 			title={<h3 className='px-2 text-lg'>About</h3>}
 			trigger={null}
 		>
@@ -86,6 +93,7 @@ export default function Writer() {
 	const [showAboutDialog, setShowAboutDialog] = useState(false)
 	const [showNewSessionDialog, setShowNewSessionDialog] = useState(false)
 	const [showResetAlert, setShowResetAlert] = useState(false)
+	const [showSettingsDialog, setShowSettingsDialog] = useState(false)
 	const [title, setTitle] = useState('')
 	const [wordCount, setWordCount] = useState(0)
 
@@ -191,6 +199,7 @@ export default function Writer() {
 						setFocusMode={setFocusMode}
 						setShowAboutDialog={setShowAboutDialog}
 						setShowNewSessionDialog={setShowNewSessionDialog}
+						setShowSettingsDialog={setShowSettingsDialog}
 					/>
 				</div>
 				<section className='flex h-full w-full flex-grow flex-col items-center justify-start'>
@@ -230,12 +239,21 @@ export default function Writer() {
 				/>
 			) : null}
 			{showAboutDialog ? (
-				<About showAboutDialog={showAboutDialog} />
+				<About
+					showAboutDialog={showAboutDialog}
+					setShowAboutDialog={setShowAboutDialog}
+				/>
 			) : null}
 			{showNewSessionDialog ? (
 				<NewSession
 					showNewSessionDialog={showNewSessionDialog}
 					setShowNewSessionDialog={setShowNewSessionDialog}
+				/>
+			) : null}
+			{showSettingsDialog ? (
+				<Settings
+					showSettingsDialog={showSettingsDialog}
+					setShowSettingsDialog={setShowSettingsDialog}
 				/>
 			) : null}
 		</>

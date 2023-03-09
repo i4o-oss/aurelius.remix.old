@@ -21,6 +21,7 @@ interface MainMenuProps {
 	setFocusMode: Dispatch<SetStateAction<boolean>>
 	setShowAboutDialog: Dispatch<SetStateAction<boolean>>
 	setShowNewSessionDialog: Dispatch<SetStateAction<boolean>>
+	setShowSettingsDialog: Dispatch<SetStateAction<boolean>>
 }
 
 export default function MainMenu(props: MainMenuProps) {
@@ -62,6 +63,7 @@ export default function MainMenu(props: MainMenuProps) {
 		{
 			label: 'Settings',
 			icon: <MixerHorizontalIcon />,
+			onSelect: () => props.setShowSettingsDialog(true),
 		},
 		{ type: 'separator' },
 		{

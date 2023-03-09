@@ -4,3 +4,4 @@ export const MUSIC_STATIONS = {
 }
 
 export const POST_LOCAL_STORAGE_KEY = '__aurelius_guest_user_post'
+export const SETTINGS_LOCAL_STORAGE_KEY = '__aurelius_guest_user_settings'
