@@ -86,7 +86,7 @@ function About({
 }
 
 export default function Writer() {
-	const titleRef = useRef<HTMLInputElement>(null)
+	const titleRef = useRef<HTMLTextAreaElement>(null)
 	const [content, setContent] = useState('')
 	const [focusMode, setFocusMode] = useState(false)
 	const [isSaving, setIsSaving] = useState(false)
@@ -102,6 +102,13 @@ export default function Writer() {
 			titleRef.current?.focus()
 		}
 	}, [title, content])
+
+	useEffect(() => {
+		if (titleRef.current) {
+			titleRef.current.style.height = 'inherit'
+			titleRef.current.style.height = `${titleRef.current.scrollHeight}px`
+		}
+	}, [title])
 
 	const editor = useEditor({
 		content,
@@ -205,13 +212,13 @@ export default function Writer() {
 				<section className='flex h-full w-full flex-grow flex-col items-center justify-start'>
 					<div className='flex h-full w-full flex-col items-center justify-start space-y-4 py-16'>
 						<div className='w-full max-w-3xl'>
-							<input
+							<textarea
 								autoFocus
-								className='h-24 w-full bg-transparent text-5xl font-semibold text-white focus:outline-none'
+								className='w-full resize-none bg-transparent text-5xl font-semibold leading-snug text-white focus:outline-none'
 								onChange={(e) => setTitle(e.target.value)}
 								placeholder='Title'
 								ref={titleRef}
-								type='text'
+								rows={1}
 								value={title}
 							/>
 						</div>

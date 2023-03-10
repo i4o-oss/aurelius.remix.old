@@ -1,3 +1,5 @@
+// TODO: Move this component to web package?
+//
 import type { Dispatch, FormEvent, SetStateAction } from 'react'
 import { useState } from 'react'
 import { Dialog, PrimaryButton, Tabs, ToggleGroup } from '@i4o/catalystui'
