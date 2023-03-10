@@ -1,3 +1,5 @@
+// TODO: Move this component to web package?
+
 import { Dispatch, SetStateAction, useState } from 'react'
 import {
 	Button,
@@ -43,7 +45,7 @@ export default function NewSession({
 		>
 			<Dialog
 				isOpen={showNewSessionDialog}
-				onOpenChange={(open: boolean) => setShowNewSessionDialog(open)}
+				onOpenChange={setShowNewSessionDialog}
 				title={<h3 className='px-2 text-lg'>New Writing Session</h3>}
 				action={
 					<PrimaryButton type='submit'>
@@ -56,7 +58,7 @@ export default function NewSession({
 					</Button>
 				}
 			>
-				<div className='mt-4 w-full px-2'>
+				<div className='mt-4 w-96 px-2'>
 					<div className='grid w-full grid-cols-5 gap-4 text-white'>
 						<label
 							htmlFor='session_goal'
@@ -91,13 +93,13 @@ export default function NewSession({
 							</span>
 						</div>
 						<label
-							htmlFor='session_end_notification'
+							htmlFor='focus_mode'
 							className='col-span-3 text-sm'
 						>
-							Notify when session ends
+							Enable focus mode
 						</label>
 						<div className='col-span-2'>
-							<Switch name='session_end_notification' />
+							<Switch defaultChecked={true} name='focus_mode' />
 						</div>
 						<label
 							htmlFor='session_music'
@@ -106,7 +108,22 @@ export default function NewSession({
 							Music
 						</label>
 						<div className='col-span-2'>
-							<Switch name='session_music' />
+							<Switch
+								defaultChecked={true}
+								name='session_music'
+							/>
+						</div>
+						<label
+							htmlFor='session_end_notification'
+							className='col-span-3 text-sm'
+						>
+							Notify when session ends
+						</label>
+						<div className='col-span-2'>
+							<Switch
+								defaultChecked={true}
+								name='session_end_notification'
+							/>
 						</div>
 					</div>
 				</div>
