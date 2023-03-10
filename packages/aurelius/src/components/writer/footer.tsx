@@ -82,8 +82,11 @@ export default function Footer(props: FooterProps) {
 					url={youtubeVideo || MUSIC_STATIONS.LOFI_GIRL_FOCUS}
 					width='0'
 					height='0'
+					loop={true}
 					config={{
-						youtube: { playerVars: { control: 1, start: 1 } },
+						youtube: {
+							playerVars: { control: 1, start: 1 },
+						},
 					}}
 				/>
 			</div>
