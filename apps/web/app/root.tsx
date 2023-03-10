@@ -15,7 +15,7 @@ import { useEffect } from 'react'
 import NProgress from 'nprogress'
 import nProgressStyles from 'nprogress/nprogress.css'
 import styles from '~/main.css'
-import cuiStyles from '@i4o/catalystui/main.css'
+// import cuiStyles from '@i4o/catalystui/main.css'
 import aureliusStyles from '@i4o/aurelius/main.css'
 
 interface DocumentProps {
@@ -32,7 +32,7 @@ export const links: LinksFunction = () => {
 		},
 		{ rel: 'stylesheet', href: styles },
 		{ rel: 'stylesheet', href: nProgressStyles },
-		{ rel: 'stylesheet', href: cuiStyles },
+		// { rel: 'stylesheet', href: cuiStyles },
 		{ rel: 'stylesheet', href: aureliusStyles },
 		{ rel: 'manifest', href: '/site.webmanifest' },
 		{

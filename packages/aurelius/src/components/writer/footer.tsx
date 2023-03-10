@@ -4,7 +4,8 @@ import React, { useState } from 'react'
 import { default as _ReactPlayer } from 'react-player/youtube'
 import { PlayIcon, PauseIcon } from '@radix-ui/react-icons'
 import { Button } from '@i4o/catalystui'
-import { MUSIC_STATIONS } from '../../constants'
+import { MUSIC_STATIONS, SETTINGS_LOCAL_STORAGE_KEY } from '../../constants'
+import useLocalStorage from '@rehooks/local-storage'
 
 // fixes react-player typescript issue
 const ReactPlayer = _ReactPlayer as unknown as React.FC<ReactPlayerProps>
@@ -12,6 +13,9 @@ const ReactPlayer = _ReactPlayer as unknown as React.FC<ReactPlayerProps>
 export default function Footer(props: FooterProps) {
 	const { focusMode, isSaving, wordCount } = props
 	const [isMusicPlaying, setIsMusicPlaying] = useState(false)
+	const [settings] = useLocalStorage(SETTINGS_LOCAL_STORAGE_KEY)
+	const youtubeVideo = JSON.parse(JSON.stringify(settings))?.music
+		?.youtubeVideo
 
 	return (
 		<div
@@ -75,9 +79,15 @@ export default function Footer(props: FooterProps) {
 				)}
 				<ReactPlayer
 					playing={isMusicPlaying}
-					url={MUSIC_STATIONS.LOFI_GIRL_FOCUS}
-					width='0px'
-					height='0px'
+					url={youtubeVideo || MUSIC_STATIONS.LOFI_GIRL_FOCUS}
+					width='0'
+					height='0'
+					loop={true}
+					config={{
+						youtube: {
+							playerVars: { control: 1, start: 1 },
+						},
+					}}
 				/>
 			</div>
 		</div>
