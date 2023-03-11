@@ -30,6 +30,10 @@ export default function NewSession({
 	setShowNewSessionDialog: Dispatch<SetStateAction<boolean>>
 }) {
 	const [sessionGoal, setSessionGoal] = useState('duration')
+	const [sessionTarget, setSessionTarget] = useState(0)
+	const [focusMode, setFocusMode] = useState(true)
+	const [music, setMusic] = useState(true)
+	const [notifyOnEnd, setNotifiyOnEnd] = useState(true)
 
 	const onRadioValueChange = (value: string) => {
 		setSessionGoal(value)
@@ -82,7 +86,14 @@ export default function NewSession({
 						<div className='col-span-2 flex items-center justify-start space-x-2'>
 							<input
 								className='h-8 w-16 rounded-md border border-white bg-transparent px-2 py-1 text-sm'
-								value={sessionGoal === 'duration' ? 30 : 500}
+								value={
+									sessionTarget || sessionGoal === 'duration'
+										? 30
+										: 300
+								}
+								onChange={(e) =>
+									setSessionTarget(Number(e.target.value))
+								}
 								name='session_target'
 								type='number'
 							/>
@@ -96,10 +107,14 @@ export default function NewSession({
 							htmlFor='focus_mode'
 							className='col-span-3 text-sm'
 						>
-							Enable focus mode
+							Focus Mode
 						</label>
 						<div className='col-span-2'>
-							<Switch defaultChecked={true} name='focus_mode' />
+							<Switch
+								defaultChecked={focusMode}
+								onCheckedChange={setFocusMode}
+								name='focus_mode'
+							/>
 						</div>
 						<label
 							htmlFor='session_music'
@@ -109,7 +124,8 @@ export default function NewSession({
 						</label>
 						<div className='col-span-2'>
 							<Switch
-								defaultChecked={true}
+								defaultChecked={music}
+								onCheckedChange={setMusic}
 								name='session_music'
 							/>
 						</div>
@@ -121,7 +137,8 @@ export default function NewSession({
 						</label>
 						<div className='col-span-2'>
 							<Switch
-								defaultChecked={true}
+								defaultChecked={notifyOnEnd}
+								onCheckedChange={setNotifiyOnEnd}
 								name='session_end_notification'
 							/>
 						</div>
