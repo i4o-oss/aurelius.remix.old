@@ -1,5 +1,6 @@
 module.exports = {
 	content: ['./app/**/*.{js,jsx,ts,tsx}'],
+	plugins: [require('@tailwindcss/typography')],
 	theme: {
 		extend: {
 			colors: {
