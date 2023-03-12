@@ -123,7 +123,13 @@ export default function Writer() {
 					arrow: true,
 				},
 			}),
-			SuperImage,
+			SuperImage.configure({
+				inline: true,
+				allowBase64: true,
+				HTMLAttributes: {
+					class: 'super-image',
+				},
+			}),
 			VisualBookmark,
 			VideoEmbed,
 			Link.configure({ linkOnPaste: true, openOnClick: false }),

@@ -5,13 +5,6 @@ import { mergeAttributes } from '@tiptap/core'
 export default Image.extend({
 	name: 'super-image',
 
-	addOptions() {
-		return {
-			...this.parent?.(),
-			sizes: ['small', 'medium', 'large'],
-		}
-	},
-
 	addAttributes() {
 		return {
 			// @ts-ignore
@@ -43,6 +36,7 @@ export default Image.extend({
 
 	renderHTML({ node, HTMLAttributes }) {
 		HTMLAttributes.class = ' super-image-' + node.attrs.size
+		HTMLAttributes.size = node.attrs.size
 
 		return [
 			'img',
