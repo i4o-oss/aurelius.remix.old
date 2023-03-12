@@ -65,6 +65,7 @@ importers:
       '@types/nprogress': ^0.2.0
       '@types/react': 18.0.25
       '@types/react-dom': 18.0.8
+      autoprefixer: ^10.4.13
       aws-sdk: 2.1249.0
       classnames: 2.3.2
       cross-env: 7.0.3
@@ -73,6 +74,7 @@ importers:
       isbot: ^3.6.6
       nanoid: 4.0.0
       nprogress: 0.2.0
+      postcss: ^8.4.21
       prisma: 4.5.0
       react: 18.2.0
       react-dom: 18.2.0
@@ -120,9 +122,11 @@ importers:
       '@types/nprogress': 0.2.0
       '@types/react': 18.0.25
       '@types/react-dom': 18.0.8
+      autoprefixer: 10.4.13_postcss@8.4.21
       cross-env: 7.0.3
+      postcss: 8.4.21
       prisma: 4.5.0
-      tailwindcss: 3.2.7_ts-node@10.9.1
+      tailwindcss: 3.2.7_aesdjsunmf4wiehhujt67my7tu
       ts-node: 10.9.1_typescript@4.8.4
       typescript: 4.8.4
 
@@ -4498,7 +4502,7 @@ packages:
     peerDependencies:
       tailwindcss: '>=2.0.0 || >=3.0.0 || >=3.0.0-alpha.1'
     dependencies:
-      tailwindcss: 3.2.7_ts-node@10.9.1
+      tailwindcss: 3.2.7_aesdjsunmf4wiehhujt67my7tu
     dev: false
 
   /@tailwindcss/typography/0.5.9_tailwindcss@3.2.7:
@@ -4510,7 +4514,7 @@ packages:
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       postcss-selector-parser: 6.0.10
-      tailwindcss: 3.2.7_ts-node@10.9.1
+      tailwindcss: 3.2.7_aesdjsunmf4wiehhujt67my7tu
     dev: false
 
   /@testing-library/dom/8.20.0:
@@ -10292,10 +10296,12 @@ packages:
       - ts-node
     dev: true
 
-  /tailwindcss/3.2.7_ts-node@10.9.1:
+  /tailwindcss/3.2.7_aesdjsunmf4wiehhujt67my7tu:
     resolution: {integrity: sha512-B6DLqJzc21x7wntlH/GsZwEXTBttVSl1FtCzC8WP4oBc/NKef7kaax5jeihkkCEWc831/5NDJ9gRNDK6NEioQQ==}
     engines: {node: '>=12.13.0'}
     hasBin: true
+    peerDependencies:
+      postcss: ^8.0.9
     dependencies:
       arg: 5.0.2
       chokidar: 3.5.3
