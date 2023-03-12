@@ -5,7 +5,7 @@ import { Node } from '@tiptap/core'
 import { Plugin, PluginKey } from 'prosemirror-state'
 
 export const fetchMetadata = async (url: string) => {
-	const response = await fetch(`/oembed?url=${encodeURIComponent(url)}`)
+	const response = await fetch(`/api/oembed?url=${encodeURIComponent(url)}`)
 	const data = await response.json()
 
 	return data

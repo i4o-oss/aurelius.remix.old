@@ -124,8 +124,8 @@ export default function Writer() {
 				},
 			}),
 			SuperImage,
-			VideoEmbed,
 			VisualBookmark,
+			VideoEmbed,
 			Link.configure({ linkOnPaste: true, openOnClick: false }),
 			Placeholder.configure({
 				placeholder: 'Start writing...',
