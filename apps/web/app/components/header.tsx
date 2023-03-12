@@ -24,12 +24,12 @@ export default function Header() {
 				{/* 		name={user?.name as string} */}
 				{/* 	/> */}
 				{/* ) : ( */}
-				<Link to='/login'>
+				<Link to='/join'>
 					<PrimaryButton
 						className='flex h-8 items-center justify-center'
 						tooltip='Login'
 					>
-						Login
+						Join Waitlist
 					</PrimaryButton>
 				</Link>
 				{/* )} */}
