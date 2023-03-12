@@ -25,6 +25,7 @@
         "@aurelius/tsconfig": "workspace:*",
         "@types/react": "^18.0.28",
         "@types/react-dom": "^18.0.11",
+        "@types/turndown": "^5.0.1",
         "autoprefixer": "^10.4.13",
         "concurrently": "^7.6.0",
         "postcss": "^8.4.21",
@@ -80,6 +81,7 @@
         "prosemirror-state": "^1.4.2",
         "prosemirror-view": "^1.29.0",
         "react-autosave": "^0.4.2",
-        "react-player": "^2.11.2"
+        "react-player": "^2.11.2",
+        "turndown": "^7.1.1"
     }
 }

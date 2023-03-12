@@ -23,6 +23,7 @@ import MainMenu from './main-menu'
 import { POST_LOCAL_STORAGE_KEY } from '../../constants'
 import NewSession from './new-session'
 import Settings from './settings'
+import { downloadAsMarkdown } from '../../helpers'
 
 function Reset({
 	showResetAlert,
@@ -152,6 +153,10 @@ export default function Writer() {
 		},
 	})
 
+	function downloadFile() {
+		downloadAsMarkdown(title, content)
+	}
+
 	async function savePost(data: any) {
 		if (data.title && data.content && data.wordCount) {
 			setIsSaving(true)
@@ -207,6 +212,7 @@ export default function Writer() {
 					}`}
 				>
 					<MainMenu
+						downloadFile={downloadFile}
 						focusMode={focusMode}
 						onResetEditorClick={onResetEditorClick}
 						setFocusMode={setFocusMode}

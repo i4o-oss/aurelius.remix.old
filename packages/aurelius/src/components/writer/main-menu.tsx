@@ -18,6 +18,7 @@ import {
 } from '@radix-ui/react-icons'
 
 interface MainMenuProps {
+	downloadFile: () => void
 	focusMode: boolean
 	onResetEditorClick: (state: boolean) => void
 	setFocusMode: Dispatch<SetStateAction<boolean>>
@@ -82,6 +83,7 @@ export default function MainMenu(props: MainMenuProps) {
 					<path d='m9 15 3 3 3-3'></path>
 				</svg>
 			),
+			onSelect: props.downloadFile,
 			shortcut: 'Ctrl + S',
 		},
 		{

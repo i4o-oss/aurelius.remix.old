@@ -1,5 +1,18 @@
 import cheerio from 'cheerio'
 import { extract, hasProvider } from 'oembed-parser'
+import TurndownService from 'turndown'
+
+export function downloadAsMarkdown(title: string, content: string) {
+	const htmlContent = `<h1>${title}</h1>${content}`
+	const turndownService = new TurndownService({ headingStyle: 'atx' })
+	const markdown = turndownService.turndown(htmlContent)
+	const filename = title || `twa_untitled_post_${Date.now()}`
+	const a = document.createElement('a')
+	const blob = new Blob([markdown])
+	a.href = URL.createObjectURL(blob)
+	a.download = `${filename}.md`
+	a.click()
+}
 
 export function findUrlWithProvider(url: string) {
 	let provider
