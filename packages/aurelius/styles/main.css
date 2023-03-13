@@ -98,12 +98,11 @@ body {
 }
 
 .ProseMirror pre {
-	@apply max-w-3xl;
+	@apply max-w-3xl rounded-lg;
 	background: #0d0d0d;
 	color: #fff;
 	font-family: 'JetBrainsMono', monospace;
 	padding: 0.75rem 1rem;
-	border-radius: 0.5rem;
 }
 
 .ProseMirror pre code {
@@ -114,6 +113,14 @@ body {
 	font-size: 0.8rem;
 }
 
+.ProseMirror p code {
+	@apply rounded-lg px-2 py-1;
+	font-size: 1.1rem;
+	background: #0d0d0d;
+	color: #fff;
+	font-family: 'JetBrainsMono', monospace;
+}
+
 .ProseMirror blockquote {
 	@apply max-w-3xl;
 	padding-left: 1rem;
@@ -122,7 +129,7 @@ body {
 
 .ProseMirror a {
 	@apply max-w-3xl;
-	color: #68cef8;
+	color: #2cb67d;
 }
 
 .ProseMirror figure {
@@ -130,7 +137,7 @@ body {
 }
 
 .ProseMirror img.ProseMirror-selectednode {
-	outline: 3px solid #68cef8;
+	outline: 3px solid #2cb67d;
 }
 
 .ProseMirror img.super-image-small {
