@@ -1,7 +1,7 @@
 import type { KeyboardEventHandler } from 'react'
 import type { EditorToolbarProps } from '../../types'
 import { useEffect, useRef, useState } from 'react'
-import { Alert, Toolbar } from '@i4o/catalystui'
+import { Button, Dialog, Toolbar } from '@i4o/catalystui'
 import {
 	CodeIcon,
 	FontBoldIcon,
@@ -181,40 +181,42 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
 				className='w-full text-white'
 				items={items}
 			/>
-			{/* <div className='flex h-12 items-center justify-center space-x-1 overflow-hidden rounded-md p-2 shadow-md'> */}
-			{/* 	{toggleLink ? ( */}
-			{/* 		<div className='flex h-full w-full items-center justify-center space-x-2'> */}
-			{/* 			<input */}
-			{/* 				className='h-full w-auto bg-transparent px-2 py-1 text-white outline-white' */}
-			{/* 				onBlur={() => { */}
-			{/* 					if (!editor?.getAttributes('link').href) { */}
-			{/* 						setToggleLink(false) */}
-			{/* 					} */}
-			{/* 				}} */}
-			{/* 				onChange={(e) => setLink(e.target.value)} */}
-			{/* 				onKeyUp={linkChangeHandler} */}
-			{/* 				ref={linkInputRef} */}
-			{/* 				type='text' */}
-			{/* 				value={link || editor?.getAttributes('link').href} */}
-			{/* 			/> */}
-			{/* 			{editor?.getAttributes('link').href && ( */}
-			{/* 				<Button */}
-			{/* 					aria-label='Unlink' */}
-			{/* 					bg='bg-gray-300' */}
-			{/* 					className='flex h-full w-8 items-center justify-center rounded-md' */}
-			{/* 					onClick={() => { */}
-			{/* 						editor?.chain().focus().unsetLink().run() */}
-			{/* 						setToggleLink(false) */}
-			{/* 					}} */}
-			{/* 					padding='p-0' */}
-			{/* 					textColor='text-black' */}
-			{/* 				> */}
-			{/* 					<LinkBreak2Icon /> */}
-			{/* 				</Button> */}
-			{/* 			)} */}
-			{/* 		</div> */}
-			{/* 	) : null} */}
-			{/* </div> */}
+			<Dialog
+				isOpen={toggleLink}
+				onOpenChange={setToggleLink}
+				title={<h3 className='text-lg'>Add link</h3>}
+			>
+				<div className='flex h-12 w-full items-center justify-center space-x-2'>
+					<input
+						className='h-full w-auto rounded-lg border bg-transparent px-2 py-1 text-white outline-white'
+						onBlur={() => {
+							if (!editor?.getAttributes('link').href) {
+								setToggleLink(false)
+							}
+						}}
+						onChange={(e) => setLink(e.target.value)}
+						onKeyUp={linkChangeHandler}
+						ref={linkInputRef}
+						type='text'
+						value={link || editor?.getAttributes('link').href}
+					/>
+					{editor?.getAttributes('link').href && (
+						<Button
+							aria-label='Unlink'
+							bg='bg-gray-300'
+							className='flex h-full w-8 items-center justify-center rounded-md'
+							onClick={() => {
+								editor?.chain().focus().unsetLink().run()
+								setToggleLink(false)
+							}}
+							padding='p-0'
+							textColor='text-black'
+						>
+							<LinkBreak2Icon />
+						</Button>
+					)}
+				</div>
+			</Dialog>
 		</>
 	)
 }

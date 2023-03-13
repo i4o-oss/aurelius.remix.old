@@ -42,12 +42,26 @@ export default function TipTap({
 	}
 
 	// @ts-ignore
-	const uploadImage = async (event) => {
+	const insertImage = async (event) => {
 		const file = event.target.files[0]
 
 		if (file) {
-			const formData = new FormData()
-			formData.append('image', file)
+			const fr = new FileReader()
+			fr.onload = function () {
+				let url = fr.result
+				if (url) {
+					editor
+						?.chain()
+						.focus()
+						.setImage({ src: url as string })
+						.run()
+					// Enter twice so user don't have to manually press enter twice
+					// and there's no chance of confusion of where the cursor went.
+					editor?.commands.enter()
+					editor?.commands.enter()
+				}
+			}
+			fr.readAsDataURL(file)
 		}
 	}
 
@@ -75,7 +89,7 @@ export default function TipTap({
 							accept='image/*'
 							className='hidden'
 							multiple={false}
-							onChange={uploadImage}
+							onChange={insertImage}
 							ref={fileUploadInputRef}
 							type='file'
 						/>

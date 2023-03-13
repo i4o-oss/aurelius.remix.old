@@ -12,8 +12,10 @@ import { Link } from '@tiptap/extension-link'
 import { Placeholder } from '@tiptap/extension-placeholder'
 import StarterKit from '@tiptap/starter-kit'
 import SuperImage from '../extensions/super-image'
-import VideoEmbed from '../extensions/video-embed'
-import VisualBookmark from '../extensions/visual-bookmark'
+// import TaskItem from '@tiptap/extension-task-item'
+// import TaskList from '@tiptap/extension-task-list'
+import Youtube from '@tiptap/extension-youtube'
+// import VisualBookmark from '../extensions/visual-bookmark'
 import { Alert, Button, Dialog, PrimaryButton } from '@i4o/catalystui'
 import { Autosave } from 'react-autosave'
 import { deleteFromStorage, writeStorage } from '@rehooks/local-storage'
@@ -23,6 +25,7 @@ import MainMenu from './main-menu'
 import { POST_LOCAL_STORAGE_KEY } from '../../constants'
 import NewSession from './new-session'
 import Settings from './settings'
+import { downloadAsMarkdown } from '../../helpers'
 
 function Reset({
 	showResetAlert,
@@ -123,9 +126,21 @@ export default function Writer() {
 					arrow: true,
 				},
 			}),
-			SuperImage,
-			VideoEmbed,
-			VisualBookmark,
+			SuperImage.configure({
+				inline: true,
+				allowBase64: true,
+				HTMLAttributes: {
+					class: 'super-image',
+				},
+			}),
+			Youtube.configure({
+				width: 762,
+				height: 432,
+			}),
+			// TaskList,
+			// TaskItem.configure({
+			// 	nested: true,
+			// }),
 			Link.configure({ linkOnPaste: true, openOnClick: false }),
 			Placeholder.configure({
 				placeholder: 'Start writing...',
@@ -146,8 +161,12 @@ export default function Writer() {
 		},
 	})
 
+	function downloadFile() {
+		downloadAsMarkdown(title, content)
+	}
+
 	async function savePost(data: any) {
-		if (data.title && data.content && data.wordCount) {
+		if (data.title || data.content) {
 			setIsSaving(true)
 
 			let saveTimeout
@@ -201,6 +220,7 @@ export default function Writer() {
 					}`}
 				>
 					<MainMenu
+						downloadFile={downloadFile}
 						focusMode={focusMode}
 						onResetEditorClick={onResetEditorClick}
 						setFocusMode={setFocusMode}

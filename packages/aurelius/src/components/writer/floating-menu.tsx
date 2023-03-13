@@ -14,7 +14,7 @@ export default function FloatingMenu({
 	return (
 		<Menu
 			as='div'
-			className='absolute -left-[4.2rem] inline-block text-left'
+			className='absolute -left-[4.2rem] -top-4 inline-block text-left'
 		>
 			<div>
 				<Menu.Button className='inline-flex h-8 w-8 items-center justify-center rounded-full border border-white text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75'>
@@ -31,7 +31,7 @@ export default function FloatingMenu({
 				leaveTo='transform opacity-0 scale-95'
 			>
 				<Menu.Items
-					className='absolute -top-2 left-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'
+					className='absolute top-8 -left-[12rem] mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'
 					unmount={false}
 				>
 					<div className='px-1 py-1 '>

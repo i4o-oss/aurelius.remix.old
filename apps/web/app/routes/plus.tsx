@@ -60,13 +60,13 @@ export default function Home() {
 										daily writing goal.
 									</p>
 									<div className='mt-10 flex items-center justify-center gap-x-6'>
-										<Link to='/write'>
+										<Link to='/join'>
 											<PrimaryButton
 												className='h-12'
 												padding='px-8'
 												textSize='text-base'
 											>
-												Start Writing
+												Join Waitlist
 											</PrimaryButton>
 										</Link>
 										<a
