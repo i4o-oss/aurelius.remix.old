@@ -12,6 +12,8 @@ import { Link } from '@tiptap/extension-link'
 import { Placeholder } from '@tiptap/extension-placeholder'
 import StarterKit from '@tiptap/starter-kit'
 import SuperImage from '../extensions/super-image'
+import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
+import { lowlight } from 'lowlight'
 // import TaskItem from '@tiptap/extension-task-item'
 // import TaskList from '@tiptap/extension-task-list'
 import Youtube from '@tiptap/extension-youtube'
@@ -132,6 +134,9 @@ export default function Writer() {
 				HTMLAttributes: {
 					class: 'super-image',
 				},
+			}),
+			CodeBlockLowlight.configure({
+				lowlight,
 			}),
 			Youtube.configure({
 				width: 762,

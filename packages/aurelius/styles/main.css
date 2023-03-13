@@ -1,3 +1,4 @@
+@import 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/github-dark.min.css';
 @import '../node_modules/@i4o/catalystui/dist/main.css';
 
 @tailwind base;
@@ -100,14 +101,12 @@ body {
 .ProseMirror pre {
 	@apply max-w-3xl rounded-lg;
 	background: #0d0d0d;
-	color: #fff;
 	font-family: 'JetBrainsMono', monospace;
 	padding: 0.75rem 1rem;
 }
 
 .ProseMirror pre code {
 	@apply max-w-3xl;
-	color: inherit;
 	padding: 0;
 	background: none;
 	font-size: 0.8rem;
@@ -117,7 +116,6 @@ body {
 	@apply rounded-lg px-2 py-1;
 	font-size: 1.1rem;
 	background: #0d0d0d;
-	color: #fff;
 	font-family: 'JetBrainsMono', monospace;
 }
 
