@@ -5,6 +5,7 @@ import TurndownService from 'turndown'
 export function downloadAsMarkdown(title: string, content: string) {
 	const htmlContent = `<h1>${title}</h1>${content}`
 	const turndownService = new TurndownService({ headingStyle: 'atx' })
+	turndownService.keep(['div', 'iframe'])
 	const markdown = turndownService.turndown(htmlContent)
 	const filename = title || `twa_untitled_post_${Date.now()}`
 	const a = document.createElement('a')

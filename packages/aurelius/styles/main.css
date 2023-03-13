@@ -47,6 +47,30 @@ body {
 	padding: 0 1rem;
 }
 
+.ProseMirror ul {
+	@apply list-disc;
+}
+
+.ProseMirror ol {
+	@apply list-decimal;
+}
+
+.ProseMirror ul[data-type='taskList'] {
+	@apply list-none;
+}
+
+.ProseMirror ul[data-type='taskList'] > li {
+	@apply flex;
+}
+
+.ProseMirror ul[data-type='taskList'] > li > label {
+	@apply mr-2 flex-[0_0_auto] select-none;
+}
+
+.ProseMirror ul[data-type='taskList'] > li > div {
+	@apply flex-auto;
+}
+
 .ProseMirror h1,
 .ProseMirror h2,
 .ProseMirror h3 {

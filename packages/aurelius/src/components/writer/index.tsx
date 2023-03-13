@@ -12,8 +12,10 @@ import { Link } from '@tiptap/extension-link'
 import { Placeholder } from '@tiptap/extension-placeholder'
 import StarterKit from '@tiptap/starter-kit'
 import SuperImage from '../extensions/super-image'
-import VideoEmbed from '../extensions/video-embed'
-import VisualBookmark from '../extensions/visual-bookmark'
+// import TaskItem from '@tiptap/extension-task-item'
+// import TaskList from '@tiptap/extension-task-list'
+import Youtube from '@tiptap/extension-youtube'
+// import VisualBookmark from '../extensions/visual-bookmark'
 import { Alert, Button, Dialog, PrimaryButton } from '@i4o/catalystui'
 import { Autosave } from 'react-autosave'
 import { deleteFromStorage, writeStorage } from '@rehooks/local-storage'
@@ -131,8 +133,14 @@ export default function Writer() {
 					class: 'super-image',
 				},
 			}),
-			VisualBookmark,
-			VideoEmbed,
+			Youtube.configure({
+				width: 762,
+				height: 432,
+			}),
+			// TaskList,
+			// TaskItem.configure({
+			// 	nested: true,
+			// }),
 			Link.configure({ linkOnPaste: true, openOnClick: false }),
 			Placeholder.configure({
 				placeholder: 'Start writing...',
@@ -158,7 +166,7 @@ export default function Writer() {
 	}
 
 	async function savePost(data: any) {
-		if (data.title && data.content && data.wordCount) {
+		if (data.title || data.content) {
 			setIsSaving(true)
 
 			let saveTimeout
