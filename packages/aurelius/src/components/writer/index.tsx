@@ -115,6 +115,12 @@ export default function Writer() {
 		}
 	}, [title])
 
+	useEffect(() => {
+		if (titleRef.current) {
+			titleRef.current.style.height = '84px'
+		}
+	}, [])
+
 	const editor = useEditor({
 		content,
 		editorProps: {
