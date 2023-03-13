@@ -14,5 +14,6 @@ module.exports = {
 	// assetsBuildDirectory: "public/build",
 	// serverBuildPath: "api/index.js",
 	// publicPath: "/build/",
+	serverDependenciesToBundle: ['@i4o/aurelius', 'lowlight', 'fault'],
 	watchPaths: ['../../packages/aurelius'],
 }
