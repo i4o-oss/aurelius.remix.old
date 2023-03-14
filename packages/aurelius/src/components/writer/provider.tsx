@@ -33,6 +33,10 @@ export interface AureliusProviderData {
 	setShowNewSessionDialog?: Dispatch<SetStateAction<boolean>>
 	showResetAlert?: boolean
 	setShowResetAlert?: Dispatch<SetStateAction<boolean>>
+	showSessionEndToast?: boolean
+	setShowSessionEndToast?: Dispatch<SetStateAction<boolean>>
+	showSessionRecapDialog?: boolean
+	setShowSessionRecapDialog?: Dispatch<SetStateAction<boolean>>
 	showSettingsDialog?: boolean
 	setShowSettingsDialog?: Dispatch<SetStateAction<boolean>>
 	title?: string

@@ -135,7 +135,7 @@ importers:
       '@aurelius/eslint-config': workspace:*
       '@aurelius/tsconfig': workspace:*
       '@headlessui/react': ^1.7.12
-      '@i4o/catalystui': 0.7.13
+      '@i4o/catalystui': 0.7.18
       '@radix-ui/react-icons': ^1.2.0
       '@rehooks/local-storage': ^2.4.4
       '@remix-run/dev': 1.14.0
@@ -190,7 +190,7 @@ importers:
       typescript: ^4.9.5
     dependencies:
       '@headlessui/react': 1.7.12_biqbaboplfbrettd7655fr4n2y
-      '@i4o/catalystui': 0.7.13_zula6vjvt3wdocc4mwcxqa6nzi
+      '@i4o/catalystui': 0.7.18_zula6vjvt3wdocc4mwcxqa6nzi
       '@radix-ui/react-icons': 1.2.0_react@18.2.0
       '@rehooks/local-storage': 2.4.4_react@18.2.0
       '@remix-run/dev': 1.14.0
@@ -2870,8 +2870,8 @@ packages:
   /@humanwhocodes/object-schema/1.2.1:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
 
-  /@i4o/catalystui/0.7.13_zula6vjvt3wdocc4mwcxqa6nzi:
-    resolution: {integrity: sha512-V5DLmMBXU3SczNSC6wQZc6iKrQnDcZP/8kf4uobJNGLpS2klndvR5PeDiosI2cgSILRW9OPk1vcpjwl38YMMew==}
+  /@i4o/catalystui/0.7.18_zula6vjvt3wdocc4mwcxqa6nzi:
+    resolution: {integrity: sha512-UIeb0uhbg+7EqsUVaL+a04n94MABxN4q8er3TfEWIuHN+5R9+U5BSI2sDDVfri53qatBtdDuZBR06f802Lp8VA==}
     peerDependencies:
       react: ^18.2.0
       react-dom: ^18.2.0
@@ -4620,7 +4620,7 @@ packages:
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       postcss-selector-parser: 6.0.10
-      tailwindcss: 3.2.7_postcss@8.4.21
+      tailwindcss: 3.2.7_aesdjsunmf4wiehhujt67my7tu
     dev: false
 
   /@testing-library/dom/8.20.0:
@@ -9866,6 +9866,7 @@ packages:
       lilconfig: 2.0.6
       postcss: 8.4.21
       yaml: 1.10.2
+    dev: true
 
   /postcss-load-config/4.0.1_aesdjsunmf4wiehhujt67my7tu:
     resolution: {integrity: sha512-vEJIc8RdiBRu3oRAI0ymerOn+7rPuMvRXslTvZUKZonDHFIczxztIyJ1urxM1x9JXEikvpWWTUUqal5j/8QgvA==}
@@ -11352,6 +11353,7 @@ packages:
       resolve: 1.22.1
     transitivePeerDependencies:
       - ts-node
+    dev: true
 
   /tapable/2.2.1:
     resolution: {integrity: sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==}

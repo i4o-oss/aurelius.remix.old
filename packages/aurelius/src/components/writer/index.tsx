@@ -74,7 +74,7 @@ function About() {
 			title={<h3 className='px-2 text-lg'>About</h3>}
 			trigger={null}
 		>
-			<div className='flex flex-col items-start gap-4 px-2 text-white'>
+			<div className='flex max-w-xl flex-col items-start gap-4 px-2 text-white'>
 				<p>
 					Aurelius was born out of a requirement for a writing app
 					that suited my needs. After trying many writing apps — code
@@ -89,6 +89,36 @@ function About() {
 					posts suited for articles, I want to support more use-cases
 					like book writing, daily journals, and more.
 				</p>
+			</div>
+		</Dialog>
+	)
+}
+
+function WritingSessionRecap() {
+	const context: AureliusProviderData = useContext(AureliusContext)
+	const { sessionData, showSessionRecapDialog, setShowSessionRecapDialog } =
+		context
+	return (
+		<Dialog
+			isOpen={showSessionRecapDialog}
+			onOpenChange={setShowSessionRecapDialog}
+			title={<h3 className='px-2 text-lg'>Writing Session Recap</h3>}
+			trigger={null}
+		>
+			<div className='grid w-[24rem] grid-cols-2 gap-2 px-2 text-white'>
+				<p className='text-left'>Session Target:</p>
+				<p className='text-right'>
+					{sessionData?.goal === 'duration'
+						? `${sessionData?.target / 60} minutes`
+						: `${sessionData?.target} words`}
+				</p>
+				<p className='text-left'># of words written:</p>
+				<p className='text-right'>
+					{sessionData?.endingWordCount -
+						sessionData?.startingWordCount}
+				</p>
+				<p className='text-left'>Session Duration:</p>
+				<p className='text-right'>{sessionData?.duration}</p>
 			</div>
 		</Dialog>
 	)
@@ -113,6 +143,8 @@ export default function Writer() {
 	const [showAboutDialog, setShowAboutDialog] = useState(false)
 	const [showNewSessionDialog, setShowNewSessionDialog] = useState(false)
 	const [showResetAlert, setShowResetAlert] = useState(false)
+	const [showSessionEndToast, setShowSessionEndToast] = useState(false)
+	const [showSessionRecapDialog, setShowSessionRecapDialog] = useState(false)
 	const [showSettingsDialog, setShowSettingsDialog] = useState(false)
 	const [title, setTitle] = useState('')
 	const [wordCount, setWordCount] = useState(0)
@@ -129,6 +161,22 @@ export default function Writer() {
 			titleRef.current.style.height = `${titleRef.current.scrollHeight}px`
 		}
 	}, [title])
+
+	useEffect(() => {
+		if (
+			sessionData &&
+			sessionData.goal === 'wordCount' &&
+			sessionData.target === wordCount
+		) {
+			setShowSessionEndToast(true)
+		}
+	}, [wordCount])
+
+	useEffect(() => {
+		if (!showSessionRecapDialog) {
+			setSessionData(null)
+		}
+	}, [showSessionRecapDialog])
 
 	useEffect(() => {
 		if (titleRef.current) {
@@ -233,7 +281,7 @@ export default function Writer() {
 	}
 
 	function startSession() {
-		setSessionData?.({
+		setSessionData({
 			goal: sessionGoal,
 			startingWordCount: wordCount,
 			target: sessionTarget,
@@ -254,17 +302,18 @@ export default function Writer() {
 			date: new Date(),
 			endingWordCount: wordCount,
 		} as WritingSession
+		setSessionData(data)
 		writeStorage(SESSION_LOCAL_STORAGE_KEY, [
 			...(JSON.parse(JSON.stringify(writingSessions)) || []),
 			data,
 		])
-		setSessionData?.(null)
 		if (sessionMusic) {
 			setIsMusicPlaying(false)
 		}
 		if (sessionFocusMode) {
 			setFocusMode(false)
 		}
+		setShowSessionRecapDialog(true)
 	}
 
 	function endWordCountSession(totalTime: number) {
@@ -275,18 +324,18 @@ export default function Writer() {
 			date: new Date(),
 			endingWordCount: wordCount,
 		} as WritingSession
+		setSessionData(data)
 		writeStorage(SESSION_LOCAL_STORAGE_KEY, [
 			...(JSON.parse(JSON.stringify(writingSessions)) || []),
 			data,
 		])
-		setSessionData?.(null)
 		if (sessionMusic) {
 			setIsMusicPlaying(false)
 		}
 		if (sessionFocusMode) {
 			setFocusMode(false)
 		}
-		// onEndSessionModalOpen();
+		setShowSessionRecapDialog(true)
 	}
 
 	let SessionComponent: ReactNode
@@ -345,6 +394,10 @@ export default function Writer() {
 				setShowNewSessionDialog,
 				showResetAlert,
 				setShowResetAlert,
+				showSessionEndToast,
+				setShowSessionEndToast,
+				showSessionRecapDialog,
+				setShowSessionRecapDialog,
 				showSettingsDialog,
 				setShowSettingsDialog,
 				title,
@@ -398,6 +451,7 @@ export default function Writer() {
 				<NewSession startSession={startSession} />
 			) : null}
 			{showSettingsDialog ? <Settings /> : null}
+			{showSessionRecapDialog ? <WritingSessionRecap /> : null}
 		</AureliusProvider>
 	)
 }
