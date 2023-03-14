@@ -1,10 +1,11 @@
 // TODO: Move this component to web package?
 //
-import type { Dispatch, FormEvent, SetStateAction } from 'react'
+import { FormEvent, useContext } from 'react'
 import { useState } from 'react'
 import { Dialog, PrimaryButton, Tabs, ToggleGroup } from '@i4o/catalystui'
 import useLocalStorage, { writeStorage } from '@rehooks/local-storage'
 import { SETTINGS_LOCAL_STORAGE_KEY } from '../../constants'
+import { AureliusContext, AureliusProviderData } from './provider'
 
 interface GoalSettings {
 	streakGoal: string
@@ -20,13 +21,9 @@ interface Settings {
 	music?: MusicSettings
 }
 
-export default function Settings({
-	showSettingsDialog,
-	setShowSettingsDialog,
-}: {
-	showSettingsDialog: boolean
-	setShowSettingsDialog: Dispatch<SetStateAction<boolean>>
-}) {
+export default function Settings() {
+	const context: AureliusProviderData = useContext(AureliusContext)
+	const { showSettingsDialog, setShowSettingsDialog } = context
 	const [settings] = useLocalStorage<string>(SETTINGS_LOCAL_STORAGE_KEY)
 	const savedStreakGoal = (JSON.parse(JSON.stringify(settings)) as Settings)
 		?.goals?.streakGoal
@@ -54,7 +51,6 @@ export default function Settings({
 				wordCountGoal: Number(wordCountGoal),
 			},
 		}
-		console.log(data)
 		writeStorage(SETTINGS_LOCAL_STORAGE_KEY, data)
 	}
 
@@ -66,7 +62,6 @@ export default function Settings({
 				youtubeVideo,
 			},
 		}
-		console.log(data)
 		writeStorage(SETTINGS_LOCAL_STORAGE_KEY, data)
 	}
 

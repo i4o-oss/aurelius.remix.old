@@ -9,21 +9,8 @@ export interface FloatingMenuProps {
 	fileUploadInputRef: any
 }
 
-export interface FooterProps {
-	focusMode: boolean
-	isSaving?: boolean
-	wordCount: number
-}
-
 export interface EditorToolbarProps {
 	editor: Editor | null
-}
-
-export interface TipTapProps {
-	editor: Editor | null
-	setContent: Dispatch<SetStateAction<string>>
-	setTitle: Dispatch<SetStateAction<string>>
-	setWordCount: Dispatch<SetStateAction<number>>
 }
 
 export interface WriterProps {
@@ -35,4 +22,15 @@ export interface WriterProps {
 	setTitle: Dispatch<SetStateAction<string>>
 	wordCount: number
 	setWordCount: Dispatch<SetStateAction<number>>
+}
+
+export type WritingSessionGoal = 'duration' | 'wordCount'
+
+export interface WritingSession {
+	goal: WritingSessionGoal
+	target: number
+	result?: number
+	duration?: number
+	startingWordCount: number
+	endingWordCount?: number
 }
