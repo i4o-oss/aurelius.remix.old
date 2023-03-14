@@ -114,11 +114,18 @@ function WritingSessionRecap() {
 				</p>
 				<p className='text-left'># of words written:</p>
 				<p className='text-right'>
-					{sessionData?.endingWordCount -
-						sessionData?.startingWordCount}
+					{`${
+						// @ts-ignore
+						sessionData?.endingWordCount -
+						// @ts-ignore
+						sessionData?.startingWordCount
+					}`}
 				</p>
 				<p className='text-left'>Session Duration:</p>
-				<p className='text-right'>{sessionData?.duration}</p>
+				<p className='text-right'>{`${
+					// @ts-ignore
+					Math.floor(sessionData?.duration / 60)
+				} minutes`}</p>
 			</div>
 		</Dialog>
 	)
