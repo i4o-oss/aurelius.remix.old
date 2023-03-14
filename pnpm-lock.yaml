@@ -135,7 +135,7 @@ importers:
       '@aurelius/eslint-config': workspace:*
       '@aurelius/tsconfig': workspace:*
       '@headlessui/react': ^1.7.12
-      '@i4o/catalystui': 0.7.13
+      '@i4o/catalystui': 0.7.18
       '@radix-ui/react-icons': ^1.2.0
       '@rehooks/local-storage': ^2.4.4
       '@remix-run/dev': 1.14.0
@@ -144,6 +144,7 @@ importers:
       '@tailwindcss/typography': ^0.5.9
       '@tiptap/core': 2.0.0-beta.220
       '@tiptap/extension-bubble-menu': 2.0.0-beta.220
+      '@tiptap/extension-code-block': 2.0.0-beta.220
       '@tiptap/extension-code-block-lowlight': 2.0.0-beta.220
       '@tiptap/extension-floating-menu': 2.0.0-beta.220
       '@tiptap/extension-heading': 2.0.0-beta.220
@@ -182,13 +183,14 @@ importers:
       react-autosave: ^0.4.2
       react-dom: ^18.2.0
       react-player: ^2.11.2
+      react-timer-hook: ^3.0.5
       tailwindcss: ^3.2.7
       tsup: ^6.6.3
       turndown: ^7.1.1
       typescript: ^4.9.5
     dependencies:
       '@headlessui/react': 1.7.12_biqbaboplfbrettd7655fr4n2y
-      '@i4o/catalystui': 0.7.13_zula6vjvt3wdocc4mwcxqa6nzi
+      '@i4o/catalystui': 0.7.18_zula6vjvt3wdocc4mwcxqa6nzi
       '@radix-ui/react-icons': 1.2.0_react@18.2.0
       '@rehooks/local-storage': 2.4.4_react@18.2.0
       '@remix-run/dev': 1.14.0
@@ -197,7 +199,8 @@ importers:
       '@tailwindcss/typography': 0.5.9_tailwindcss@3.2.7
       '@tiptap/core': 2.0.0-beta.220_@tiptap+pm@2.0.0-beta.220
       '@tiptap/extension-bubble-menu': 2.0.0-beta.220_ohumfzynigfck3hzagxvh2a4ky
-      '@tiptap/extension-code-block-lowlight': 2.0.0-beta.220_ohumfzynigfck3hzagxvh2a4ky
+      '@tiptap/extension-code-block': 2.0.0-beta.220_ohumfzynigfck3hzagxvh2a4ky
+      '@tiptap/extension-code-block-lowlight': 2.0.0-beta.220_ddzafjrquu7yfqymdbmfpxfje4
       '@tiptap/extension-floating-menu': 2.0.0-beta.220_ohumfzynigfck3hzagxvh2a4ky
       '@tiptap/extension-heading': 2.0.0-beta.220_7w7m52asdh3tod4ocz57yex63q
       '@tiptap/extension-image': 2.0.0-beta.220_7w7m52asdh3tod4ocz57yex63q
@@ -227,6 +230,7 @@ importers:
       prosemirror-view: 1.30.1
       react-autosave: 0.4.2_biqbaboplfbrettd7655fr4n2y
       react-player: 2.11.2_react@18.2.0
+      react-timer-hook: 3.0.5_biqbaboplfbrettd7655fr4n2y
       turndown: 7.1.1
     devDependencies:
       '@aurelius/eslint-config': link:../eslint-config
@@ -2866,8 +2870,8 @@ packages:
   /@humanwhocodes/object-schema/1.2.1:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
 
-  /@i4o/catalystui/0.7.13_zula6vjvt3wdocc4mwcxqa6nzi:
-    resolution: {integrity: sha512-V5DLmMBXU3SczNSC6wQZc6iKrQnDcZP/8kf4uobJNGLpS2klndvR5PeDiosI2cgSILRW9OPk1vcpjwl38YMMew==}
+  /@i4o/catalystui/0.7.18_zula6vjvt3wdocc4mwcxqa6nzi:
+    resolution: {integrity: sha512-UIeb0uhbg+7EqsUVaL+a04n94MABxN4q8er3TfEWIuHN+5R9+U5BSI2sDDVfri53qatBtdDuZBR06f802Lp8VA==}
     peerDependencies:
       react: ^18.2.0
       react-dom: ^18.2.0
@@ -4616,7 +4620,7 @@ packages:
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       postcss-selector-parser: 6.0.10
-      tailwindcss: 3.2.7_postcss@8.4.21
+      tailwindcss: 3.2.7_aesdjsunmf4wiehhujt67my7tu
     dev: false
 
   /@testing-library/dom/8.20.0:
@@ -4677,7 +4681,7 @@ packages:
       '@tiptap/core': 2.0.0-beta.220_@tiptap+pm@2.0.0-beta.220
     dev: false
 
-  /@tiptap/extension-code-block-lowlight/2.0.0-beta.220_ohumfzynigfck3hzagxvh2a4ky:
+  /@tiptap/extension-code-block-lowlight/2.0.0-beta.220_ddzafjrquu7yfqymdbmfpxfje4:
     resolution: {integrity: sha512-xMwbl5O50yaIGYQF3yrBM7Ft0JYejkuEo161jRElYG+PYvUCvbf2wB5oLNtRknj00WOM01kPXH2xMTuk8fTOPg==}
     peerDependencies:
       '@tiptap/core': ^2.0.0-beta.209
@@ -4685,6 +4689,7 @@ packages:
       '@tiptap/pm': ^2.0.0-beta.209
     dependencies:
       '@tiptap/core': 2.0.0-beta.220_@tiptap+pm@2.0.0-beta.220
+      '@tiptap/extension-code-block': 2.0.0-beta.220_ohumfzynigfck3hzagxvh2a4ky
       '@tiptap/pm': 2.0.0-beta.220_7w7m52asdh3tod4ocz57yex63q
     dev: false
 
@@ -9861,6 +9866,7 @@ packages:
       lilconfig: 2.0.6
       postcss: 8.4.21
       yaml: 1.10.2
+    dev: true
 
   /postcss-load-config/4.0.1_aesdjsunmf4wiehhujt67my7tu:
     resolution: {integrity: sha512-vEJIc8RdiBRu3oRAI0ymerOn+7rPuMvRXslTvZUKZonDHFIczxztIyJ1urxM1x9JXEikvpWWTUUqal5j/8QgvA==}
@@ -10581,6 +10587,16 @@ packages:
       invariant: 2.2.4
       react: 18.2.0
       tslib: 2.5.0
+    dev: false
+
+  /react-timer-hook/3.0.5_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-n+98SdmYvui2ne3KyWb3Ldu4k0NYQa3g/VzW6VEIfZJ8GAk/jJsIY700M8Nd2vNSTj05c7wKyQfJBqZ0x7zfiA==}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
     dev: false
 
   /react/18.2.0:
@@ -11337,6 +11353,7 @@ packages:
       resolve: 1.22.1
     transitivePeerDependencies:
       - ts-node
+    dev: true
 
   /tapable/2.2.1:
     resolution: {integrity: sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==}

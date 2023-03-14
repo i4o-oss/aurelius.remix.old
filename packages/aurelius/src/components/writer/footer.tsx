@@ -1,18 +1,24 @@
 import type { ReactPlayerProps } from 'react-player/types/lib'
-import type { FooterProps } from '../../types'
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
 import { default as _ReactPlayer } from 'react-player/youtube'
 import { PlayIcon, PauseIcon } from '@radix-ui/react-icons'
 import { Button } from '@i4o/catalystui'
 import { MUSIC_STATIONS, SETTINGS_LOCAL_STORAGE_KEY } from '../../constants'
 import useLocalStorage from '@rehooks/local-storage'
+import { AureliusContext, AureliusProviderData } from './provider'
 
 // fixes react-player typescript issue
 const ReactPlayer = _ReactPlayer as unknown as React.FC<ReactPlayerProps>
 
-export default function Footer(props: FooterProps) {
-	const { focusMode, isSaving, wordCount } = props
-	const [isMusicPlaying, setIsMusicPlaying] = useState(false)
+export default function Footer() {
+	const context: AureliusProviderData = useContext(AureliusContext)
+	const {
+		focusMode,
+		isMusicPlaying,
+		setIsMusicPlaying,
+		isSaving,
+		wordCount,
+	} = context
 	const [settings] = useLocalStorage(SETTINGS_LOCAL_STORAGE_KEY)
 	const youtubeVideo = JSON.parse(JSON.stringify(settings))?.music
 		?.youtubeVideo
@@ -62,7 +68,7 @@ export default function Footer(props: FooterProps) {
 					<Button
 						bg='bg-transparent hover:bg-gray-900'
 						className='flex h-8 w-8 items-center justify-center'
-						onClick={() => setIsMusicPlaying(false)}
+						onClick={() => setIsMusicPlaying?.(false)}
 						padding='px-0 py-4'
 					>
 						<PauseIcon className='h-4 w-4 text-white' />
@@ -71,7 +77,7 @@ export default function Footer(props: FooterProps) {
 					<Button
 						bg='bg-transparent hover:bg-gray-900'
 						className='flex h-8 w-8 items-center justify-center'
-						onClick={() => setIsMusicPlaying(true)}
+						onClick={() => setIsMusicPlaying?.(true)}
 						padding='px-0 py-4'
 					>
 						<PlayIcon className='h-4 w-4 text-white' />

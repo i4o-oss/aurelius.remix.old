@@ -115,3 +115,7 @@ export async function getOembedDataFromScraper(url: string) {
 		return null
 	}
 }
+
+export function padZeroes(n: number, z = 2) {
+	return ('00' + n).slice(-z)
+}

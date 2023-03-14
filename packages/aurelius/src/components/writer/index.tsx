@@ -1,7 +1,7 @@
 import {
-	Dispatch,
-	SetStateAction,
+	ReactNode,
 	useCallback,
+	useContext,
 	useEffect,
 	useRef,
 	useState,
@@ -20,30 +20,38 @@ import Youtube from '@tiptap/extension-youtube'
 // import VisualBookmark from '../extensions/visual-bookmark'
 import { Alert, Button, Dialog, PrimaryButton } from '@i4o/catalystui'
 import { Autosave } from 'react-autosave'
-import { deleteFromStorage, writeStorage } from '@rehooks/local-storage'
+import useLocalStorage, {
+	deleteFromStorage,
+	writeStorage,
+} from '@rehooks/local-storage'
 import TipTap from './tiptap'
 import WriterFooter from './footer'
 import MainMenu from './main-menu'
-import { POST_LOCAL_STORAGE_KEY } from '../../constants'
+import {
+	POST_LOCAL_STORAGE_KEY,
+	SESSION_LOCAL_STORAGE_KEY,
+} from '../../constants'
 import NewSession from './new-session'
 import Settings from './settings'
 import { downloadAsMarkdown } from '../../helpers'
+import AureliusProvider, {
+	AureliusContext,
+	AureliusProviderData,
+} from './provider'
+import { WritingSession, WritingSessionGoal } from '../../types'
+import Timer from './timer'
 
-function Reset({
-	showResetAlert,
-	setShowResetAlert,
-	confirmResetEditor,
-}: {
-	showResetAlert: boolean
-	setShowResetAlert: Dispatch<SetStateAction<boolean>>
-	confirmResetEditor: () => void
-}) {
+function Reset({ confirmResetEditor }: { confirmResetEditor: () => void }) {
+	const context: AureliusProviderData = useContext(AureliusContext)
+	const { showResetAlert, setShowResetAlert } = context
 	return (
 		<Alert
 			isOpen={showResetAlert}
 			onOpenChange={setShowResetAlert}
 			cancel={
-				<Button onClick={() => setShowResetAlert(false)}>Cancel</Button>
+				<Button onClick={() => setShowResetAlert?.(false)}>
+					Cancel
+				</Button>
 			}
 			action={
 				<PrimaryButton onClick={confirmResetEditor}>
@@ -56,13 +64,9 @@ function Reset({
 	)
 }
 
-function About({
-	showAboutDialog,
-	setShowAboutDialog,
-}: {
-	showAboutDialog: boolean
-	setShowAboutDialog: Dispatch<SetStateAction<boolean>>
-}) {
+function About() {
+	const context: AureliusProviderData = useContext(AureliusContext)
+	const { showAboutDialog, setShowAboutDialog } = context
 	return (
 		<Dialog
 			isOpen={showAboutDialog}
@@ -70,7 +74,7 @@ function About({
 			title={<h3 className='px-2 text-lg'>About</h3>}
 			trigger={null}
 		>
-			<div className='flex flex-col items-start gap-4 px-2 text-white'>
+			<div className='flex max-w-xl flex-col items-start gap-4 px-2 text-white'>
 				<p>
 					Aurelius was born out of a requirement for a writing app
 					that suited my needs. After trying many writing apps — code
@@ -90,14 +94,64 @@ function About({
 	)
 }
 
+function WritingSessionRecap() {
+	const context: AureliusProviderData = useContext(AureliusContext)
+	const { sessionData, showSessionRecapDialog, setShowSessionRecapDialog } =
+		context
+	return (
+		<Dialog
+			isOpen={showSessionRecapDialog}
+			onOpenChange={setShowSessionRecapDialog}
+			title={<h3 className='px-2 text-lg'>Writing Session Recap</h3>}
+			trigger={null}
+		>
+			<div className='grid w-[24rem] grid-cols-2 gap-2 px-2 text-white'>
+				<p className='text-left'>Session Target:</p>
+				<p className='text-right'>
+					{sessionData?.goal === 'duration'
+						? `${sessionData?.target / 60} minutes`
+						: `${sessionData?.target} words`}
+				</p>
+				<p className='text-left'># of words written:</p>
+				<p className='text-right'>
+					{`${
+						// @ts-ignore
+						sessionData?.endingWordCount -
+						// @ts-ignore
+						sessionData?.startingWordCount
+					}`}
+				</p>
+				<p className='text-left'>Session Duration:</p>
+				<p className='text-right'>{`${
+					// @ts-ignore
+					Math.floor(sessionData?.duration / 60)
+				} minutes`}</p>
+			</div>
+		</Dialog>
+	)
+}
+
 export default function Writer() {
+	const [writingSessions] = useLocalStorage<WritingSession[]>(
+		SESSION_LOCAL_STORAGE_KEY
+	)
 	const titleRef = useRef<HTMLTextAreaElement>(null)
 	const [content, setContent] = useState('')
 	const [focusMode, setFocusMode] = useState(false)
+	const [isMusicPlaying, setIsMusicPlaying] = useState(false)
 	const [isSaving, setIsSaving] = useState(false)
+	const [notifyOnSessionEnd, setNotifyOnSessionEnd] = useState(true)
+	const [sessionData, setSessionData] = useState<WritingSession | null>(null)
+	const [sessionGoal, setSessionGoal] =
+		useState<WritingSessionGoal>('duration')
+	const [sessionTarget, setSessionTarget] = useState<number>(0)
+	const [sessionFocusMode, setSessionFocusMode] = useState(true)
+	const [sessionMusic, setSessionMusic] = useState(true)
 	const [showAboutDialog, setShowAboutDialog] = useState(false)
 	const [showNewSessionDialog, setShowNewSessionDialog] = useState(false)
 	const [showResetAlert, setShowResetAlert] = useState(false)
+	const [showSessionEndToast, setShowSessionEndToast] = useState(false)
+	const [showSessionRecapDialog, setShowSessionRecapDialog] = useState(false)
 	const [showSettingsDialog, setShowSettingsDialog] = useState(false)
 	const [title, setTitle] = useState('')
 	const [wordCount, setWordCount] = useState(0)
@@ -114,6 +168,22 @@ export default function Writer() {
 			titleRef.current.style.height = `${titleRef.current.scrollHeight}px`
 		}
 	}, [title])
+
+	useEffect(() => {
+		if (
+			sessionData &&
+			sessionData.goal === 'wordCount' &&
+			sessionData.target === wordCount
+		) {
+			setShowSessionEndToast(true)
+		}
+	}, [wordCount])
+
+	useEffect(() => {
+		if (!showSessionRecapDialog) {
+			setSessionData(null)
+		}
+	}, [showSessionRecapDialog])
 
 	useEffect(() => {
 		if (titleRef.current) {
@@ -159,7 +229,7 @@ export default function Writer() {
 			// @ts-ignore
 			StarterKit.configure({
 				heading: {
-					levels: [2, 3],
+					levels: [2, 3, 4, 5, 6],
 				},
 			}),
 		],
@@ -217,8 +287,132 @@ export default function Writer() {
 		}
 	}
 
+	function startSession() {
+		setSessionData({
+			goal: sessionGoal,
+			startingWordCount: wordCount,
+			target: sessionTarget,
+		})
+		if (sessionMusic) {
+			setIsMusicPlaying(true)
+		}
+		if (sessionFocusMode) {
+			setFocusMode(true)
+		}
+	}
+
+	function endTimedSession(totalTime: number) {
+		const data = {
+			...sessionData,
+			result: totalTime,
+			duration: totalTime,
+			date: new Date(),
+			endingWordCount: wordCount,
+		} as WritingSession
+		setSessionData(data)
+		writeStorage(SESSION_LOCAL_STORAGE_KEY, [
+			...(JSON.parse(JSON.stringify(writingSessions)) || []),
+			data,
+		])
+		if (sessionMusic) {
+			setIsMusicPlaying(false)
+		}
+		if (sessionFocusMode) {
+			setFocusMode(false)
+		}
+		setShowSessionRecapDialog(true)
+	}
+
+	function endWordCountSession(totalTime: number) {
+		const data = {
+			...sessionData,
+			result: wordCount - (sessionData?.startingWordCount || 0),
+			duration: totalTime,
+			date: new Date(),
+			endingWordCount: wordCount,
+		} as WritingSession
+		setSessionData(data)
+		writeStorage(SESSION_LOCAL_STORAGE_KEY, [
+			...(JSON.parse(JSON.stringify(writingSessions)) || []),
+			data,
+		])
+		if (sessionMusic) {
+			setIsMusicPlaying(false)
+		}
+		if (sessionFocusMode) {
+			setFocusMode(false)
+		}
+		setShowSessionRecapDialog(true)
+	}
+
+	let SessionComponent: ReactNode
+	if (sessionData && sessionData.goal === 'duration') {
+		const time = new Date()
+		time.setSeconds(time.getSeconds() + sessionTarget)
+
+		SessionComponent = (
+			<Timer
+				endTimedSession={endTimedSession}
+				expiry={time}
+				target={sessionTarget}
+			/>
+		)
+	} else if (sessionData && sessionData.goal === 'wordCount') {
+		const time = new Date()
+		// setting a default expiry of 1 hour so I can calculate the duration of the session
+		// even if the goal is word count
+		time.setSeconds(time.getSeconds() + 3600)
+		SessionComponent = (
+			<Timer
+				endWordCountSession={endWordCountSession}
+				expiry={time}
+				target={3600}
+			/>
+		)
+	}
+
 	return (
-		<>
+		<AureliusProvider
+			data={{
+				content,
+				setContent,
+				editor,
+				focusMode,
+				setFocusMode,
+				isMusicPlaying,
+				setIsMusicPlaying,
+				isSaving,
+				setIsSaving,
+				notifyOnSessionEnd,
+				setNotifyOnSessionEnd,
+				sessionData,
+				setSessionData,
+				sessionFocusMode,
+				setSessionFocusMode,
+				sessionGoal,
+				setSessionGoal,
+				sessionMusic,
+				setSessionMusic,
+				sessionTarget,
+				setSessionTarget,
+				showAboutDialog,
+				setShowAboutDialog,
+				showNewSessionDialog,
+				setShowNewSessionDialog,
+				showResetAlert,
+				setShowResetAlert,
+				showSessionEndToast,
+				setShowSessionEndToast,
+				showSessionRecapDialog,
+				setShowSessionRecapDialog,
+				showSettingsDialog,
+				setShowSettingsDialog,
+				title,
+				setTitle,
+				wordCount,
+				setWordCount,
+			}}
+		>
 			<main className='flex h-full w-full flex-col items-center justify-start'>
 				<Autosave
 					data={autoSaveData}
@@ -226,26 +420,22 @@ export default function Writer() {
 					onSave={autoSavePost}
 				/>
 				<div
-					className={`absolute top-4 left-4 transition-all duration-200 hover:opacity-100 ${
+					className={`absolute top-4 left-4 flex items-center gap-4 transition-all duration-200 hover:opacity-100 ${
 						focusMode ? 'opacity-5' : 'opacity-100'
 					}`}
 				>
 					<MainMenu
 						downloadFile={downloadFile}
-						focusMode={focusMode}
 						onResetEditorClick={onResetEditorClick}
-						setFocusMode={setFocusMode}
-						setShowAboutDialog={setShowAboutDialog}
-						setShowNewSessionDialog={setShowNewSessionDialog}
-						setShowSettingsDialog={setShowSettingsDialog}
 					/>
+					{SessionComponent}
 				</div>
 				<section className='flex h-full w-full flex-grow flex-col items-center justify-start'>
 					<div className='flex h-full w-full flex-col items-center justify-start space-y-4 py-16'>
 						<div className='w-full max-w-3xl'>
 							<textarea
 								autoFocus
-								className='w-full resize-none bg-transparent text-5xl font-semibold leading-snug text-white focus:outline-none'
+								className='min-h-[6rem] w-full resize-none bg-transparent text-5xl font-semibold leading-snug text-white focus:outline-none'
 								onChange={(e) => setTitle(e.target.value)}
 								placeholder='Title'
 								ref={titleRef}
@@ -253,47 +443,22 @@ export default function Writer() {
 								value={title}
 							/>
 						</div>
-						<TipTap
-							editor={editor}
-							setContent={setContent}
-							setTitle={setTitle}
-							setWordCount={setWordCount}
-						/>
+						<TipTap />
 					</div>
 				</section>
 
-				<WriterFooter
-					focusMode={focusMode}
-					isSaving={isSaving}
-					wordCount={wordCount}
-				/>
+				<WriterFooter />
 			</main>
 
 			{showResetAlert ? (
-				<Reset
-					showResetAlert={showResetAlert}
-					setShowResetAlert={setShowResetAlert}
-					confirmResetEditor={confirmResetEditor}
-				/>
+				<Reset confirmResetEditor={confirmResetEditor} />
 			) : null}
-			{showAboutDialog ? (
-				<About
-					showAboutDialog={showAboutDialog}
-					setShowAboutDialog={setShowAboutDialog}
-				/>
-			) : null}
+			{showAboutDialog ? <About /> : null}
 			{showNewSessionDialog ? (
-				<NewSession
-					showNewSessionDialog={showNewSessionDialog}
-					setShowNewSessionDialog={setShowNewSessionDialog}
-				/>
+				<NewSession startSession={startSession} />
 			) : null}
-			{showSettingsDialog ? (
-				<Settings
-					showSettingsDialog={showSettingsDialog}
-					setShowSettingsDialog={setShowSettingsDialog}
-				/>
-			) : null}
-		</>
+			{showSettingsDialog ? <Settings /> : null}
+			{showSessionRecapDialog ? <WritingSessionRecap /> : null}
+		</AureliusProvider>
 	)
 }

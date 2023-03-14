@@ -1,4 +1,4 @@
-import type { Dispatch, SetStateAction } from 'react'
+import { useContext } from 'react'
 import { Dropdown, IconButton } from '@i4o/catalystui'
 import {
 	Crosshair2Icon,
@@ -16,18 +16,23 @@ import {
 	TrashIcon,
 	TwitterLogoIcon,
 } from '@radix-ui/react-icons'
+import { AureliusContext, AureliusProviderData } from './provider'
 
 interface MainMenuProps {
 	downloadFile: () => void
-	focusMode: boolean
 	onResetEditorClick: (state: boolean) => void
-	setFocusMode: Dispatch<SetStateAction<boolean>>
-	setShowAboutDialog: Dispatch<SetStateAction<boolean>>
-	setShowNewSessionDialog: Dispatch<SetStateAction<boolean>>
-	setShowSettingsDialog: Dispatch<SetStateAction<boolean>>
 }
 
 export default function MainMenu(props: MainMenuProps) {
+	const context = useContext(AureliusContext)
+	const {
+		focusMode,
+		setFocusMode,
+		setShowAboutDialog,
+		setShowNewSessionDialog,
+		setShowSettingsDialog,
+	}: AureliusProviderData = context
+
 	const dropdownItems = [
 		{
 			label: 'New',
@@ -43,7 +48,7 @@ export default function MainMenu(props: MainMenuProps) {
 					label: 'Writing Session',
 					icon: <Pencil1Icon />,
 					shortcut: 'Ctrl + N',
-					onSelect: () => props.setShowNewSessionDialog(true),
+					onSelect: () => setShowNewSessionDialog?.(true),
 				},
 			],
 			type: 'submenu',
@@ -113,7 +118,7 @@ export default function MainMenu(props: MainMenuProps) {
 		{
 			label: 'Focus Mode',
 			icon: <Crosshair2Icon />,
-			onSelect: () => props.setFocusMode(!props.focusMode),
+			onSelect: () => setFocusMode?.(!focusMode),
 		},
 		{
 			label: 'Reset Editor',
@@ -123,7 +128,7 @@ export default function MainMenu(props: MainMenuProps) {
 		{
 			label: 'Settings',
 			icon: <MixerHorizontalIcon />,
-			onSelect: () => props.setShowSettingsDialog(true),
+			onSelect: () => setShowSettingsDialog?.(true),
 		},
 		{
 			label: 'Help',
@@ -150,15 +155,21 @@ export default function MainMenu(props: MainMenuProps) {
 		{
 			label: 'About',
 			icon: <InfoCircledIcon />,
-			onSelect: () => props.setShowAboutDialog(true),
+			onSelect: () => setShowAboutDialog?.(true),
 		},
 	]
 
 	return (
 		<Dropdown
 			align='start'
+			// @ts-ignore
 			items={dropdownItems}
-			trigger={<IconButton icon={<HamburgerMenuIcon />} />}
+			trigger={
+				<IconButton
+					className='h-10 w-10'
+					icon={<HamburgerMenuIcon />}
+				/>
+			}
 		/>
 	)
 }
