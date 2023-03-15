@@ -71,7 +71,7 @@ export default function Timer({
 
 	return (
 		<>
-			<div className='flex h-10 items-center gap-2 divide-x divide-gray-500 rounded-lg bg-gray-900 p-2 text-white'>
+			<div className='flex h-10 items-center gap-2 divide-x divide-gray-500 rounded-lg bg-gray-100 p-2 text-black dark:bg-gray-900 dark:text-white'>
 				{sessionData?.goal === 'duration' ? (
 					<div className='flex items-center gap-0.5 px-2 text-sm'>
 						<span>{isRunning ? '' : '+ '}</span>
@@ -102,8 +102,10 @@ export default function Timer({
 				<div className='flex items-center gap-1 px-2'>
 					{isRunning || isStRunning ? (
 						<IconButton
-							bg='!bg-transparent'
-							icon={<PauseIcon />}
+							bg='!bg-transparent hover:!bg-slate-300 hover:dark:!bg-slate-700'
+							icon={
+								<PauseIcon className='h-4 w-4 text-slate-800 dark:text-slate-100' />
+							}
 							onClick={() => {
 								if (isRunning) {
 									pause()
@@ -115,8 +117,10 @@ export default function Timer({
 						/>
 					) : (
 						<IconButton
-							bg='!bg-transparent'
-							icon={<PlayIcon />}
+							bg='!bg-transparent hover:!bg-slate-300 hover:dark:!bg-slate-700'
+							icon={
+								<PlayIcon className='h-4 w-4 text-slate-800 dark:text-slate-100' />
+							}
 							onClick={() => {
 								if (isRunning) {
 									resume()
@@ -128,8 +132,10 @@ export default function Timer({
 						/>
 					)}
 					<IconButton
-						bg='!bg-transparent'
-						icon={<StopIcon />}
+						bg='!bg-transparent hover:!bg-slate-300 hover:dark:!bg-slate-700'
+						icon={
+							<StopIcon className='h-4 w-4 text-slate-800 dark:text-slate-100' />
+						}
 						onClick={stopTimers}
 						padding='p-1'
 					/>

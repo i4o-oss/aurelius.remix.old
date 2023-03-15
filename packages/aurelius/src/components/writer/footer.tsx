@@ -32,7 +32,7 @@ export default function Footer() {
 					focusMode ? 'opacity-5' : 'opacity-100'
 				}`}
 			>
-				<span className='text-sm text-gray-500'>{`${wordCount} words`}</span>
+				<span className='text-sm text-slate-500 dark:text-slate-600'>{`${wordCount} words`}</span>
 				{isSaving && (
 					<div className='flex items-center justify-center px-4'>
 						<svg
@@ -55,7 +55,9 @@ export default function Footer() {
 								d='M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z'
 							/>
 						</svg>
-						<span className='text-sm text-gray-500'>Saving...</span>
+						<span className='text-sm text-slate-500 dark:text-slate-600'>
+							Saving...
+						</span>
 					</div>
 				)}
 			</div>
@@ -66,21 +68,21 @@ export default function Footer() {
 			>
 				{isMusicPlaying ? (
 					<Button
-						bg='bg-transparent hover:bg-gray-900'
+						bg='bg-transparent hover:!bg-slate-300 hover:dark:!bg-slate-700'
 						className='flex h-8 w-8 items-center justify-center'
 						onClick={() => setIsMusicPlaying?.(false)}
 						padding='px-0 py-4'
 					>
-						<PauseIcon className='h-4 w-4 text-white' />
+						<PauseIcon className='h-4 w-4 text-slate-800 dark:text-slate-100' />
 					</Button>
 				) : (
 					<Button
-						bg='bg-transparent hover:bg-gray-900'
+						bg='bg-transparent hover:!bg-slate-300 hover:dark:!bg-slate-700'
 						className='flex h-8 w-8 items-center justify-center'
 						onClick={() => setIsMusicPlaying?.(true)}
 						padding='px-0 py-4'
 					>
-						<PlayIcon className='h-4 w-4 text-white' />
+						<PlayIcon className='h-4 w-4 text-slate-800 dark:text-slate-100' />
 					</Button>
 				)}
 				<ReactPlayer

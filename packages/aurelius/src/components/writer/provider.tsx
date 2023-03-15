@@ -1,7 +1,7 @@
 import type { Editor } from '@tiptap/react'
 import type { Dispatch, ReactNode, SetStateAction } from 'react'
 import { createContext } from 'react'
-import { WritingSession, WritingSessionGoal } from '../../types'
+import { Theme, WritingSession, WritingSessionGoal } from '../../types'
 
 export const AureliusContext = createContext({})
 
@@ -39,6 +39,8 @@ export interface AureliusProviderData {
 	setShowSessionRecapDialog?: Dispatch<SetStateAction<boolean>>
 	showSettingsDialog?: boolean
 	setShowSettingsDialog?: Dispatch<SetStateAction<boolean>>
+	theme?: Theme
+	toggleTheme?: () => void
 	title?: string
 	setTitle?: Dispatch<SetStateAction<string>>
 	wordCount?: number

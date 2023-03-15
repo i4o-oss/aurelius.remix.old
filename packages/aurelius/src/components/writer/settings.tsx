@@ -1,4 +1,5 @@
 // TODO: Move this component to web package?
+// TODO: Tabs light and dark mode styles are messed up. Fix them in catalyst ui.
 //
 import { FormEvent, useContext } from 'react'
 import { useState } from 'react'
@@ -84,7 +85,7 @@ export default function Settings() {
 									onSubmit={saveGoalSettings}
 								>
 									<div className='[&_button[role="radio"]]:nth-child(2):border-b [&_div[role="group"]]:divide flex w-full flex-col items-start justify-center gap-2 text-white [&_button[role="radio"]]:col-span-1 [&_button[role="radio"]]:rounded-none [&_div[role="group"]]:grid [&_div[role="group"]]:w-full [&_div[role="group"]]:grid-cols-1 [&_div[role="group"]]:overflow-hidden [&_div[role="group"]]:rounded-lg'>
-										<label className='text-sm font-medium text-white'>
+										<label className='text-sm font-medium text-black dark:text-white'>
 											Streak
 										</label>
 										<ToggleGroup
@@ -144,11 +145,11 @@ export default function Settings() {
 										/>
 									</div>
 									<div className='flex w-full flex-col items-start justify-center gap-2'>
-										<label className='text-sm font-medium text-white'>
+										<label className='text-sm font-medium text-black dark:text-white'>
 											Word Count / Day
 										</label>
 										<input
-											className='h-10 w-full rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-white'
+											className='h-10 w-full rounded-md bg-gray-100 px-4 py-2 text-sm font-medium text-black dark:bg-gray-900 dark:text-white'
 											defaultValue={wordCountGoal}
 											name='wordCount'
 											onChange={(e) =>
@@ -176,11 +177,11 @@ export default function Settings() {
 									onSubmit={saveMusicSettings}
 								>
 									<div className='flex w-full flex-col items-start justify-center gap-2'>
-										<label className='text-sm font-medium text-white'>
+										<label className='text-sm font-medium text-black dark:text-white'>
 											Youtube Video/Playlist
 										</label>
 										<input
-											className='h-10 w-full rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-white'
+											className='h-10 w-full rounded-md bg-gray-100 px-4 py-2 text-sm font-medium text-black dark:bg-gray-900 dark:text-white'
 											defaultValue={youtubeVideo}
 											name='yt'
 											onChange={(e) =>

@@ -64,13 +64,16 @@ export default function NewSession({
 				</PrimaryButton>
 			}
 			cancel={
-				<Button onClick={() => setShowNewSessionDialog?.(false)}>
+				<Button
+					bg='!bg-slate-400 dark:!bg-slate-800 hover:!bg-slate-300 hover:dark:!bg-slate-700'
+					onClick={() => setShowNewSessionDialog?.(false)}
+				>
 					<span className='text-sm'>Cancel</span>
 				</Button>
 			}
 		>
 			<div className='mt-4 w-96 px-2'>
-				<div className='grid w-full grid-cols-5 gap-4 text-white'>
+				<div className='grid w-full grid-cols-5 gap-4 text-black dark:text-white'>
 					<label
 						htmlFor='session_goal'
 						className='col-span-3 text-sm'
@@ -92,7 +95,7 @@ export default function NewSession({
 					</label>
 					<div className='col-span-2 flex items-center justify-start space-x-2'>
 						<input
-							className='h-8 w-16 rounded-md border border-white bg-transparent px-2 py-1 text-sm'
+							className='h-8 w-16 rounded-md border border-black bg-transparent px-2 py-1 text-sm dark:border-white'
 							value={
 								sessionGoal === 'duration'
 									? (sessionTarget || 0) / 60

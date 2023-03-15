@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { Dropdown, IconButton } from '@i4o/catalystui'
+import { Dropdown, IconButton, Switch } from '@i4o/catalystui'
 import {
 	Crosshair2Icon,
 	DownloadIcon,
@@ -10,13 +10,16 @@ import {
 	ImageIcon,
 	InfoCircledIcon,
 	MixerHorizontalIcon,
+	MoonIcon,
 	Pencil1Icon,
 	QuestionMarkCircledIcon,
 	StarFilledIcon,
+	SunIcon,
 	TrashIcon,
 	TwitterLogoIcon,
 } from '@radix-ui/react-icons'
 import { AureliusContext, AureliusProviderData } from './provider'
+import { Theme } from '../../types'
 
 interface MainMenuProps {
 	downloadFile: () => void
@@ -31,6 +34,8 @@ export default function MainMenu(props: MainMenuProps) {
 		setShowAboutDialog,
 		setShowNewSessionDialog,
 		setShowSettingsDialog,
+		theme,
+		toggleTheme,
 	}: AureliusProviderData = context
 
 	const dropdownItems = [
@@ -152,10 +157,20 @@ export default function MainMenu(props: MainMenuProps) {
 			icon: <TwitterLogoIcon />,
 			link: 'https://twitter.com/aurelius_ink',
 		},
+		{ type: 'separator' },
 		{
-			label: 'About',
-			icon: <InfoCircledIcon />,
-			onSelect: () => setShowAboutDialog?.(true),
+			label: (
+				<div className='flex cursor-pointer items-center justify-between'>
+					<label className='cursor-pointer'>Theme</label>
+					<Switch
+						defaultChecked={theme === Theme.DARK}
+						name='theme-toggle-switch'
+						onCheckedChange={toggleTheme}
+					/>
+				</div>
+			),
+			icon: theme === Theme.DARK ? <SunIcon /> : <MoonIcon />,
+			onSelect: () => toggleTheme?.(),
 		},
 	]
 
@@ -166,8 +181,11 @@ export default function MainMenu(props: MainMenuProps) {
 			items={dropdownItems}
 			trigger={
 				<IconButton
+					bg='!bg-slate-400 dark:!bg-slate-800 hover:!bg-slate-300 hover:dark:!bg-slate-700'
 					className='h-10 w-10'
-					icon={<HamburgerMenuIcon />}
+					icon={
+						<HamburgerMenuIcon className='text-slate-800 dark:text-slate-100' />
+					}
 				/>
 			}
 		/>
