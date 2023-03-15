@@ -27,6 +27,7 @@
         "graceful-fs": "^4.2.10",
         "gray-matter": "^4.0.3",
         "isbot": "^3.6.7",
+        "js-yaml": "3.13.1",
         "nanoid": "4.0.1",
         "nprogress": "0.2.0",
         "periscopic": "^3.1.0",

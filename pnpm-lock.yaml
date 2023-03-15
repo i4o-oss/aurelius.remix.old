@@ -74,6 +74,7 @@ importers:
       graceful-fs: ^4.2.10
       gray-matter: ^4.0.3
       isbot: ^3.6.7
+      js-yaml: 3.13.1
       nanoid: 4.0.1
       nprogress: 0.2.0
       periscopic: ^3.1.0
@@ -108,6 +109,7 @@ importers:
       graceful-fs: 4.2.10
       gray-matter: 4.0.3
       isbot: 3.6.7
+      js-yaml: 3.13.1
       nanoid: 4.0.1
       nprogress: 0.2.0
       periscopic: 3.1.0
@@ -8693,6 +8695,14 @@ packages:
 
   /js-tokens/4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
+
+  /js-yaml/3.13.1:
+    resolution: {integrity: sha512-YfbcO7jXDdyj0DGxYVSlSeQNHbD7XPWvrVWeVUujrQEoZzWJIRrCPoyk6kL6IAjAG2IolMK4T0hNUe0HOUs5Jw==}
+    hasBin: true
+    dependencies:
+      argparse: 1.0.10
+      esprima: 4.0.1
+    dev: false
 
   /js-yaml/3.14.1:
     resolution: {integrity: sha512-okMH7OXXJ7YrN9Ok3/SXrnu4iX9yOk+25nqX4imS2npuvTYDmo/QEZoqwZkYaIDk3jVvBOTOIEgEhaLOynBS9g==}
