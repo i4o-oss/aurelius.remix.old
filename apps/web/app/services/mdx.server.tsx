@@ -30,6 +30,8 @@ async function getBlogMdxItems({
 }: GetBlogMdxItemsParams) {
 	const items = await readFilesInDir(dir)
 
+	console.log(items)
+
 	const posts = items.map((item) => {
 		const content = matter(item)
 
@@ -98,6 +100,8 @@ async function getBlogMdxItems({
 	// 		latest,
 	// 	}
 	// }
+
+	console.log(sortedPosts)
 
 	return sortedPosts
 }
