@@ -1,5 +1,11 @@
 import React, { useMemo } from 'react'
-import type { LinksFunction, MetaFunction } from '@remix-run/node'
+import type {
+	LinksFunction,
+	LoaderArgs,
+	MetaFunction,
+	SerializeFrom,
+} from '@remix-run/node'
+import { json } from '@remix-run/node'
 import {
 	Links,
 	LiveReload,
@@ -8,9 +14,12 @@ import {
 	Scripts,
 	ScrollRestoration,
 	useFetchers,
+	useLoaderData,
 	useTransition,
 } from '@remix-run/react'
 import { useEffect } from 'react'
+import { ThemeHead, ThemeProvider, useTheme } from '~/lib/theme'
+import { getThemeSession } from '~/lib/theme.server'
 // @ts-ignore
 import NProgress from 'nprogress'
 import nProgressStyles from 'nprogress/nprogress.css'
@@ -69,9 +78,9 @@ export const meta: MetaFunction = () => ({
 	'theme-color': '#ffffff',
 	title: 'Aurelius',
 	'twitter:card': 'summary_large_image',
-	'twitter:site': '@i4o_dev',
+	'twitter:site': '@aurelius_ink',
 	'twitter:url': 'https://aurelius.ink/',
-	'twitter:creator': '@i4o_dev',
+	'twitter:creator': '@aurelius_ink',
 	'twitter:title': 'Aurelius',
 	'twitter:description':
 		'Beautiful, minimal writing app. Eliminate distractions when writing, build a writing habit, track your daily writing goal, and more.',
@@ -79,7 +88,19 @@ export const meta: MetaFunction = () => ({
 	viewport: 'width=device-width,initial-scale=1',
 })
 
-const Document = (props: DocumentProps) => {
+export type LoaderData = SerializeFrom<typeof loader>
+
+export const loader = async ({ request }: LoaderArgs) => {
+	const themeSession = await getThemeSession(request)
+
+	return json({
+		theme: themeSession.getTheme(),
+	})
+}
+
+const Document = ({ children }: DocumentProps) => {
+	const data = useLoaderData<LoaderData>()
+	const [theme] = useTheme()
 	const transition = useTransition()
 	const fetchers = useFetchers()
 
@@ -110,12 +131,13 @@ const Document = (props: DocumentProps) => {
 	}, [transition.state, state])
 
 	return (
-		<html lang='en' className='dark h-full'>
+		<html lang='en' className={`h-screen w-screen ${theme ?? ''}`}>
 			<head>
 				<Meta />
 				<Links />
+				<ThemeHead ssrTheme={Boolean(data.theme)} />
 			</head>
-			<body className='h-full w-full bg-[#040303] font-sans'>
+			<body className='h-full w-full bg-zinc-50 font-sans dark:bg-[#040303]'>
 				<script
 					defer
 					type='text/javascript'
@@ -124,7 +146,7 @@ const Document = (props: DocumentProps) => {
 					data-code='M01aHtNN6Pimeeo6xH2NxJYgN9vfJBTP'
 					data-dev={process.env.NODE_ENV === 'development'}
 				></script>
-				{props.children}
+				{children}
 				<ScrollRestoration />
 				<Scripts />
 				{process.env.NODE_ENV === 'development' ? <LiveReload /> : null}
@@ -133,10 +155,20 @@ const Document = (props: DocumentProps) => {
 	)
 }
 
-export default function App() {
+function App() {
 	return (
 		<Document>
 			<Outlet />
 		</Document>
+	)
+}
+
+export default function AppWithProviders() {
+	const data = useLoaderData<LoaderData>()
+
+	return (
+		<ThemeProvider specifiedTheme={data.theme}>
+			<App />
+		</ThemeProvider>
 	)
 }
