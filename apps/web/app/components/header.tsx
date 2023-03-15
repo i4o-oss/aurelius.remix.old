@@ -3,7 +3,7 @@ import { PrimaryButton } from '@i4o/catalystui'
 
 export default function Header() {
 	return (
-		<header className='supports-backdrop-blur:bg-white/60 sticky top-0 z-50 flex h-20 w-screen flex-wrap items-center justify-between px-4 py-4 shadow-sm shadow-gray-200/20 backdrop-blur dark:bg-transparent dark:shadow-gray-700/20 sm:px-6 lg:px-8'>
+		<header className='supports-backdrop-blur:bg-white/60 sticky top-0 z-50 flex h-20 w-screen flex-wrap items-center justify-between px-16 py-4 shadow-sm shadow-gray-200/20 backdrop-blur dark:bg-transparent dark:shadow-gray-700/20 sm:px-6 lg:px-8'>
 			<div className='col-span-1 flex h-full items-center justify-start'>
 				<Link to='/'>
 					<img
