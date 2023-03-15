@@ -34,3 +34,8 @@ export interface WritingSession {
 	startingWordCount: number
 	endingWordCount?: number
 }
+
+export enum Theme {
+	DARK = 'dark',
+	LIGHT = 'light',
+}

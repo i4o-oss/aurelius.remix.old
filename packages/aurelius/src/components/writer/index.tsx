@@ -38,7 +38,7 @@ import AureliusProvider, {
 	AureliusContext,
 	AureliusProviderData,
 } from './provider'
-import { WritingSession, WritingSessionGoal } from '../../types'
+import { Theme, WritingSession, WritingSessionGoal } from '../../types'
 import Timer from './timer'
 
 function Reset({ confirmResetEditor }: { confirmResetEditor: () => void }) {
@@ -49,7 +49,10 @@ function Reset({ confirmResetEditor }: { confirmResetEditor: () => void }) {
 			isOpen={showResetAlert}
 			onOpenChange={setShowResetAlert}
 			cancel={
-				<Button onClick={() => setShowResetAlert?.(false)}>
+				<Button
+					bg='!bg-slate-400 dark:!bg-slate-800 hover:!bg-slate-300 hover:dark:!bg-slate-700'
+					onClick={() => setShowResetAlert?.(false)}
+				>
 					Cancel
 				</Button>
 			}
@@ -64,36 +67,6 @@ function Reset({ confirmResetEditor }: { confirmResetEditor: () => void }) {
 	)
 }
 
-function About() {
-	const context: AureliusProviderData = useContext(AureliusContext)
-	const { showAboutDialog, setShowAboutDialog } = context
-	return (
-		<Dialog
-			isOpen={showAboutDialog}
-			onOpenChange={setShowAboutDialog}
-			title={<h3 className='px-2 text-lg'>About</h3>}
-			trigger={null}
-		>
-			<div className='flex max-w-xl flex-col items-start gap-4 px-2 text-white'>
-				<p>
-					Aurelius was born out of a requirement for a writing app
-					that suited my needs. After trying many writing apps — code
-					editors to note taking app — none of them help with
-					maintaining a writing habit. Some of them have a poor
-					writing experience by doing too much stuff.
-				</p>
-				<p>
-					I wanted a simple writing app that has the features for
-					building a writing habit while having an enjoyable writing
-					experience. While the current state only supports single
-					posts suited for articles, I want to support more use-cases
-					like book writing, daily journals, and more.
-				</p>
-			</div>
-		</Dialog>
-	)
-}
-
 function WritingSessionRecap() {
 	const context: AureliusProviderData = useContext(AureliusContext)
 	const { sessionData, showSessionRecapDialog, setShowSessionRecapDialog } =
@@ -105,7 +78,7 @@ function WritingSessionRecap() {
 			title={<h3 className='px-2 text-lg'>Writing Session Recap</h3>}
 			trigger={null}
 		>
-			<div className='grid w-[24rem] grid-cols-2 gap-2 px-2 text-white'>
+			<div className='grid w-[24rem] grid-cols-2 gap-2 px-2 text-black dark:text-white'>
 				<p className='text-left'>Session Target:</p>
 				<p className='text-right'>
 					{sessionData?.goal === 'duration'
@@ -131,7 +104,12 @@ function WritingSessionRecap() {
 	)
 }
 
-export default function Writer() {
+interface WriterProps {
+	theme: Theme
+	toggleTheme: () => void
+}
+
+export default function Writer({ theme, toggleTheme }: WriterProps) {
 	const [writingSessions] = useLocalStorage<WritingSession[]>(
 		SESSION_LOCAL_STORAGE_KEY
 	)
@@ -147,7 +125,6 @@ export default function Writer() {
 	const [sessionTarget, setSessionTarget] = useState<number>(0)
 	const [sessionFocusMode, setSessionFocusMode] = useState(true)
 	const [sessionMusic, setSessionMusic] = useState(true)
-	const [showAboutDialog, setShowAboutDialog] = useState(false)
 	const [showNewSessionDialog, setShowNewSessionDialog] = useState(false)
 	const [showResetAlert, setShowResetAlert] = useState(false)
 	const [showSessionEndToast, setShowSessionEndToast] = useState(false)
@@ -395,8 +372,6 @@ export default function Writer() {
 				setSessionMusic,
 				sessionTarget,
 				setSessionTarget,
-				showAboutDialog,
-				setShowAboutDialog,
 				showNewSessionDialog,
 				setShowNewSessionDialog,
 				showResetAlert,
@@ -407,6 +382,8 @@ export default function Writer() {
 				setShowSessionRecapDialog,
 				showSettingsDialog,
 				setShowSettingsDialog,
+				theme,
+				toggleTheme,
 				title,
 				setTitle,
 				wordCount,
@@ -435,7 +412,7 @@ export default function Writer() {
 						<div className='w-full max-w-3xl'>
 							<textarea
 								autoFocus
-								className='min-h-[6rem] w-full resize-none bg-transparent text-5xl font-semibold leading-snug text-white focus:outline-none'
+								className='min-h-[6rem] w-full resize-none bg-transparent text-5xl font-semibold leading-snug text-black focus:outline-none dark:text-white'
 								onChange={(e) => setTitle(e.target.value)}
 								placeholder='Title'
 								ref={titleRef}
@@ -453,7 +430,6 @@ export default function Writer() {
 			{showResetAlert ? (
 				<Reset confirmResetEditor={confirmResetEditor} />
 			) : null}
-			{showAboutDialog ? <About /> : null}
 			{showNewSessionDialog ? (
 				<NewSession startSession={startSession} />
 			) : null}
