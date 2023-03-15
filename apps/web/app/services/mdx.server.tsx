@@ -32,13 +32,12 @@ async function getBlogMdxItems({
 
 	const posts = items.map((item) => {
 		const content = matter(item)
-		const date = new Date(content.data.date_published).toISOString()
 
 		return {
 			title: content.data.title,
 			description: content.data.excerpt,
 			image: content.data.image,
-			date,
+			date: content.data.date_published,
 			slug: content.data.slug,
 			draft: content.data.draft,
 			featured: content.data.featured,
