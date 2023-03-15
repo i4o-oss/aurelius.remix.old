@@ -61,6 +61,7 @@ importers:
       '@tailwindcss/typography': ^0.5.9
       '@types/eslint': 8.21.2
       '@types/formidable': 2.0.5
+      '@types/graceful-fs': ^4.1.6
       '@types/node': ^18.15.3
       '@types/nprogress': ^0.2.0
       '@types/react': 18.0.28
@@ -70,6 +71,7 @@ importers:
       classnames: 2.3.2
       cross-env: 7.0.3
       framer-motion: 10.3.2
+      graceful-fs: ^4.2.10
       gray-matter: ^4.0.3
       isbot: ^3.6.7
       nanoid: 4.0.1
@@ -103,6 +105,7 @@ importers:
       aws-sdk: 2.1335.0
       classnames: 2.3.2
       framer-motion: 10.3.2_biqbaboplfbrettd7655fr4n2y
+      graceful-fs: 4.2.10
       gray-matter: 4.0.3
       isbot: 3.6.7
       nanoid: 4.0.1
@@ -122,6 +125,7 @@ importers:
       '@remix-run/server-runtime': 1.14.2
       '@types/eslint': 8.21.2
       '@types/formidable': 2.0.5
+      '@types/graceful-fs': 4.1.6
       '@types/node': 18.15.3
       '@types/nprogress': 0.2.0
       '@types/react': 18.0.28
@@ -5269,6 +5273,12 @@ packages:
     dependencies:
       '@types/minimatch': 5.1.2
       '@types/node': 18.15.3
+
+  /@types/graceful-fs/4.1.6:
+    resolution: {integrity: sha512-Sig0SNORX9fdW+bQuTEovKj3uHcUL6LQKbCrrqb1X7J6/ReAbhCXRAhc+SMejhLELFj2QcyuxmUooZ4bt5ReSw==}
+    dependencies:
+      '@types/node': 18.15.3
+    dev: true
 
   /@types/hast/2.3.4:
     resolution: {integrity: sha512-wLEm0QvaoawEDoTRwzTXp4b4jpwiJDvR5KMnFnVodm3scufTlBOWRD6N1OBf9TZMhjlNsSfcO5V+7AF4+Vy+9g==}
