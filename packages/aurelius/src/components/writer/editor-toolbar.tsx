@@ -51,12 +51,16 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
 			groupItems: [
 				{
 					id: 'bold',
-					icon: <FontBoldIcon className='text-white' />,
+					icon: (
+						<FontBoldIcon className='text-black dark:text-white' />
+					),
 					onSelect: toggleBold,
 				},
 				{
 					id: 'italic',
-					icon: <FontItalicIcon className='text-white' />,
+					icon: (
+						<FontItalicIcon className='text-black dark:text-white' />
+					),
 					onSelect: () =>
 						editor?.chain().focus().toggleItalic().run(),
 				},
@@ -156,18 +160,18 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
 			groupItems: [
 				{
 					id: 'quote',
-					icon: <QuoteIcon className='text-white' />,
+					icon: <QuoteIcon className='text-black dark:text-white' />,
 					onSelect: () =>
 						editor?.chain().focus().toggleBlockquote().run(),
 				},
 				{
 					id: 'link',
-					icon: <Link2Icon className='text-white' />,
+					icon: <Link2Icon className='text-black dark:text-white' />,
 					onSelect: () => setToggleLink(true),
 				},
 				{
 					id: 'code',
-					icon: <CodeIcon className='text-white' />,
+					icon: <CodeIcon className='text-black dark:text-white' />,
 					onSelect: () => editor?.chain().focus().toggleCode().run(),
 				},
 			],
@@ -178,7 +182,8 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
 		<>
 			<Toolbar
 				ariaLabel='Text Formatting Options'
-				className='w-full text-white'
+				className='w-full text-black dark:text-white'
+				// @ts-ignore
 				items={items}
 			/>
 			<Dialog
@@ -188,7 +193,7 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
 			>
 				<div className='flex h-12 w-full items-center justify-center space-x-2'>
 					<input
-						className='h-full w-auto rounded-lg border bg-transparent px-2 py-1 text-white outline-white'
+						className='h-full w-auto rounded-lg border bg-transparent px-2 py-1 text-black outline-black dark:text-white dark:outline-white'
 						onBlur={() => {
 							if (!editor?.getAttributes('link').href) {
 								setToggleLink(false)

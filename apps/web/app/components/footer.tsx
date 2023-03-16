@@ -2,9 +2,9 @@ import { TwitterLogoIcon } from '@radix-ui/react-icons'
 
 export default function Footer() {
 	return (
-		<div className='sticky top-0 z-50 flex h-20 w-screen flex-wrap items-center justify-center border-t border-gray-200/20 bg-[#040303] py-4 dark:border-gray-700'>
+		<div className='sticky top-0 z-50 flex h-20 w-screen flex-wrap items-center justify-center border-t border-gray-200/50 bg-transparent py-4 dark:border-gray-700/20'>
 			<div className='flex w-[88rem] items-center justify-between sm:px-2 lg:px-8 xl:px-12'>
-				<div className='flex items-center gap-2 text-gray-300 dark:text-gray-300'>
+				<div className='flex items-center gap-2 text-slate-700 dark:text-slate-300'>
 					<svg
 						className='h-5 w-5'
 						xmlns='http://www.w3.org/2000/svg'
@@ -63,7 +63,7 @@ export default function Footer() {
 						target='_blank'
 						rel='noreferrer noopener'
 					>
-						<TwitterLogoIcon className='h-5 w-5 text-gray-100 dark:text-gray-100' />
+						<TwitterLogoIcon className='h-5 w-5 text-slate-700 dark:text-slate-300' />
 					</a>
 				</div>
 			</div>

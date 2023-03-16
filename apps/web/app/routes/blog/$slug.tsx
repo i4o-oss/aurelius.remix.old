@@ -116,7 +116,7 @@ export default function BlogPost() {
 											alt={author.name}
 											width={42}
 											height={42}
-											className='m-0 rounded-full'
+											className='m-0 rounded-full border border-slate-200 dark:border-slate-800'
 										/>
 										<div className='flex flex-1 flex-col items-start gap-1 text-left leading-tight'>
 											<p className='m-0 font-medium'>
