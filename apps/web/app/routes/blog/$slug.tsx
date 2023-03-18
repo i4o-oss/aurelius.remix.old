@@ -28,14 +28,14 @@ export const meta: MetaFunction = ({
 		'og:url': `https://aurelius.ink/blog/${post.slug}`,
 		'og:title': `${post.title} - Aurelius Blog`,
 		'og:description': post.description,
-		'og:image': post.image,
+		'og:image': post.og_image,
 		'twitter:card': 'summary_large_image',
 		'twitter:site': '@aurelius_ink',
 		'twitter:url': `https://aurelius.ink/blog/${post.slug}`,
 		'twitter:creator': '@aurelius_ink',
 		'twitter:title': `${post.title} - Aurelius Blog`,
 		'twitter:description': post.description,
-		'twitter:image': post.image,
+		'twitter:image': post.og_image,
 		viewport: 'width=device-width,initial-scale=1',
 	}
 }

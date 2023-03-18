@@ -38,6 +38,7 @@ async function getBlogMdxItems({
 		return {
 			title: content.data.title,
 			description: content.data.excerpt,
+			og_image: content.data.og_image,
 			image: content.data.image,
 			date: content.data.date_published,
 			slug: content.data.slug,

@@ -35,9 +35,9 @@ export default function Blog() {
 								key={`post-${index}`}
 								className='group relative flex flex-col space-y-2'
 							>
-								{post.image && (
+								{post.og_image && (
 									<img
-										src={post.image}
+										src={post.og_image}
 										alt={post.title}
 										width={804}
 										height={452}
