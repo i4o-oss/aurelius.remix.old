@@ -4,10 +4,8 @@
     "description": "",
     "sideEffects": false,
     "scripts": {
-        "build": "pnpm build:css && remix build",
-        "build:css": "tailwindcss -i ./styles/main.css -o ./app/styles/main.css",
-        "dev": "concurrently \"pnpm dev:css\" \"remix dev\"",
-        "dev:css": "tailwindcss -w -i ./styles/main.css -o ./app/styles/main.css",
+        "build": "remix build",
+        "dev": "remix dev",
         "start": "pnpm prisma generate && remix-serve build",
         "typecheck": "tsc -b"
     },
@@ -54,7 +52,6 @@
         "@types/react": "18.0.28",
         "@types/react-dom": "18.0.11",
         "autoprefixer": "^10.4.14",
-        "concurrently": "^7.6.0",
         "cross-env": "7.0.3",
         "postcss": "^8.4.21",
         "prisma": "4.11.0",

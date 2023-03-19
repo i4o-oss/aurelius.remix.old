@@ -69,7 +69,6 @@ importers:
       autoprefixer: ^10.4.14
       aws-sdk: 2.1335.0
       classnames: 2.3.2
-      concurrently: ^7.6.0
       cross-env: 7.0.3
       framer-motion: 10.3.2
       graceful-fs: ^4.2.10
@@ -134,7 +133,6 @@ importers:
       '@types/react': 18.0.28
       '@types/react-dom': 18.0.11
       autoprefixer: 10.4.14_postcss@8.4.21
-      concurrently: 7.6.0
       cross-env: 7.0.3
       postcss: 8.4.21
       prisma: 4.11.0
@@ -3624,7 +3622,7 @@ packages:
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       postcss-selector-parser: 6.0.10
-      tailwindcss: 3.2.7_aesdjsunmf4wiehhujt67my7tu
+      tailwindcss: 3.2.7_postcss@8.4.21
     dev: false
 
   /@testing-library/dom/8.20.0:
@@ -8906,7 +8904,6 @@ packages:
       lilconfig: 2.1.0
       postcss: 8.4.21
       yaml: 1.10.2
-    dev: true
 
   /postcss-load-config/4.0.1_aesdjsunmf4wiehhujt67my7tu:
     resolution: {integrity: sha512-vEJIc8RdiBRu3oRAI0ymerOn+7rPuMvRXslTvZUKZonDHFIczxztIyJ1urxM1x9JXEikvpWWTUUqal5j/8QgvA==}
@@ -10346,7 +10343,6 @@ packages:
       resolve: 1.22.1
     transitivePeerDependencies:
       - ts-node
-    dev: true
 
   /tapable/2.2.1:
     resolution: {integrity: sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==}
