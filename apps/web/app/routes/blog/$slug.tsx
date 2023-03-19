@@ -78,7 +78,7 @@ export default function BlogPost() {
 				<Meta />
 				<Links />
 			</head>
-			<article className='prose dark:prose-invert container relative max-w-3xl py-6 lg:py-10'>
+			<article className='prose dark:prose-invert container relative max-w-3xl p-6 lg:py-10 lg:px-0'>
 				<div className='flex justify-start py-4 lg:py-8'>
 					<Link
 						to='/blog'

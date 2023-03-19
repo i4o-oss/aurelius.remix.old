@@ -5,7 +5,7 @@ import { Theme, useTheme } from '~/lib/theme'
 export default function Header() {
 	const [theme] = useTheme()
 	return (
-		<header className='supports-backdrop-blur:bg-white/60 sticky top-0 z-50 flex h-20 w-screen flex-wrap items-center justify-between px-16 py-4 shadow-sm shadow-gray-200/50 backdrop-blur dark:bg-transparent dark:shadow-gray-700/20 sm:px-6 lg:px-8'>
+		<header className='supports-backdrop-blur:bg-white/60 sticky top-0 left-0 z-50 flex h-20 w-screen flex-wrap items-center justify-between p-4 shadow-sm shadow-gray-200/50 backdrop-blur dark:bg-transparent dark:shadow-gray-700/20 sm:px-6 md:px-8 lg:px-16'>
 			<div className='col-span-1 flex h-full items-center justify-start'>
 				<Link to='/'>
 					<img
