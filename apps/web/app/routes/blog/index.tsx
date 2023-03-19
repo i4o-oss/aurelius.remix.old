@@ -20,7 +20,7 @@ export default function Blog() {
 						Blog
 					</h1>
 					<p className='text-xl text-slate-700 dark:text-slate-300'>
-						Articles and essays on writing, learning, and product
+						Articles and essays on writing, learning, and Aurelius product
 						updates.
 					</p>
 				</div>

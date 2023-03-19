@@ -2,13 +2,13 @@ import { useContext } from 'react'
 import { Dropdown, IconButton, Switch } from '@i4o/catalystui'
 import {
 	Crosshair2Icon,
-	DownloadIcon,
+	// DownloadIcon,
 	FileIcon,
 	FileTextIcon,
-	GitHubLogoIcon,
 	HamburgerMenuIcon,
-	ImageIcon,
-	InfoCircledIcon,
+	InstagramLogoIcon,
+	// ImageIcon,
+	// InfoCircledIcon,
 	MixerHorizontalIcon,
 	MoonIcon,
 	Pencil1Icon,
@@ -31,7 +31,6 @@ export default function MainMenu(props: MainMenuProps) {
 	const {
 		focusMode,
 		setFocusMode,
-		setShowAboutDialog,
 		setShowNewSessionDialog,
 		setShowSettingsDialog,
 		theme,
@@ -135,17 +134,17 @@ export default function MainMenu(props: MainMenuProps) {
 			icon: <MixerHorizontalIcon />,
 			onSelect: () => setShowSettingsDialog?.(true),
 		},
-		{
-			label: 'Help',
-			icon: <QuestionMarkCircledIcon />,
-			shortcut: '?',
-		},
-		{ type: 'separator' },
-		{
-			label: 'Aurelius+',
-			icon: <StarFilledIcon />,
-			link: '/plus',
-		},
+		// {
+		// 	label: 'Help',
+		// 	icon: <QuestionMarkCircledIcon />,
+		// 	shortcut: '?',
+		// },
+		// { type: 'separator' },
+		// {
+		// 	label: 'Aurelius+',
+		// 	icon: <StarFilledIcon />,
+		// 	link: '/plus',
+		// },
 		{ type: 'separator' },
 		{
 			label: 'Blog',
@@ -156,6 +155,11 @@ export default function MainMenu(props: MainMenuProps) {
 			label: 'Twitter',
 			icon: <TwitterLogoIcon />,
 			link: 'https://twitter.com/aurelius_ink',
+		},
+		{
+			label: 'Instagram',
+			icon: <InstagramLogoIcon />,
+			link: 'https://instagram.com/aurelius_ink',
 		},
 		{ type: 'separator' },
 		{

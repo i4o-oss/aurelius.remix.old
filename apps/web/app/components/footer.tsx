@@ -1,4 +1,8 @@
-import { HeartFilledIcon, TwitterLogoIcon } from '@radix-ui/react-icons'
+import {
+	HeartFilledIcon,
+	InstagramLogoIcon,
+	TwitterLogoIcon,
+} from '@radix-ui/react-icons'
 
 export default function Footer() {
 	return (
@@ -30,16 +34,16 @@ export default function Footer() {
 						Built with{' '}
 						<HeartFilledIcon className='mx-1 text-red-500' /> by{' '}
 						<a
-							className='underline ml-1'
+							className='ml-1 underline'
 							href='https://i4o.dev'
 							target='_blank'
 							rel='noreferrer noopener'
 						>
 							i4o
 						</a>
-						. Illustrations by{' '}
+						. Illustrations by
 						<a
-							className='underline'
+							className='ml-1 underline'
 							href='https://popsy.co'
 							target='_blank'
 							rel='noreferrer noopener'
@@ -59,8 +63,16 @@ export default function Footer() {
 					{/* 	<GitHubLogoIcon className='h-6 w-6 text-gray-100 dark:text-gray-100' /> */}
 					{/* </a> */}
 					<a
+						aria-label='Instagram Profile'
+						href='https://instagram.com/aurelius_ink'
+						target='_blank'
+						rel='noreferrer noopener'
+					>
+						<InstagramLogoIcon className='h-5 w-5 text-slate-700 dark:text-slate-300' />
+					</a>
+					<a
 						aria-label='Twitter Profile'
-						href='https://twitter.com/i4o_dev'
+						href='https://twitter.com/aurelius_ink'
 						target='_blank'
 						rel='noreferrer noopener'
 					>
