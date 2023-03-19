@@ -17,7 +17,7 @@ body {
 }
 
 .ProseMirror {
-	@apply w-full max-w-3xl !text-black dark:!text-white !text-[1rem] lg:!text-[1.3rem];
+	@apply w-full max-w-3xl !text-[1rem] !text-black dark:!text-white lg:!text-[1.3rem];
 	font-family: 'Merriweather', serif;
 	min-height: 640px !important;
 	outline: none !important;
