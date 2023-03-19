@@ -1,10 +1,14 @@
-import { TwitterLogoIcon } from '@radix-ui/react-icons'
+import {
+	HeartFilledIcon,
+	InstagramLogoIcon,
+	TwitterLogoIcon,
+} from '@radix-ui/react-icons'
 
 export default function Footer() {
 	return (
-		<div className='sticky top-0 z-50 flex h-20 w-screen flex-wrap items-center justify-center border-t border-gray-200/20 bg-[#040303] py-4 dark:border-gray-700'>
+		<div className='flex h-20 w-screen flex-wrap items-center justify-center border-t border-gray-200/50 bg-transparent p-4 dark:border-gray-700/20 lg:px-0'>
 			<div className='flex w-[88rem] items-center justify-between sm:px-2 lg:px-8 xl:px-12'>
-				<div className='flex items-center gap-2 text-gray-300 dark:text-gray-300'>
+				<div className='flex items-center gap-2 text-slate-700 dark:text-slate-300'>
 					<svg
 						className='h-5 w-5'
 						xmlns='http://www.w3.org/2000/svg'
@@ -26,19 +30,20 @@ export default function Footer() {
 							ry='2'
 						></rect>
 					</svg>
-					<p className='text-sm'>
-						Built by{' '}
+					<p className='flex items-center text-sm'>
+						Built with{' '}
+						<HeartFilledIcon className='mx-1 text-red-500' /> by{' '}
 						<a
-							className='underline'
+							className='ml-1 underline'
 							href='https://i4o.dev'
 							target='_blank'
 							rel='noreferrer noopener'
 						>
 							i4o
 						</a>
-						. Illustrations by{' '}
+						. Illustrations by
 						<a
-							className='underline'
+							className='ml-1 underline'
 							href='https://popsy.co'
 							target='_blank'
 							rel='noreferrer noopener'
@@ -58,12 +63,20 @@ export default function Footer() {
 					{/* 	<GitHubLogoIcon className='h-6 w-6 text-gray-100 dark:text-gray-100' /> */}
 					{/* </a> */}
 					<a
-						aria-label='Twitter Profile'
-						href='https://twitter.com/i4o_dev'
+						aria-label='Instagram Profile'
+						href='https://instagram.com/aurelius_ink'
 						target='_blank'
 						rel='noreferrer noopener'
 					>
-						<TwitterLogoIcon className='h-5 w-5 text-gray-100 dark:text-gray-100' />
+						<InstagramLogoIcon className='h-5 w-5 text-slate-700 dark:text-slate-300' />
+					</a>
+					<a
+						aria-label='Twitter Profile'
+						href='https://twitter.com/aurelius_ink'
+						target='_blank'
+						rel='noreferrer noopener'
+					>
+						<TwitterLogoIcon className='h-5 w-5 text-slate-700 dark:text-slate-300' />
 					</a>
 				</div>
 			</div>

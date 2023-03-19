@@ -1,5 +1,8 @@
-@import 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/tokyo-night-dark.min.css';
 @import '../node_modules/@i4o/catalystui/dist/main.css';
+@import 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/tokyo-night-light.min.css';
+@media (prefers-color-scheme: dark) {
+	@import 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/tokyo-night-dark.min.css';
+}
 
 @tailwind base;
 @tailwind components;
@@ -14,13 +17,11 @@ body {
 }
 
 .ProseMirror {
-	@apply w-full max-w-3xl;
+	@apply w-full max-w-3xl !text-[1rem] !text-black dark:!text-white lg:!text-[1.3rem];
 	font-family: 'Merriweather', serif;
-	font-size: 1.3rem !important;
 	min-height: 640px !important;
 	outline: none !important;
 	border: none !important;
-	color: #ffffff !important;
 }
 
 .ProseMirror.ProseMirror-focused {
@@ -99,23 +100,23 @@ body {
 }
 
 .ProseMirror pre {
-	@apply max-w-3xl rounded-lg;
-	background: #0d0d0d;
+	@apply max-w-3xl rounded-lg bg-[#d5d6db] dark:bg-[#1a1b26];
+	/* background: #0d0d0d; */
 	font-family: 'JetBrainsMono', monospace;
 	padding: 0.75rem 1rem;
 }
 
 .ProseMirror pre code {
-	@apply max-w-3xl;
+	@apply max-w-3xl text-[#565a6e] dark:text-[#9aa5ce];
 	padding: 0;
 	background: none;
 	font-size: 0.8rem;
 }
 
 .ProseMirror p code {
-	@apply rounded-lg px-2 py-1;
+	@apply rounded-lg bg-[#d5d6db] px-2 py-1 text-[#565a6e] dark:bg-[#1a1b26] dark:text-[#9aa5ce];
 	font-size: 1.1rem;
-	background: #0d0d0d;
+	/* background: #0d0d0d; */
 	font-family: 'JetBrainsMono', monospace;
 }
 

@@ -162,12 +162,6 @@ export default function Writer({ theme, toggleTheme }: WriterProps) {
 		}
 	}, [showSessionRecapDialog])
 
-	useEffect(() => {
-		if (titleRef.current) {
-			titleRef.current.style.height = '84px'
-		}
-	}, [])
-
 	const editor = useEditor({
 		content,
 		editorProps: {
@@ -408,11 +402,11 @@ export default function Writer({ theme, toggleTheme }: WriterProps) {
 					{SessionComponent}
 				</div>
 				<section className='flex h-full w-full flex-grow flex-col items-center justify-start'>
-					<div className='flex h-full w-full flex-col items-center justify-start space-y-4 py-16'>
+					<div className='flex h-full w-full flex-col items-center justify-start space-y-4 px-4 py-24 lg:px-0 md:py-16'>
 						<div className='w-full max-w-3xl'>
 							<textarea
 								autoFocus
-								className='min-h-[6rem] w-full resize-none bg-transparent text-5xl font-semibold leading-snug text-black focus:outline-none dark:text-white'
+								className='min-h-[2rem] lg:min-h-[6rem] w-full resize-none bg-transparent text-2xl lg:text-5xl font-semibold leading-snug text-black focus:outline-none dark:text-white overflow-y-hidden'
 								onChange={(e) => setTitle(e.target.value)}
 								placeholder='Title'
 								ref={titleRef}

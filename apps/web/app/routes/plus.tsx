@@ -8,6 +8,7 @@ import {
 	PlayIcon,
 	UploadIcon,
 } from '@radix-ui/react-icons'
+import { Theme, useTheme } from '~/lib/theme'
 
 const features = [
 	{
@@ -37,6 +38,7 @@ const features = [
 ]
 
 export default function Home() {
+    const [theme] = useTheme()
 	return (
 		<>
 			<Header />
@@ -47,14 +49,14 @@ export default function Home() {
 							<div className='w-full max-w-4xl py-20 sm:py-32 lg:py-40'>
 								<div className='flex flex-col items-start text-center'>
 									<img
-										className='mb-4 w-80 invert'
-										src='/images/writing.svg'
+										className={`${theme === Theme.DARK ? 'invert' : ''} mb-4 w-80`}
+										src={theme === Theme.DARK ? '/images/writing.svg' : '/images/writing_light.svg'}
 										alt='writing illustration'
 									/>
-									<h1 className='text-4xl font-bold tracking-tight text-gray-100 dark:text-gray-100 sm:text-6xl sm:leading-tight'>
+									<h1 className='text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-50 sm:text-6xl sm:leading-tight'>
 										Beautiful, minimal writing app
 									</h1>
-									<p className='mt-6 text-lg leading-8 text-gray-300 dark:text-gray-300'>
+									<p className='mt-6 text-lg leading-8 text-slate-700 dark:text-gray-300'>
 										Eliminate distractions when writing,
 										build a writing habit, and track your
 										daily writing goal.
@@ -92,7 +94,7 @@ export default function Home() {
 										<h2 className='text-brand-500 text-base font-semibold leading-7'>
 											Become a better writer
 										</h2>
-										<p className='mt-2 text-3xl font-bold tracking-tight text-gray-100 sm:text-4xl'>
+										<p className='mt-2 text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-50 sm:text-4xl'>
 											The Ultimate Writing App
 										</p>
 										{/* <p className='mt-6 text-lg leading-8 text-gray-300'> */}
@@ -102,13 +104,13 @@ export default function Home() {
 										{/* 	eaque, iste dolor cupiditate */}
 										{/* 	blanditiis ratione. */}
 										{/* </p> */}
-										<dl className='mt-10 max-w-xl space-y-8 text-base leading-7 text-gray-300 lg:max-w-none'>
+										<dl className='mt-10 max-w-xl space-y-8 text-base leading-7 text-gray-700 dark:text-slate-300 lg:max-w-none'>
 											{features.map((feature) => (
 												<div
 													key={feature.name}
 													className='relative pl-9'
 												>
-													<dt className='inline font-semibold text-gray-100'>
+													<dt className='inline font-semibold text-slate-900 dark:text-slate-50'>
 														<feature.icon
 															className='text-brand-500 absolute top-1 left-1 h-5 w-5'
 															aria-hidden='true'
@@ -124,9 +126,9 @@ export default function Home() {
 									</div>
 								</div>
 								<img
-									src='/images/features.svg'
+									src={theme === Theme.DARK ? '/images/features.svg' : '/images/features_light.svg'}
 									alt='features illustration'
-									className='w-[32rem] invert'
+									className={`${theme === Theme.DARK ? 'invert' : ''} w-[32rem]`}
 									width={2432}
 									height={1442}
 								/>

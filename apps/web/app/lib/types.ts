@@ -1,7 +1,8 @@
 export interface BlogPost {
 	title: string
 	description: string
-	image: string
+    og_image: string
+	image?: string
 	date: string | number
 	slug: string
 	draft?: boolean

@@ -30,14 +30,13 @@ async function getBlogMdxItems({
 }: GetBlogMdxItemsParams) {
 	const items = await readFilesInDir(dir)
 
-	console.log(items)
-
 	const posts = items.map((item) => {
 		const content = matter(item)
 
 		return {
 			title: content.data.title,
 			description: content.data.excerpt,
+			og_image: content.data.og_image,
 			image: content.data.image,
 			date: content.data.date_published,
 			slug: content.data.slug,
@@ -100,8 +99,6 @@ async function getBlogMdxItems({
 	// 		latest,
 	// 	}
 	// }
-
-	console.log(sortedPosts)
 
 	return sortedPosts
 }

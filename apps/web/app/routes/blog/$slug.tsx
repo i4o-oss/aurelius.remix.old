@@ -28,14 +28,14 @@ export const meta: MetaFunction = ({
 		'og:url': `https://aurelius.ink/blog/${post.slug}`,
 		'og:title': `${post.title} - Aurelius Blog`,
 		'og:description': post.description,
-		'og:image': post.image,
+		'og:image': post.og_image,
 		'twitter:card': 'summary_large_image',
 		'twitter:site': '@aurelius_ink',
 		'twitter:url': `https://aurelius.ink/blog/${post.slug}`,
 		'twitter:creator': '@aurelius_ink',
 		'twitter:title': `${post.title} - Aurelius Blog`,
 		'twitter:description': post.description,
-		'twitter:image': post.image,
+		'twitter:image': post.og_image,
 		viewport: 'width=device-width,initial-scale=1',
 	}
 }
@@ -78,7 +78,7 @@ export default function BlogPost() {
 				<Meta />
 				<Links />
 			</head>
-			<article className='prose dark:prose-invert container relative max-w-3xl py-6 lg:py-10'>
+			<article className='prose dark:prose-invert container relative max-w-3xl p-6 lg:py-10 lg:px-0'>
 				<div className='flex justify-start py-4 lg:py-8'>
 					<Link
 						to='/blog'
@@ -116,7 +116,7 @@ export default function BlogPost() {
 											alt={author.name}
 											width={42}
 											height={42}
-											className='m-0 rounded-full'
+											className='m-0 rounded-full border border-slate-200 dark:border-slate-800'
 										/>
 										<div className='flex flex-1 flex-col items-start gap-1 text-left leading-tight'>
 											<p className='m-0 font-medium'>
