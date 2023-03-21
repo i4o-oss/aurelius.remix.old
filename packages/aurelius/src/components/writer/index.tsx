@@ -50,7 +50,7 @@ function Reset({ confirmResetEditor }: { confirmResetEditor: () => void }) {
 			onOpenChange={setShowResetAlert}
 			cancel={
 				<Button
-					bg='!bg-slate-400 dark:!bg-slate-800 hover:!bg-slate-300 hover:dark:!bg-slate-700'
+					bg='!au-bg-slate-400 dark:!au-bg-slate-800 hover:!au-bg-slate-300 hover:dark:!au-bg-slate-700'
 					onClick={() => setShowResetAlert?.(false)}
 				>
 					Cancel
@@ -61,7 +61,7 @@ function Reset({ confirmResetEditor }: { confirmResetEditor: () => void }) {
 					Confirm
 				</PrimaryButton>
 			}
-			title={<h3 className='px-2 text-lg'>Are you sure?</h3>}
+			title={<h3 className='au-px-2 au-text-lg'>Are you sure?</h3>}
 			description='This will clear all the content from the editor. This action cannot be undone.'
 		/>
 	)
@@ -75,18 +75,20 @@ function WritingSessionRecap() {
 		<Dialog
 			isOpen={showSessionRecapDialog}
 			onOpenChange={setShowSessionRecapDialog}
-			title={<h3 className='px-2 text-lg'>Writing Session Recap</h3>}
+			title={
+				<h3 className='au-px-2 au-text-lg'>Writing Session Recap</h3>
+			}
 			trigger={null}
 		>
-			<div className='grid w-[24rem] grid-cols-2 gap-2 px-2 text-black dark:text-white'>
-				<p className='text-left'>Session Target:</p>
-				<p className='text-right'>
+			<div className='au-grid au-w-[24rem] au-grid-cols-2 au-gap-2 au-px-2 au-text-black dark:au-text-white'>
+				<p className='au-text-left'>Session Target:</p>
+				<p className='au-text-right'>
 					{sessionData?.goal === 'duration'
 						? `${sessionData?.target / 60} minutes`
 						: `${sessionData?.target} words`}
 				</p>
-				<p className='text-left'># of words written:</p>
-				<p className='text-right'>
+				<p className='au-text-left'># of words written:</p>
+				<p className='au-text-right'>
 					{`${
 						// @ts-ignore
 						sessionData?.endingWordCount -
@@ -94,8 +96,8 @@ function WritingSessionRecap() {
 						sessionData?.startingWordCount
 					}`}
 				</p>
-				<p className='text-left'>Session Duration:</p>
-				<p className='text-right'>{`${
+				<p className='au-text-left'>Session Duration:</p>
+				<p className='au-text-right'>{`${
 					// @ts-ignore
 					Math.floor(sessionData?.duration / 60)
 				} minutes`}</p>
@@ -384,15 +386,15 @@ export default function Writer({ theme, toggleTheme }: WriterProps) {
 				setWordCount,
 			}}
 		>
-			<main className='flex h-full w-full flex-col items-center justify-start'>
+			<main className='au-flex au-h-full au-w-full au-flex-col au-items-center au-justify-start'>
 				<Autosave
 					data={autoSaveData}
 					interval={5000}
 					onSave={autoSavePost}
 				/>
 				<div
-					className={`absolute top-4 left-4 flex items-center gap-4 transition-all duration-200 hover:opacity-100 ${
-						focusMode ? 'opacity-5' : 'opacity-100'
+					className={`au-absolute au-top-4 au-left-4 au-flex au-items-center au-gap-4 au-transition-all au-duration-200 hover:au-opacity-100 ${
+						focusMode ? 'au-opacity-5' : 'au-opacity-100'
 					}`}
 				>
 					<MainMenu
@@ -401,12 +403,12 @@ export default function Writer({ theme, toggleTheme }: WriterProps) {
 					/>
 					{SessionComponent}
 				</div>
-				<section className='flex h-full w-full flex-grow flex-col items-center justify-start'>
-					<div className='flex h-full w-full flex-col items-center justify-start space-y-4 px-4 py-24 lg:px-0 md:py-16'>
-						<div className='w-full max-w-3xl'>
+				<section className='au-flex au-h-full au-w-full au-flex-grow au-flex-col au-items-center au-justify-start'>
+					<div className='au-flex au-h-full au-w-full au-flex-col au-items-center au-justify-start au-space-y-4 au-px-4 au-py-24 md:au-py-16 lg:au-px-0'>
+						<div className='au-w-full au-max-w-3xl'>
 							<textarea
 								autoFocus
-								className='min-h-[2rem] lg:min-h-[6rem] w-full resize-none bg-transparent text-2xl lg:text-5xl font-semibold leading-snug text-black focus:outline-none dark:text-white overflow-y-hidden'
+								className='au-min-h-[2rem] au-w-full au-resize-none au-overflow-y-hidden au-bg-transparent au-text-2xl au-font-semibold au-leading-snug au-text-black focus:au-outline-none dark:au-text-white lg:au-min-h-[6rem] lg:au-text-5xl'
 								onChange={(e) => setTitle(e.target.value)}
 								placeholder='Title'
 								ref={titleRef}

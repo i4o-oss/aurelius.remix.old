@@ -52,14 +52,14 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
 				{
 					id: 'bold',
 					icon: (
-						<FontBoldIcon className='text-black dark:text-white' />
+						<FontBoldIcon className='au-text-black dark:au-text-white' />
 					),
 					onSelect: toggleBold,
 				},
 				{
 					id: 'italic',
 					icon: (
-						<FontItalicIcon className='text-black dark:text-white' />
+						<FontItalicIcon className='au-text-black dark:au-text-white' />
 					),
 					onSelect: () =>
 						editor?.chain().focus().toggleItalic().run(),
@@ -160,18 +160,24 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
 			groupItems: [
 				{
 					id: 'quote',
-					icon: <QuoteIcon className='text-black dark:text-white' />,
+					icon: (
+						<QuoteIcon className='au-text-black dark:au-text-white' />
+					),
 					onSelect: () =>
 						editor?.chain().focus().toggleBlockquote().run(),
 				},
 				{
 					id: 'link',
-					icon: <Link2Icon className='text-black dark:text-white' />,
+					icon: (
+						<Link2Icon className='au-text-black dark:au-text-white' />
+					),
 					onSelect: () => setToggleLink(true),
 				},
 				{
 					id: 'code',
-					icon: <CodeIcon className='text-black dark:text-white' />,
+					icon: (
+						<CodeIcon className='au-text-black dark:au-text-white' />
+					),
 					onSelect: () => editor?.chain().focus().toggleCode().run(),
 				},
 			],
@@ -182,18 +188,18 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
 		<>
 			<Toolbar
 				ariaLabel='Text Formatting Options'
-				className='w-full text-black dark:text-white'
+				className='au-w-full au-text-black dark:au-text-white'
 				// @ts-ignore
 				items={items}
 			/>
 			<Dialog
 				isOpen={toggleLink}
 				onOpenChange={setToggleLink}
-				title={<h3 className='text-lg'>Add link</h3>}
+				title={<h3 className='au-text-lg'>Add link</h3>}
 			>
-				<div className='flex h-12 w-full items-center justify-center space-x-2'>
+				<div className='au-flex au-h-12 au-w-full au-items-center au-justify-center au-space-x-2'>
 					<input
-						className='h-full w-auto rounded-lg border bg-transparent px-2 py-1 text-black outline-black dark:text-white dark:outline-white'
+						className='au-h-full au-w-auto au-rounded-lg au-border au-bg-transparent au-px-2 au-py-1 au-text-black au-outline-black dark:au-text-white dark:au-outline-white'
 						onBlur={() => {
 							if (!editor?.getAttributes('link').href) {
 								setToggleLink(false)
@@ -208,14 +214,14 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
 					{editor?.getAttributes('link').href && (
 						<Button
 							aria-label='Unlink'
-							bg='bg-gray-300'
-							className='flex h-full w-8 items-center justify-center rounded-md'
+							bg='au-bg-gray-300'
+							className='au-flex au-h-full au-w-8 au-items-center au-justify-center au-rounded-md'
 							onClick={() => {
 								editor?.chain().focus().unsetLink().run()
 								setToggleLink(false)
 							}}
-							padding='p-0'
-							textColor='text-black'
+							padding='au-p-0'
+							textColor='au-text-black'
 						>
 							<LinkBreak2Icon />
 						</Button>

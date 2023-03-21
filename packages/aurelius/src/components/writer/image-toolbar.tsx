@@ -11,7 +11,10 @@ export default function ImageToolbar({ editor }: EditorToolbarProps) {
 				{
 					id: 'small',
 					icon: (
-						<svg viewBox='0 0 16 16' className='h-4 w-4 fill-white'>
+						<svg
+							viewBox='0 0 16 16'
+							className='au-h-4 au-w-4 au-fill-white'
+						>
 							<g fill='#FFF' fillRule='nonzero'>
 								<path
 									d='M2 3a1 1 0 010-2h12a1 1 0 010 2H2zm0 12a1 1 0 010-2h12a1 1 0 010 2H2z'
@@ -33,7 +36,7 @@ export default function ImageToolbar({ editor }: EditorToolbarProps) {
 					icon: (
 						<svg
 							viewBox='0 0 16 16'
-							className='fill-green-l2 h-4 w-4'
+							className='au-fill-white au-h-4 au-w-4'
 						>
 							<g fill='#FFF' fillRule='nonzero'>
 								<path
@@ -54,7 +57,10 @@ export default function ImageToolbar({ editor }: EditorToolbarProps) {
 				{
 					id: 'large',
 					icon: (
-						<svg viewBox='0 0 16 16' className='h-4 w-4 fill-white'>
+						<svg
+							viewBox='0 0 16 16'
+							className='au-h-4 au-w-4 au-fill-white'
+						>
 							<g fill='#FFF' fillRule='nonzero'>
 								<path
 									d='M0 2a1 1 0 012 0v12a1 1 0 01-2 0V2zm14 0a1 1 0 012 0v12a1 1 0 01-2 0V2z'
@@ -79,7 +85,7 @@ export default function ImageToolbar({ editor }: EditorToolbarProps) {
 	return (
 		<Toolbar
 			ariaLabel='Text Formatting Options'
-			className='w-full'
+			className='au-w-full'
 			items={items}
 		/>
 	)

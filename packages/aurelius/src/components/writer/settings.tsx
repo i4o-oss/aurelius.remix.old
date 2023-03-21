@@ -72,20 +72,20 @@ export default function Settings() {
 			onOpenChange={setShowSettingsDialog}
 			title='Settings'
 		>
-			<div className='max-h-[96rem] min-h-[40rem] w-[48rem] [&_div[role="tablist"]]:!gap-2'>
+			<div className='au-max-h-[96rem] au-min-h-[40rem] au-w-[48rem] [&_div[role="tablist"]]:!au-gap-2'>
 				<Tabs
 					defaultValue='goals'
 					tabs={[
 						{
 							id: 'goals',
-							title: <p className='text-left'>Goals</p>,
+							title: <p className='au-text-left'>Goals</p>,
 							content: (
 								<form
-									className='flex w-full flex-col items-center justify-start gap-8 pl-2'
+									className='au-flex au-w-full au-flex-col au-items-center au-justify-start au-gap-8 au-pl-2'
 									onSubmit={saveGoalSettings}
 								>
-									<div className='[&_button[role="radio"]]:nth-child(2):border-b [&_div[role="group"]]:divide flex w-full flex-col items-start justify-center gap-2 text-white [&_button[role="radio"]]:col-span-1 [&_button[role="radio"]]:rounded-none [&_div[role="group"]]:grid [&_div[role="group"]]:w-full [&_div[role="group"]]:grid-cols-1 [&_div[role="group"]]:overflow-hidden [&_div[role="group"]]:rounded-lg'>
-										<label className='text-sm font-medium text-black dark:text-white'>
+									<div className='[&_button[role="radio"]]:nth-child(2):au-border-b [&_div[role="group"]]:au-divide au-flex au-w-full au-flex-col au-items-start au-justify-center au-gap-2 au-text-white [&_button[role="radio"]]:au-col-span-1 [&_button[role="radio"]]:au-rounded-none [&_div[role="group"]]:au-grid [&_div[role="group"]]:au-w-full [&_div[role="group"]]:au-grid-cols-1 [&_div[role="group"]]:au-overflow-hidden [&_div[role="group"]]:au-rounded-lg'>
+										<label className='au-text-sm au-font-medium au-text-black dark:au-text-white'>
 											Streak
 										</label>
 										<ToggleGroup
@@ -94,7 +94,7 @@ export default function Settings() {
 													value: '3',
 													label: '3 days',
 													icon: (
-														<div className='flex w-full items-center justify-between p-4'>
+														<div className='au-flex au-w-full au-items-center au-justify-between au-p-4'>
 															<span>3 days</span>
 															<span>
 																Beginner
@@ -106,7 +106,7 @@ export default function Settings() {
 													value: '7',
 													label: '7 days',
 													icon: (
-														<div className='flex w-full items-center justify-between p-4'>
+														<div className='au-flex au-w-full au-items-center au-justify-between au-p-4'>
 															<span>7 days</span>
 															<span>
 																Solid Start
@@ -118,7 +118,7 @@ export default function Settings() {
 													value: '14',
 													label: '14 days',
 													icon: (
-														<div className='flex w-full items-center justify-between p-4'>
+														<div className='au-flex au-w-full au-items-center au-justify-between au-p-4'>
 															<span>14 days</span>
 															<span>
 																Committed
@@ -130,7 +130,7 @@ export default function Settings() {
 													value: '30',
 													label: '30 days',
 													icon: (
-														<div className='flex w-full items-center justify-between p-4'>
+														<div className='au-flex au-w-full au-items-center au-justify-between au-p-4'>
 															<span>30 days</span>
 															<span>On Fire</span>
 														</div>
@@ -144,12 +144,12 @@ export default function Settings() {
 											type='single'
 										/>
 									</div>
-									<div className='flex w-full flex-col items-start justify-center gap-2'>
-										<label className='text-sm font-medium text-black dark:text-white'>
+									<div className='au-flex au-w-full au-flex-col au-items-start au-justify-center au-gap-2'>
+										<label className='au-text-sm au-font-medium au-text-black dark:au-text-white'>
 											Word Count / Day
 										</label>
 										<input
-											className='h-10 w-full rounded-md bg-gray-100 px-4 py-2 text-sm font-medium text-black dark:bg-gray-900 dark:text-white'
+											className='au-h-10 au-w-full au-rounded-md au-bg-gray-100 au-px-4 au-py-2 au-text-sm au-font-medium au-text-black dark:au-bg-gray-900 dark:au-text-white'
 											defaultValue={wordCountGoal}
 											name='wordCount'
 											onChange={(e) =>
@@ -160,7 +160,7 @@ export default function Settings() {
 											type='text'
 										/>
 									</div>
-									<div className='flex w-full items-center justify-end'>
+									<div className='au-flex au-w-full au-items-center au-justify-end'>
 										<PrimaryButton type='submit'>
 											Save
 										</PrimaryButton>
@@ -170,18 +170,18 @@ export default function Settings() {
 						},
 						{
 							id: 'music',
-							title: <p className='text-left'>Music</p>,
+							title: <p className='au-text-left'>Music</p>,
 							content: (
 								<form
-									className='flex w-full flex-col items-center justify-start gap-8 pl-2'
+									className='au-flex au-w-full au-flex-col au-items-center au-justify-start au-gap-8 au-pl-2'
 									onSubmit={saveMusicSettings}
 								>
-									<div className='flex w-full flex-col items-start justify-center gap-2'>
-										<label className='text-sm font-medium text-black dark:text-white'>
+									<div className='au-flex au-w-full au-flex-col au-items-start au-justify-center au-gap-2'>
+										<label className='au-text-sm au-font-medium au-text-black dark:au-text-white'>
 											Youtube Video/Playlist
 										</label>
 										<input
-											className='h-10 w-full rounded-md bg-gray-100 px-4 py-2 text-sm font-medium text-black dark:bg-gray-900 dark:text-white'
+											className='au-h-10 au-w-full au-rounded-md au-bg-gray-100 au-px-4 au-py-2 au-text-sm au-font-medium au-text-black dark:au-bg-gray-900 dark:au-text-white'
 											defaultValue={youtubeVideo}
 											name='yt'
 											onChange={(e) =>
@@ -203,7 +203,7 @@ export default function Settings() {
 									{/* 		type='text' */}
 									{/* 	/> */}
 									{/* </div> */}
-									<div className='flex w-full items-center justify-end'>
+									<div className='au-flex au-w-full au-items-center au-justify-end'>
 										<PrimaryButton type='submit'>
 											Save
 										</PrimaryButton>

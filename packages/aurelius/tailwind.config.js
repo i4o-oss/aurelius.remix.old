@@ -3,6 +3,7 @@ module.exports = {
 	content: ['./src/**/*.{js,jsx,ts,tsx}'],
 	darkMode: 'class',
 	plugins: [require('@tailwindcss/typography')],
+	prefix: 'au-',
 	theme: {
 		extend: {
 			colors: {

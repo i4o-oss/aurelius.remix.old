@@ -25,24 +25,24 @@ export default function Footer() {
 
 	return (
 		<div
-			className={`fixed bottom-0 left-0 flex h-12 w-full items-center justify-between px-6 `}
+			className={`au-fixed au-bottom-0 au-left-0 au-flex au-h-12 au-w-full au-items-center au-justify-between au-px-6 `}
 		>
 			<div
-				className={`flex items-center justify-start transition-all duration-200 hover:opacity-100 ${
-					focusMode ? 'opacity-5' : 'opacity-100'
+				className={`au-flex au-items-center au-justify-start au-transition-all au-duration-200 au-hover:opacity-100 ${
+					focusMode ? 'au-opacity-5' : 'au-opacity-100'
 				}`}
 			>
-				<span className='text-sm text-slate-500 dark:text-slate-600'>{`${wordCount} words`}</span>
+				<span className='au-text-sm au-text-slate-500 dark:au-text-slate-600'>{`${wordCount} words`}</span>
 				{isSaving && (
-					<div className='flex items-center justify-center px-4'>
+					<div className='au-flex au-items-center au-justify-center au-px-4'>
 						<svg
-							className='-ml-1 mr-2 h-4 w-4 animate-spin text-gray-500'
+							className='-au-ml-1 au-mr-2 au-h-4 au-w-4 au-animate-spin au-text-gray-500'
 							xmlns='http://www.w3.org/2000/svg'
 							fill='none'
 							viewBox='0 0 24 24'
 						>
 							<circle
-								className='opacity-25'
+								className='au-opacity-25'
 								cx='12'
 								cy='12'
 								r='10'
@@ -50,39 +50,39 @@ export default function Footer() {
 								strokeWidth='4'
 							/>
 							<path
-								className='opacity-75'
+								className='au-opacity-75'
 								fill='currentColor'
 								d='M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z'
 							/>
 						</svg>
-						<span className='text-sm text-slate-500 dark:text-slate-600'>
+						<span className='au-text-sm au-text-slate-500 dark:au-text-slate-600'>
 							Saving...
 						</span>
 					</div>
 				)}
 			</div>
 			<div
-				className={`flex items-center justify-start transition-all duration-200 hover:opacity-100 ${
-					focusMode ? 'opacity-5' : 'opacity-100'
+				className={`au-flex au-items-center au-justify-start au-transition-all au-duration-200 hover:au-opacity-100 ${
+					focusMode ? 'au-opacity-5' : 'au-opacity-100'
 				}`}
 			>
 				{isMusicPlaying ? (
 					<Button
-						bg='bg-transparent hover:!bg-slate-300 hover:dark:!bg-slate-700'
-						className='flex h-8 w-8 items-center justify-center'
+						bg='au-bg-transparent hover:!au-bg-slate-300 hover:dark:!au-bg-slate-700'
+						className='au-flex au-h-8 au-w-8 au-items-center au-justify-center'
 						onClick={() => setIsMusicPlaying?.(false)}
-						padding='px-0 py-4'
+						padding='au-px-0 au-py-4'
 					>
-						<PauseIcon className='h-4 w-4 text-slate-800 dark:text-slate-100' />
+						<PauseIcon className='au-h-4 au-w-4 au-text-slate-800 dark:au-text-slate-100' />
 					</Button>
 				) : (
 					<Button
-						bg='bg-transparent hover:!bg-slate-300 hover:dark:!bg-slate-700'
-						className='flex h-8 w-8 items-center justify-center'
+						bg='au-bg-transparent hover:!au-bg-slate-300 hover:dark:!au-bg-slate-700'
+						className='au-flex au-h-8 au-w-8 au-items-center au-justify-center'
 						onClick={() => setIsMusicPlaying?.(true)}
-						padding='px-0 py-4'
+						padding='au-px-0 au-py-4'
 					>
-						<PlayIcon className='h-4 w-4 text-slate-800 dark:text-slate-100' />
+						<PlayIcon className='au-h-4 au-w-4 au-text-slate-800 dark:au-text-slate-100' />
 					</Button>
 				)}
 				<ReactPlayer

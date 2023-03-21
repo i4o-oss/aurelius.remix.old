@@ -75,7 +75,7 @@ export default function TipTap() {
 	}
 
 	return (
-		<div className='editor-wrapper flex h-auto min-h-max w-full items-start justify-center pb-12'>
+		<div className='editor-wrapper au-flex au-h-auto au-min-h-max au-w-full au-items-start au-justify-center au-pb-12'>
 			{editor && (
 				<>
 					<BubbleMenu editor={editor}>{activeToolbar}</BubbleMenu>
