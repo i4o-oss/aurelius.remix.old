@@ -6,15 +6,12 @@ export async function getUserById(id: string) {
 }
 
 // @ts-ignore
-export async function findOrCreate(profile, provider) {
-	let email = provider === 'google' ? profile.emails[0].value : profile.email
+export async function findOrCreateUser(email: string, accessCode: string) {
 	let user = await getUserByEmail(email)
 	if (user) {
 		return user
 	} else {
-		const image = provider === 'google' ? profile.photos[0].value : ''
-		const name = provider === 'google' ? profile.displayName : ''
-		const newUser = await createUser({ email, image, name, provider })
+		const newUser = await createUser({ email, accessCode })
 		return newUser
 	}
 }
@@ -31,26 +28,26 @@ export async function getUserByEmail(email: string) {
 
 interface CreateUserParams {
 	email: string
-	image?: string
-	name?: string
-	provider?: string
+	accessCode: string
 }
 
-export async function createUser({
-	email,
-	image = '',
-	name = '',
-	provider = '',
-}: CreateUserParams) {
-	const user = await prisma.user.create({
-		data: {
+export async function createUser({ email, accessCode }: CreateUserParams) {
+	const waitlistEntry = await prisma.waitlist.findFirstOrThrow({
+		where: {
 			email,
-			image,
-			name,
-			// @ts-ignore
-			provider,
+			accessCode,
 		},
 	})
+	if (waitlistEntry) {
+		const { email, name } = waitlistEntry
 
-	return user
+		const user = await prisma.user.create({
+			data: {
+				email,
+				name,
+			},
+		})
+
+		return user
+	}
 }

@@ -1,14 +1,14 @@
 import type { ActionArgs } from '@remix-run/node'
-import { useFetcher } from '@remix-run/react'
+import { Link, useFetcher } from '@remix-run/react'
 import { json } from '@remix-run/node'
 import { PrimaryButton } from '@i4o/catalystui'
-import { findOrCreate } from '~/models/waitlist.server'
+import { findOrCreateWaitlistEntry } from '~/models/waitlist.server'
 
 export async function action({ request }: ActionArgs) {
 	const formData = await request.formData()
 	const name = formData.get('name') as string
 	const email = formData.get('email') as string
-	await findOrCreate(email, name)
+	await findOrCreateWaitlistEntry(email, name)
 	return json({ message: 'joined' })
 }
 
@@ -31,6 +31,15 @@ export default function Join() {
 								Aurelius
 							</span>
 						</h1>
+						<p className='text-md font-medium'>
+							Already have an access code?{' '}
+							<Link
+								className='text-brand-500 no-underline'
+								to='/signup'
+							>
+								Sign Up!
+							</Link>
+						</p>
 					</div>
 				</div>
 				<waitlistFetcher.Form method='post'>

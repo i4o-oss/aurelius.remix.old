@@ -22,7 +22,7 @@ export let action: ActionFunction = async ({ request }) => {
 	})
 }
 
-export default function () {
+export default function SignIn() {
 	let { magicLinkSent } = useLoaderData<{ magicLinkSent: boolean }>()
 
 	return (

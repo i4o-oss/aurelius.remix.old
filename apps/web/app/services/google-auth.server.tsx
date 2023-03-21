@@ -1,6 +1,6 @@
 import { GoogleStrategy } from 'remix-auth-google'
 import type { User } from '~/models/user.server'
-import { findOrCreate } from '~/models/user.server'
+import { findOrCreateUser } from '~/models/user.server'
 import { Authenticator } from 'remix-auth'
 import { sessionStorage } from '~/services/session.server'
 
@@ -23,7 +23,7 @@ auth.use(
 			callbackURL: 'http://localhost:3000/auth/google/callback',
 		},
 		async ({ accessToken, refreshToken, extraParams, profile }) => {
-			return findOrCreate(profile, 'google')
+			return findOrCreateUser(profile, 'google')
 		}
 	)
 )

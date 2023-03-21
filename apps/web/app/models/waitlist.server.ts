@@ -4,7 +4,7 @@ import { customAlphabet } from 'nanoid/async'
 import { WAITLIST_CODE_ALPHABET } from '~/lib/constants'
 const nanoid = customAlphabet(WAITLIST_CODE_ALPHABET, 8)
 
-export async function findOrCreate(email: string, name: string) {
+export async function findOrCreateWaitlistEntry(email: string, name: string) {
 	let user = await getWaitlistEntryByEmail(email)
 	if (user) {
 		return user
