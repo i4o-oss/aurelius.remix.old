@@ -7,3 +7,5 @@ export const authors = [
 		twitter: 'i4o_dev',
 	},
 ]
+
+export const WAITLIST_CODE_ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'

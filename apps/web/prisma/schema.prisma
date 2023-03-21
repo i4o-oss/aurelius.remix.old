@@ -21,3 +21,12 @@ model User {
     provider      String?
 }
 
+model Waitlist {
+    id         String   @id @default(cuid())
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+    name       String
+    email      String   @unique
+    accessCode String   @unique
+    position   Int      @unique
+}

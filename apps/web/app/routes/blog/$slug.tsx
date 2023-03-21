@@ -139,7 +139,9 @@ export default function BlogPost() {
 						className='my-8 w-full rounded-md border border-slate-200 bg-slate-200 transition-colors group-hover:border-slate-900'
 					/>
 				)}
-				<PostContent />
+				<div className='text-lg leading-loose'>
+					<PostContent />
+				</div>
 			</article>
 		</>
 	)

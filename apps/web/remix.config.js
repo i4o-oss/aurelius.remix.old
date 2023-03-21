@@ -31,6 +31,7 @@ module.exports = {
 		'lowlight',
 		/^mdast-util-*/,
 		/^micromark*/,
+		/^nanoid*/,
 		'parse-entities',
 		'periscopic',
 		'property-information',
