@@ -2,6 +2,7 @@ import { useContext } from 'react'
 import { Dropdown, IconButton, Switch } from '@i4o/catalystui'
 import {
 	Crosshair2Icon,
+	EnterIcon,
 	// DownloadIcon,
 	FileIcon,
 	FileTextIcon,
@@ -139,12 +140,17 @@ export default function MainMenu(props: MainMenuProps) {
 		// 	icon: <QuestionMarkCircledIcon />,
 		// 	shortcut: '?',
 		// },
-		// { type: 'separator' },
-		// {
-		// 	label: 'Aurelius+',
-		// 	icon: <StarFilledIcon />,
-		// 	link: '/plus',
-		// },
+		{ type: 'separator' },
+		{
+			label: 'Join Waitlist',
+			icon: <StarFilledIcon />,
+			link: '/join',
+		},
+		{
+			label: 'Sign In',
+			icon: <EnterIcon />,
+			link: '/signup',
+		},
 		{ type: 'separator' },
 		{
 			label: 'Blog',
