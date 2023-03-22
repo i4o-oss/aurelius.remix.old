@@ -9,3 +9,6 @@ export const authors = [
 ]
 
 export const WAITLIST_CODE_ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+export const TWITTER_PROFILE = 'https://twitter.com/aurelius_ink'
+export const INSTAGRAM_PROFILE = 'https://instagram.com/aurelius_ink'

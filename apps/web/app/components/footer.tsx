@@ -3,11 +3,12 @@ import {
 	InstagramLogoIcon,
 	TwitterLogoIcon,
 } from '@radix-ui/react-icons'
+import { INSTAGRAM_PROFILE, TWITTER_PROFILE } from '~/lib/constants'
 
 export default function Footer() {
 	return (
 		<div className='flex h-20 w-screen flex-wrap items-center justify-center border-t border-gray-200/50 bg-transparent p-4 dark:border-gray-700/20 lg:px-0'>
-			<div className='flex w-[88rem] items-center justify-between sm:px-2 lg:px-8 xl:px-12'>
+			<div className='flex w-full max-w-5xl items-center justify-between'>
 				<div className='flex items-center gap-2 text-slate-700 dark:text-slate-300'>
 					<svg
 						className='h-5 w-5'
@@ -64,7 +65,7 @@ export default function Footer() {
 					{/* </a> */}
 					<a
 						aria-label='Instagram Profile'
-						href='https://instagram.com/aurelius_ink'
+						href={INSTAGRAM_PROFILE}
 						target='_blank'
 						rel='noreferrer noopener'
 					>
@@ -72,7 +73,7 @@ export default function Footer() {
 					</a>
 					<a
 						aria-label='Twitter Profile'
-						href='https://twitter.com/aurelius_ink'
+						href={TWITTER_PROFILE}
 						target='_blank'
 						rel='noreferrer noopener'
 					>
