@@ -142,17 +142,6 @@ export default function MainMenu(props: MainMenuProps) {
 		// },
 		{ type: 'separator' },
 		{
-			label: 'Join Waitlist',
-			icon: <StarFilledIcon />,
-			link: '/join',
-		},
-		{
-			label: 'Sign In',
-			icon: <EnterIcon />,
-			link: '/signup',
-		},
-		{ type: 'separator' },
-		{
 			label: 'Blog',
 			icon: <Pencil1Icon />,
 			link: '/blog',
@@ -181,6 +170,17 @@ export default function MainMenu(props: MainMenuProps) {
 			),
 			icon: theme === Theme.DARK ? <SunIcon /> : <MoonIcon />,
 			onSelect: () => toggleTheme?.(),
+		},
+		{ type: 'separator' },
+		{
+			label: 'Join Waitlist',
+			icon: <StarFilledIcon />,
+			link: '/join',
+		},
+		{
+			label: 'Log In',
+			icon: <EnterIcon />,
+			link: '/login',
 		},
 	]
 
