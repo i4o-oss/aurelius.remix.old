@@ -45,20 +45,20 @@ export default function FloatingMenu({
 								</button>
 							</div>
 						</Menu.Item>
-						<Menu.Item>
-							<button
-								className={`hover:au-bg-brand-400 au-group au-flex au-w-full au-items-center au-rounded-md au-px-2 au-py-2 au-text-sm au-text-white`}
-							>
-								Bookmark
-							</button>
-						</Menu.Item>
-						<Menu.Item>
-							<button
-								className={`hover:au-bg-brand-400 au-group au-flex au-w-full au-items-center au-rounded-md au-px-2 au-py-2 au-text-sm au-text-white`}
-							>
-								Youtube
-							</button>
-						</Menu.Item>
+						{/* <Menu.Item> */}
+						{/* 	<button */}
+						{/* 		className={`hover:au-bg-brand-400 au-group au-flex au-w-full au-items-center au-rounded-md au-px-2 au-py-2 au-text-sm au-text-white`} */}
+						{/* 	> */}
+						{/* 		Bookmark */}
+						{/* 	</button> */}
+						{/* </Menu.Item> */}
+						{/* <Menu.Item> */}
+						{/* 	<button */}
+						{/* 		className={`hover:au-bg-brand-400 au-group au-flex au-w-full au-items-center au-rounded-md au-px-2 au-py-2 au-text-sm au-text-white`} */}
+						{/* 	> */}
+						{/* 		Youtube */}
+						{/* 	</button> */}
+						{/* </Menu.Item> */}
 					</div>
 				</Menu.Items>
 			</Transition>
