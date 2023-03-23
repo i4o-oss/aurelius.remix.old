@@ -1,6 +1,6 @@
 import { PrimaryButton } from '@i4o/catalystui'
 import type { ActionFunction } from '@remix-run/node'
-import { Form, useFetcher } from '@remix-run/react'
+import { useFetcher } from '@remix-run/react'
 import { auth } from '~/services/auth.server'
 
 export let action: ActionFunction = async ({ request }) => {
@@ -35,12 +35,13 @@ export default function SignIn() {
 					</div>
 					<div className='flex w-96 flex-col items-center justify-center space-y-4 text-white'>
 						<div className='w-full space-y-2'>
-							<label htmlFor='email'>Email address</label>
+							{/* <label htmlFor='email'>Email address</label> */}
 							<input
 								className='h-12 w-full rounded-md border border-gray-300 bg-transparent p-4 text-white outline-none focus:border-gray-300 focus:bg-transparent active:border-gray-300 active:bg-transparent'
 								id='email'
 								type='email'
 								name='email'
+								placeholder='Email Address'
 								required
 							/>
 						</div>
@@ -61,16 +62,16 @@ export default function SignIn() {
 					</div>
 				</div>
 			</loginFetcher.Form>
-			<div className='my-4 flex w-full max-w-[24rem] items-center justify-center text-white before:relative before:w-1/2 before:border-t before:border-white before:content-[""] after:relative after:w-1/2 after:border-t after:border-white after:content-[""]'>
-				<span className='text-md mx-4'>or</span>
-			</div>
-			<Form action='/auth/google' method='post'>
-				<div className='flex w-96 flex-col items-center justify-center space-y-4'>
-					<button className='flex h-12 w-full items-center justify-center space-x-2 rounded-md bg-gray-800 text-white'>
-						<span>Sign In with Google</span>
-					</button>
-				</div>
-			</Form>
+			{/* <div className='my-4 flex w-full max-w-[24rem] items-center justify-center text-white before:relative before:w-1/2 before:border-t before:border-white before:content-[""] after:relative after:w-1/2 after:border-t after:border-white after:content-[""]'> */}
+			{/* 	<span className='text-md mx-4'>or</span> */}
+			{/* </div> */}
+			{/* <Form action='/auth/google' method='post'> */}
+			{/* 	<div className='flex w-96 flex-col items-center justify-center space-y-4'> */}
+			{/* 		<button className='flex h-12 w-full items-center justify-center space-x-2 rounded-md bg-gray-800 text-white'> */}
+			{/* 			<span>Sign In with Google</span> */}
+			{/* 		</button> */}
+			{/* 	</div> */}
+			{/* </Form> */}
 		</main>
 	)
 }
