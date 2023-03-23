@@ -1,5 +1,5 @@
 import { Link } from '@remix-run/react'
-import { PrimaryButton } from '@i4o/catalystui'
+import { PrimaryButton, Switch } from '@i4o/catalystui'
 import { Footer, Header } from '~/components'
 import {
 	BarChartIcon,
@@ -11,6 +11,7 @@ import {
 	Share1Icon,
 } from '@radix-ui/react-icons'
 import { Theme, useTheme } from '~/lib/theme'
+import { useState } from 'react'
 
 const features = [
 	{
@@ -91,6 +92,10 @@ const faqs = [
 				with any and all features we will build in the future.
 				<br />
 				<br />
+				For subscriptions, you get access to premium features as long as
+				the subscription is active.
+				<br />
+				<br />
 				To get an idea of what updates have looked like in the past,{' '}
 				<a className='text-brand-500 no-underline' href='#'>
 					check our changelog
@@ -144,6 +149,234 @@ const faqs = [
 	},
 ]
 
+function Pricing() {
+	const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'yearly'>(
+		'monthly'
+	)
+	return (
+		<section className='py-24 sm:py-32'>
+			<div className='mx-auto max-w-5xl px-6 lg:px-8'>
+				<div className='mx-auto max-w-2xl sm:text-center'>
+					<h2 className='text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-50 sm:text-4xl'>
+						Simple Pricing
+					</h2>
+					<p className='mt-6 text-lg leading-8 text-slate-700 dark:text-slate-300'>
+						Get instant access to current features and all future
+						updates.
+					</p>
+				</div>
+
+				<div className='mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-slate-400 dark:ring-slate-700 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none'>
+					<div className='flex flex-col justify-center p-8 sm:p-10 lg:flex-auto'>
+						<h3 className='text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-50'>
+							Subscription
+						</h3>
+						{/* <p className='mt-6 text-base leading-7 text-slate-700 dark:text-slate-300'> */}
+						{/* 	Lorem ipsum dolor sit amet consect etur */}
+						{/* 	adipisicing elit. Itaque amet indis */}
+						{/* 	perferendis blanditiis repellendus etur */}
+						{/* 	quidem assumenda. */}
+						{/* </p> */}
+						<div className='mt-10 flex items-center gap-x-4'>
+							<h4 className='text-brand-500 flex-none text-sm font-semibold leading-6'>
+								What’s included
+							</h4>
+							<div className='h-px flex-auto bg-slate-900 dark:bg-slate-50' />
+						</div>
+						<ul
+							role='list'
+							className='mt-8 grid grid-cols-1 gap-4 text-sm leading-6 text-slate-600 dark:text-slate-500 sm:grid-cols-2 sm:gap-6'
+						>
+							{includedFeatures.map((feature) => (
+								<li key={feature} className='flex gap-x-3'>
+									<CheckIcon
+										className='text-brand-500 h-6 w-5 flex-none'
+										aria-hidden='true'
+									/>
+									{feature}
+								</li>
+							))}
+						</ul>
+					</div>
+					<div className='-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0'>
+						<div className='relative rounded-2xl bg-slate-100 py-6 text-center ring-1 ring-inset ring-slate-400 dark:bg-slate-800 dark:ring-slate-700 lg:flex lg:flex-col lg:justify-center lg:py-12'>
+							<div className='absolute top-4 right-4 flex items-center justify-center gap-x-2'>
+								<label className='text-xs'>Monthly</label>
+								<Switch
+									name='billing-period'
+									defaultChecked={billingPeriod === 'yearly'}
+									onCheckedChange={(state) =>
+										setBillingPeriod(
+											state ? 'yearly' : 'monthly'
+										)
+									}
+								/>
+								<label className='text-xs'>Yearly</label>
+							</div>
+							<div className='mx-auto max-w-xs px-8'>
+								<p className='mt-6 flex items-baseline justify-center gap-x-2'>
+									<span className='text-5xl font-bold tracking-tight text-slate-900 dark:text-slate-50'>
+										{billingPeriod === 'monthly'
+											? '$15'
+											: '$12.5'}
+									</span>
+									<span className='text-sm font-semibold leading-6 tracking-wide text-slate-700 dark:text-slate-300'>
+										/month
+									</span>
+								</p>
+								{billingPeriod === 'yearly' ? (
+									<p className='mt-4 text-sm italic'>
+										billed annually ($150)
+									</p>
+								) : (
+									<p className='mt-4 text-sm italic'>
+										billed monthly
+									</p>
+								)}
+								<PrimaryButton
+									className='mt-10 w-full'
+									padding='px-6 py-4'
+									textSize='text-lg'
+								>
+									Try it free for 14 days
+								</PrimaryButton>
+								<p className='mt-6 text-xs leading-5 text-slate-700 dark:text-slate-300'>
+									Cancel anytime. We'll remind you 3 days
+									before trial ends.
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div className='mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-slate-400 dark:ring-slate-700 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none'>
+					<div className='flex flex-col justify-center p-8 sm:p-10 lg:flex-auto'>
+						<h3 className='text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-50'>
+							Lifetime membership
+						</h3>
+						{/* <p className='mt-6 text-base leading-7 text-slate-700 dark:text-slate-300'> */}
+						{/* 	Lorem ipsum dolor sit amet consect etur */}
+						{/* 	adipisicing elit. Itaque amet indis */}
+						{/* 	perferendis blanditiis repellendus etur */}
+						{/* 	quidem assumenda. */}
+						{/* </p> */}
+						<div className='mt-10 flex items-center gap-x-4'>
+							<h4 className='text-brand-500 flex-none text-sm font-semibold leading-6'>
+								What’s included
+							</h4>
+							<div className='h-px flex-auto bg-slate-900 dark:bg-slate-50' />
+						</div>
+						<ul
+							role='list'
+							className='mt-8 grid grid-cols-1 gap-4 text-sm leading-6 text-slate-600 dark:text-slate-500 sm:grid-cols-2 sm:gap-6'
+						>
+							{includedFeatures.map((feature) => (
+								<li key={feature} className='flex gap-x-3'>
+									<CheckIcon
+										className='text-brand-500 h-6 w-5 flex-none'
+										aria-hidden='true'
+									/>
+									{feature}
+								</li>
+							))}
+						</ul>
+					</div>
+					<div className='-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0'>
+						<div className='rounded-2xl bg-slate-100 py-6 text-center ring-1 ring-inset ring-slate-400 dark:bg-slate-800 dark:ring-slate-700 lg:flex lg:flex-col lg:justify-center lg:py-12'>
+							<div className='mx-auto max-w-xs px-8'>
+								<p className='mt-6 flex items-baseline justify-center gap-x-2'>
+									<span className='text-5xl font-bold tracking-tight text-slate-900 dark:text-slate-50'>
+										$300
+									</span>
+								</p>
+								<PrimaryButton
+									className='mt-10 w-full'
+									padding='px-6 py-4'
+									textSize='text-lg'
+								>
+									Try it free for 30 days
+								</PrimaryButton>
+								<p className='mt-6 text-xs leading-5 text-slate-700 dark:text-slate-300'>
+									30 days refund policy. No questions asked.
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	)
+}
+
+function FAQ() {
+	return (
+		<section className='py-24 sm:py-32'>
+			<div className='mx-auto max-w-5xl px-6 lg:px-8'>
+				<div className='mx-auto max-w-2xl sm:text-center'>
+					<h2 className='text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-50 sm:text-4xl'>
+						FAQ
+					</h2>
+				</div>
+				<div className='mt-8 flex w-full flex-col gap-4 text-base leading-7 text-gray-700 dark:text-slate-300 lg:max-w-none'>
+					{faqs.map((faq, index) => (
+						<details
+							className='shadow-10xl group-open:ring-brand-500 group flex flex-wrap justify-between rounded-2xl bg-transparent py-7 px-8 ring-1 ring-slate-400 dark:ring-slate-700'
+							key={`faq-${index}`}
+						>
+							<summary className='flex cursor-pointer list-none items-center justify-between font-medium'>
+								<h3 className='text-lg font-semibold leading-normal text-slate-900 dark:text-slate-50'>
+									{faq.question}
+								</h3>
+								<span className='flex w-auto items-center justify-center p-2 transition group-open:rotate-180'>
+									<ChevronDownIcon className='h-6 w-6' />
+								</span>
+							</summary>
+							<p className='group-open:animate-fadeIn mt-4 font-medium text-slate-700 dark:text-slate-300'>
+								{faq.answer}
+							</p>
+						</details>
+					))}
+				</div>
+			</div>
+		</section>
+	)
+}
+
+function Features() {
+	return (
+		<section className='overflow-hidden py-24 sm:py-32'>
+			<div className='mx-auto max-w-5xl px-6 lg:px-8'>
+				<div className='mx-auto grid max-w-4xl grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-2'>
+					{/* <p className='text-brand-500 col-span-2 text-base font-semibold leading-7'> */}
+					{/* 	Become a better writer */}
+					{/* </p> */}
+					<h2 className='col-span-2 mt-2 text-left text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-50 md:text-4xl lg:text-5xl'>
+						Features
+					</h2>
+					<div className='col-span-2 mt-8 grid w-full grid-cols-2 gap-8 text-base leading-7 text-gray-700 dark:text-slate-300 lg:max-w-none'>
+						{features.map((feature) => (
+							<div
+								key={`feature-${feature.title}`}
+								className='hover:ring-brand-500 hover:dark:ring-brand-500 flex flex-col items-start rounded-2xl px-6 py-5 no-underline ring-1 ring-slate-400 transition-all duration-200 dark:ring-slate-700'
+							>
+								<div className='bg-brand-500 mb-4 flex h-12 w-12 items-center justify-center rounded-lg text-white'>
+									{feature.icon}
+								</div>
+								<h2 className='m-0 mb-2 text-lg font-semibold'>
+									{feature.title}
+								</h2>
+								<span className='text-base leading-normal'>
+									{feature.description}
+								</span>
+							</div>
+						))}
+					</div>
+				</div>
+			</div>
+		</section>
+	)
+}
+
 export default function Home() {
 	const [theme] = useTheme()
 	return (
@@ -192,140 +425,12 @@ export default function Home() {
 					<div className='mx-auto max-w-5xl px-8 text-left lg:px-8'>
 						TODO: Add a big carousel of screenshots (shots.so)
 					</div>
-					<div className='overflow-hidden py-24 sm:py-32'>
-						<div className='mx-auto max-w-5xl px-6 lg:px-8'>
-							<div className='mx-auto grid max-w-4xl grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-2'>
-								{/* <p className='text-brand-500 col-span-2 text-base font-semibold leading-7'> */}
-								{/* 	Become a better writer */}
-								{/* </p> */}
-								<h2 className='col-span-2 mt-2 text-left text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-50 md:text-4xl lg:text-5xl'>
-									Features
-								</h2>
-								<div className='col-span-2 mt-8 grid w-full grid-cols-2 gap-8 text-base leading-7 text-gray-700 dark:text-slate-300 lg:max-w-none'>
-									{features.map((feature) => (
-										<div
-											key={`feature-${feature.title}`}
-											className='hover:ring-brand-500 hover:dark:ring-brand-500 flex flex-col items-start rounded-2xl px-6 py-5 no-underline ring-1 ring-slate-400 transition-all duration-200 dark:ring-slate-700'
-										>
-											<div className='bg-brand-500 mb-4 flex h-12 w-12 items-center justify-center rounded-lg text-white'>
-												{feature.icon}
-											</div>
-											<h2 className='m-0 mb-2 text-lg font-semibold'>
-												{feature.title}
-											</h2>
-											<span className='text-base leading-normal'>
-												{feature.description}
-											</span>
-										</div>
-									))}
-								</div>
-							</div>
-						</div>
-					</div>
 
-					<section className='py-24 sm:py-32'>
-						<div className='mx-auto max-w-5xl px-6 lg:px-8'>
-							<div className='mx-auto max-w-2xl sm:text-center'>
-								<h2 className='text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-50 sm:text-4xl'>
-									Buy once, own forever
-								</h2>
-								<p className='mt-6 text-lg leading-8 text-slate-700 dark:text-slate-300'>
-									Get instant access to current features and
-									all future updates.
-								</p>
-							</div>
-							<div className='mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-slate-400 dark:ring-slate-700 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none'>
-								<div className='flex flex-col justify-center p-8 sm:p-10 lg:flex-auto'>
-									<h3 className='text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-50'>
-										Lifetime membership
-									</h3>
-									{/* <p className='mt-6 text-base leading-7 text-slate-700 dark:text-slate-300'> */}
-									{/* 	Lorem ipsum dolor sit amet consect etur */}
-									{/* 	adipisicing elit. Itaque amet indis */}
-									{/* 	perferendis blanditiis repellendus etur */}
-									{/* 	quidem assumenda. */}
-									{/* </p> */}
-									<div className='mt-10 flex items-center gap-x-4'>
-										<h4 className='text-brand-500 flex-none text-sm font-semibold leading-6'>
-											What’s included
-										</h4>
-										<div className='h-px flex-auto bg-slate-900 dark:bg-slate-50' />
-									</div>
-									<ul
-										role='list'
-										className='mt-8 grid grid-cols-1 gap-4 text-sm leading-6 text-slate-600 dark:text-slate-500 sm:grid-cols-2 sm:gap-6'
-									>
-										{includedFeatures.map((feature) => (
-											<li
-												key={feature}
-												className='flex gap-x-3'
-											>
-												<CheckIcon
-													className='text-brand-500 h-6 w-5 flex-none'
-													aria-hidden='true'
-												/>
-												{feature}
-											</li>
-										))}
-									</ul>
-								</div>
-								<div className='-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0'>
-									<div className='rounded-2xl bg-slate-100 py-6 text-center ring-1 ring-inset ring-slate-400 dark:bg-slate-800 dark:ring-slate-700 lg:flex lg:flex-col lg:justify-center lg:py-12'>
-										<div className='mx-auto max-w-xs px-8'>
-											<p className='mt-6 flex items-baseline justify-center gap-x-2'>
-												<span className='text-5xl font-bold tracking-tight text-slate-900 dark:text-slate-50'>
-													$299
-												</span>
-												<span className='text-sm font-semibold leading-6 tracking-wide text-slate-700 dark:text-slate-300'>
-													USD
-												</span>
-											</p>
-											<PrimaryButton
-												className='mt-12 w-full'
-												padding='px-6 py-4'
-												textSize='text-lg'
-											>
-												Buy Now
-											</PrimaryButton>
-											<p className='mt-6 text-xs leading-5 text-slate-700 dark:text-slate-300'>
-												Invoices and receipts available
-												for easy company reimbursement
-											</p>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</section>
-					<section className='py-24 sm:py-32'>
-						<div className='mx-auto max-w-5xl px-6 lg:px-8'>
-							<div className='mx-auto max-w-2xl sm:text-center'>
-								<h2 className='text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-50 sm:text-4xl'>
-									FAQ
-								</h2>
-							</div>
-							<div className='mt-8 flex w-full flex-col gap-4 text-base leading-7 text-gray-700 dark:text-slate-300 lg:max-w-none'>
-								{faqs.map((faq, index) => (
-									<details
-										className='shadow-10xl group-open:ring-brand-500 group flex flex-wrap justify-between rounded-2xl bg-transparent py-7 px-8 ring-1 ring-slate-400 dark:ring-slate-700'
-										key={`faq-${index}`}
-									>
-										<summary className='flex cursor-pointer list-none items-center justify-between font-medium'>
-											<h3 className='text-lg font-semibold leading-normal text-slate-900 dark:text-slate-50'>
-												{faq.question}
-											</h3>
-											<span className='flex w-auto items-center justify-center p-2 transition group-open:rotate-180'>
-												<ChevronDownIcon className='h-6 w-6' />
-											</span>
-										</summary>
-										<p className='group-open:animate-fadeIn mt-4 font-medium text-slate-700 dark:text-slate-300'>
-											{faq.answer}
-										</p>
-									</details>
-								))}
-							</div>
-						</div>
-					</section>
+					<Features />
+
+					<Pricing />
+
+					<FAQ />
 				</div>
 			</div>
 			<Footer />
