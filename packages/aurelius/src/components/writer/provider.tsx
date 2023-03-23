@@ -43,6 +43,7 @@ export interface AureliusProviderData {
 	toggleTheme?: () => void
 	title?: string
 	setTitle?: Dispatch<SetStateAction<string>>
+	user?: any
 	wordCount?: number
 	setWordCount?: Dispatch<SetStateAction<number>>
 }

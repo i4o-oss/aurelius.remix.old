@@ -20,6 +20,7 @@ model User {
     image         String?
     role          String?   @default("user")
     provider      String?
+    Post          Post[]
 }
 
 model Waitlist {
@@ -30,4 +31,20 @@ model Waitlist {
     email      String   @unique
     accessCode String   @unique
     position   Int      @unique
+}
+
+model Post {
+    id        String    @id @default(cuid())
+    title     String
+    content   String    @db.MediumText
+    published Boolean?  @default(false)
+    user      User      @relation(fields: [userId], references: [id])
+    userId    String
+    createdAt DateTime  @default(now())
+    updatedAt DateTime? @default(now()) @updatedAt
+    wordCount Int
+    slug      String
+    shareId   String
+
+    @@index([userId])
 }

@@ -109,9 +109,10 @@ function WritingSessionRecap() {
 interface WriterProps {
 	theme: Theme
 	toggleTheme: () => void
+	user: any
 }
 
-export default function Writer({ theme, toggleTheme }: WriterProps) {
+export default function Writer({ theme, toggleTheme, user }: WriterProps) {
 	const [writingSessions] = useLocalStorage<WritingSession[]>(
 		SESSION_LOCAL_STORAGE_KEY
 	)
@@ -382,6 +383,7 @@ export default function Writer({ theme, toggleTheme }: WriterProps) {
 				toggleTheme,
 				title,
 				setTitle,
+				user,
 				wordCount,
 				setWordCount,
 			}}

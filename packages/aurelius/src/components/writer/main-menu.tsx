@@ -2,6 +2,7 @@ import { useContext } from 'react'
 import { Dropdown, IconButton, Switch } from '@i4o/catalystui'
 import {
 	Crosshair2Icon,
+	DashboardIcon,
 	EnterIcon,
 	// DownloadIcon,
 	FileIcon,
@@ -13,7 +14,7 @@ import {
 	MixerHorizontalIcon,
 	MoonIcon,
 	Pencil1Icon,
-	QuestionMarkCircledIcon,
+	// QuestionMarkCircledIcon,
 	StarFilledIcon,
 	SunIcon,
 	TrashIcon,
@@ -36,7 +37,29 @@ export default function MainMenu(props: MainMenuProps) {
 		setShowSettingsDialog,
 		theme,
 		toggleTheme,
+		user,
 	}: AureliusProviderData = context
+
+	let userRelatedItems = user
+		? [
+				{
+					label: 'Dashboard',
+					icon: <DashboardIcon />,
+					link: '/dashboard',
+				},
+		  ]
+		: [
+				{
+					label: 'Join Waitlist',
+					icon: <StarFilledIcon />,
+					link: '/join',
+				},
+				{
+					label: 'Log In',
+					icon: <EnterIcon />,
+					link: '/login',
+				},
+		  ]
 
 	const dropdownItems = [
 		{
@@ -172,16 +195,7 @@ export default function MainMenu(props: MainMenuProps) {
 			onSelect: () => toggleTheme?.(),
 		},
 		{ type: 'separator' },
-		{
-			label: 'Join Waitlist',
-			icon: <StarFilledIcon />,
-			link: '/join',
-		},
-		{
-			label: 'Log In',
-			icon: <EnterIcon />,
-			link: '/login',
-		},
+		...userRelatedItems,
 	]
 
 	return (
