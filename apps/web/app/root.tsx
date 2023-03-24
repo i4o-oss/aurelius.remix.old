@@ -115,7 +115,14 @@ const Document = ({ children }: DocumentProps) => {
 		function getGlobalState() {
 			let states = [
 				navigation.state,
-				...fetchers.map((fetcher) => fetcher.state),
+				...fetchers
+					.filter(
+						// use navigation.state only for page navigation.
+						// any navigation with formAction that starts with "/api" should be ignored
+						// this is done so any api call does not trigger nprogress and should only appear for page navigation
+						(fetcher) => !fetcher.formAction?.startsWith('/api')
+					)
+					.map((fetcher) => fetcher.state),
 			]
 			if (states.every((state) => state === 'idle')) return 'idle'
 			return 'loading'
