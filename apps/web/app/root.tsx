@@ -15,6 +15,7 @@ import {
 	ScrollRestoration,
 	useFetchers,
 	useLoaderData,
+	useNavigation,
 	useTransition,
 } from '@remix-run/react'
 import { useEffect } from 'react'
@@ -101,7 +102,7 @@ export const loader = async ({ request }: LoaderArgs) => {
 const Document = ({ children }: DocumentProps) => {
 	const data = useLoaderData<LoaderData>()
 	const [theme] = useTheme()
-	const transition = useTransition()
+	const navigation = useNavigation()
 	const fetchers = useFetchers()
 
 	/**
@@ -113,13 +114,13 @@ const Document = ({ children }: DocumentProps) => {
 	let state = useMemo<'idle' | 'loading'>(
 		function getGlobalState() {
 			let states = [
-				transition.state,
+				navigation.state,
 				...fetchers.map((fetcher) => fetcher.state),
 			]
 			if (states.every((state) => state === 'idle')) return 'idle'
 			return 'loading'
 		},
-		[transition.state, fetchers]
+		[navigation.state, fetchers]
 	)
 
 	useEffect(() => {
@@ -128,7 +129,7 @@ const Document = ({ children }: DocumentProps) => {
 		if (state === 'loading') NProgress.start()
 		// when the state is idle then we can to complete the progress bar
 		if (state === 'idle') NProgress.done()
-	}, [transition.state, state])
+	}, [navigation.state, state])
 
 	return (
 		<html
