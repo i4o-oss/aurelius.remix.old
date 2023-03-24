@@ -4,6 +4,7 @@ import {
 	Crosshair2Icon,
 	DashboardIcon,
 	EnterIcon,
+	ExitIcon,
 	// DownloadIcon,
 	FileIcon,
 	FileTextIcon,
@@ -46,6 +47,11 @@ export default function MainMenu(props: MainMenuProps) {
 					label: 'Dashboard',
 					icon: <DashboardIcon />,
 					link: '/dashboard',
+				},
+				{
+					label: 'Logout',
+					icon: <ExitIcon />,
+					link: '/logout',
 				},
 		  ]
 		: [
@@ -168,16 +174,19 @@ export default function MainMenu(props: MainMenuProps) {
 			label: 'Blog',
 			icon: <Pencil1Icon />,
 			link: '/blog',
+			openLinkInNewTab: true,
 		},
 		{
 			label: 'Twitter',
 			icon: <TwitterLogoIcon />,
 			link: 'https://twitter.com/aurelius_ink',
+			openLinkInNewTab: true,
 		},
 		{
 			label: 'Instagram',
 			icon: <InstagramLogoIcon />,
 			link: 'https://instagram.com/aurelius_ink',
+			openLinkInNewTab: true,
 		},
 		{ type: 'separator' },
 		{
