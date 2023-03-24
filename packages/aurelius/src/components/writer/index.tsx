@@ -107,12 +107,18 @@ function WritingSessionRecap() {
 }
 
 interface WriterProps {
+	savePost: (title: string, content: string, wordCount: number) => void
 	theme: Theme
 	toggleTheme: () => void
 	user: any
 }
 
-export default function Writer({ theme, toggleTheme, user }: WriterProps) {
+export default function Writer({
+	savePost: savePostToDatabase,
+	theme,
+	toggleTheme,
+	user,
+}: WriterProps) {
 	const [writingSessions] = useLocalStorage<WritingSession[]>(
 		SESSION_LOCAL_STORAGE_KEY
 	)
@@ -234,7 +240,11 @@ export default function Writer({ theme, toggleTheme, user }: WriterProps) {
 				wordCount,
 			}
 
-			writeStorage(POST_LOCAL_STORAGE_KEY, update)
+			if (user) {
+				savePostToDatabase(title, content, wordCount)
+			} else {
+				writeStorage(POST_LOCAL_STORAGE_KEY, update)
+			}
 
 			saveTimeout = setTimeout(() => {
 				setIsSaving(false)
