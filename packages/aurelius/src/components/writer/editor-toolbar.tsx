@@ -80,9 +80,9 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
 							viewBox='0 0 24 24'
 							fill='none'
 							stroke='currentColor'
-							stroke-width='2'
-							stroke-linecap='round'
-							stroke-linejoin='round'
+							strokeWidth='2'
+							strokeLinecap='round'
+							strokeLinejoin='round'
 						>
 							<path d='M4 12h8'></path>
 							<path d='M4 18V6'></path>
@@ -106,9 +106,9 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
 							viewBox='0 0 24 24'
 							fill='none'
 							stroke='currentColor'
-							stroke-width='2'
-							stroke-linecap='round'
-							stroke-linejoin='round'
+							strokeWidth='2'
+							strokeLinecap='round'
+							strokeLinejoin='round'
 						>
 							<path d='M4 12h8'></path>
 							<path d='M4 18V6'></path>
@@ -133,9 +133,9 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
 							viewBox='0 0 24 24'
 							fill='none'
 							stroke='currentColor'
-							stroke-width='2'
-							stroke-linecap='round'
-							stroke-linejoin='round'
+							strokeWidth='2'
+							strokeLinecap='round'
+							strokeLinejoin='round'
 						>
 							<path d='M4 12h8'></path>
 							<path d='M4 18V6'></path>
