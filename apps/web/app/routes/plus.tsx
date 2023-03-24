@@ -12,6 +12,7 @@ import {
 } from '@radix-ui/react-icons'
 import { Theme, useTheme } from '~/lib/theme'
 import { useState } from 'react'
+import { EMAIL_ADDRESS } from '~/lib/constants'
 
 const features = [
 	{
@@ -66,12 +67,10 @@ const features = [
 ]
 
 const includedFeatures = [
-	'Unlimited updates',
+	'Lifetime updates',
 	'Private Discord Server',
-	'Members-only events',
 	'Early access to features',
 	'Decide roadmap',
-	'Office hours',
 ]
 
 const faqs = [
@@ -124,9 +123,9 @@ const faqs = [
 				In the meantime, email us at{' '}
 				<a
 					className='text-brand-500 no-underline'
-					href='mailto:hello@aurelius.ink'
+					href={`mailto:${EMAIL_ADDRESS}`}
 				>
-					hello@aurelius.ink
+					{`${EMAIL_ADDRESS}`}
 				</a>
 				.
 			</p>
@@ -139,9 +138,9 @@ const faqs = [
 				If you're unhappy with your purchase for any reason, email us at{' '}
 				<a
 					className='text-brand-500 no-underline'
-					href='mailto:hello@aurelius.ink'
+					href={`mailto:${EMAIL_ADDRESS}`}
 				>
-					hello@aurelius.ink
+					{`${EMAIL_ADDRESS}`}
 				</a>{' '}
 				within 30 days and we'll refund you in full, no questions asked.
 			</p>
@@ -158,7 +157,7 @@ function Pricing() {
 			<div className='mx-auto max-w-5xl px-6 lg:px-8'>
 				<div className='mx-auto max-w-2xl sm:text-center'>
 					<h2 className='text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-50 sm:text-4xl'>
-						Simple Pricing
+						Pricing
 					</h2>
 					<p className='mt-6 text-lg leading-8 text-slate-700 dark:text-slate-300'>
 						Get instant access to current features and all future
@@ -286,8 +285,14 @@ function Pricing() {
 							<div className='mx-auto max-w-xs px-8'>
 								<p className='mt-6 flex items-baseline justify-center gap-x-2'>
 									<span className='text-5xl font-bold tracking-tight text-slate-900 dark:text-slate-50'>
-										$300
+										$40
 									</span>
+									<span className='text-base font-semibold italic leading-6 tracking-wide text-slate-700 dark:text-slate-300'>
+										<s>$300</s>
+									</span>
+								</p>
+								<p className='mt-4 text-sm italic'>
+									Early Bird Pricing
 								</p>
 								<PrimaryButton
 									className='mt-10 w-full'
