@@ -1,10 +1,15 @@
 import type { ActionArgs } from '@remix-run/node'
-import { useFetcher } from '@remix-run/react'
+import { Link, useFetcher } from '@remix-run/react'
+import { json } from '@remix-run/node'
+import { PrimaryButton } from '@i4o/catalystui'
+import { findOrCreateWaitlistEntry } from '~/models/waitlist.server'
 
 export async function action({ request }: ActionArgs) {
-	// TODO: Save name and email to a waitlist table
 	const formData = await request.formData()
-	console.log(formData)
+	const name = formData.get('name') as string
+	const email = formData.get('email') as string
+	await findOrCreateWaitlistEntry(email, name)
+	return json({ message: 'joined' })
 }
 
 export default function Join() {
@@ -12,23 +17,32 @@ export default function Join() {
 
 	return (
 		<main className='flex min-h-screen w-full flex-col items-center justify-center p-24'>
-			<waitlistFetcher.Form method='post'>
-				<div className='flex max-w-3xl flex-col items-center justify-center'>
-					<div className='mb-8 flex flex-col items-center justify-center space-y-8'>
-						{/* <img */}
-						{/* 	className='w-48' */}
-						{/* 	src='/images/logo_dark.png' */}
-						{/* 	alt='Logo' */}
-						{/* /> */}
-						<div className='flex flex-col items-center justify-center space-y-4 text-white'>
-							<h1 className='text-5xl font-bold'>
-								Join the waitlist for{' '}
-								<span className='animate-text bg-gradient-to-r from-[#2cb67d] to-[#124A33] bg-clip-text text-transparent'>
-									Aurelius
-								</span>
-							</h1>
-						</div>
+			<div className='flex max-w-3xl flex-col items-center justify-center'>
+				<div className='mb-8 flex flex-col items-center justify-center space-y-8'>
+					{/* <img */}
+					{/* 	className='w-48' */}
+					{/* 	src='/images/logo_dark.png' */}
+					{/* 	alt='Logo' */}
+					{/* /> */}
+					<div className='flex flex-col items-center justify-center space-y-4 text-white'>
+						<h1 className='text-5xl font-bold'>
+							Join the waitlist for{' '}
+							<span className='animate-text bg-gradient-to-r from-[#2cb67d] to-[#124A33] bg-clip-text text-transparent'>
+								Aurelius
+							</span>
+						</h1>
+						<p className='text-md font-medium'>
+							Already have an access code?{' '}
+							<Link
+								className='text-brand-500 no-underline'
+								to='/signup'
+							>
+								Sign Up!
+							</Link>
+						</p>
 					</div>
+				</div>
+				<waitlistFetcher.Form method='post'>
 					<div className='flex w-96 flex-col items-center justify-center space-y-4 text-white'>
 						<div className='w-full space-y-2'>
 							{/* <label htmlFor='email'>Name</label> */}
@@ -52,12 +66,21 @@ export default function Join() {
 								required
 							/>
 						</div>
-						<button className='bg-brand-500 flex h-12 w-full items-center justify-center rounded-md'>
+						<PrimaryButton
+							type='submit'
+							className='bg-brand-500 flex h-12 w-full items-center justify-center rounded-md'
+						>
 							Join
-						</button>
+						</PrimaryButton>
 					</div>
-				</div>
-			</waitlistFetcher.Form>
+				</waitlistFetcher.Form>
+				{waitlistFetcher?.data?.message === 'joined' ? (
+					<div className='mt-4 w-96 text-center'>
+						Thank you for joining the waitlist. We will get back to
+						you very soon.
+					</div>
+				) : null}
+			</div>
 		</main>
 	)
 }

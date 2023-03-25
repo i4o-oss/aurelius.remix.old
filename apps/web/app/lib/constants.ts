@@ -7,3 +7,11 @@ export const authors = [
 		twitter: 'i4o_dev',
 	},
 ]
+
+export const WAITLIST_CODE_ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+export const TWITTER_PROFILE = 'https://twitter.com/aurelius_ink'
+export const INSTAGRAM_PROFILE = 'https://instagram.com/aurelius_ink'
+export const EMAIL_ADDRESS = 'hello@aurelius.ink'
+
+export const POST_ID_LOCAL_STORAGE_KEY = '__aurelius_user_post_id'

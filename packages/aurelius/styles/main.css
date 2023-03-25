@@ -1,4 +1,3 @@
-@import '../node_modules/@i4o/catalystui/dist/main.css';
 @import 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/tokyo-night-light.min.css';
 @media (prefers-color-scheme: dark) {
 	@import 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/tokyo-night-dark.min.css';
@@ -9,15 +8,15 @@
 @tailwind utilities;
 
 body {
-	@apply overflow-x-hidden;
+	@apply au-overflow-x-hidden;
 }
 
 .editor-wrapper > div:first-child {
-	@apply flex w-full max-w-3xl items-start justify-center;
+	@apply au-flex au-w-full au-max-w-3xl au-items-start au-justify-center;
 }
 
 .ProseMirror {
-	@apply w-full max-w-3xl !text-[1rem] !text-black dark:!text-white lg:!text-[1.3rem];
+	@apply au-w-full au-max-w-3xl !au-text-[1rem] !au-text-black dark:!au-text-white lg:!au-text-[1.3rem];
 	font-family: 'Merriweather', serif;
 	min-height: 640px !important;
 	outline: none !important;
@@ -45,94 +44,94 @@ body {
 
 .ProseMirror ul,
 .ProseMirror ol {
-	@apply max-w-3xl;
+	@apply au-max-w-3xl;
 	padding: 0 1rem;
 }
 
 .ProseMirror ul {
-	@apply list-disc;
+	@apply au-list-disc;
 }
 
 .ProseMirror ol {
-	@apply list-decimal;
+	@apply au-list-decimal;
 }
 
 .ProseMirror ul[data-type='taskList'] {
-	@apply list-none;
+	@apply au-list-none;
 }
 
 .ProseMirror ul[data-type='taskList'] > li {
-	@apply flex;
+	@apply au-flex;
 }
 
 .ProseMirror ul[data-type='taskList'] > li > label {
-	@apply mr-2 flex-[0_0_auto] select-none;
+	@apply au-mr-2 au-flex-[0_0_auto] au-select-none;
 }
 
 .ProseMirror ul[data-type='taskList'] > li > div {
-	@apply flex-auto;
+	@apply au-flex-auto;
 }
 
 .ProseMirror h1,
 .ProseMirror h2,
 .ProseMirror h3 {
-	@apply max-w-3xl;
+	@apply au-max-w-3xl;
 	font-weight: bold;
 	line-height: 1.1;
 }
 
 .ProseMirror h1 {
-	@apply max-w-3xl;
+	@apply au-max-w-3xl;
 	font-size: 4em;
 	margin: 0.67em 0;
 }
 
 .ProseMirror h2 {
-	@apply max-w-3xl;
+	@apply au-max-w-3xl;
 	font-size: 2.3rem;
 	margin: 0.75em 0;
 }
 
 .ProseMirror h3 {
-	@apply max-w-3xl;
+	@apply au-max-w-3xl;
 	font-size: 2rem;
 	margin: 0.83em 0;
 }
 
 .ProseMirror pre {
-	@apply max-w-3xl rounded-lg bg-[#d5d6db] dark:bg-[#1a1b26];
+	@apply au-max-w-3xl au-rounded-lg au-bg-[#d5d6db] dark:au-bg-[#1a1b26];
 	/* background: #0d0d0d; */
 	font-family: 'JetBrainsMono', monospace;
 	padding: 0.75rem 1rem;
 }
 
 .ProseMirror pre code {
-	@apply max-w-3xl text-[#565a6e] dark:text-[#9aa5ce];
+	@apply au-max-w-3xl au-text-[#565a6e] dark:au-text-[#9aa5ce];
 	padding: 0;
 	background: none;
 	font-size: 0.8rem;
 }
 
 .ProseMirror p code {
-	@apply rounded-lg bg-[#d5d6db] px-2 py-1 text-[#565a6e] dark:bg-[#1a1b26] dark:text-[#9aa5ce];
+	@apply au-rounded-lg au-bg-[#d5d6db] au-px-2 au-py-1 au-text-[#565a6e] dark:au-bg-[#1a1b26] dark:au-text-[#9aa5ce];
 	font-size: 1.1rem;
 	/* background: #0d0d0d; */
 	font-family: 'JetBrainsMono', monospace;
 }
 
 .ProseMirror blockquote {
-	@apply max-w-3xl;
+	@apply au-max-w-3xl;
 	padding-left: 1rem;
 	border-left: 2px solid;
 }
 
 .ProseMirror a {
-	@apply max-w-3xl;
+	@apply au-max-w-3xl;
 	color: #2cb67d;
 }
 
 .ProseMirror figure {
-	@apply max-w-3xl;
+	@apply au-max-w-3xl;
 }
 
 .ProseMirror img.ProseMirror-selectednode {

@@ -14,10 +14,37 @@ model User {
     updatedAt     DateTime  @updatedAt
     name          String?
     email         String?   @unique
+    password      String?
     username      String?   @unique
     emailVerified DateTime? @default(now())
     image         String?
     role          String?   @default("user")
     provider      String?
+    Post          Post[]
 }
 
+model Waitlist {
+    id         String   @id @default(cuid())
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+    name       String
+    email      String   @unique
+    accessCode String   @unique
+    position   Int      @unique
+}
+
+model Post {
+    id        String    @id @default(cuid())
+    title     String
+    content   String    @db.MediumText
+    published Boolean?  @default(false)
+    user      User      @relation(fields: [userId], references: [id])
+    userId    String
+    createdAt DateTime  @default(now())
+    updatedAt DateTime? @default(now()) @updatedAt
+    wordCount Int
+    slug      String
+    shareId   String    @unique
+
+    @@index([userId])
+}

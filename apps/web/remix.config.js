@@ -5,6 +5,7 @@ module.exports = {
 	future: {
 		unstable_postcss: true,
 		unstable_tailwind: true,
+		v2_routeConvention: true,
 	},
 	// When running locally in development mode, we use the built in remix
 	// server. This does not understand the vercel lambda module format,
@@ -31,6 +32,7 @@ module.exports = {
 		'lowlight',
 		/^mdast-util-*/,
 		/^micromark*/,
+		/^nanoid*/,
 		'parse-entities',
 		'periscopic',
 		'property-information',

@@ -57,31 +57,31 @@ export default function NewSession({
 		<Dialog
 			isOpen={showNewSessionDialog}
 			onOpenChange={setShowNewSessionDialog}
-			title={<h3 className='px-2 text-lg'>New Writing Session</h3>}
+			title={<h3 className='au-px-2 au-text-lg'>New Writing Session</h3>}
 			action={
 				<PrimaryButton onClick={startWritingSession}>
-					<span className='text-sm'>Start</span>
+					<span className='au-text-sm'>Start</span>
 				</PrimaryButton>
 			}
 			cancel={
 				<Button
-					bg='!bg-slate-400 dark:!bg-slate-800 hover:!bg-slate-300 hover:dark:!bg-slate-700'
+					bg='!au-bg-slate-400 dark:!au-bg-slate-800 hover:!au-bg-slate-300 hover:dark:!au-bg-slate-700'
 					onClick={() => setShowNewSessionDialog?.(false)}
 				>
-					<span className='text-sm'>Cancel</span>
+					<span className='au-text-sm'>Cancel</span>
 				</Button>
 			}
 		>
-			<div className='mt-4 w-96 px-2'>
-				<div className='grid w-full grid-cols-5 gap-4 text-black dark:text-white'>
+			<div className='au-mt-4 au-w-96 au-px-2'>
+				<div className='au-grid au-w-full au-grid-cols-5 au-gap-4 au-text-black dark:au-text-white'>
 					<label
 						htmlFor='session_goal'
-						className='col-span-3 text-sm'
+						className='au-col-span-3 au-text-sm'
 					>
 						Session Type
 					</label>
 					<RadioGroup
-						className='col-span-2 space-y-2'
+						className='au-col-span-2 au-space-y-2'
 						defaultValue='duration'
 						name='session_goal'
 						options={SESSION_GOAL_OPTIONS}
@@ -89,13 +89,13 @@ export default function NewSession({
 					/>
 					<label
 						htmlFor='session_target'
-						className='col-span-3 text-sm'
+						className='au-col-span-3 au-text-sm'
 					>
 						Target
 					</label>
-					<div className='col-span-2 flex items-center justify-start space-x-2'>
+					<div className='au-col-span-2 au-flex au-items-center au-justify-start au-space-x-2'>
 						<input
-							className='h-8 w-16 rounded-md border border-black bg-transparent px-2 py-1 text-sm dark:border-white'
+							className='au-h-8 au-w-16 au-rounded-md au-border au-border-black au-bg-transparent au-px-2 au-py-1 au-text-sm dark:au-border-white'
 							value={
 								sessionGoal === 'duration'
 									? (sessionTarget || 0) / 60
@@ -113,14 +113,17 @@ export default function NewSession({
 							name='session_target'
 							type='number'
 						/>
-						<span className='text-sm'>
+						<span className='au-text-sm'>
 							{sessionGoal === 'duration' ? 'minutes' : 'words'}
 						</span>
 					</div>
-					<label htmlFor='focus_mode' className='col-span-3 text-sm'>
+					<label
+						htmlFor='focus_mode'
+						className='au-col-span-3 au-text-sm'
+					>
 						Focus Mode
 					</label>
-					<div className='col-span-2'>
+					<div className='au-col-span-2'>
 						<Switch
 							defaultChecked={sessionFocusMode}
 							onCheckedChange={setSessionFocusMode}
@@ -129,11 +132,11 @@ export default function NewSession({
 					</div>
 					<label
 						htmlFor='session_music'
-						className='col-span-3 text-sm'
+						className='au-col-span-3 au-text-sm'
 					>
 						Music
 					</label>
-					<div className='col-span-2'>
+					<div className='au-col-span-2'>
 						<Switch
 							defaultChecked={sessionMusic}
 							onCheckedChange={setSessionMusic}
@@ -142,11 +145,11 @@ export default function NewSession({
 					</div>
 					<label
 						htmlFor='session_end_notification'
-						className='col-span-3 text-sm'
+						className='au-col-span-3 au-text-sm'
 					>
 						Notify when session ends
 					</label>
-					<div className='col-span-2'>
+					<div className='au-col-span-2'>
 						<Switch
 							defaultChecked={notifyOnSessionEnd}
 							onCheckedChange={setNotifyOnSessionEnd}

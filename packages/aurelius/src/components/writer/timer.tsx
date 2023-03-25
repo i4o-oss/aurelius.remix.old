@@ -71,9 +71,9 @@ export default function Timer({
 
 	return (
 		<>
-			<div className='flex h-10 items-center gap-2 divide-x divide-gray-500 rounded-lg bg-gray-100 p-2 text-black dark:bg-gray-900 dark:text-white'>
+			<div className='au-flex au-h-10 au-items-center au-gap-2 au-divide-x au-divide-gray-500 au-rounded-lg au-bg-gray-100 au-p-2 au-text-black dark:au-bg-gray-900 dark:au-text-white'>
 				{sessionData?.goal === 'duration' ? (
-					<div className='flex items-center gap-0.5 px-2 text-sm'>
+					<div className='au-flex au-items-center au-gap-0.5 au-px-2 au-text-sm'>
 						<span>{isRunning ? '' : '+ '}</span>
 						<span>
 							{isRunning ? padZeroes(hours) : padZeroes(stHours)}
@@ -92,19 +92,19 @@ export default function Timer({
 						</span>
 					</div>
 				) : (
-					<div className='flex items-center gap-0.5 px-2 text-sm'>
+					<div className='au-flex au-items-center au-gap-0.5 au-px-2 au-text-sm'>
 						<span>{`${
 							(wordCount || 0) -
 							(sessionData?.startingWordCount || 0)
 						} / ${sessionData?.target}`}</span>
 					</div>
 				)}
-				<div className='flex items-center gap-1 px-2'>
+				<div className='au-flex au-items-center au-gap-1 au-px-2'>
 					{isRunning || isStRunning ? (
 						<IconButton
-							bg='!bg-transparent hover:!bg-slate-300 hover:dark:!bg-slate-700'
+							bg='!au-bg-transparent hover:!au-bg-slate-300 hover:dark:!au-bg-slate-700'
 							icon={
-								<PauseIcon className='h-4 w-4 text-slate-800 dark:text-slate-100' />
+								<PauseIcon className='au-h-4 au-w-4 au-text-slate-800 dark:au-text-slate-100' />
 							}
 							onClick={() => {
 								if (isRunning) {
@@ -117,9 +117,9 @@ export default function Timer({
 						/>
 					) : (
 						<IconButton
-							bg='!bg-transparent hover:!bg-slate-300 hover:dark:!bg-slate-700'
+							bg='!au-bg-transparent hover:!au-bg-slate-300 hover:dark:!au-bg-slate-700'
 							icon={
-								<PlayIcon className='h-4 w-4 text-slate-800 dark:text-slate-100' />
+								<PlayIcon className='au-h-4 au-w-4 au-text-slate-800 dark:au-text-slate-100' />
 							}
 							onClick={() => {
 								if (isRunning) {
@@ -132,9 +132,9 @@ export default function Timer({
 						/>
 					)}
 					<IconButton
-						bg='!bg-transparent hover:!bg-slate-300 hover:dark:!bg-slate-700'
+						bg='!au-bg-transparent hover:!au-bg-slate-300 hover:dark:!au-bg-slate-700'
 						icon={
-							<StopIcon className='h-4 w-4 text-slate-800 dark:text-slate-100' />
+							<StopIcon className='au-h-4 au-w-4 au-text-slate-800 dark:au-text-slate-100' />
 						}
 						onClick={stopTimers}
 						padding='p-1'
@@ -143,17 +143,17 @@ export default function Timer({
 			</div>
 			{showSessionEndToast ? (
 				<Toast
-					title={<h4 className='text-base'>You did it!</h4>}
+					title={<h4 className='au-text-base'>You did it!</h4>}
 					description={
-						<span className='pr-3 text-sm'>
+						<span className='au-pr-3 au-text-sm'>
 							You've reached the end of your writing session. You
 							can keep going if you wish.
 						</span>
 					}
 					action={
 						<Button
-							padding='px-2'
-							className='text-sm !text-red-500'
+							padding='au-px-2'
+							className='au-text-sm !au-text-red-500'
 							onClick={stopTimers}
 						>
 							End Session

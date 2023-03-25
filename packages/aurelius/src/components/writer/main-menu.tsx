@@ -2,6 +2,9 @@ import { useContext } from 'react'
 import { Dropdown, IconButton, Switch } from '@i4o/catalystui'
 import {
 	Crosshair2Icon,
+	DashboardIcon,
+	EnterIcon,
+	ExitIcon,
 	// DownloadIcon,
 	FileIcon,
 	FileTextIcon,
@@ -12,7 +15,7 @@ import {
 	MixerHorizontalIcon,
 	MoonIcon,
 	Pencil1Icon,
-	QuestionMarkCircledIcon,
+	// QuestionMarkCircledIcon,
 	StarFilledIcon,
 	SunIcon,
 	TrashIcon,
@@ -35,7 +38,34 @@ export default function MainMenu(props: MainMenuProps) {
 		setShowSettingsDialog,
 		theme,
 		toggleTheme,
+		user,
 	}: AureliusProviderData = context
+
+	let userRelatedItems = user
+		? [
+				{
+					label: 'Dashboard',
+					icon: <DashboardIcon />,
+					link: '/dashboard',
+				},
+				{
+					label: 'Logout',
+					icon: <ExitIcon />,
+					link: '/logout',
+				},
+		  ]
+		: [
+				{
+					label: 'Join Waitlist',
+					icon: <StarFilledIcon />,
+					link: '/join',
+				},
+				{
+					label: 'Log In',
+					icon: <EnterIcon />,
+					link: '/login',
+				},
+		  ]
 
 	const dropdownItems = [
 		{
@@ -139,27 +169,24 @@ export default function MainMenu(props: MainMenuProps) {
 		// 	icon: <QuestionMarkCircledIcon />,
 		// 	shortcut: '?',
 		// },
-		// { type: 'separator' },
-		// {
-		// 	label: 'Aurelius+',
-		// 	icon: <StarFilledIcon />,
-		// 	link: '/plus',
-		// },
 		{ type: 'separator' },
 		{
 			label: 'Blog',
 			icon: <Pencil1Icon />,
 			link: '/blog',
+			openLinkInNewTab: true,
 		},
 		{
 			label: 'Twitter',
 			icon: <TwitterLogoIcon />,
 			link: 'https://twitter.com/aurelius_ink',
+			openLinkInNewTab: true,
 		},
 		{
 			label: 'Instagram',
 			icon: <InstagramLogoIcon />,
 			link: 'https://instagram.com/aurelius_ink',
+			openLinkInNewTab: true,
 		},
 		{ type: 'separator' },
 		{
@@ -176,6 +203,8 @@ export default function MainMenu(props: MainMenuProps) {
 			icon: theme === Theme.DARK ? <SunIcon /> : <MoonIcon />,
 			onSelect: () => toggleTheme?.(),
 		},
+		{ type: 'separator' },
+		...userRelatedItems,
 	]
 
 	return (

@@ -15,6 +15,7 @@ import {
 	ScrollRestoration,
 	useFetchers,
 	useLoaderData,
+	useNavigation,
 	useTransition,
 } from '@remix-run/react'
 import { useEffect } from 'react'
@@ -24,7 +25,7 @@ import { getThemeSession } from '~/lib/theme.server'
 import NProgress from 'nprogress'
 import nProgressStyles from 'nprogress/nprogress.css'
 import styles from '~/main.css'
-// import cuiStyles from '@i4o/catalystui/main.css'
+import cuiStyles from '@i4o/catalystui/main.css'
 import aureliusStyles from '@i4o/aurelius/main.css'
 
 interface DocumentProps {
@@ -41,7 +42,7 @@ export const links: LinksFunction = () => {
 		},
 		{ rel: 'stylesheet', href: styles },
 		{ rel: 'stylesheet', href: nProgressStyles },
-		// { rel: 'stylesheet', href: cuiStyles },
+		{ rel: 'stylesheet', href: cuiStyles },
 		{ rel: 'stylesheet', href: aureliusStyles },
 		{ rel: 'manifest', href: '/site.webmanifest' },
 		{
@@ -101,7 +102,7 @@ export const loader = async ({ request }: LoaderArgs) => {
 const Document = ({ children }: DocumentProps) => {
 	const data = useLoaderData<LoaderData>()
 	const [theme] = useTheme()
-	const transition = useTransition()
+	const navigation = useNavigation()
 	const fetchers = useFetchers()
 
 	/**
@@ -113,13 +114,20 @@ const Document = ({ children }: DocumentProps) => {
 	let state = useMemo<'idle' | 'loading'>(
 		function getGlobalState() {
 			let states = [
-				transition.state,
-				...fetchers.map((fetcher) => fetcher.state),
+				navigation.state,
+				...fetchers
+					.filter(
+						// use navigation.state only for page navigation.
+						// any navigation with formAction that starts with "/api" should be ignored
+						// this is done so any api call does not trigger nprogress and should only appear for page navigation
+						(fetcher) => !fetcher.formAction?.startsWith('/api')
+					)
+					.map((fetcher) => fetcher.state),
 			]
 			if (states.every((state) => state === 'idle')) return 'idle'
 			return 'loading'
 		},
-		[transition.state, fetchers]
+		[navigation.state, fetchers]
 	)
 
 	useEffect(() => {
@@ -128,10 +136,15 @@ const Document = ({ children }: DocumentProps) => {
 		if (state === 'loading') NProgress.start()
 		// when the state is idle then we can to complete the progress bar
 		if (state === 'idle') NProgress.done()
-	}, [transition.state, state])
+	}, [navigation.state, state])
 
 	return (
-		<html lang='en' className={`h-screen w-screen ${theme ?? ''}`}>
+		<html
+			lang='en'
+			className={`h-screen w-screen ${
+				theme ?? ''
+			} cui-${theme} au-${theme}`}
+		>
 			<head>
 				<Meta />
 				<Links />
