@@ -44,7 +44,7 @@ model Post {
     updatedAt DateTime? @default(now()) @updatedAt
     wordCount Int
     slug      String
-    shareId   String
+    shareId   String    @unique
 
     @@index([userId])
 }

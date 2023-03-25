@@ -10,19 +10,39 @@ import type { Editor } from '@tiptap/core'
 
 export default function TipTap() {
 	const context: AureliusProviderData = useContext(AureliusContext)
-	const { editor, setContent, setTitle, setWordCount } = context
+	const { editor, post, setContent, setTitle, setWordCount, user } = context
 	const [localPost] = useLocalStorage(POST_LOCAL_STORAGE_KEY)
 	const fileUploadInputRef = useRef(null)
 
 	useEffect(() => {
-		if (editor && localPost) {
-			loadLocalPost()
+		if (!user) {
+			if (editor && localPost) {
+				loadLocalPost()
+			}
+		} else {
+			if (editor && post) {
+				loadSavedPostFromDatabase()
+			}
 		}
 	}, [editor, localPost])
 
 	function updateEditorWordCount(content: string) {
 		const wordCount = content.split(' ').length
 		setWordCount?.(wordCount)
+	}
+
+	function loadSavedPostFromDatabase() {
+		if (editor && post) {
+			const { title, content } = post
+
+			setTitle?.(title)
+			setContent?.(content)
+
+			if (editor.isEmpty) {
+				editor.commands.setContent(content)
+				updateEditorWordCount(editor.state.doc.textContent)
+			}
+		}
 	}
 
 	function loadLocalPost() {

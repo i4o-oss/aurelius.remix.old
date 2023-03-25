@@ -13,10 +13,22 @@ export async function getAllPostsFromAuthor(userId: string) {
 	return posts
 }
 
+export async function getPostByShareId(shareId: string) {
+	return await prisma.post.findUnique({
+		where: {
+			shareId,
+		},
+		select: {
+			title: true,
+			content: true,
+		},
+	})
+}
+
 export async function getPost(id: string) {
 	return await prisma.post.findUnique({
 		where: {
-			id: id,
+			id,
 		},
 	})
 }

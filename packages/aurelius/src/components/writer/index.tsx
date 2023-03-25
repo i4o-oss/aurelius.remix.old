@@ -107,6 +107,7 @@ function WritingSessionRecap() {
 }
 
 interface WriterProps {
+	post?: { title: string; content: string }
 	savePost: (title: string, content: string, wordCount: number) => void
 	theme: Theme
 	toggleTheme: () => void
@@ -114,6 +115,7 @@ interface WriterProps {
 }
 
 export default function Writer({
+	post,
 	savePost: savePostToDatabase,
 	theme,
 	toggleTheme,
@@ -263,6 +265,9 @@ export default function Writer({
 		setWordCount(0)
 		setShowResetAlert(false)
 		titleRef?.current?.focus()
+		if (user) {
+			window.location.href = '/'
+		}
 	}
 
 	function onResetEditorClick(state: boolean) {
@@ -369,6 +374,7 @@ export default function Writer({
 				setIsSaving,
 				notifyOnSessionEnd,
 				setNotifyOnSessionEnd,
+				post,
 				sessionData,
 				setSessionData,
 				sessionFocusMode,

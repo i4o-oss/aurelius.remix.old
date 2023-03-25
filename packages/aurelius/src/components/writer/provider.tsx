@@ -17,6 +17,7 @@ export interface AureliusProviderData {
 	setIsSaving?: Dispatch<SetStateAction<boolean>>
 	notifyOnSessionEnd?: boolean
 	setNotifyOnSessionEnd?: Dispatch<SetStateAction<boolean>>
+	post?: { title: string; content: string }
 	sessionData?: WritingSession | null
 	setSessionData?: Dispatch<SetStateAction<WritingSession | null>>
 	sessionFocusMode?: boolean

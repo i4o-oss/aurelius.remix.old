@@ -83,7 +83,7 @@ function PostItem({ post }: PostItemProps) {
 		<>
 			<div className='grid w-full grid-cols-3 gap-2 py-8'>
 				<div className='col-span-2 flex h-full w-full flex-col items-start justify-center space-y-4'>
-					<Link to={`/?edit=${post.id}`}>
+					<Link to={`/?edit=${post.shareId}`}>
 						<h3 className='text-xl font-medium text-white'>
 							{post.title}
 						</h3>
@@ -105,7 +105,7 @@ function PostItem({ post }: PostItemProps) {
 				</div>
 				<div className='col-span-1 flex h-full w-full items-center justify-end space-x-4'>
 					<CopyToClipboard text={shareLink} />
-					<Link to={`/write/${post.id}`}>
+					<Link to={`/?edit=${post.shareId}`}>
 						<Button bg='bg-transparent' padding='p-1'>
 							<Pencil1Icon />
 						</Button>
