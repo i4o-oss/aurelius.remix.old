@@ -1,4 +1,5 @@
 import type { LoaderArgs } from '@remix-run/node'
+import type { SyncParams } from '@i4o/aurelius'
 import { useRef } from 'react'
 import { Writer } from '@i4o/aurelius'
 import { useFetcher, useFetchers, useLoaderData } from '@remix-run/react'
@@ -23,6 +24,7 @@ export async function loader({ request }: LoaderArgs) {
 
 export default function Write() {
 	const writerFetcher = useFetcher()
+	const syncFetcher = useFetcher()
 	const fetchers = useFetchers()
 	// @ts-ignore
 	const { post, user } = useLoaderData<typeof loader>()
@@ -66,6 +68,19 @@ export default function Write() {
 		}
 	}
 
+	function syncLocallySavedData({ post, writingSessions }: SyncParams) {
+		syncFetcher.submit(
+			{
+				post: post as string,
+				writingSessions: writingSessions as string,
+			},
+			{
+				method: 'post',
+				action: '/api/sync',
+			}
+		)
+	}
+
 	function toggleTheme() {
 		setTheme((prevTheme) =>
 			prevTheme === Theme.LIGHT ? Theme.DARK : Theme.LIGHT
@@ -77,6 +92,7 @@ export default function Write() {
 			<Writer
 				post={post}
 				savePost={savePost}
+				sync={syncLocallySavedData}
 				theme={theme as Theme}
 				toggleTheme={toggleTheme}
 				user={user}

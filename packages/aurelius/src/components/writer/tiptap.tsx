@@ -1,7 +1,5 @@
 import { useContext, useEffect, useRef } from 'react'
 import { BubbleMenu, EditorContent, FloatingMenu } from '@tiptap/react'
-import { useLocalStorage } from '@rehooks/local-storage'
-import { POST_LOCAL_STORAGE_KEY } from '../../constants'
 import EditorToolbar from './editor-toolbar'
 import ImageToolbar from './image-toolbar'
 import EditorFloatingMenu from './floating-menu'
@@ -10,8 +8,15 @@ import type { Editor } from '@tiptap/core'
 
 export default function TipTap() {
 	const context: AureliusProviderData = useContext(AureliusContext)
-	const { editor, post, setContent, setTitle, setWordCount, user } = context
-	const [localPost] = useLocalStorage(POST_LOCAL_STORAGE_KEY)
+	const {
+		editor,
+		localPost,
+		post,
+		setContent,
+		setTitle,
+		setWordCount,
+		user,
+	} = context
 	const fileUploadInputRef = useRef(null)
 
 	useEffect(() => {
@@ -22,6 +27,8 @@ export default function TipTap() {
 		} else {
 			if (editor && post) {
 				loadSavedPostFromDatabase()
+			} else if (editor && localPost) {
+				loadLocalPost()
 			}
 		}
 	}, [editor, localPost])
