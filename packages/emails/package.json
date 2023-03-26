@@ -1,0 +1,19 @@
+{
+    "name": "@aurelius/emails",
+    "version": "0.0.0",
+    "private": true,
+    "scripts": {
+        "dev": "email dev",
+        "export": "email export"
+    },
+    "dependencies": {
+        "@react-email/components": "0.0.3",
+        "@react-email/tailwind": "^0.0.7",
+        "react-email": "1.7.15"
+    },
+    "devDependencies": {
+        "@types/node": "^18.15.10",
+        "@types/react": "^18.0.29",
+        "react": "^18.2.0"
+    }
+}
