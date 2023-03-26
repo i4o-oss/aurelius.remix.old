@@ -20,6 +20,7 @@ export interface SyncParams {
 export interface WriterProps {
 	post?: { title: string; content: string }
 	savePost: (title: string, content: string, wordCount: number) => void
+	saveWritingSession: (WritingSession: string) => void
 	sync: (params: SyncParams) => void
 	theme: Theme
 	toggleTheme: () => void

@@ -103,8 +103,9 @@ function WritingSessionRecap() {
 
 export default function Writer({
 	post,
-	sync,
 	savePost: savePostToDatabase,
+	saveWritingSession: saveWritingSessionToDatabase,
+	sync,
 	theme,
 	toggleTheme,
 	user,
@@ -306,10 +307,14 @@ export default function Writer({
 			endingWordCount: wordCount,
 		} as WritingSession
 		setSessionData(data)
-		writeStorage(SESSION_LOCAL_STORAGE_KEY, [
-			...(JSON.parse(JSON.stringify(writingSessions)) || []),
-			data,
-		])
+		if (user) {
+			saveWritingSessionToDatabase(JSON.stringify(data))
+		} else {
+			writeStorage(SESSION_LOCAL_STORAGE_KEY, [
+				...(JSON.parse(JSON.stringify(writingSessions)) || []),
+				data,
+			])
+		}
 		if (sessionMusic) {
 			setIsMusicPlaying(false)
 		}
@@ -328,10 +333,14 @@ export default function Writer({
 			endingWordCount: wordCount,
 		} as WritingSession
 		setSessionData(data)
-		writeStorage(SESSION_LOCAL_STORAGE_KEY, [
-			...(JSON.parse(JSON.stringify(writingSessions)) || []),
-			data,
-		])
+		if (user) {
+			saveWritingSessionToDatabase(JSON.stringify(data))
+		} else {
+			writeStorage(SESSION_LOCAL_STORAGE_KEY, [
+				...(JSON.parse(JSON.stringify(writingSessions)) || []),
+				data,
+			])
+		}
 		if (sessionMusic) {
 			setIsMusicPlaying(false)
 		}
