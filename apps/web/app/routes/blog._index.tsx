@@ -30,11 +30,7 @@ export default function Blog() {
 					className={`${
 						theme === Theme.DARK ? 'invert' : ''
 					} mb-4 w-64`}
-					src={
-						theme === Theme.DARK
-							? '/images/blog.svg'
-							: '/images/blog_light.svg'
-					}
+					src='/images/blog.svg'
 					alt='writing illustration'
 				/>
 			</div>

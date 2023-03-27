@@ -5,10 +5,11 @@ import { Link, Links, Meta, useLoaderData } from '@remix-run/react'
 import * as runtime from 'react/jsx-runtime'
 import { run } from '@mdx-js/mdx'
 import { MDXProvider } from '@mdx-js/react'
-import { ArrowLeftIcon } from '@radix-ui/react-icons'
+import { ArrowLeftIcon, TwitterLogoIcon } from '@radix-ui/react-icons'
 import { getMdxFile } from '~/services/mdx.server'
 import { formatDate } from '~/lib/utils'
-import { authors } from '~/lib/constants'
+import { authors, ORIGIN } from '~/lib/constants'
+import { Button } from '@i4o/catalystui'
 
 type LoaderData = typeof loader
 
@@ -72,11 +73,14 @@ export default function BlogPost() {
 	const {
 		frontmatter: { data: post },
 	} = data
+	const permalink = `${ORIGIN}/blog/${post.slug}`
+	const tweetMessage = 'New blog post on Aurelius blog 👇'
 	return (
 		<>
 			<head>
 				<Meta />
 				<Links />
+				<script src='https://platform.twitter.com/widgets.js'></script>
 			</head>
 			<article className='prose dark:prose-invert container relative max-w-3xl p-6 lg:py-10 lg:px-0'>
 				<div className='flex justify-start py-4 lg:py-8'>
@@ -89,12 +93,12 @@ export default function BlogPost() {
 					</Link>
 				</div>
 				<div>
-					{post.date && (
+					{post.date_published && (
 						<time
 							dateTime={post.date}
 							className='block text-sm text-slate-600'
 						>
-							Published on {formatDate(post.date)}
+							Published on {formatDate(post.date_published)}
 						</time>
 					)}
 					<h1 className='mt-2 mb-4 inline-block text-4xl font-extrabold leading-tight lg:text-5xl'>
@@ -141,6 +145,26 @@ export default function BlogPost() {
 				)}
 				<div className='text-lg leading-loose'>
 					<PostContent />
+				</div>
+				<div className='mt-16 flex flex-col items-start'>
+					<span className='text-sm uppercase'>Share this:</span>
+					<div className='mt-4'>
+						<a
+							href={`https://twitter.com/intent/tweet?${new URLSearchParams(
+								{
+									url: permalink,
+									text: tweetMessage,
+								}
+							)}`}
+							target='_blank'
+							className='no-underline'
+							rel='noreferrer noopener'
+						>
+							<Button leftIcon={<TwitterLogoIcon />}>
+								Twitter
+							</Button>
+						</a>
+					</div>
 				</div>
 			</article>
 		</>
