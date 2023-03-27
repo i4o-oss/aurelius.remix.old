@@ -413,13 +413,13 @@ export default function Home() {
 										writing goals.
 									</p>
 									<div className='mt-10 flex items-center justify-center gap-x-6'>
-										<Link to='/join'>
+										<Link to='/login'>
 											<PrimaryButton
 												className='h-12'
 												padding='px-8'
 												textSize='text-base'
 											>
-												Join Waitlist
+												Start Writing
 											</PrimaryButton>
 										</Link>
 									</div>

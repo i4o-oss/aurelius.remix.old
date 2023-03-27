@@ -10,7 +10,6 @@ import { Select } from '@i4o/catalystui'
 export default function Footer() {
 	const [theme, setTheme] = useTheme()
 
-	console.log(theme)
 	function toggleTheme(selectedItem: any) {
 		setTheme(selectedItem.value)
 	}
