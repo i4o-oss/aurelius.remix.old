@@ -1,38 +1,51 @@
 import { Authenticator } from 'remix-auth'
-import { FormStrategy } from 'remix-auth-form'
+import { EmailLinkStrategy } from 'remix-auth-email-link'
 import invariant from 'tiny-invariant'
-import bcrypt from 'bcrypt'
 import { sessionStorage } from '~/services/session.server'
-// import sendEmail from '~/services/email.server'
+import sendEmail from '~/services/email.server'
 import type { User } from '~/models/user.server'
-import { findOrCreateUser } from '~/models/user.server'
+import { getUserByEmail, createUser } from '~/models/user.server'
+
+const MAGIC_LINK_SECRET = process.env.MAGIC_LINK_SECRET
+
+if (!MAGIC_LINK_SECRET)
+	throw new Error('Missing MAGIC_LINK_SECRET environment variable')
 
 export let auth = new Authenticator<User>(sessionStorage)
 
 auth.use(
 	// @ts-ignore
-	new FormStrategy(async ({ form }) => {
-		const email = form.get('email')
-		const password = form.get('password')
-		const accessCode = form.get('accessCode')
+	new EmailLinkStrategy(
+		{
+			sendEmail,
+			secret: MAGIC_LINK_SECRET,
+			callbackURL: '/api/verify',
+			validateSessionMagicLink: true,
+		},
+		async ({
+			email,
+			form,
+			magicLinkVerify,
+		}: {
+			email: string
+			form: FormData
+			magicLinkVerify: boolean
+		}) => {
+			const name = form.get('name')
+			// You can validate the inputs however you want
+			invariant(typeof email === 'string', 'email must be a string')
+			invariant(email.length > 0, 'email must not be empty')
 
-		// You can validate the inputs however you want
-		invariant(typeof email === 'string', 'email must be a string')
-		invariant(email.length > 0, 'email must not be empty')
+			invariant(typeof name === 'string', 'name must be a string')
+			invariant(name.length > 0, 'name must not be empty')
 
-		invariant(typeof password === 'string', 'password must be a string')
-		invariant(password.length > 0, 'password must not be empty')
-
-		invariant(
-			typeof accessCode === 'string',
-			'access code must be a string'
-		)
-		invariant(accessCode.length > 0, 'access code must not be empty')
-
-		const salt = await bcrypt.genSalt(10)
-		const hashedPassword = await bcrypt.hash(password, salt)
-		const user = await findOrCreateUser(email, hashedPassword, accessCode)
-
-		return user
-	})
+			let user = await getUserByEmail(email)
+			if (user) {
+				return user
+			} else {
+				const newUser = await createUser({ email, name })
+				return newUser
+			}
+		}
+	)
 )
