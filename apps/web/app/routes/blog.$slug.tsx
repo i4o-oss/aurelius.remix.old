@@ -93,15 +93,12 @@ export default function BlogPost() {
 					</Link>
 				</div>
 				<div>
-					{post.date_published && (
-						<time
-							dateTime={post.date}
-							className='block text-sm text-slate-600'
-						>
-							Published on {formatDate(post.date_published)}
-						</time>
+					{post.tag && (
+						<span className='rounded-lg bg-slate-300 px-2 py-1 text-xs text-slate-900 dark:bg-slate-700 dark:text-slate-50'>
+							{post.tag}
+						</span>
 					)}
-					<h1 className='mt-2 mb-4 inline-block text-4xl font-extrabold leading-tight lg:text-5xl'>
+					<h1 className='mt-8 mb-4 block text-4xl font-extrabold leading-tight lg:text-5xl'>
 						{post.title}
 					</h1>
 					{authors?.length ? (

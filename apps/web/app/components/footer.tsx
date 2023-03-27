@@ -3,13 +3,14 @@ import {
 	InstagramLogoIcon,
 	TwitterLogoIcon,
 } from '@radix-ui/react-icons'
-import { useTheme } from '~/lib/theme'
+import { Theme, useTheme } from '~/lib/theme'
 import { INSTAGRAM_PROFILE, TWITTER_PROFILE } from '~/lib/constants'
 import { Select } from '@i4o/catalystui'
 
 export default function Footer() {
 	const [theme, setTheme] = useTheme()
 
+	console.log(theme)
 	function toggleTheme(selectedItem: any) {
 		setTheme(selectedItem.value)
 	}
@@ -64,7 +65,7 @@ export default function Footer() {
 				</div>
 				<div className='flex items-center justify-end gap-4'>
 					<Select
-						defaultValue={theme as string}
+						defaultValue={theme === Theme.DARK ? 'dark' : 'light'}
 						items={[
 							{ value: 'light', label: 'Light' },
 							{ value: 'dark', label: 'Dark' },

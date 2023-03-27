@@ -50,11 +50,18 @@ export default function Blog() {
 										className='rounded-lg border border-slate-800 bg-slate-800 transition-colors group-hover:border-slate-900'
 									/>
 								)}
-								{post.date && (
-									<p className='text-sm text-slate-500 dark:text-slate-500'>
-										{formatDate(post.date)}
-									</p>
-								)}
+								<div className='flex items-center justify-between py-2'>
+									{post.date && (
+										<p className='text-sm text-slate-500 dark:text-slate-500'>
+											{formatDate(post.date)}
+										</p>
+									)}
+									{post.tag && (
+										<span className='rounded-lg bg-slate-300 px-2 py-1 text-xs text-slate-900 dark:bg-slate-700 dark:text-slate-50'>
+											{post.tag}
+										</span>
+									)}
+								</div>
 								<h2 className='text-2xl font-extrabold text-slate-900 dark:text-slate-50'>
 									{post.title}
 								</h2>
