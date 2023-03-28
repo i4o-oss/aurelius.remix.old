@@ -2,7 +2,7 @@ import { Authenticator } from 'remix-auth'
 import { EmailLinkStrategy } from 'remix-auth-email-link'
 import invariant from 'tiny-invariant'
 import { sessionStorage } from '~/services/session.server'
-import sendEmail from '~/services/email.server'
+import { sendMagicLinkEmail } from '~/services/email.server'
 import type { User } from '~/models/user.server'
 import { getUserByEmail, createUser } from '~/models/user.server'
 
@@ -17,7 +17,7 @@ auth.use(
 	// @ts-ignore
 	new EmailLinkStrategy(
 		{
-			sendEmail,
+			sendEmail: sendMagicLinkEmail,
 			secret: MAGIC_LINK_SECRET,
 			callbackURL: '/api/verify',
 			validateSessionMagicLink: true,
@@ -47,5 +47,6 @@ auth.use(
 				return newUser
 			}
 		}
-	)
+	),
+	'email-link'
 )
