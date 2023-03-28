@@ -12,6 +12,7 @@ coverage
 # build
 packages/aurelius/dist
 packages/emails/.react-email
+packages/emails/dist
 
 # remix
 apps/web/.turbo
