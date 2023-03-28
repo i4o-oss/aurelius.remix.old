@@ -6,6 +6,6 @@ export let loader: LoaderFunction = () => redirect('/login')
 
 export let action: ActionFunction = ({ request }) => {
 	return auth.authenticate('google', request, {
-		successRedirect: '/app',
+		successRedirect: '/',
 	})
 }

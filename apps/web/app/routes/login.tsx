@@ -1,7 +1,7 @@
 import { Button, PrimaryButton } from '@i4o/catalystui'
 import type { ActionArgs, LoaderArgs } from '@remix-run/node'
 import { sessionStorage } from '~/services/session.server'
-import { useFetcher, useLoaderData } from '@remix-run/react'
+import { Form, useFetcher, useLoaderData } from '@remix-run/react'
 import { json } from '@remix-run/node'
 import { auth } from '~/services/auth.server'
 import { useTheme } from '~/lib/theme'
@@ -9,29 +9,26 @@ import { Theme } from '@i4o/aurelius'
 
 export async function loader({ request }: LoaderArgs) {
 	await auth.isAuthenticated(request, { successRedirect: '/' })
-	const session = await sessionStorage.getSession(
-		request.headers.get('Cookie')
-	)
+	let session = await sessionStorage.getSession(request.headers.get('Cookie'))
+	// This session key `auth:magiclink` is the default one used by the EmailLinkStrategy
+	// you can customize it passing a `sessionMagicLinkKey` when creating an
+	// instance.
+	if (session.has('auth:magiclink')) return json({ magicLinkSent: true })
 
-	return json({
-		magicLinkSent: session.has('auth:magicLink'),
-		magicLinkEmail: session.get('auth:email'),
-	})
+	return json({ magicLinkSent: false })
 }
 
 export async function action({ request }: ActionArgs) {
-	const formData = await request.formData()
 	await auth.authenticate('email-link', request, {
-		successRedirect: '/',
+		successRedirect: '/login',
 		failureRedirect: '/login',
-		context: { formData },
 	})
 }
 
 export default function SignIn() {
 	const loginFetcher = useFetcher()
 	const [theme] = useTheme()
-	const { magicLinkSent, magicLinkEmail } = useLoaderData<typeof loader>()
+	const { magicLinkSent } = useLoaderData<typeof loader>()
 
 	return (
 		<main className='flex min-h-screen w-full flex-col items-center justify-center p-24'>
@@ -53,7 +50,7 @@ export default function SignIn() {
 			</div>
 			<div className='flex flex-col items-center justify-center'>
 				<div className='flex w-96 max-w-3xl flex-col items-center justify-center rounded-xl bg-slate-200 p-8 text-slate-900 shadow-lg dark:bg-slate-900 dark:text-slate-50'>
-					<loginFetcher.Form method='post'>
+					<Form action='/login' method='post'>
 						<div className='mb-6 w-full space-y-2'>
 							<label htmlFor='email'>
 								Enter your email address
@@ -68,10 +65,7 @@ export default function SignIn() {
 							/>
 							{magicLinkSent ? (
 								<p className='text-xs font-normal text-slate-600 dark:text-slate-400'>
-									Successfully sent magic link{' '}
-									{magicLinkEmail
-										? `to ${magicLinkEmail}`
-										: ''}
+									Successfully sent magic link.
 								</p>
 							) : (
 								<p className='text-xs font-normal text-slate-600 dark:text-slate-400'>
@@ -83,14 +77,15 @@ export default function SignIn() {
 						<PrimaryButton
 							className='bg-brand-500 flex h-12 w-full items-center justify-center rounded-md'
 							textSize='text-md'
+							type='submit'
 						>
 							<span className='font-medium'>Sign In</span>
 						</PrimaryButton>
-					</loginFetcher.Form>
+					</Form>
 					<div className='my-4 flex w-full max-w-[24rem] items-center justify-center text-slate-500 before:relative before:w-1/2 before:border-t before:border-slate-400 before:content-[""] after:relative after:w-1/2 after:border-t after:border-slate-400 after:content-[""] dark:text-slate-500 before:dark:border-slate-600 after:dark:border-slate-600'>
 						<span className='text-md mx-4'>or</span>
 					</div>
-					<loginFetcher.Form
+					<Form
 						className='w-full'
 						action='/auth/google'
 						method='post'
@@ -109,12 +104,13 @@ export default function SignIn() {
 							}
 							padding='py-4'
 							textSize='text-md'
+							type='submit'
 						>
 							<span className='font-medium'>
 								Continue with Google
 							</span>
 						</Button>
-					</loginFetcher.Form>
+					</Form>
 				</div>
 			</div>
 		</main>
