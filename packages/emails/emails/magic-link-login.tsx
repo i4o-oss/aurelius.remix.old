@@ -13,16 +13,14 @@ import { Tailwind } from '@react-email/tailwind'
 import * as React from 'react'
 
 interface AureliusMagicLinkEmailProps {
-	loginCode?: string
+	magicLink: string
 }
 
 const baseUrl = process.env.VERCEL_URL
 	? `https://${process.env.VERCEL_URL}`
 	: ''
 
-const AureliusMagicLinkEmail = ({
-	loginCode = 'sparo-ndigo-amurt-secan',
-}: AureliusMagicLinkEmailProps) => (
+const AureliusMagicLinkEmail = ({ magicLink }: AureliusMagicLinkEmailProps) => (
 	<Html>
 		<Head />
 		<Preview>Log in with this magic link</Preview>
@@ -33,17 +31,17 @@ const AureliusMagicLinkEmail = ({
 						Login
 					</Heading>
 					<Link
-						href='https://notion.so'
+						href={magicLink}
 						target='_blank'
 						className='mb-4 block font-sans text-[14px] text-[#2754C5] underline'
 					>
 						Click here to log in with this magic link
 					</Link>
 					<Text className='my-4 font-sans text-[12px] leading-tight text-[#ababab]'>
-						Or, copy and paste this temporary login code:
+						Or, copy and paste this link in your browser:
 					</Text>
 					<code className='inline-block w-[90%] rounded-lg border border-[#eee] bg-[#f4f4f4] px-[4.5%] py-4 text-[#333]'>
-						{loginCode}
+						{magicLink}
 					</code>
 					<Text className='my-4 font-sans text-[12px] leading-tight text-[#ababab]'>
 						If you didn&apos;t try to login, you can safely ignore
@@ -62,7 +60,7 @@ const AureliusMagicLinkEmail = ({
 						>
 							Aurelius.ink
 						</Link>
-						, the writing app for modern writer
+						, the writing app for modern writers
 					</Text>
 				</Container>
 			</Body>

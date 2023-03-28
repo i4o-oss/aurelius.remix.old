@@ -1,9 +1,11 @@
 {
     "name": "@aurelius/emails",
     "version": "0.0.0",
-    "private": true,
+    "main": "./dist/index.js",
+    "types": "./dist/index.js",
     "scripts": {
-        "dev": "email dev",
+        "dev": "tsup ./index.tsx --watch && email dev",
+        "build": "tsup ./index.tsx",
         "export": "email export"
     },
     "dependencies": {
@@ -12,6 +14,7 @@
         "react-email": "1.7.15"
     },
     "devDependencies": {
+        "@aurelius/tsconfig": "workspace:*",
         "@types/node": "^18.15.10",
         "@types/react": "^18.0.29",
         "react": "^18.2.0"
