@@ -26,7 +26,6 @@ export async function action({ request }: ActionArgs) {
 }
 
 export default function SignIn() {
-	const loginFetcher = useFetcher()
 	const [theme] = useTheme()
 	const { magicLinkSent } = useLoaderData<typeof loader>()
 
