@@ -56,9 +56,9 @@ export default function MainMenu(props: MainMenuProps) {
 		  ]
 		: [
 				{
-					label: 'Join Waitlist',
+					label: 'Sign Up',
 					icon: <StarFilledIcon />,
-					link: '/join',
+					link: '/login',
 				},
 				{
 					label: 'Log In',

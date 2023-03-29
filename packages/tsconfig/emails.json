@@ -1,6 +1,6 @@
 {
     "$schema": "https://json.schemastore.org/tsconfig",
-    "display": "Aurelius",
+    "display": "Emails",
     "extends": "./base.json",
     "compilerOptions": {
         "jsx": "react-jsx",
@@ -14,7 +14,7 @@
         "resolveJsonModule": true,
         "paths": {
             "~/*": [
-                "../aurelius/src/"
+                "../emails/"
             ]
         }
     }

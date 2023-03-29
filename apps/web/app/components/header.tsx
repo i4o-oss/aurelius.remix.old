@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { Link, useFetcher, useLoaderData } from '@remix-run/react'
+import { Link, useFetcher } from '@remix-run/react'
 import { Avatar, Button, Dropdown, PrimaryButton } from '@i4o/catalystui'
 import {
 	ExitIcon,
@@ -53,6 +53,7 @@ function ProfileDropdown(props: Props) {
 	return (
 		<div className='flex h-full items-center justify-end'>
 			<Dropdown
+				// @ts-ignore
 				items={profileMenuItems}
 				secondaryItems={profileMenuSecondaryItems}
 				trigger={
@@ -112,12 +113,12 @@ export default function Header({ user }: { user?: any }) {
 										Login
 									</Button>
 								</Link>
-								<Link to='/join'>
+								<Link to='/login'>
 									<PrimaryButton
 										className='flex h-8 items-center justify-center'
-										tooltip='Login'
+										tooltip='Sign Up'
 									>
-										Join Waitlist
+										Sign Up
 									</PrimaryButton>
 								</Link>
 							</>

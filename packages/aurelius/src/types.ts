@@ -1,4 +1,3 @@
-import type { Dispatch, SetStateAction } from 'react'
 import type { Editor } from '@tiptap/core'
 
 export interface EditorToolbarProps {
@@ -13,15 +12,19 @@ export interface EditorToolbarProps {
 	editor: Editor | null
 }
 
+export interface SyncParams {
+	post?: string
+	writingSessions?: string
+}
+
 export interface WriterProps {
-	content: string
-	setContent: Dispatch<SetStateAction<string>>
-	focusMode: boolean
-	isSaving: boolean
-	title: string
-	setTitle: Dispatch<SetStateAction<string>>
-	wordCount: number
-	setWordCount: Dispatch<SetStateAction<number>>
+	post?: { title: string; content: string }
+	savePost: (title: string, content: string, wordCount: number) => void
+	saveWritingSession: (WritingSession: string) => void
+	sync: (params: SyncParams) => void
+	theme: Theme
+	toggleTheme: () => void
+	user: any
 }
 
 export type WritingSessionGoal = 'duration' | 'wordCount'

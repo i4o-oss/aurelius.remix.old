@@ -3,9 +3,17 @@ import {
 	InstagramLogoIcon,
 	TwitterLogoIcon,
 } from '@radix-ui/react-icons'
+import { Theme, useTheme } from '~/lib/theme'
 import { INSTAGRAM_PROFILE, TWITTER_PROFILE } from '~/lib/constants'
+import { Select } from '@i4o/catalystui'
 
 export default function Footer() {
+	const [theme, setTheme] = useTheme()
+
+	function toggleTheme(selectedItem: any) {
+		setTheme(selectedItem.value)
+	}
+
 	return (
 		<div className='flex h-20 w-screen flex-wrap items-center justify-center border-t border-gray-200/50 bg-transparent p-4 dark:border-gray-700/20 lg:px-0'>
 			<div className='flex w-full max-w-5xl items-center justify-between'>
@@ -55,6 +63,17 @@ export default function Footer() {
 					</p>
 				</div>
 				<div className='flex items-center justify-end gap-4'>
+					<Select
+						defaultValue={theme === Theme.DARK ? 'dark' : 'light'}
+						items={[
+							{ value: 'light', label: 'Light' },
+							{ value: 'dark', label: 'Dark' },
+						]}
+						name='theme-selector'
+						onValueChange={(selectedItem) =>
+							toggleTheme(selectedItem)
+						}
+					/>
 					{/* <a */}
 					{/* 	aria-label='Github Repo' */}
 					{/* 	href='https://github.com/i4o-oss/rescribe' */}

@@ -42,6 +42,7 @@ async function getBlogMdxItems({
 			slug: content.data.slug,
 			draft: content.data.draft,
 			featured: content.data.featured,
+			tag: content.data.tag,
 		}
 	})
 

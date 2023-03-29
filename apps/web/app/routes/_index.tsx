@@ -1,4 +1,5 @@
 import type { LoaderArgs } from '@remix-run/node'
+import type { SyncParams } from '@i4o/aurelius'
 import { useRef } from 'react'
 import { Writer } from '@i4o/aurelius'
 import { useFetcher, useFetchers, useLoaderData } from '@remix-run/react'
@@ -22,8 +23,8 @@ export async function loader({ request }: LoaderArgs) {
 }
 
 export default function Write() {
-	const writerFetcher = useFetcher()
 	const fetchers = useFetchers()
+	const fetcher = useFetcher()
 	// @ts-ignore
 	const { post, user } = useLoaderData<typeof loader>()
 	const [theme, setTheme] = useTheme()
@@ -50,7 +51,7 @@ export default function Write() {
 	function savePost(title: string, content: string, wordCount: number) {
 		if (title && wordCount > 1) {
 			if (record.current.id) {
-				writerFetcher.submit(
+				fetcher.submit(
 					{ title, content, wordCount: `${wordCount}` },
 					{
 						method: 'put',
@@ -58,12 +59,37 @@ export default function Write() {
 					}
 				)
 			} else {
-				writerFetcher.submit(
+				fetcher.submit(
 					{ title, content, wordCount: `${wordCount}` },
 					{ method: 'post', action: '/api/posts' }
 				)
 			}
 		}
+	}
+
+	function saveWritingSession(writingSession: string) {
+		fetcher.submit(
+			{
+				writingSession,
+			},
+			{
+				method: 'post',
+				action: '/api/sessions',
+			}
+		)
+	}
+
+	function syncLocallySavedData({ post, writingSessions }: SyncParams) {
+		fetcher.submit(
+			{
+				post: post as string,
+				writingSessions: writingSessions as string,
+			},
+			{
+				method: 'post',
+				action: '/api/sync',
+			}
+		)
 	}
 
 	function toggleTheme() {
@@ -77,6 +103,8 @@ export default function Write() {
 			<Writer
 				post={post}
 				savePost={savePost}
+				saveWritingSession={saveWritingSession}
+				sync={syncLocallySavedData}
 				theme={theme as Theme}
 				toggleTheme={toggleTheme}
 				user={user}

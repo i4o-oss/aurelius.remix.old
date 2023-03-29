@@ -15,6 +15,7 @@ export interface AureliusProviderData {
 	setIsMusicPlaying?: Dispatch<SetStateAction<boolean>>
 	isSaving?: boolean
 	setIsSaving?: Dispatch<SetStateAction<boolean>>
+	localPost?: any
 	notifyOnSessionEnd?: boolean
 	setNotifyOnSessionEnd?: Dispatch<SetStateAction<boolean>>
 	post?: { title: string; content: string }

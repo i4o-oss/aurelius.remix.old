@@ -1,11 +1,6 @@
-import {
-	ReactNode,
-	useCallback,
-	useContext,
-	useEffect,
-	useRef,
-	useState,
-} from 'react'
+import type { ReactNode } from 'react'
+import type { WriterProps } from '../../types'
+import { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { useEditor } from '@tiptap/react'
 import BubbleMenuExt from '@tiptap/extension-bubble-menu'
 import { Link } from '@tiptap/extension-link'
@@ -38,7 +33,7 @@ import AureliusProvider, {
 	AureliusContext,
 	AureliusProviderData,
 } from './provider'
-import { Theme, WritingSession, WritingSessionGoal } from '../../types'
+import { WritingSession, WritingSessionGoal } from '../../types'
 import Timer from './timer'
 
 function Reset({ confirmResetEditor }: { confirmResetEditor: () => void }) {
@@ -106,21 +101,16 @@ function WritingSessionRecap() {
 	)
 }
 
-interface WriterProps {
-	post?: { title: string; content: string }
-	savePost: (title: string, content: string, wordCount: number) => void
-	theme: Theme
-	toggleTheme: () => void
-	user: any
-}
-
 export default function Writer({
 	post,
 	savePost: savePostToDatabase,
+	saveWritingSession: saveWritingSessionToDatabase,
+	sync,
 	theme,
 	toggleTheme,
 	user,
 }: WriterProps) {
+	const [localPost] = useLocalStorage(POST_LOCAL_STORAGE_KEY)
 	const [writingSessions] = useLocalStorage<WritingSession[]>(
 		SESSION_LOCAL_STORAGE_KEY
 	)
@@ -173,6 +163,19 @@ export default function Writer({
 		}
 	}, [showSessionRecapDialog])
 
+	useEffect(() => {
+		if (user) {
+			sync({
+				post: localPost ? JSON.stringify(localPost) : '',
+				writingSessions:
+					writingSessions && writingSessions?.length > 0
+						? JSON.stringify(writingSessions)
+						: '',
+			})
+			clearLocalData()
+		}
+	}, [])
+
 	const editor = useEditor({
 		content,
 		editorProps: {
@@ -223,6 +226,11 @@ export default function Writer({
 			setWordCount(wordCount)
 		},
 	})
+
+	function clearLocalData() {
+		deleteFromStorage(POST_LOCAL_STORAGE_KEY)
+		deleteFromStorage(SESSION_LOCAL_STORAGE_KEY)
+	}
 
 	function downloadFile() {
 		downloadAsMarkdown(title, content)
@@ -299,10 +307,14 @@ export default function Writer({
 			endingWordCount: wordCount,
 		} as WritingSession
 		setSessionData(data)
-		writeStorage(SESSION_LOCAL_STORAGE_KEY, [
-			...(JSON.parse(JSON.stringify(writingSessions)) || []),
-			data,
-		])
+		if (user) {
+			saveWritingSessionToDatabase(JSON.stringify(data))
+		} else {
+			writeStorage(SESSION_LOCAL_STORAGE_KEY, [
+				...(JSON.parse(JSON.stringify(writingSessions)) || []),
+				data,
+			])
+		}
 		if (sessionMusic) {
 			setIsMusicPlaying(false)
 		}
@@ -321,10 +333,14 @@ export default function Writer({
 			endingWordCount: wordCount,
 		} as WritingSession
 		setSessionData(data)
-		writeStorage(SESSION_LOCAL_STORAGE_KEY, [
-			...(JSON.parse(JSON.stringify(writingSessions)) || []),
-			data,
-		])
+		if (user) {
+			saveWritingSessionToDatabase(JSON.stringify(data))
+		} else {
+			writeStorage(SESSION_LOCAL_STORAGE_KEY, [
+				...(JSON.parse(JSON.stringify(writingSessions)) || []),
+				data,
+			])
+		}
 		if (sessionMusic) {
 			setIsMusicPlaying(false)
 		}
@@ -372,6 +388,7 @@ export default function Writer({
 				setIsMusicPlaying,
 				isSaving,
 				setIsSaving,
+				localPost,
 				notifyOnSessionEnd,
 				setNotifyOnSessionEnd,
 				post,

@@ -1,3 +1,5 @@
+export const ORIGIN = 'https://aurelius.ink'
+
 export const BLOG_POSTS_DIR = 'app/content/blog'
 
 export const authors = [
