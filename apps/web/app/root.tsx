@@ -77,6 +77,8 @@ export const meta: MetaFunction = () => ({
 	'og:image': '/images/aurelius_open_graph.png',
 	'theme-color': '#ffffff',
 	title: 'Aurelius',
+	description:
+		'Beautiful, minimal writing app. Eliminate distractions when writing, build a writing habit, track your daily writing goal, and more.',
 	'twitter:card': 'summary_large_image',
 	'twitter:site': '@aurelius_ink',
 	'twitter:url': 'https://aurelius.ink/',
