@@ -23,6 +23,7 @@ import {
 } from '@radix-ui/react-icons'
 import { AureliusContext, AureliusProviderData } from './provider'
 import { Theme } from '../../types'
+import { Form } from '@remix-run/react'
 
 interface MainMenuProps {
 	downloadFile: () => void
@@ -49,9 +50,18 @@ export default function MainMenu(props: MainMenuProps) {
 					link: '/dashboard',
 				},
 				{
-					label: 'Logout',
+					label: (
+						<Form action='/logout' method='post'>
+							<button
+								className='flex h-full w-full items-center justify-start'
+								type='submit'
+							>
+								Logout
+							</button>
+						</Form>
+					),
 					icon: <ExitIcon />,
-					link: '/logout',
+					onSelect: (e: Event) => e.preventDefault(),
 				},
 		  ]
 		: [

@@ -1,5 +1,5 @@
 import type { ReactPlayerProps } from 'react-player/types/lib'
-import React, { useContext } from 'react'
+import React, { Suspense, useContext } from 'react'
 import { default as _ReactPlayer } from 'react-player/youtube'
 import { PlayIcon, PauseIcon } from '@radix-ui/react-icons'
 import { Button } from '@i4o/catalystui'
@@ -85,18 +85,20 @@ export default function Footer() {
 						<PlayIcon className='au-h-4 au-w-4 au-text-slate-800 dark:au-text-slate-100' />
 					</Button>
 				)}
-				<ReactPlayer
-					playing={isMusicPlaying}
-					url={youtubeVideo || MUSIC_STATIONS.LOFI_GIRL_FOCUS}
-					width='0'
-					height='0'
-					loop={true}
-					config={{
-						youtube: {
-							playerVars: { control: 1, start: 1 },
-						},
-					}}
-				/>
+				<Suspense fallback={<div>Loading...</div>}>
+					<ReactPlayer
+						playing={isMusicPlaying}
+						url={youtubeVideo || MUSIC_STATIONS.LOFI_GIRL_FOCUS}
+						width='0'
+						height='0'
+						loop={true}
+						config={{
+							youtube: {
+								playerVars: { control: 1, start: 1 },
+							},
+						}}
+					/>
+				</Suspense>
 			</div>
 		</div>
 	)

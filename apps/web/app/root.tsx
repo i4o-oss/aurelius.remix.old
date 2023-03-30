@@ -16,7 +16,6 @@ import {
 	useFetchers,
 	useLoaderData,
 	useNavigation,
-	useTransition,
 } from '@remix-run/react'
 import { useEffect } from 'react'
 import { ThemeHead, ThemeProvider, useTheme } from '~/lib/theme'
@@ -38,7 +37,7 @@ export const links: LinksFunction = () => {
 		{ rel: 'preconnect', href: 'https://fonts.gstatic.com' },
 		{
 			rel: 'stylesheet',
-			href: 'https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Orbitron:wght@700&display=swap',
+			href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&display=swap',
 		},
 		{ rel: 'stylesheet', href: styles },
 		{ rel: 'stylesheet', href: nProgressStyles },
@@ -78,6 +77,8 @@ export const meta: MetaFunction = () => ({
 	'og:image': '/images/aurelius_open_graph.png',
 	'theme-color': '#ffffff',
 	title: 'Aurelius',
+	description:
+		'Beautiful, minimal writing app. Eliminate distractions when writing, build a writing habit, track your daily writing goal, and more.',
 	'twitter:card': 'summary_large_image',
 	'twitter:site': '@aurelius_ink',
 	'twitter:url': 'https://aurelius.ink/',
