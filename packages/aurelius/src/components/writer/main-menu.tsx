@@ -15,6 +15,7 @@ import {
 	MixerHorizontalIcon,
 	MoonIcon,
 	Pencil1Icon,
+	RocketIcon,
 	// QuestionMarkCircledIcon,
 	StarFilledIcon,
 	SunIcon,
@@ -48,6 +49,12 @@ export default function MainMenu(props: MainMenuProps) {
 					label: 'Dashboard',
 					icon: <DashboardIcon />,
 					link: '/dashboard',
+				},
+				{
+					label: 'Plus',
+					icon: <RocketIcon />,
+					link: '/plus',
+					openLinkInNewTab: true,
 				},
 				{
 					label: (
