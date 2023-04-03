@@ -19,7 +19,7 @@ export default function Profile() {
 			<div className='mb-4 flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between md:gap-8'>
 				<div className='flex-1 space-y-4'>
 					<h1 className='inline-block text-4xl font-extrabold tracking-tight text-slate-900 dark:text-slate-50 lg:text-5xl'>
-						Blog
+						Test
 					</h1>
 					<p className='text-xl text-slate-700 dark:text-slate-300'>
 						Crafts and technical details
