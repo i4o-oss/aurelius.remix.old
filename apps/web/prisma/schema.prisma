@@ -16,6 +16,7 @@ model User {
     email          String?          @unique
     username       String?          @unique
     emailVerified  DateTime?        @default(now())
+    bio            String?
     image          String?
     role           String?          @default("user")
     provider       String?

@@ -1,66 +1,65 @@
 import { Link, useLoaderData } from '@remix-run/react'
-import { json } from '@remix-run/node'
-import { BlogPost } from '~/lib/types'
+import { json, LoaderArgs } from '@remix-run/node'
 import { formatDate } from '~/lib/utils'
-import { getBlogMdxItems } from '~/services/mdx.server'
-import { Theme, useTheme } from '~/lib/theme'
+import { getUserByUsername } from '~/models/user.server'
+import invariant from 'tiny-invariant'
+import { getAllPostsFromAuthor } from '~/models/post.server'
 
-export async function loader() {
-	const posts = await getBlogMdxItems({ grouped: 'year' })
-	return json({ posts })
+export async function loader({ params }: LoaderArgs) {
+	const username = params.username
+	invariant(typeof username === 'string', 'username must be a string')
+	invariant(
+		username !== '' || username !== undefined,
+		'username must not be empty or undefined'
+	)
+	const user = await getUserByUsername(username)
+	invariant(typeof user?.id === 'string', 'userId must be a string')
+	const posts = await getAllPostsFromAuthor(user?.id)
+	return json({ user: { username, name: user.name, bio: user.bio }, posts })
 }
 
 export default function Profile() {
 	const data = useLoaderData<typeof loader>()
-	const [theme] = useTheme()
-	const { posts } = data
+	const { posts, user } = data
 	return (
 		<div className='container max-w-4xl p-6 lg:py-10 lg:px-0'>
-			<div className='mb-4 flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between md:gap-8'>
+			<div className='mb-4 flex h-64 flex-col items-start gap-4 md:flex-row md:items-center md:justify-between md:gap-8'>
 				<div className='flex-1 space-y-4'>
 					<h1 className='inline-block text-4xl font-extrabold tracking-tight text-slate-900 dark:text-slate-50 lg:text-5xl'>
-						Test
+						{user.name}
 					</h1>
 					<p className='text-xl text-slate-700 dark:text-slate-300'>
-						Crafts and technical details
+						{user.bio}
 					</p>
 				</div>
-
-				<img
-					className={`${
-						theme === Theme.DARK ? 'invert' : ''
-					} mb-4 w-64`}
-					src='/images/blog.svg'
-					alt='writing illustration'
-				/>
 			</div>
 			{posts?.length ? (
-				<div className='grid gap-10 sm:grid-cols-2'>
+				<div className='grid gap-10 sm:grid-cols-1'>
 					{posts.map(
 						// @ts-ignore
-						(post: BlogPost, index: number) => (
+						(post: any, index: number) => (
 							<article
 								key={`post-${index}`}
 								className='group relative flex flex-col space-y-2'
 							>
-								{post.og_image && (
-									<img
-										src={post.og_image}
-										alt={post.title}
-										className='rounded-lg border border-slate-800 bg-slate-800 transition-colors group-hover:border-slate-900'
-									/>
-								)}
+								{/* {post.og_image && ( */}
+								{/* 	<img */}
+								{/* 		src={post.og_image} */}
+								{/* 		alt={post.title} */}
+								{/* 		className='rounded-lg border border-slate-800 bg-slate-800 transition-colors group-hover:border-slate-900' */}
+								{/* 	/> */}
+								{/* )} */}
 								<div className='flex items-center justify-between py-2'>
-									{post.date && (
+									{post.createdAt && (
 										<p className='text-sm text-slate-500 dark:text-slate-500'>
-											{formatDate(post.date)}
+											{formatDate(post.createdAt)}
 										</p>
 									)}
-									{post.tag && (
-										<span className='rounded-lg bg-slate-300 px-2 py-1 text-xs text-slate-900 dark:bg-slate-700 dark:text-slate-50'>
-											{post.tag}
-										</span>
-									)}
+									{/* {post.tag && ( */}
+									{/* 	<span className='rounded-lg bg-slate-300 px-2 py-1 text-xs text-slate-900 dark:bg-slate-700 dark:text-slate-50'> */}
+									{/* 		{post.tag} */}
+									{/* 	</span> */}
+									{/* )} */}
 								</div>
 								<h2 className='text-2xl font-extrabold text-slate-900 dark:text-slate-50'>
 									{post.title}
