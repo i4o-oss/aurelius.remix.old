@@ -6,7 +6,6 @@ import {
 	Heading,
 	Html,
 	Img,
-	Link,
 	Preview,
 	Section,
 	Text,
@@ -18,7 +17,11 @@ const baseUrl = process.env.VERCEL_URL
 	? `https://${process.env.VERCEL_URL}`
 	: ''
 
-const AureliusWritingReminder = ({ userFirstname }) => (
+const AureliusWritingReminder = ({
+	userFirstname,
+}: {
+	userFirstname: string
+}) => (
 	<Html>
 		<Head />
 		<Preview>Remainder to write today</Preview>
@@ -43,7 +46,7 @@ const AureliusWritingReminder = ({ userFirstname }) => (
 					<Section className='text-center'>
 						<Button
 							className='flex items-center justify-center rounded-lg bg-[#2cb67d] px-3 py-3 text-center text-base font-semibold text-white'
-							href='https://getkoala.com'
+							href='https://aurelius.ink'
 						>
 							Start Writing
 						</Button>
