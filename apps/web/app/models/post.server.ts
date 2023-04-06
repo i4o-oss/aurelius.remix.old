@@ -2,9 +2,6 @@ import { prisma } from '~/db.server'
 export type { Post } from '@prisma/client'
 
 export async function getAllPostsFromAuthor(userId: string) {
-	if (!userId) {
-		return { message: 'invalid_user_id' }
-	}
 	const posts = await prisma.post.findMany({
 		where: { userId },
 		orderBy: { createdAt: 'desc' },
