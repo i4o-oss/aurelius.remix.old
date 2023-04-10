@@ -22,6 +22,17 @@ model User {
     provider       String?
     Post           Post[]
     WritingSession WritingSession[]
+    Writing        Writing[]
+}
+
+model WritingPath {
+    id           String    @id @default(cuid())
+    createdAt    DateTime  @default(now())
+    updatedAt    DateTime  @default(now())
+    name         String
+    type         String
+    maxWordCount Int?
+    Writing      Writing[]
 }
 
 model Waitlist {
@@ -48,6 +59,26 @@ model Post {
     shareId   String    @unique
 
     @@index([userId])
+}
+
+model Writing {
+    id            String      @id @default(cuid())
+    title         String
+    content       String      @db.MediumText
+    published     Boolean?    @default(false)
+    user          User        @relation(fields: [userId], references: [id])
+    userId        String
+    createdAt     DateTime    @default(now())
+    updatedAt     DateTime?   @default(now()) @updatedAt
+    wordCount     Int
+    maxWordCount  Int
+    slug          String
+    shareId       String      @unique
+    writingPath   WritingPath @relation(fields: [writingPathId], references: [id])
+    writingPathId String
+
+    @@index([userId])
+    @@index([writingPathId])
 }
 
 model WritingSession {
