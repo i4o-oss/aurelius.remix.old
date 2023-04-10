@@ -20,7 +20,7 @@ auth.use(
 		{
 			clientID: GOOGLE_CLIENT_ID,
 			clientSecret: GOOGLE_CLIENT_SECRET,
-			callbackURL: 'http://localhost:3001/auth/google/callback',
+			callbackURL: '/auth/google/callback',
 		},
 		async ({ accessToken, refreshToken, extraParams, profile }) => {
 			const email = profile.emails[0].value
