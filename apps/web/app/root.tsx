@@ -18,6 +18,7 @@ import {
 	useNavigation,
 } from '@remix-run/react'
 import { useEffect } from 'react'
+import { withSentry } from '@sentry/remix'
 import { ThemeHead, ThemeProvider, useTheme } from '~/lib/theme'
 import { getThemeSession } from '~/lib/theme.server'
 // @ts-ignore
@@ -177,7 +178,7 @@ function App() {
 	)
 }
 
-export default function AppWithProviders() {
+function AppWithProviders() {
 	const data = useLoaderData<LoaderData>()
 
 	return (
@@ -186,3 +187,5 @@ export default function AppWithProviders() {
 		</ThemeProvider>
 	)
 }
+
+export default withSentry(AppWithProviders)
