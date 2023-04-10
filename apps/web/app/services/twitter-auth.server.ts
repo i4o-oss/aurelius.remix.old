@@ -20,7 +20,7 @@ auth.use(
 		{
 			clientID: TWITTER_API_KEY,
 			clientSecret: TWITTER_API_KEY_SECRET,
-			callbackURL: 'http://localhost:3001/auth/twitter/callback',
+			callbackURL: '/auth/twitter/callback',
 			includeEmail: true,
 		},
 		async ({ accessToken, accessTokenSecret, profile }) => {
