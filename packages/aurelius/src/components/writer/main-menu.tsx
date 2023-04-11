@@ -32,7 +32,6 @@ interface MainMenuProps {
 }
 
 export default function MainMenu(props: MainMenuProps) {
-	const context = useContext(AureliusContext)
 	const {
 		focusMode,
 		setFocusMode,
@@ -41,7 +40,7 @@ export default function MainMenu(props: MainMenuProps) {
 		theme,
 		toggleTheme,
 		user,
-	}: AureliusProviderData = context
+	} = useContext<AureliusProviderData>(AureliusContext)
 
 	let userRelatedItems = user
 		? [
@@ -231,7 +230,6 @@ export default function MainMenu(props: MainMenuProps) {
 			items={dropdownItems}
 			trigger={
 				<IconButton
-					bg='!bg-slate-400 dark:!bg-slate-800 hover:!bg-slate-300 hover:dark:!bg-slate-700'
 					className='h-10 w-10'
 					icon={
 						<HamburgerMenuIcon className='text-slate-800 dark:text-slate-100' />

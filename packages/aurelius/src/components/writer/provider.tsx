@@ -41,6 +41,8 @@ export interface AureliusProviderData {
 	setShowSessionRecapDialog?: Dispatch<SetStateAction<boolean>>
 	showSettingsDialog?: boolean
 	setShowSettingsDialog?: Dispatch<SetStateAction<boolean>>
+	showWritingPaths?: boolean
+	setShowWritingPaths?: Dispatch<SetStateAction<boolean>>
 	theme?: Theme
 	toggleTheme?: () => void
 	title?: string

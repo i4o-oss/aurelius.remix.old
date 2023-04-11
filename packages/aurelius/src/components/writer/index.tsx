@@ -35,6 +35,7 @@ import AureliusProvider, {
 } from './provider'
 import { WritingSession, WritingSessionGoal } from '../../types'
 import Timer from './timer'
+import WritingPaths from './writing-paths'
 
 function Reset({ confirmResetEditor }: { confirmResetEditor: () => void }) {
 	const context: AureliusProviderData = useContext(AureliusContext)
@@ -131,6 +132,7 @@ export default function Writer({
 	const [showSessionEndToast, setShowSessionEndToast] = useState(false)
 	const [showSessionRecapDialog, setShowSessionRecapDialog] = useState(false)
 	const [showSettingsDialog, setShowSettingsDialog] = useState(false)
+	const [showWritingPaths, setShowWritingPaths] = useState(false)
 	const [title, setTitle] = useState('')
 	const [wordCount, setWordCount] = useState(0)
 
@@ -412,6 +414,8 @@ export default function Writer({
 				setShowSessionRecapDialog,
 				showSettingsDialog,
 				setShowSettingsDialog,
+				showWritingPaths,
+				setShowWritingPaths,
 				theme,
 				toggleTheme,
 				title,
@@ -438,6 +442,7 @@ export default function Writer({
 					/>
 					{SessionComponent}
 				</div>
+				{/* <WritingPaths /> */}
 				<section className='au-flex au-h-full au-w-full au-flex-grow au-flex-col au-items-center au-justify-start'>
 					<div className='au-flex au-h-full au-w-full au-flex-col au-items-center au-justify-start au-space-y-4 au-px-4 au-py-24 md:au-py-16 lg:au-px-0'>
 						<div className='au-w-full au-max-w-3xl'>
