@@ -509,6 +509,15 @@ export default function Writer({
 					backgroundColor: '#85FFBD',
 					backgroundImage:
 						'linear-gradient(45deg, #85FFBD 0%, #FFFB7D 100%)',
+					// backgroundColor: '#FBAB7E',
+					// backgroundImage:
+					// 	'linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%)',
+					// backgroundColor: '#8bc6ec',
+					// backgroundImage:
+					// 	'linear-gradient(45deg, #8bc6ec 0%, #9599e2 100%)',
+					// backgroundColor: '#A9C9FF',
+					// backgroundImage:
+					// 	'linear-gradient(180deg, #A9C9FF 0%, #FFBBEC 100%)',
 				}}
 				ref={canvasRef}
 			>
