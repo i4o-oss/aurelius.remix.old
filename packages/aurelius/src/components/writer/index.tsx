@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import { ReactNode } from 'react'
 import type { WriterProps } from '../../types'
 import { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { useEditor } from '@tiptap/react'
@@ -9,16 +9,14 @@ import StarterKit from '@tiptap/starter-kit'
 import SuperImage from '../extensions/super-image'
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
 import { lowlight } from 'lowlight'
-// import TaskItem from '@tiptap/extension-task-item'
-// import TaskList from '@tiptap/extension-task-list'
 import Youtube from '@tiptap/extension-youtube'
-// import VisualBookmark from '../extensions/visual-bookmark'
 import { Alert, Button, Dialog, PrimaryButton } from '@i4o/catalystui'
 import { Autosave } from 'react-autosave'
 import useLocalStorage, {
 	deleteFromStorage,
 	writeStorage,
 } from '@rehooks/local-storage'
+import html2canvas from 'html2canvas'
 import TipTap from './tiptap'
 import WriterFooter from './footer'
 import MainMenu from './main-menu'
@@ -35,7 +33,8 @@ import AureliusProvider, {
 } from './provider'
 import { WritingSession, WritingSessionGoal } from '../../types'
 import Timer from './timer'
-import WritingPaths from './writing-paths'
+import { findDOMNode } from 'react-dom'
+// import WritingPaths from './writing-paths'
 
 function Reset({ confirmResetEditor }: { confirmResetEditor: () => void }) {
 	const context: AureliusProviderData = useContext(AureliusContext)
@@ -115,6 +114,7 @@ export default function Writer({
 	const [writingSessions] = useLocalStorage<WritingSession[]>(
 		SESSION_LOCAL_STORAGE_KEY
 	)
+	const canvasRef = useRef<HTMLDivElement>(null)
 	const titleRef = useRef<HTMLTextAreaElement>(null)
 	const [content, setContent] = useState('')
 	const [focusMode, setFocusMode] = useState(false)
@@ -221,9 +221,11 @@ export default function Writer({
 			}),
 		],
 		onUpdate({ editor }) {
-			const html = editor.getHTML()
+			let html = editor.isEmpty ? '' : editor.getHTML()
 			const contentText = editor?.state?.doc?.textContent
 			const wordCount = contentText?.split(' ').length
+			const removeRegexP = /<p><\/p>/g
+			html = html.replace(removeRegexP, '')
 			setContent(html)
 			setWordCount(wordCount)
 		},
@@ -236,6 +238,34 @@ export default function Writer({
 
 	function downloadFile() {
 		downloadAsMarkdown(title, content)
+	}
+
+	const saveAs = (uri: string, filename: string) => {
+		const link = document.createElement('a')
+
+		if (typeof link.download === 'string') {
+			link.href = uri
+			link.download = filename
+			document.body.appendChild(link)
+			link.click()
+			document.body.removeChild(link)
+		} else {
+			window.open(uri)
+		}
+	}
+
+	function exportPost() {
+		if (window) {
+			// @ts-ignore
+			const element = findDOMNode(canvasRef.current)
+			// @ts-ignore
+			html2canvas(element, {
+				scrollY: -window.scrollY,
+				useCORS: true,
+			}).then((canvas) => {
+				saveAs(canvas.toDataURL('image/png', 1.0), 'file.png')
+			})
+		}
 	}
 
 	async function savePost(data: any) {
@@ -438,6 +468,7 @@ export default function Writer({
 				>
 					<MainMenu
 						downloadFile={downloadFile}
+						exportPost={exportPost}
 						onResetEditorClick={onResetEditorClick}
 					/>
 					{SessionComponent}
@@ -471,6 +502,26 @@ export default function Writer({
 			) : null}
 			{showSettingsDialog ? <Settings /> : null}
 			{showSessionRecapDialog ? <WritingSessionRecap /> : null}
+			<div
+				className='au-absolute -au-top-[1440px] -au-left-[1080px] au-flex au-h-[1440px] au-w-[1080px] au-flex-col au-items-start au-justify-start au-bg-white au-bg-no-repeat au-bg-cover au-bg-opacity-50'
+				style={{
+					// backgroundImage: "url('/images/templates/gggrain.svg')",
+					backgroundColor: '#85FFBD',
+					backgroundImage:
+						'linear-gradient(45deg, #85FFBD 0%, #FFFB7D 100%)',
+				}}
+				ref={canvasRef}
+			>
+				<div className='au-flex au-w-full au-max-w-none au-h-full au-flex-col au-items-start au-justify-center au-py-16 au-px-12 au-prose au-prose-slate au-prose-2xl prose-headings:au-mb-0 prose-blockquote:au-border-slate-900'>
+					<h1 className='au-w-full au-flex au-flex-col au-text-left au-text-gray-900'>
+						{title}
+					</h1>
+					<div
+						className='au-w-full au-text-gray-900 au-prose-p:au-mt-2 au-prose-p:au-mb-2'
+						dangerouslySetInnerHTML={{ __html: content }}
+					/>
+				</div>
+			</div>
 		</AureliusProvider>
 	)
 }
