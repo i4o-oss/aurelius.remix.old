@@ -1,10 +1,8 @@
 import type { ActionFunction } from '@remix-run/node'
 import { auth } from '~/services/auth.server'
 import { auth as googleAuth } from '~/services/google-auth.server'
-import { auth as twitterAuth } from '~/services/twitter-auth.server'
 
 export let action: ActionFunction = async ({ request }) => {
 	await auth.logout(request, { redirectTo: '/' })
 	await googleAuth.logout(request, { redirectTo: '/' })
-	await twitterAuth.logout(request, { redirectTo: '/' })
 }
