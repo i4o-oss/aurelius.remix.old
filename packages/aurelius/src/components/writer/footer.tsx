@@ -28,7 +28,7 @@ export default function Footer() {
 			className={`au-fixed au-bottom-0 au-left-0 au-flex au-h-12 au-w-full au-items-center au-justify-between au-px-6 `}
 		>
 			<div
-				className={`au-flex au-items-center au-justify-start au-transition-all au-duration-200 au-hover:opacity-100 ${
+				className={`au-flex au-items-center au-justify-start au-transition-all au-duration-200 hover:au-opacity-100 ${
 					focusMode ? 'au-opacity-5' : 'au-opacity-100'
 				}`}
 			>
