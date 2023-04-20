@@ -6,6 +6,7 @@ import BubbleMenuExt from '@tiptap/extension-bubble-menu'
 import { Link } from '@tiptap/extension-link'
 import { Placeholder } from '@tiptap/extension-placeholder'
 import StarterKit from '@tiptap/starter-kit'
+import Highlight from '@tiptap/extension-highlight'
 import SuperImage from '../extensions/super-image'
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
 import { lowlight } from 'lowlight'
@@ -213,6 +214,7 @@ export default function Writer({
 			Placeholder.configure({
 				placeholder: 'Start writing...',
 			}),
+			Highlight.configure({ multicolor: true }),
 			// @ts-ignore
 			StarterKit.configure({
 				heading: {
