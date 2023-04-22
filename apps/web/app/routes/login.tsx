@@ -41,21 +41,21 @@ export default function SignIn() {
 					}
 					alt='Logo'
 				/>
-				<div className='flex flex-col items-center justify-center space-y-4 text-slate-900 dark:text-slate-50'>
+				<div className='text-primary-foreground flex flex-col items-center justify-center space-y-4'>
 					<h1 className='text-3xl font-bold'>
 						Get Started with Aurelius
 					</h1>
 				</div>
 			</div>
 			<div className='flex flex-col items-center justify-center'>
-				<div className='flex w-96 max-w-3xl flex-col items-center justify-center rounded-xl bg-slate-200 p-8 text-slate-900 shadow-lg dark:bg-slate-900 dark:text-slate-50'>
+				<div className='bg-primary-subtle text-primary-foreground flex w-96 max-w-3xl flex-col items-center justify-center rounded-xl p-8 shadow-lg'>
 					<Form action='/login' method='post'>
 						<div className='mb-6 w-full space-y-2'>
 							<label htmlFor='email'>
 								Enter your email address
 							</label>
 							<input
-								className='focus:border-brand-500 active:border-brand-500 focus:dark:border-brand-500 active:dark:border-brand-500 h-12 w-full rounded-md border border-slate-700 bg-transparent p-4 text-slate-900 outline-none focus:bg-transparent active:bg-transparent dark:border-slate-300 dark:text-slate-50'
+								className='focus:border-brand-500 active:border-brand-500 focus:dark:border-brand-500 active:dark:border-brand-500 border-subtle text-primary-foreground h-12 w-full rounded-md border bg-transparent p-4 outline-none focus:bg-transparent active:bg-transparent'
 								id='email'
 								type='email'
 								name='email'
@@ -63,13 +63,13 @@ export default function SignIn() {
 								required
 							/>
 							{magicLinkSent ? (
-								<p className='text-xs font-normal text-slate-600 dark:text-slate-400'>
+								<p className='text-primary-foreground-subtle text-xs font-normal'>
 									Successfully sent magic link.
 								</p>
 							) : (
-								<p className='text-xs font-normal text-slate-600 dark:text-slate-400'>
-									If you don't have an account yet, we'll
-									create one for you.
+								<p className='text-primary-foreground-subtle text-xs font-normal'>
+									If you don't have an account, we'll create
+									one for you.
 								</p>
 							)}
 						</div>
@@ -81,7 +81,7 @@ export default function SignIn() {
 							<span className='font-medium'>Sign In</span>
 						</PrimaryButton>
 					</Form>
-					<div className='my-4 flex w-full max-w-[24rem] items-center justify-center text-slate-500 before:relative before:w-1/2 before:border-t before:border-slate-400 before:content-[""] after:relative after:w-1/2 after:border-t after:border-slate-400 after:content-[""] dark:text-slate-500 before:dark:border-slate-600 after:dark:border-slate-600'>
+					<div className='text-primary-foreground-subtle before:border-subtle after:border-subtle my-4 flex w-full max-w-[24rem] items-center justify-center before:relative before:w-1/2 before:border-t before:content-[""] after:relative after:w-1/2 after:border-t after:content-[""]'>
 						<span className='text-md mx-4'>or</span>
 					</div>
 					<Form

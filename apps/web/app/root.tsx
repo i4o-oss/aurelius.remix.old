@@ -152,7 +152,7 @@ const Document = ({ children }: DocumentProps) => {
 				<Links />
 				<ThemeHead ssrTheme={Boolean(data.theme)} />
 			</head>
-			<body className='h-full w-full bg-zinc-50 font-sans dark:bg-[#040303]'>
+			<body className='bg-primary h-full w-full font-sans'>
 				<script
 					defer
 					type='text/javascript'
