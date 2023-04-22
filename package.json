@@ -9,7 +9,7 @@
     ],
     "scripts": {
         "build": "turbo run build",
-        "dev": "turbo run dev --parallel",
+        "dev": "turbo run dev --filter=!react-email-preview --parallel",
         "start": "turbo run start --scope=@aurelius/web",
         "lint": "turbo run lint",
         "format": "prettier --write \"**/*.{ts,tsx,md}\""
