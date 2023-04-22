@@ -42,7 +42,7 @@ function Reset({ confirmResetEditor }: { confirmResetEditor: () => void }) {
 	const { showResetAlert, setShowResetAlert } = context
 	return (
 		<Alert
-			isOpen={showResetAlert}
+			open={showResetAlert}
 			onOpenChange={setShowResetAlert}
 			cancel={
 				<Button
@@ -57,7 +57,7 @@ function Reset({ confirmResetEditor }: { confirmResetEditor: () => void }) {
 					Confirm
 				</PrimaryButton>
 			}
-			title={<h3 className='au-px-2 au-text-lg'>Are you sure?</h3>}
+			title={<h3 className='au-pb-2 au-text-lg'>Are you sure?</h3>}
 			description='This will clear all the content from the editor. This action cannot be undone.'
 		/>
 	)
@@ -69,14 +69,16 @@ function WritingSessionRecap() {
 		context
 	return (
 		<Dialog
-			isOpen={showSessionRecapDialog}
+			open={showSessionRecapDialog}
 			onOpenChange={setShowSessionRecapDialog}
 			title={
-				<h3 className='au-px-2 au-text-lg'>Writing Session Recap</h3>
+				<h3 className='au-px-4 au-pt-4 au-pb-2 au-text-lg'>
+					Writing Session Recap
+				</h3>
 			}
 			trigger={null}
 		>
-			<div className='au-grid au-w-[24rem] au-grid-cols-2 au-gap-2 au-px-2 au-text-black dark:au-text-white'>
+			<div className='au-grid au-w-[24rem] au-grid-cols-2 au-gap-2 au-px-4 au-py-2 au-pb-4 au-text-primary-foreground'>
 				<p className='au-text-left'>Session Target:</p>
 				<p className='au-text-right'>
 					{sessionData?.goal === 'duration'

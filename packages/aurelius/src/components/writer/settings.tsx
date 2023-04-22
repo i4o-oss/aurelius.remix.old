@@ -6,6 +6,7 @@ import { useState } from 'react'
 import {
 	Dialog,
 	PrimaryButton,
+	Select,
 	Tabs,
 	TabsContent,
 	TabsList,
@@ -138,15 +139,15 @@ export default function Settings() {
 
 	return (
 		<Dialog
-			isOpen={showSettingsDialog}
+			open={showSettingsDialog}
 			onOpenChange={setShowSettingsDialog}
 			title=''
 			description=''
 		>
 			<Tabs defaultValue='profile'>
-				<div className='au-flex au-max-h-[96rem] au-min-h-[40rem] au-w-[64rem] [&_div[role="tablist"]]:!au-gap-2 au-rounded-lg au-overflow-hidden au-divide-x au-divide-gray-400 dark:au-divide-gray-600'>
-					<div className='au-w-64 au-bg-gray-100 dark:au-bg-gray-800 au-py-4 au-px-6'>
-						<h2 className='au-text-md au-font-medium au-text-gray-900 dark:au-text-gray-100 au-mb-4'>
+				<div className='au-flex au-max-h-[96rem] au-min-h-[40rem] au-w-[64rem] [&_div[role="tablist"]]:!au-gap-2 au-rounded-lg au-overflow-hidden au-divide-x au-divide-subtle'>
+					<div className='au-w-64 au-py-4 au-px-4'>
+						<h2 className='au-text-md au-font-medium au-text-primary-foreground au-mb-4'>
 							Settings
 						</h2>
 						<TabsList tabs={TABS} type='column' />
@@ -185,11 +186,11 @@ function ProfileSettings({
 			onSubmit={saveProfileSettings}
 		>
 			<div className='au-grid au-grid-cols-3 au-w-full au-gap-2'>
-				<label className='au-col-span-1 au-text-sm au-font-medium au-text-black dark:au-text-white'>
+				<label className='au-col-span-1 au-text-sm au-font-medium au-text-primary-foreground'>
 					Name
 				</label>
 				<input
-					className='au-col-span-2 au-h-10 au-w-full au-rounded-md au-bg-gray-100 au-px-4 au-py-2 au-text-sm au-font-medium au-text-black dark:au-bg-gray-900 dark:au-text-white'
+					className='au-col-span-2 au-h-10 au-w-full au-rounded-md au-px-4 au-py-2 au-text-sm au-font-medium au-text-primary-foreground au-border au-border-subtle au-bg-transparent'
 					value={name}
 					name='name'
 					onChange={(e) => setName(e.target.value)}
@@ -197,22 +198,22 @@ function ProfileSettings({
 				/>
 			</div>
 			<div className='au-grid au-grid-cols-3 au-w-full au-gap-2'>
-				<label className='au-col-span-1 au-text-sm au-font-medium au-text-black dark:au-text-white'>
+				<label className='au-col-span-1 au-text-sm au-font-medium au-text-primary-foreground'>
 					Bio
 				</label>
 				<textarea
-					className='au-col-span-2 au-h-20 au-w-full au-rounded-md au-bg-gray-100 au-px-4 au-py-2 au-text-sm au-font-medium au-text-black dark:au-bg-gray-900 dark:au-text-white'
+					className='au-col-span-2 au-h-20 au-w-full au-rounded-md au-px-4 au-py-2 au-text-sm au-font-medium au-text-primary-foreground au-border au-border-subtle au-bg-transparent'
 					value={bio}
 					name='bio'
 					onChange={(e) => setBio(e.target.value)}
 				/>
 			</div>
 			<div className='au-grid au-grid-cols-3 au-w-full au-gap-2'>
-				<label className='au-col-span-1 au-text-sm au-font-medium au-text-black dark:au-text-white'>
+				<label className='au-col-span-1 au-text-sm au-font-medium au-text-primary-foreground'>
 					Username
 				</label>
 				<input
-					className='au-col-span-2 au-h-10 au-w-full au-rounded-md au-bg-gray-100 au-px-4 au-py-2 au-text-sm au-font-medium au-text-black dark:au-bg-gray-900 dark:au-text-white'
+					className='au-col-span-2 au-h-10 au-w-full au-rounded-md au-px-4 au-py-2 au-text-sm au-font-medium au-text-primary-foreground au-border au-border-subtle au-bg-transparent'
 					value={username}
 					name='name'
 					onChange={(e) => setUsername(e.target.value)}
@@ -304,8 +305,8 @@ function GoalSettings({
 			{/* 		type='single' */}
 			{/* 	/> */}
 			{/* </div> */}
-			<div className='au-w-full [&_div[role="group"]]:au-col-span-2 [&_div[role="group"]]:au-divide-y-0 [&_div[role="group"]]:au-divide-x au-grid au-grid-cols-3 au-gap-2 au-text-white [&_button[role="radio"]]:au-h-full [&_button[role="radio"]]:au-p-0 [&_button[role="radio"]]:au-col-span-1 [&_button[role="radio"]]:au-rounded-none [&_div[role="group"]]:au-grid [&_div[role="group"]]:au-h-10 [&_div[role="group"]]:au-w-full [&_div[role="group"]]:au-grid-cols-2 [&_div[role="group"]]:au-overflow-hidden [&_div[role="group"]]:au-rounded-lg'>
-				<label className='au-col-span-1 au-text-sm au-font-medium au-text-black dark:au-text-white'>
+			<div className='au-w-full [&_div[role="group"]]:au-col-span-2 [&_div[role="group"]]:au-divide-y-0 [&_div[role="group"]]:au-divide-x au-grid au-grid-cols-3 au-gap-2 au-text-primary-foreground [&_button[role="radio"]]:au-h-full [&_button[role="radio"]]:au-p-0 [&_button[role="radio"]]:au-col-span-1 [&_button[role="radio"]]:au-rounded-none [&_div[role="group"]]:au-grid [&_div[role="group"]]:au-h-10 [&_div[role="group"]]:au-w-full [&_div[role="group"]]:au-grid-cols-2 [&_div[role="group"]]:au-overflow-hidden [&_div[role="group"]]:au-rounded-lg'>
+				<label className='au-col-span-1 au-text-sm au-font-medium au-text-primary-foreground'>
 					Daily Goal
 				</label>
 				<ToggleGroup
@@ -338,11 +339,11 @@ function GoalSettings({
 			</div>
 			{dailyGoal === 'duration' ? (
 				<div className='au-grid au-grid-cols-3 au-w-full au-gap-2'>
-					<label className='au-col-span-1 au-text-sm au-font-medium au-text-black dark:au-text-white'>
+					<label className='au-col-span-1 au-text-sm au-font-medium au-text-primary-foreground'>
 						Duration (in minutes)
 					</label>
 					<input
-						className='au-col-span-2 au-h-10 au-w-full au-rounded-md au-bg-gray-100 au-px-4 au-py-2 au-text-sm au-font-medium au-text-black dark:au-bg-gray-900 dark:au-text-white'
+						className='au-col-span-2 au-h-10 au-w-full au-rounded-md au-px-4 au-py-2 au-text-sm au-font-medium au-text-primary-foreground au-border au-border-subtle au-bg-transparent'
 						value={durationTarget}
 						name='wordCount'
 						onChange={(e) =>
@@ -353,11 +354,11 @@ function GoalSettings({
 				</div>
 			) : (
 				<div className='au-grid au-grid-cols-3 au-w-full au-gap-2'>
-					<label className='au-col-span-1 au-text-sm au-font-medium au-text-black dark:au-text-white'>
+					<label className='au-col-span-1 au-text-sm au-font-medium au-text-primary-foreground'>
 						Word Count
 					</label>
 					<input
-						className='au-col-span-2 au-h-10 au-w-full au-rounded-md au-bg-gray-100 au-px-4 au-py-2 au-text-sm au-font-medium au-text-black dark:au-bg-gray-900 dark:au-text-white'
+						className='au-col-span-2 au-h-10 au-w-full au-rounded-md au-px-4 au-py-2 au-text-sm au-font-medium au-text-primary-foreground au-border au-border-subtle au-bg-transparent'
 						value={wordCountTarget}
 						name='wordCount'
 						onChange={(e) =>
@@ -385,17 +386,32 @@ function MusicSettings({
 	youtubeVideo,
 	setYoutubeVideo,
 }: MusicSettingsProps) {
+	const CHANNELS = [
+		{ value: 'lofi-hiphop', label: 'LoFi Hip Hop' },
+		{ value: 'chill-synth', label: 'Chill Synth' },
+		{ value: 'chillstep', label: 'Chillstep' },
+		{ value: 'post-rock', label: 'Post Rock' },
+	]
+
 	return (
 		<form
 			className='au-flex au-w-full au-flex-col au-items-center au-justify-start au-gap-8'
 			onSubmit={saveMusicSettings}
 		>
 			<div className='au-grid au-grid-cols-3 au-w-full au-gap-2'>
-				<label className='au-col-span-1 au-text-sm au-font-medium au-text-black dark:au-text-white'>
+				<label className='au-col-span-1 au-text-sm au-font-medium au-text-primary-foreground'>
+					Channels
+				</label>
+				<div className='au-relative'>
+					<Select items={CHANNELS} name='music-channels' />
+				</div>
+			</div>
+			<div className='au-grid au-grid-cols-3 au-w-full au-gap-2'>
+				<label className='au-col-span-1 au-text-sm au-font-medium au-text-primary-foreground'>
 					Youtube Video/Playlist
 				</label>
 				<input
-					className='au-col-span-2 au-h-10 au-w-full au-rounded-md au-bg-gray-100 au-px-4 au-py-2 au-text-sm au-font-medium au-text-black dark:au-bg-gray-900 dark:au-text-white'
+					className='au-col-span-2 au-h-10 au-w-full au-rounded-md au-px-4 au-py-2 au-text-sm au-font-medium au-text-primary-foreground au-border au-border-subtle au-bg-transparent'
 					defaultValue={youtubeVideo}
 					name='yt'
 					onChange={(e) => setYoutubeVideo(e.target.value)}
