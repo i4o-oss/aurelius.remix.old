@@ -6,7 +6,9 @@ import { useState } from 'react'
 import {
 	Dialog,
 	PrimaryButton,
+	ScrollArea,
 	Select,
+	Switch,
 	Tabs,
 	TabsContent,
 	TabsList,
@@ -55,6 +57,7 @@ export default function Settings() {
 	const [durationTarget, setDurationTarget] = useState<number>(
 		(savedDurationTarget as number) || 20
 	)
+	const [footerText, setFooterText] = useState<string>('')
 	const [name, setName] = useState<string>('')
 	const [username, setUsername] = useState<string>('')
 	const [wordCountTarget, setWordCountTarget] = useState<number>(
@@ -79,6 +82,10 @@ export default function Settings() {
 			},
 		}
 		writeStorage(SETTINGS_LOCAL_STORAGE_KEY, data)
+	}
+
+	const saveExportSettings = (e: FormEvent) => {
+		e.preventDefault()
 	}
 
 	const saveMusicSettings = (e: FormEvent) => {
@@ -125,6 +132,17 @@ export default function Settings() {
 			),
 		},
 		{
+			id: 'export',
+			title: <p className='au-text-left'>Export</p>,
+			content: (
+				<ExportSettings
+					footerText={footerText}
+					setFooterText={setFooterText}
+					saveExportSettings={saveExportSettings}
+				/>
+			),
+		},
+		{
 			id: 'music',
 			title: <p className='au-text-left'>Music</p>,
 			content: (
@@ -152,8 +170,10 @@ export default function Settings() {
 						</h2>
 						<TabsList tabs={TABS} type='column' />
 					</div>
-					<div className='au-w-full au-flex-1 au-flex-grow au-grid-cols-2 au-gap-2 au-px-6 au-py-12'>
-						<TabsContent tabs={TABS} type='column' />
+					<div className='au-w-full au-h-full au-min-h-[40rem] au-max-h-[40rem] au-flex-1 au-flex-grow au-grid-cols-2 au-gap-2'>
+						<ScrollArea className='au-w-full au-min-h-[40rem] au-bg-transparent au-py-4 au-overflow-hidden'>
+							<TabsContent tabs={TABS} type='column' />
+						</ScrollArea>
 					</div>
 				</div>
 			</Tabs>
@@ -186,7 +206,7 @@ function ProfileSettings({
 			onSubmit={saveProfileSettings}
 		>
 			<div className='au-grid au-grid-cols-3 au-w-full au-gap-2'>
-				<label className='au-col-span-1 au-text-sm au-font-medium au-text-primary-foreground'>
+				<label className='au-col-span-1 au-py-2 au-text-sm au-font-medium au-text-primary-foreground'>
 					Name
 				</label>
 				<input
@@ -198,7 +218,7 @@ function ProfileSettings({
 				/>
 			</div>
 			<div className='au-grid au-grid-cols-3 au-w-full au-gap-2'>
-				<label className='au-col-span-1 au-text-sm au-font-medium au-text-primary-foreground'>
+				<label className='au-col-span-1 au-py-2 au-text-sm au-font-medium au-text-primary-foreground'>
 					Bio
 				</label>
 				<textarea
@@ -209,7 +229,7 @@ function ProfileSettings({
 				/>
 			</div>
 			<div className='au-grid au-grid-cols-3 au-w-full au-gap-2'>
-				<label className='au-col-span-1 au-text-sm au-font-medium au-text-primary-foreground'>
+				<label className='au-col-span-1 au-py-2 au-text-sm au-font-medium au-text-primary-foreground'>
 					Username
 				</label>
 				<input
@@ -306,7 +326,7 @@ function GoalSettings({
 			{/* 	/> */}
 			{/* </div> */}
 			<div className='au-w-full [&_div[role="group"]]:au-col-span-2 [&_div[role="group"]]:au-divide-y-0 [&_div[role="group"]]:au-divide-x au-grid au-grid-cols-3 au-gap-2 au-text-primary-foreground [&_button[role="radio"]]:au-h-full [&_button[role="radio"]]:au-p-0 [&_button[role="radio"]]:au-col-span-1 [&_button[role="radio"]]:au-rounded-none [&_div[role="group"]]:au-grid [&_div[role="group"]]:au-h-10 [&_div[role="group"]]:au-w-full [&_div[role="group"]]:au-grid-cols-2 [&_div[role="group"]]:au-overflow-hidden [&_div[role="group"]]:au-rounded-lg'>
-				<label className='au-col-span-1 au-text-sm au-font-medium au-text-primary-foreground'>
+				<label className='au-col-span-1 au-py-2 au-text-sm au-font-medium au-text-primary-foreground'>
 					Daily Goal
 				</label>
 				<ToggleGroup
@@ -339,7 +359,7 @@ function GoalSettings({
 			</div>
 			{dailyGoal === 'duration' ? (
 				<div className='au-grid au-grid-cols-3 au-w-full au-gap-2'>
-					<label className='au-col-span-1 au-text-sm au-font-medium au-text-primary-foreground'>
+					<label className='au-col-span-1 au-py-2 au-text-sm au-font-medium au-text-primary-foreground'>
 						Duration (in minutes)
 					</label>
 					<input
@@ -354,7 +374,7 @@ function GoalSettings({
 				</div>
 			) : (
 				<div className='au-grid au-grid-cols-3 au-w-full au-gap-2'>
-					<label className='au-col-span-1 au-text-sm au-font-medium au-text-primary-foreground'>
+					<label className='au-col-span-1 au-py-2 au-text-sm au-font-medium au-text-primary-foreground'>
 						Word Count
 					</label>
 					<input
@@ -368,6 +388,82 @@ function GoalSettings({
 					/>
 				</div>
 			)}
+			<div className='au-flex au-w-full au-items-center au-justify-end'>
+				<PrimaryButton type='submit'>Save</PrimaryButton>
+			</div>
+		</form>
+	)
+}
+
+interface ExportSettingsProps {
+	footerText: string
+	setFooterText: Dispatch<SetStateAction<string>>
+	saveExportSettings: (e: FormEvent) => void
+}
+
+function ExportSettings({
+	footerText,
+	setFooterText,
+	saveExportSettings,
+}: ExportSettingsProps) {
+	const backgroundOptions = [
+		'linear-gradient(45deg, #85FFBD 0%, #FFFB7D 100%)',
+		'linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%)',
+		'linear-gradient(45deg, #8bc6ec 0%, #9599e2 100%)',
+		'linear-gradient(180deg, #A9C9FF 0%, #FFBBEC 100%)',
+		'linear-gradient(0deg, #FFDEE9 0%, #B5FFFC 100%)',
+		'linear-gradient(to top, #d299c2 0%, #fef9d7 100%)',
+		'linear-gradient(to top, #fff1eb 0%, #ace0f9 100%)',
+		'linear-gradient(to top, #accbee 0%, #e7f0fd 100%)',
+	]
+
+	const backgroundItems = backgroundOptions.map((option, index) => ({
+		value: `bi-${index}`,
+		label: '',
+		icon: (
+			<div
+				className='au-aspect-[8/9] au-p-1'
+				style={{
+					backgroundImage: option,
+					backgroundRepeat: 'no-repeat',
+					backgroundSize: 'cover',
+				}}
+			/>
+		),
+	}))
+	return (
+		<form
+			className='au-flex au-w-full au-flex-col au-items-center au-justify-start au-gap-8'
+			onSubmit={saveExportSettings}
+		>
+			<div className='au-grid au-grid-cols-3 au-w-full au-gap-2'>
+				<label className='au-col-span-1 au-py-2 au-text-sm au-font-medium au-text-primary-foreground'>
+					Background
+				</label>
+				<div className='au-col-span-2 au-relative au-py-2 [&_>_div]:au-grid [&_>_div]:au-grid-cols-2 [&_>_div]:au-gap-4 [&_>_div]:au-w-full [&_button]:!au-p-2 [&_button]:!au-overflow-hidden [&_button[data-state=on]]:!au-bg-brand [&_button]:!au-rounded-lg'>
+					<ToggleGroup items={backgroundItems} type='single' />
+				</div>
+			</div>
+			<div className='au-grid au-grid-cols-3 au-w-full au-gap-2'>
+				<label className='au-col-span-1 au-py-2 au-text-sm au-font-medium au-text-primary-foreground'>
+					Footer Text
+				</label>
+				<input
+					className='au-col-span-2 au-h-10 au-w-full au-rounded-md au-px-4 au-py-2 au-text-sm au-font-medium au-text-primary-foreground au-border au-border-subtle au-bg-transparent'
+					defaultValue={footerText}
+					name='yt'
+					onChange={(e) => setFooterText(e.target.value)}
+					type='text'
+				/>
+			</div>
+			<div className='au-grid au-grid-cols-3 au-w-full au-gap-2'>
+				<label className='au-col-span-1 au-py-2 au-text-sm au-font-medium au-text-primary-foreground'>
+					Watermark
+				</label>
+				<div className='au-relative au-py-2'>
+					<Switch name='music-channels' />
+				</div>
+			</div>
 			<div className='au-flex au-w-full au-items-center au-justify-end'>
 				<PrimaryButton type='submit'>Save</PrimaryButton>
 			</div>
@@ -399,7 +495,7 @@ function MusicSettings({
 			onSubmit={saveMusicSettings}
 		>
 			<div className='au-grid au-grid-cols-3 au-w-full au-gap-2'>
-				<label className='au-col-span-1 au-text-sm au-font-medium au-text-primary-foreground'>
+				<label className='au-col-span-1 au-py-2 au-text-sm au-font-medium au-text-primary-foreground'>
 					Channels
 				</label>
 				<div className='au-relative'>
@@ -407,7 +503,7 @@ function MusicSettings({
 				</div>
 			</div>
 			<div className='au-grid au-grid-cols-3 au-w-full au-gap-2'>
-				<label className='au-col-span-1 au-text-sm au-font-medium au-text-primary-foreground'>
+				<label className='au-col-span-1 au-py-2 au-text-sm au-font-medium au-text-primary-foreground'>
 					Youtube Video/Playlist
 				</label>
 				<input
