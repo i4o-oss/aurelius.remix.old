@@ -16,7 +16,6 @@ import useLocalStorage, {
 	deleteFromStorage,
 	writeStorage,
 } from '@rehooks/local-storage'
-import html2canvas from 'html2canvas'
 import TipTap from './tiptap'
 import WriterFooter from './footer'
 import MainMenu from './main-menu'
@@ -27,13 +26,15 @@ import {
 import NewSession from './new-session'
 import Settings from './settings'
 import { downloadAsMarkdown } from '../../helpers'
-import AureliusProvider from './provider'
+import AureliusProvider, { TitleAlignment } from './provider'
 import { WritingSession, WritingSessionGoal } from '../../types'
 import Timer from './timer'
 import { findDOMNode } from 'react-dom'
 import Reset from './reset'
 import WritingSessionRecap from './recap'
 import Export from './export'
+import { toPng } from 'html-to-image'
+import ExportImageContent from './export-image-content'
 
 export default function Writer({
 	post,
@@ -61,14 +62,16 @@ export default function Writer({
 	const [sessionTarget, setSessionTarget] = useState<number>(0)
 	const [sessionFocusMode, setSessionFocusMode] = useState(true)
 	const [sessionMusic, setSessionMusic] = useState(true)
-	const [showExportImageDialog, setShowExportImageDialog] = useState(false)
+	const [showExportImageDialog, setShowExportImageDialog] = useState(true)
 	const [showNewSessionDialog, setShowNewSessionDialog] = useState(false)
 	const [showResetAlert, setShowResetAlert] = useState(false)
 	const [showSessionEndToast, setShowSessionEndToast] = useState(false)
 	const [showSessionRecapDialog, setShowSessionRecapDialog] = useState(false)
 	const [showSettingsDialog, setShowSettingsDialog] = useState(false)
 	const [showWritingPaths, setShowWritingPaths] = useState(false)
-	const [title, setTitle] = useState('')
+	const [title, setTitle] = useState<string>('')
+	const [titleAlignment, setTitleAlignment] = useState<TitleAlignment>('left')
+
 	const [wordCount, setWordCount] = useState(0)
 
 	useEffect(() => {
@@ -160,8 +163,6 @@ export default function Writer({
 			let html = editor.isEmpty ? '' : editor.getHTML()
 			const contentText = editor?.state?.doc?.textContent
 			const wordCount = contentText?.split(' ').length
-			const removeRegexP = /<p><\/p>/g
-			html = html.replace(removeRegexP, '')
 			setContent(html)
 			setWordCount(wordCount)
 		},
@@ -195,11 +196,8 @@ export default function Writer({
 			// @ts-ignore
 			const element = findDOMNode(canvasRef.current)
 			// @ts-ignore
-			html2canvas(element, {
-				scrollY: -window.scrollY,
-				useCORS: true,
-			}).then((canvas) => {
-				saveAs(canvas.toDataURL('image/png', 1.0), 'file.png')
+			toPng(element).then((dataUrl) => {
+				saveAs(dataUrl, 'file.png')
 			})
 		}
 	}
@@ -386,6 +384,8 @@ export default function Writer({
 		toggleTheme,
 		title,
 		setTitle,
+		titleAlignment,
+		setTitleAlignment,
 		user,
 		wordCount,
 		setWordCount,
@@ -440,35 +440,17 @@ export default function Writer({
 			{showSettingsDialog ? <Settings /> : null}
 			{showSessionRecapDialog ? <WritingSessionRecap /> : null}
 			{showExportImageDialog ? <Export exportPost={exportPost} /> : null}
-			<div
-				className='au-absolute -au-top-[1440px] -au-left-[1080px] au-flex au-h-[1440px] au-w-[1080px] au-flex-col au-items-start au-justify-start au-bg-white au-bg-no-repeat au-bg-cover au-bg-opacity-50'
-				style={{
-					// backgroundImage: "url('/images/templates/gggrain.svg')",
-					backgroundColor: '#85FFBD',
-					backgroundImage:
-						'linear-gradient(45deg, #85FFBD 0%, #FFFB7D 100%)',
-					// backgroundColor: '#FBAB7E',
-					// backgroundImage:
-					// 	'linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%)',
-					// backgroundColor: '#8bc6ec',
-					// backgroundImage:
-					// 	'linear-gradient(45deg, #8bc6ec 0%, #9599e2 100%)',
-					// backgroundColor: '#A9C9FF',
-					// backgroundImage:
-					// 	'linear-gradient(180deg, #A9C9FF 0%, #FFBBEC 100%)',
-				}}
+			<ExportImageContent
+				author='Ilango'
+				content={content as string}
+				footer='aurelius.ink/ilango'
+				scale='au-prose-xl'
 				ref={canvasRef}
-			>
-				<div className='au-flex au-w-full au-max-w-none au-h-full au-flex-col au-items-start au-justify-center au-py-16 au-px-12 au-prose au-prose-slate au-prose-2xl prose-headings:au-mb-0 au-prose-p:au-mt-2 au-prose-p:au-mb-2 prose-blockquote:au-border-slate-900'>
-					<h1 className='au-w-full au-flex au-flex-col au-text-left au-text-gray-900 au-font-semibold'>
-						{title}
-					</h1>
-					<div
-						className='au-w-full au-text-gray-900'
-						dangerouslySetInnerHTML={{ __html: content }}
-					/>
-				</div>
-			</div>
+				title={title as string}
+				titleAlignment={titleAlignment}
+				type='canvas'
+				watermark={true}
+			/>
 		</AureliusProvider>
 	)
 }

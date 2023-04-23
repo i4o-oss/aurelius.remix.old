@@ -5,6 +5,8 @@ import { Theme, WritingSession, WritingSessionGoal } from '../../types'
 
 export const AureliusContext = createContext({})
 
+export type TitleAlignment = 'left' | 'center'
+
 export interface AureliusProviderData {
 	content?: string
 	setContent?: Dispatch<SetStateAction<string>>
@@ -49,6 +51,8 @@ export interface AureliusProviderData {
 	toggleTheme?: () => void
 	title?: string
 	setTitle?: Dispatch<SetStateAction<string>>
+	titleAlignment?: TitleAlignment
+	setTitleAlignment?: Dispatch<SetStateAction<TitleAlignment>>
 	user?: any
 	wordCount?: number
 	setWordCount?: Dispatch<SetStateAction<number>>

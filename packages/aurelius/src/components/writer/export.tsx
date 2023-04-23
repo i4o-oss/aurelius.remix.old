@@ -1,8 +1,17 @@
-import { Dialog, PrimaryButton, Select, ToggleGroup } from '@i4o/catalystui'
+import {
+	Dialog,
+	PrimaryButton,
+	Select,
+	Switch,
+	ToggleGroup,
+} from '@i4o/catalystui'
 import { useContext, useState } from 'react'
-import { AureliusContext, AureliusProviderData } from './provider'
-
-type TitleAlignment = 'left' | 'center'
+import ExportImageContent from './export-image-content'
+import {
+	AureliusContext,
+	AureliusProviderData,
+	TitleAlignment,
+} from './provider'
 
 interface ExportProps {
 	exportPost: () => void
@@ -10,10 +19,18 @@ interface ExportProps {
 
 export default function Export({ exportPost }: ExportProps) {
 	const context: AureliusProviderData = useContext(AureliusContext)
-	const { content, showExportImageDialog, setShowExportImageDialog, title } =
-		context
+	const {
+		content,
+		showExportImageDialog,
+		setShowExportImageDialog,
+		title,
+		titleAlignment,
+		setTitleAlignment,
+	} = context
 
-	const [titleAlignment, setTitleAlignment] = useState<TitleAlignment>('left')
+	const [localFooter, setLocalFooter] = useState<string>(
+		'aurelius.ink/ilango'
+	)
 
 	const CHANNELS = [
 		{ value: 'twitter', label: 'Twitter' },
@@ -30,42 +47,16 @@ export default function Export({ exportPost }: ExportProps) {
 		>
 			<div className='au-flex au-min-h-[40rem] au-h-auto au-w-[80rem] [&_div[role="tablist"]]:!au-gap-2 au-rounded-lg au-overflow-hidden au-divide-x au-divide-subtle'>
 				<div className='au-w-full au-h-auto au-min-h-[64rem] au-flex-1 au-flex-grow au-grid-cols-2 au-gap-2 au-p-4'>
-					<div
-						className='au-flex au-w-full au-h-full au-aspect-[8/9] au-flex-col au-items-start au-justify-start au-bg-ui au-bg-no-repeat au-bg-cover au-bg-opacity-50 au-select-none'
-						style={{
-							// backgroundImage: "url('/images/templates/gggrain.svg')",
-							backgroundColor: '#85FFBD',
-							backgroundImage:
-								'linear-gradient(45deg, #85FFBD 0%, #FFFB7D 100%)',
-							// backgroundColor: '#FBAB7E',
-							// backgroundImage:
-							// 	'linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%)',
-							// backgroundColor: '#8bc6ec',
-							// backgroundImage:
-							// 	'linear-gradient(45deg, #8bc6ec 0%, #9599e2 100%)',
-							// backgroundColor: '#A9C9FF',
-							// backgroundImage:
-							// 	'linear-gradient(180deg, #A9C9FF 0%, #FFBBEC 100%)',
-						}}
-					>
-						<div className='au-flex au-w-full au-max-w-none au-h-full au-flex-col au-items-start au-justify-center au-py-16 au-px-12 au-prose au-prose-slate au-prose-base prose-headings:au-mb-0 au-prose-p:au-mt-2 au-prose-p:au-mb-2 prose-blockquote:au-border-slate-900'>
-							<h1
-								className={`au-w-full au-flex au-flex-col au-text-gray-900 au-font-semibold ${
-									titleAlignment === 'left'
-										? 'au-text-left'
-										: 'au-text-center'
-								}`}
-							>
-								{title}
-							</h1>
-							<div
-								className='au-w-full au-text-gray-900'
-								dangerouslySetInnerHTML={{
-									__html: content as string,
-								}}
-							/>
-						</div>
-					</div>
+					<ExportImageContent
+						author='Ilango'
+						content={content as string}
+						footer={localFooter}
+						scale='au-prose-base'
+						title={title as string}
+						titleAlignment={titleAlignment as TitleAlignment}
+						type='preview'
+						watermark={true}
+					/>
 				</div>
 				<div className='au-w-96 au-p-4 au-flex au-flex-col au-justify-start au-relative'>
 					<h2 className='au-text-md au-font-medium au-text-primary-foreground au-mb-4'>
@@ -76,7 +67,7 @@ export default function Export({ exportPost }: ExportProps) {
 							<label className='au-col-span-2 au-py-2 au-text-sm au-font-medium au-text-primary-foreground'>
 								Platform
 							</label>
-							<div className='au-col-span-2 au-relative [&_button]:au-w-full'>
+							<div className='au-col-span-2 au-relative [&_button]:au-w-full [&_>_button_>_span]:au-justify-between [&_>_button_>_span]:au-w-full'>
 								<Select
 									items={CHANNELS}
 									name='music-channels'
@@ -111,10 +102,47 @@ export default function Export({ exportPost }: ExportProps) {
 								// @ts-ignore
 								defaultValue={titleAlignment}
 								onValueChange={(value) =>
-									setTitleAlignment(value as TitleAlignment)
+									setTitleAlignment?.(value as TitleAlignment)
 								}
 								orientation='vertical'
 								type='single'
+							/>
+						</div>
+						<div className='au-grid au-grid-cols-4 au-w-full au-gap-2'>
+							<label className='au-col-span-2 au-py-2 au-text-sm au-font-medium au-text-primary-foreground au-flex au-items-center au-gap-2'>
+								Watermark
+								<span className='au-bg-brand au-rounded-md au-px-1.5 au-py-0.5 au-text-xs au-text-white'>
+									Plus
+								</span>
+							</label>
+							<div className='au-col-span-2 au-relative au-py-2 au-flex au-items-center au-justify-end'>
+								<Switch
+									defaultChecked={true}
+									name='music-channels'
+								/>
+							</div>
+						</div>
+						<div className='au-grid au-grid-cols-4 au-w-full au-gap-2'>
+							<label className='au-col-span-2 au-py-2 au-text-sm au-font-medium au-text-primary-foreground au-flex au-items-center au-gap-2'>
+								Name
+							</label>
+							<div className='au-col-span-2 au-relative au-py-2 au-flex au-items-center au-justify-end'>
+								<Switch
+									defaultChecked={true}
+									name='show-name'
+								/>
+							</div>
+						</div>
+						<div className='au-grid au-grid-cols-4 au-w-full au-gap-2'>
+							<label className='au-col-span-2 au-py-2 au-text-sm au-font-medium au-text-primary-foreground'>
+								Footer
+							</label>
+							<input
+								className='au-col-span-2 au-h-10 au-w-full au-rounded-md au-px-3 au-py-1 au-flex au-items-center au-text-sm au-leading-3 au-font-medium au-text-primary-foreground au-border au-border-subtle au-bg-transparent'
+								defaultValue={localFooter}
+								name='footer'
+								onChange={(e) => setLocalFooter(e.target.value)}
+								type='text'
 							/>
 						</div>
 					</div>

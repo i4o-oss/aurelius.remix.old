@@ -60,6 +60,7 @@ export default function Settings() {
 	const [footerText, setFooterText] = useState<string>('')
 	const [name, setName] = useState<string>('')
 	const [username, setUsername] = useState<string>('')
+	const [showWatermark, setShowWatermark] = useState<boolean>(true)
 	const [wordCountTarget, setWordCountTarget] = useState<number>(
 		(savedWordCountTarget as number) || 300
 	)
