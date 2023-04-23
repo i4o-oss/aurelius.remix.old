@@ -42,3 +42,29 @@ export enum Theme {
 	DARK = 'dark',
 	LIGHT = 'light',
 }
+
+export type TitleAlignment = 'left' | 'center'
+
+export type DailyGoal = 'duration' | 'wordCount'
+
+export interface GoalSettings {
+	dailyGoal: DailyGoal
+	durationTarget?: number
+	wordCountTarget?: number
+}
+
+export interface MusicSettings {
+	musicChannel: string
+	youtubeVideo?: string
+}
+
+export interface ExportSettings {
+	background: string
+	footer: string
+}
+
+export interface SettingsData {
+	goals?: GoalSettings
+	music?: MusicSettings
+	export?: ExportSettings
+}

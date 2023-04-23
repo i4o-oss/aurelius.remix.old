@@ -22,12 +22,18 @@ import MainMenu from './main-menu'
 import {
 	POST_LOCAL_STORAGE_KEY,
 	SESSION_LOCAL_STORAGE_KEY,
+	SETTINGS_LOCAL_STORAGE_KEY,
 } from '../../constants'
 import NewSession from './new-session'
 import Settings from './settings'
 import { downloadAsMarkdown } from '../../helpers'
-import AureliusProvider, { TitleAlignment } from './provider'
-import { WritingSession, WritingSessionGoal } from '../../types'
+import AureliusProvider from './provider'
+import {
+	SettingsData,
+	TitleAlignment,
+	WritingSession,
+	WritingSessionGoal,
+} from '../../types'
 import Timer from './timer'
 import { findDOMNode } from 'react-dom'
 import Reset from './reset'
@@ -49,6 +55,15 @@ export default function Writer({
 	const [writingSessions] = useLocalStorage<WritingSession[]>(
 		SESSION_LOCAL_STORAGE_KEY
 	)
+	const [settings] = useLocalStorage<string>(SETTINGS_LOCAL_STORAGE_KEY)
+	const settingsData = JSON.parse(JSON.stringify(settings)) as SettingsData
+	const savedBackground = settingsData?.export?.background
+	const savedDailyGoal = settingsData?.goals?.dailyGoal
+	const savedDurationTarget = settingsData?.goals?.durationTarget
+	const savedFooter = settingsData?.export?.footer
+	const savedMusicChannel = settingsData?.music?.musicChannel
+	const savedWordCountTarget = settingsData?.goals?.wordCountTarget
+	const savedYoutubeVideo = settingsData?.music?.youtubeVideo
 	const canvasRef = useRef<HTMLDivElement>(null)
 	const titleRef = useRef<HTMLTextAreaElement>(null)
 	const [content, setContent] = useState('')
@@ -67,7 +82,7 @@ export default function Writer({
 	const [showResetAlert, setShowResetAlert] = useState(false)
 	const [showSessionEndToast, setShowSessionEndToast] = useState(false)
 	const [showSessionRecapDialog, setShowSessionRecapDialog] = useState(false)
-	const [showSettingsDialog, setShowSettingsDialog] = useState(true)
+	const [showSettingsDialog, setShowSettingsDialog] = useState(false)
 	const [showWritingPaths, setShowWritingPaths] = useState(false)
 	const [title, setTitle] = useState<string>('')
 	const [titleAlignment, setTitleAlignment] = useState<TitleAlignment>('left')
@@ -356,6 +371,14 @@ export default function Writer({
 		notifyOnSessionEnd,
 		setNotifyOnSessionEnd,
 		post,
+		savedBackground,
+		savedDailyGoal,
+		savedDurationTarget,
+		savedFooter,
+		savedMusicChannel,
+		savedWordCountTarget,
+		savedYoutubeVideo,
+		settings: settingsData,
 		sessionData,
 		setSessionData,
 		sessionFocusMode,

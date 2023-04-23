@@ -14,57 +14,52 @@ import {
 	TabsList,
 	ToggleGroup,
 } from '@i4o/catalystui'
-import useLocalStorage, { writeStorage } from '@rehooks/local-storage'
-import { SETTINGS_LOCAL_STORAGE_KEY } from '../../constants'
+import { writeStorage } from '@rehooks/local-storage'
+import {
+	DEFAULT_BACKGROUND,
+	DEFAULT_MUSIC_CHANNEL,
+	SETTINGS_LOCAL_STORAGE_KEY,
+} from '../../constants'
 import { AureliusContext, AureliusProviderData } from './provider'
-
-type DailyGoal = 'duration' | 'wordCount'
-
-interface GoalSettings {
-	dailyGoal: DailyGoal
-	durationTarget: number
-	wordCountTarget: number
-}
-
-interface MusicSettings {
-	youtubeVideo: string
-}
-
-interface Settings {
-	goals?: GoalSettings
-	music?: MusicSettings
-}
+import { DailyGoal, SettingsData } from '../../types'
 
 export default function Settings() {
 	const context = useContext<AureliusProviderData>(AureliusContext)
-	const { showSettingsDialog, setShowSettingsDialog, user } = context
-	const [settings] = useLocalStorage<string>(SETTINGS_LOCAL_STORAGE_KEY)
-	const savedDailyGoal = (JSON.parse(JSON.stringify(settings)) as Settings)
-		?.goals?.dailyGoal
-	const savedDurationTarget = (
-		JSON.parse(JSON.stringify(settings)) as Settings
-	)?.goals?.durationTarget
-	const savedWordCountTarget = (
-		JSON.parse(JSON.stringify(settings)) as Settings
-	)?.goals?.wordCountTarget
-	const savedYoutubeVideo = (JSON.parse(JSON.stringify(settings)) as Settings)
-		?.music?.youtubeVideo
+	const {
+		savedBackground,
+		savedDailyGoal,
+		savedDurationTarget,
+		savedFooter,
+		savedMusicChannel,
+		savedWordCountTarget,
+		savedYoutubeVideo,
+		settings,
+		showSettingsDialog,
+		setShowSettingsDialog,
+		user,
+	} = context
+	const [background, setBackground] = useState<string>(
+		savedBackground || DEFAULT_BACKGROUND
+	)
 	const [bio, setBio] = useState<string>('')
 	const [dailyGoal, setDailyGoal] = useState<DailyGoal>(
 		// @ts-ignore
-		(savedDailyGoal as string) || 'duration'
+		savedDailyGoal || 'duration'
 	)
 	const [durationTarget, setDurationTarget] = useState<number>(
-		(savedDurationTarget as number) || 20
+		savedDurationTarget || 20
 	)
-	const [footerText, setFooterText] = useState<string>('')
+	const [footer, setFooter] = useState<string>(savedFooter || '')
+	const [musicChannel, setMusicChannel] = useState<string>(
+		savedMusicChannel || DEFAULT_MUSIC_CHANNEL
+	)
 	const [name, setName] = useState<string>('')
 	const [username, setUsername] = useState<string>('')
 	const [wordCountTarget, setWordCountTarget] = useState<number>(
-		(savedWordCountTarget as number) || 300
+		savedWordCountTarget || 300
 	)
 	const [youtubeVideo, setYoutubeVideo] = useState<string>(
-		(savedYoutubeVideo as string) || ''
+		savedYoutubeVideo || ''
 	)
 
 	const saveProfileSettings = (e: FormEvent) => {
@@ -73,8 +68,8 @@ export default function Settings() {
 
 	const saveGoalSettings = (e: FormEvent) => {
 		e.preventDefault()
-		const data: Settings = {
-			...JSON.parse(JSON.stringify(settings)),
+		const data: SettingsData = {
+			...settings,
 			goals: {
 				dailyGoal,
 				durationTarget: Number(durationTarget),
@@ -86,13 +81,22 @@ export default function Settings() {
 
 	const saveExportSettings = (e: FormEvent) => {
 		e.preventDefault()
+		const data: SettingsData = {
+			...settings,
+			export: {
+				background,
+				footer,
+			},
+		}
+		writeStorage(SETTINGS_LOCAL_STORAGE_KEY, data)
 	}
 
 	const saveMusicSettings = (e: FormEvent) => {
 		e.preventDefault()
-		const data: Settings = {
-			...JSON.parse(JSON.stringify(settings)),
+		const data: SettingsData = {
+			...settings,
 			music: {
+				musicChannel,
 				youtubeVideo,
 			},
 		}
@@ -142,8 +146,10 @@ export default function Settings() {
 			title: <p className='au-text-left'>Export</p>,
 			content: (
 				<ExportSettings
-					footerText={footerText}
-					setFooterText={setFooterText}
+					background={background}
+					setBackground={setBackground}
+					footer={footer}
+					setFooter={setFooter}
 					saveExportSettings={saveExportSettings}
 				/>
 			),
@@ -153,6 +159,8 @@ export default function Settings() {
 			title: <p className='au-text-left'>Music</p>,
 			content: (
 				<MusicSettings
+					musicChannel={musicChannel}
+					setMusicChannel={setMusicChannel}
 					saveMusicSettings={saveMusicSettings}
 					youtubeVideo={youtubeVideo}
 					setYoutubeVideo={setYoutubeVideo}
@@ -277,60 +285,6 @@ function GoalSettings({
 			className='au-flex au-w-full au-flex-col au-items-start au-justify-start au-gap-8'
 			onSubmit={saveGoalSettings}
 		>
-			{/* <div className='[&_button[role="radio"]]:nth-child(2):au-border-b [&_div[role="group"]]:au-divide au-flex au-w-full au-flex-col au-items-start au-justify-center au-gap-2 au-text-white [&_button[role="radio"]]:au-col-span-1 [&_button[role="radio"]]:au-rounded-none [&_div[role="group"]]:au-grid [&_div[role="group"]]:au-w-full [&_div[role="group"]]:au-grid-cols-1 [&_div[role="group"]]:au-overflow-hidden [&_div[role="group"]]:au-rounded-lg'> */}
-			{/* 	<label className='au-text-sm au-font-medium au-text-black dark:au-text-white'> */}
-			{/* 		Streak */}
-			{/* 	</label> */}
-			{/* 	<ToggleGroup */}
-			{/* 		items={[ */}
-			{/* 			{ */}
-			{/* 				value: '3', */}
-			{/* 				label: '3 days', */}
-			{/* 				icon: ( */}
-			{/* 					<div className='au-flex au-w-full au-items-center au-justify-between au-p-4'> */}
-			{/* 						<span>3 days</span> */}
-			{/* 						<span>Beginner</span> */}
-			{/* 					</div> */}
-			{/* 				), */}
-			{/* 			}, */}
-			{/* 			{ */}
-			{/* 				value: '7', */}
-			{/* 				label: '7 days', */}
-			{/* 				icon: ( */}
-			{/* 					<div className='au-flex au-w-full au-items-center au-justify-between au-p-4'> */}
-			{/* 						<span>7 days</span> */}
-			{/* 						<span>Solid Start</span> */}
-			{/* 					</div> */}
-			{/* 				), */}
-			{/* 			}, */}
-			{/* 			{ */}
-			{/* 				value: '14', */}
-			{/* 				label: '14 days', */}
-			{/* 				icon: ( */}
-			{/* 					<div className='au-flex au-w-full au-items-center au-justify-between au-p-4'> */}
-			{/* 						<span>14 days</span> */}
-			{/* 						<span>Committed</span> */}
-			{/* 					</div> */}
-			{/* 				), */}
-			{/* 			}, */}
-			{/* 			{ */}
-			{/* 				value: '30', */}
-			{/* 				label: '30 days', */}
-			{/* 				icon: ( */}
-			{/* 					<div className='au-flex au-w-full au-items-center au-justify-between au-p-4'> */}
-			{/* 						<span>30 days</span> */}
-			{/* 						<span>On Fire</span> */}
-			{/* 					</div> */}
-			{/* 				), */}
-			{/* 			}, */}
-			{/* 		]} */}
-			{/* 		// @ts-ignore */}
-			{/* 		defaultValue={streakGoal} */}
-			{/* 		onValueChange={setStreakGoal} */}
-			{/* 		orientation='vertical' */}
-			{/* 		type='single' */}
-			{/* 	/> */}
-			{/* </div> */}
 			<div className='au-w-full [&_div[role="group"]]:au-col-span-2 [&_div[role="group"]]:au-divide-y-0 [&_div[role="group"]]:au-divide-x au-grid au-grid-cols-3 au-gap-2 au-text-primary-foreground [&_button[role="radio"]]:au-h-full [&_button[role="radio"]]:au-p-0 [&_button[role="radio"]]:au-col-span-1 [&_button[role="radio"]]:au-rounded-none [&_div[role="group"]]:au-grid [&_div[role="group"]]:au-h-10 [&_div[role="group"]]:au-w-full [&_div[role="group"]]:au-grid-cols-2 [&_div[role="group"]]:au-overflow-hidden [&_div[role="group"]]:au-rounded-lg'>
 				<label className='au-col-span-1 au-py-2 au-text-sm au-font-medium au-text-primary-foreground'>
 					Daily Goal
@@ -402,17 +356,23 @@ function GoalSettings({
 }
 
 interface ExportSettingsProps {
-	footerText: string
-	setFooterText: Dispatch<SetStateAction<string>>
+	background: string
+	setBackground: Dispatch<SetStateAction<string>>
+	footer: string
+	setFooter: Dispatch<SetStateAction<string>>
 	saveExportSettings: (e: FormEvent) => void
 }
 
 function ExportSettings({
-	footerText,
-	setFooterText,
+	background,
+	setBackground,
+	footer,
+	setFooter,
 	saveExportSettings,
 }: ExportSettingsProps) {
-	const backgroundOptions = [
+	const context = useContext<AureliusProviderData>(AureliusContext)
+	const { user } = context
+	const BACKGROUND_OPTIONS = [
 		'linear-gradient(45deg, #85FFBD 0%, #FFFB7D 100%)',
 		'linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%)',
 		'linear-gradient(45deg, #8bc6ec 0%, #9599e2 100%)',
@@ -423,7 +383,7 @@ function ExportSettings({
 		'linear-gradient(to top, #accbee 0%, #e7f0fd 100%)',
 	]
 
-	const backgroundItems = backgroundOptions.map((option, index) => ({
+	const backgroundItems = BACKGROUND_OPTIONS.map((option, index) => ({
 		value: `bi-${index}`,
 		label: '',
 		icon: (
@@ -447,7 +407,12 @@ function ExportSettings({
 					Background
 				</label>
 				<div className='au-col-span-2 au-relative au-py-2 [&_>_div]:au-grid [&_>_div]:au-grid-cols-2 [&_>_div]:au-gap-4 [&_>_div]:au-w-full [&_button]:!au-p-2 [&_button]:!au-overflow-hidden [&_button[data-state=on]]:!au-bg-brand [&_button]:!au-rounded-lg'>
-					<ToggleGroup items={backgroundItems} type='single' />
+					<ToggleGroup
+						defaultValue={background}
+						items={backgroundItems}
+						onValueChange={(value) => setBackground(value)}
+						type='single'
+					/>
 				</div>
 			</div>
 			<div className='au-grid au-grid-cols-3 au-w-full au-gap-2'>
@@ -456,20 +421,22 @@ function ExportSettings({
 				</label>
 				<input
 					className='au-col-span-2 au-h-10 au-w-full au-rounded-md au-px-4 au-py-2 au-text-sm au-font-medium au-text-primary-foreground au-border au-border-subtle au-bg-transparent'
-					defaultValue={footerText}
+					defaultValue={footer}
 					name='yt'
-					onChange={(e) => setFooterText(e.target.value)}
+					onChange={(e) => setFooter(e.target.value)}
 					type='text'
 				/>
 			</div>
-			<div className='au-grid au-grid-cols-3 au-w-full au-gap-2'>
-				<label className='au-col-span-1 au-py-2 au-text-sm au-font-medium au-text-primary-foreground'>
-					Watermark
-				</label>
-				<div className='au-relative au-py-2'>
-					<Switch name='music-channels' />
+			{user ? (
+				<div className='au-grid au-grid-cols-3 au-w-full au-gap-2'>
+					<label className='au-col-span-1 au-py-2 au-text-sm au-font-medium au-text-primary-foreground'>
+						Watermark
+					</label>
+					<div className='au-relative au-py-2'>
+						<Switch name='music-channels' />
+					</div>
 				</div>
-			</div>
+			) : null}
 			<div className='au-flex au-w-full au-items-center au-justify-end'>
 				<PrimaryButton type='submit'>Save</PrimaryButton>
 			</div>
@@ -478,12 +445,16 @@ function ExportSettings({
 }
 
 interface MusicSettingsProps {
+	musicChannel: string
+	setMusicChannel: Dispatch<SetStateAction<string>>
 	saveMusicSettings: (e: FormEvent) => void
 	youtubeVideo: string
 	setYoutubeVideo: Dispatch<SetStateAction<string>>
 }
 
 function MusicSettings({
+	musicChannel,
+	setMusicChannel,
 	saveMusicSettings,
 	youtubeVideo,
 	setYoutubeVideo,
@@ -495,6 +466,10 @@ function MusicSettings({
 		{ value: 'post-rock', label: 'Post Rock' },
 	]
 
+	const SELECTED_CHANNEL = CHANNELS.find(
+		(channel) => channel.value === musicChannel
+	)
+
 	return (
 		<form
 			className='au-flex au-w-full au-flex-col au-items-center au-justify-start au-gap-8'
@@ -505,7 +480,14 @@ function MusicSettings({
 					Channels
 				</label>
 				<div className='au-relative'>
-					<Select items={CHANNELS} name='music-channels' />
+					<Select
+						defaultValue={SELECTED_CHANNEL?.value}
+						items={CHANNELS}
+						name='music-channels'
+						onValueChange={(channel) =>
+							setMusicChannel(channel.value)
+						}
+					/>
 				</div>
 			</div>
 			<div className='au-grid au-grid-cols-3 au-w-full au-gap-2'>
@@ -520,19 +502,6 @@ function MusicSettings({
 					type='text'
 				/>
 			</div>
-			{/* <div className='flex w-full flex-col items-start justify-center gap-2'> */}
-			{/* 	<label className='text-sm font-medium text-white'> */}
-			{/* 		Spotify Integration */}
-			{/* 	</label> */}
-			{/* 	<PrimaryButton className=''> */}
-			{/* 		Connect to Spotify */}
-			{/* 	</PrimaryButton> */}
-			{/* 	<input */}
-			{/* 		className='h-10 w-full rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-white' */}
-			{/* 		name='spotifyPlaylist' */}
-			{/* 		type='text' */}
-			{/* 	/> */}
-			{/* </div> */}
 			<div className='au-flex au-w-full au-items-center au-justify-end'>
 				<PrimaryButton type='submit'>Save</PrimaryButton>
 			</div>

@@ -1,11 +1,16 @@
 import type { Editor } from '@tiptap/react'
 import type { Dispatch, ReactNode, SetStateAction } from 'react'
 import { createContext } from 'react'
-import { Theme, WritingSession, WritingSessionGoal } from '../../types'
+import {
+	DailyGoal,
+	SettingsData,
+	Theme,
+	TitleAlignment,
+	WritingSession,
+	WritingSessionGoal,
+} from '../../types'
 
 export const AureliusContext = createContext({})
-
-export type TitleAlignment = 'left' | 'center'
 
 export interface AureliusProviderData {
 	content?: string
@@ -21,6 +26,14 @@ export interface AureliusProviderData {
 	notifyOnSessionEnd?: boolean
 	setNotifyOnSessionEnd?: Dispatch<SetStateAction<boolean>>
 	post?: { title: string; content: string }
+	savedBackground?: string
+	savedDailyGoal?: DailyGoal
+	savedDurationTarget?: number
+	savedFooter?: string
+	savedMusicChannel?: string
+	savedWordCountTarget?: number
+	savedYoutubeVideo?: string
+	settings?: SettingsData
 	sessionData?: WritingSession | null
 	setSessionData?: Dispatch<SetStateAction<WritingSession | null>>
 	sessionFocusMode?: boolean

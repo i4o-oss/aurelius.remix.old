@@ -6,12 +6,9 @@ import {
 	ToggleGroup,
 } from '@i4o/catalystui'
 import { useContext, useState } from 'react'
+import { TitleAlignment } from '../../types'
 import ExportImageContent from './export-image-content'
-import {
-	AureliusContext,
-	AureliusProviderData,
-	TitleAlignment,
-} from './provider'
+import { AureliusContext, AureliusProviderData } from './provider'
 
 interface ExportProps {
 	exportPost: () => void
@@ -126,12 +123,13 @@ export default function Export({ exportPost }: ExportProps) {
 							<label className='au-col-span-2 au-py-2 au-text-sm au-font-medium au-text-primary-foreground au-flex au-items-center au-gap-2'>
 								Name
 							</label>
-							<div className='au-col-span-2 au-relative au-py-2 au-flex au-items-center au-justify-end'>
-								<Switch
-									defaultChecked={true}
-									name='show-name'
-								/>
-							</div>
+							<input
+								className='au-col-span-2 au-h-10 au-w-full au-rounded-md au-px-3 au-py-1 au-flex au-items-center au-text-sm au-leading-3 au-font-medium au-text-primary-foreground au-border au-border-subtle au-bg-transparent'
+								defaultValue={localFooter}
+								name='footer'
+								onChange={(e) => setLocalFooter(e.target.value)}
+								type='text'
+							/>
 						</div>
 						<div className='au-grid au-grid-cols-4 au-w-full au-gap-2'>
 							<label className='au-col-span-2 au-py-2 au-text-sm au-font-medium au-text-primary-foreground'>
