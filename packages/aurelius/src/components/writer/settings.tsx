@@ -164,14 +164,14 @@ export default function Settings() {
 		>
 			<Tabs defaultValue='profile'>
 				<div className='au-flex au-max-h-[96rem] au-min-h-[40rem] au-w-[64rem] [&_div[role="tablist"]]:!au-gap-2 au-rounded-lg au-overflow-hidden au-divide-x au-divide-subtle'>
-					<div className='au-w-64 au-py-4 au-px-4'>
+					<div className='au-w-64 au-py-4 au-px-4 [&_button]:au-px-2 [&_button]:au-py-1.5 [&_button[data-state=active]]:au-bg-brand [&_button[data-state=active]]:au-text-white'>
 						<h2 className='au-text-md au-font-medium au-text-primary-foreground au-mb-4'>
 							Settings
 						</h2>
 						<TabsList tabs={TABS} type='column' />
 					</div>
 					<div className='au-w-full au-h-full au-min-h-[40rem] au-max-h-[40rem] au-flex-1 au-flex-grow au-grid-cols-2 au-gap-2'>
-						<ScrollArea className='au-w-full au-min-h-[40rem] au-bg-transparent au-py-4 au-overflow-hidden'>
+						<ScrollArea className='au-w-full au-min-h-[40rem] au-bg-transparent au-px-7 au-py-4 au-overflow-hidden'>
 							<TabsContent tabs={TABS} type='column' />
 						</ScrollArea>
 					</div>
