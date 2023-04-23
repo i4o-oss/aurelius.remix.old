@@ -8,7 +8,7 @@
         "packages/emails/.react-email"
     ],
     "scripts": {
-        "build": "turbo run build",
+        "build": "turbo run build --filter=!react-email-preview",
         "dev": "turbo run dev --filter=!react-email-preview --parallel",
         "start": "turbo run start --scope=@aurelius/web",
         "lint": "turbo run lint",
