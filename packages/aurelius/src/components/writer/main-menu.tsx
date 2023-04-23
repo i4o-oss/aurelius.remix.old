@@ -28,7 +28,6 @@ import { Form } from '@remix-run/react'
 
 interface MainMenuProps {
 	downloadFile: () => void
-	exportPost: () => void
 	onResetEditorClick: (state: boolean) => void
 }
 
@@ -36,6 +35,7 @@ export default function MainMenu(props: MainMenuProps) {
 	const {
 		focusMode,
 		setFocusMode,
+		setShowExportImageDialog,
 		setShowNewSessionDialog,
 		setShowSettingsDialog,
 		theme,
@@ -142,7 +142,7 @@ export default function MainMenu(props: MainMenuProps) {
 				{
 					label: 'Export to PNG',
 					icon: <ImageIcon />,
-					onSelect: props.exportPost,
+					onSelect: () => setShowExportImageDialog?.(true),
 				},
 				{
 					label: 'Export to Markdown',

@@ -31,6 +31,8 @@ export interface AureliusProviderData {
 	setSessionTarget?: Dispatch<SetStateAction<number>>
 	showAboutDialog?: boolean
 	setShowAboutDialog?: Dispatch<SetStateAction<boolean>>
+	showExportImageDialog?: boolean
+	setShowExportImageDialog?: Dispatch<SetStateAction<boolean>>
 	showNewSessionDialog?: boolean
 	setShowNewSessionDialog?: Dispatch<SetStateAction<boolean>>
 	showResetAlert?: boolean
