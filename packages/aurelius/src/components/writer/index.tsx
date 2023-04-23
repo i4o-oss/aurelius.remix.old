@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 import type { WriterProps } from '../../types'
-import { useCallback, useContext, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useEditor } from '@tiptap/react'
 import BubbleMenuExt from '@tiptap/extension-bubble-menu'
 import { Link } from '@tiptap/extension-link'
@@ -11,7 +11,6 @@ import SuperImage from '../extensions/super-image'
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
 import { lowlight } from 'lowlight'
 import Youtube from '@tiptap/extension-youtube'
-import { Alert, Button, Dialog, PrimaryButton } from '@i4o/catalystui'
 import { Autosave } from 'react-autosave'
 import useLocalStorage, {
 	deleteFromStorage,
@@ -28,81 +27,13 @@ import {
 import NewSession from './new-session'
 import Settings from './settings'
 import { downloadAsMarkdown } from '../../helpers'
-import AureliusProvider, {
-	AureliusContext,
-	AureliusProviderData,
-} from './provider'
+import AureliusProvider from './provider'
 import { WritingSession, WritingSessionGoal } from '../../types'
 import Timer from './timer'
 import { findDOMNode } from 'react-dom'
-// import WritingPaths from './writing-paths'
-
-function Reset({ confirmResetEditor }: { confirmResetEditor: () => void }) {
-	const context: AureliusProviderData = useContext(AureliusContext)
-	const { showResetAlert, setShowResetAlert } = context
-	return (
-		<Alert
-			open={showResetAlert}
-			onOpenChange={setShowResetAlert}
-			cancel={
-				<Button
-					bg='!au-bg-slate-400 dark:!au-bg-slate-800 hover:!au-bg-slate-300 hover:dark:!au-bg-slate-700'
-					onClick={() => setShowResetAlert?.(false)}
-				>
-					Cancel
-				</Button>
-			}
-			action={
-				<PrimaryButton onClick={confirmResetEditor}>
-					Confirm
-				</PrimaryButton>
-			}
-			title={<h3 className='au-pb-2 au-text-lg'>Are you sure?</h3>}
-			description='This will clear all the content from the editor. This action cannot be undone.'
-		/>
-	)
-}
-
-function WritingSessionRecap() {
-	const context: AureliusProviderData = useContext(AureliusContext)
-	const { sessionData, showSessionRecapDialog, setShowSessionRecapDialog } =
-		context
-	return (
-		<Dialog
-			open={showSessionRecapDialog}
-			onOpenChange={setShowSessionRecapDialog}
-			title={
-				<h3 className='au-px-4 au-pt-4 au-pb-2 au-text-lg'>
-					Writing Session Recap
-				</h3>
-			}
-			trigger={null}
-		>
-			<div className='au-grid au-w-[24rem] au-grid-cols-2 au-gap-2 au-px-4 au-py-2 au-pb-4 au-text-primary-foreground'>
-				<p className='au-text-left'>Session Target:</p>
-				<p className='au-text-right'>
-					{sessionData?.goal === 'duration'
-						? `${sessionData?.target / 60} minutes`
-						: `${sessionData?.target} words`}
-				</p>
-				<p className='au-text-left'># of words written:</p>
-				<p className='au-text-right'>
-					{`${
-						// @ts-ignore
-						sessionData?.endingWordCount -
-						// @ts-ignore
-						sessionData?.startingWordCount
-					}`}
-				</p>
-				<p className='au-text-left'>Session Duration:</p>
-				<p className='au-text-right'>{`${
-					// @ts-ignore
-					Math.floor(sessionData?.duration / 60)
-				} minutes`}</p>
-			</div>
-		</Dialog>
-	)
-}
+import Reset from './reset'
+import WritingSessionRecap from './recap'
+import Export from './export'
 
 export default function Writer({
 	post,
@@ -130,6 +61,7 @@ export default function Writer({
 	const [sessionTarget, setSessionTarget] = useState<number>(0)
 	const [sessionFocusMode, setSessionFocusMode] = useState(true)
 	const [sessionMusic, setSessionMusic] = useState(true)
+	const [showExportImageDialog, setShowExportImageDialog] = useState(true)
 	const [showNewSessionDialog, setShowNewSessionDialog] = useState(false)
 	const [showResetAlert, setShowResetAlert] = useState(false)
 	const [showSessionEndToast, setShowSessionEndToast] = useState(false)
@@ -412,53 +344,55 @@ export default function Writer({
 		)
 	}
 
+	const data = {
+		content,
+		setContent,
+		editor,
+		focusMode,
+		setFocusMode,
+		isMusicPlaying,
+		setIsMusicPlaying,
+		isSaving,
+		setIsSaving,
+		localPost,
+		notifyOnSessionEnd,
+		setNotifyOnSessionEnd,
+		post,
+		sessionData,
+		setSessionData,
+		sessionFocusMode,
+		setSessionFocusMode,
+		sessionGoal,
+		setSessionGoal,
+		sessionMusic,
+		setSessionMusic,
+		sessionTarget,
+		setSessionTarget,
+		showExportImageDialog,
+		setShowExportImageDialog,
+		showNewSessionDialog,
+		setShowNewSessionDialog,
+		showResetAlert,
+		setShowResetAlert,
+		showSessionEndToast,
+		setShowSessionEndToast,
+		showSessionRecapDialog,
+		setShowSessionRecapDialog,
+		showSettingsDialog,
+		setShowSettingsDialog,
+		showWritingPaths,
+		setShowWritingPaths,
+		theme,
+		toggleTheme,
+		title,
+		setTitle,
+		user,
+		wordCount,
+		setWordCount,
+	}
+
 	return (
-		<AureliusProvider
-			data={{
-				content,
-				setContent,
-				editor,
-				focusMode,
-				setFocusMode,
-				isMusicPlaying,
-				setIsMusicPlaying,
-				isSaving,
-				setIsSaving,
-				localPost,
-				notifyOnSessionEnd,
-				setNotifyOnSessionEnd,
-				post,
-				sessionData,
-				setSessionData,
-				sessionFocusMode,
-				setSessionFocusMode,
-				sessionGoal,
-				setSessionGoal,
-				sessionMusic,
-				setSessionMusic,
-				sessionTarget,
-				setSessionTarget,
-				showNewSessionDialog,
-				setShowNewSessionDialog,
-				showResetAlert,
-				setShowResetAlert,
-				showSessionEndToast,
-				setShowSessionEndToast,
-				showSessionRecapDialog,
-				setShowSessionRecapDialog,
-				showSettingsDialog,
-				setShowSettingsDialog,
-				showWritingPaths,
-				setShowWritingPaths,
-				theme,
-				toggleTheme,
-				title,
-				setTitle,
-				user,
-				wordCount,
-				setWordCount,
-			}}
-		>
+		<AureliusProvider data={data}>
 			<main className='au-flex au-h-full au-w-full au-flex-col au-items-center au-justify-start'>
 				<Autosave
 					data={autoSaveData}
@@ -472,7 +406,6 @@ export default function Writer({
 				>
 					<MainMenu
 						downloadFile={downloadFile}
-						exportPost={exportPost}
 						onResetEditorClick={onResetEditorClick}
 					/>
 					{SessionComponent}
@@ -506,6 +439,7 @@ export default function Writer({
 			) : null}
 			{showSettingsDialog ? <Settings /> : null}
 			{showSessionRecapDialog ? <WritingSessionRecap /> : null}
+			{showExportImageDialog ? <Export exportPost={exportPost} /> : null}
 			<div
 				className='au-absolute -au-top-[1440px] -au-left-[1080px] au-flex au-h-[1440px] au-w-[1080px] au-flex-col au-items-start au-justify-start au-bg-white au-bg-no-repeat au-bg-cover au-bg-opacity-50'
 				style={{
@@ -525,12 +459,12 @@ export default function Writer({
 				}}
 				ref={canvasRef}
 			>
-				<div className='au-flex au-w-full au-max-w-none au-h-full au-flex-col au-items-start au-justify-center au-py-16 au-px-12 au-prose au-prose-slate au-prose-2xl prose-headings:au-mb-0 prose-blockquote:au-border-slate-900'>
-					<h1 className='au-w-full au-flex au-flex-col au-text-left au-text-gray-900'>
+				<div className='au-flex au-w-full au-max-w-none au-h-full au-flex-col au-items-start au-justify-center au-py-16 au-px-12 au-prose au-prose-slate au-prose-2xl prose-headings:au-mb-0 au-prose-p:au-mt-2 au-prose-p:au-mb-2 prose-blockquote:au-border-slate-900'>
+					<h1 className='au-w-full au-flex au-flex-col au-text-left au-text-gray-900 au-font-semibold'>
 						{title}
 					</h1>
 					<div
-						className='au-w-full au-text-gray-900 au-prose-p:au-mt-2 au-prose-p:au-mb-2'
+						className='au-w-full au-text-gray-900'
 						dangerouslySetInnerHTML={{ __html: content }}
 					/>
 				</div>
