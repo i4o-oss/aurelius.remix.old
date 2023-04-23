@@ -1,3 +1,5 @@
+import { useContext, useRef } from 'react'
+import { findDOMNode } from 'react-dom'
 import {
 	Dialog,
 	PrimaryButton,
@@ -5,29 +7,54 @@ import {
 	Switch,
 	ToggleGroup,
 } from '@i4o/catalystui'
-import { useContext, useState } from 'react'
+import { toPng } from 'html-to-image'
 import { TitleAlignment } from '../../types'
 import ExportImageContent from './export-image-content'
 import { AureliusContext, AureliusProviderData } from './provider'
 
-interface ExportProps {
-	exportPost: () => void
-}
-
-export default function Export({ exportPost }: ExportProps) {
+export default function Export() {
 	const context: AureliusProviderData = useContext(AureliusContext)
 	const {
+		author,
+		setAuthor,
 		content,
+		footer,
+		setFooter,
+		savedBackground,
 		showExportImageDialog,
 		setShowExportImageDialog,
 		title,
 		titleAlignment,
 		setTitleAlignment,
 	} = context
+	const canvasRef = useRef<HTMLDivElement>(null)
 
-	const [localFooter, setLocalFooter] = useState<string>(
-		'aurelius.ink/ilango'
-	)
+	const saveAs = (uri: string, filename: string) => {
+		const link = document.createElement('a')
+
+		if (typeof link.download === 'string') {
+			link.href = uri
+			link.download = filename
+			document.body.appendChild(link)
+			link.click()
+			document.body.removeChild(link)
+		} else {
+			window.open(uri)
+		}
+	}
+
+	function exportPost() {
+		if (window) {
+			// @ts-ignore
+			const element = findDOMNode(canvasRef.current)
+			// @ts-ignore
+			toPng(element, { pixelRatio: 2 })
+				.then((dataUrl) => {
+					saveAs(dataUrl, 'file.png')
+				})
+				.catch((err) => console.log(err))
+		}
+	}
 
 	const CHANNELS = [
 		{ value: 'twitter', label: 'Twitter' },
@@ -45,13 +72,14 @@ export default function Export({ exportPost }: ExportProps) {
 			<div className='au-flex au-min-h-[40rem] au-h-auto au-w-[80rem] [&_div[role="tablist"]]:!au-gap-2 au-rounded-lg au-overflow-hidden au-divide-x au-divide-subtle'>
 				<div className='au-w-full au-h-auto au-min-h-[64rem] au-flex-1 au-flex-grow au-grid-cols-2 au-gap-2 au-p-4'>
 					<ExportImageContent
-						author='Ilango'
+						author={author}
+						background={savedBackground as string}
 						content={content as string}
-						footer={localFooter}
+						footer={footer}
+						ref={canvasRef}
 						scale='au-prose-base'
 						title={title as string}
 						titleAlignment={titleAlignment as TitleAlignment}
-						type='preview'
 						watermark={true}
 					/>
 				</div>
@@ -125,9 +153,9 @@ export default function Export({ exportPost }: ExportProps) {
 							</label>
 							<input
 								className='au-col-span-2 au-h-10 au-w-full au-rounded-md au-px-3 au-py-1 au-flex au-items-center au-text-sm au-leading-3 au-font-medium au-text-primary-foreground au-border au-border-subtle au-bg-transparent'
-								defaultValue={localFooter}
+								defaultValue={author}
 								name='footer'
-								onChange={(e) => setLocalFooter(e.target.value)}
+								onChange={(e) => setAuthor?.(e.target.value)}
 								type='text'
 							/>
 						</div>
@@ -137,9 +165,9 @@ export default function Export({ exportPost }: ExportProps) {
 							</label>
 							<input
 								className='au-col-span-2 au-h-10 au-w-full au-rounded-md au-px-3 au-py-1 au-flex au-items-center au-text-sm au-leading-3 au-font-medium au-text-primary-foreground au-border au-border-subtle au-bg-transparent'
-								defaultValue={localFooter}
+								defaultValue={footer}
 								name='footer'
-								onChange={(e) => setLocalFooter(e.target.value)}
+								onChange={(e) => setFooter?.(e.target.value)}
 								type='text'
 							/>
 						</div>

@@ -384,7 +384,7 @@ function ExportSettings({
 	]
 
 	const backgroundItems = BACKGROUND_OPTIONS.map((option, index) => ({
-		value: `bi-${index}`,
+		value: option,
 		label: '',
 		icon: (
 			<div

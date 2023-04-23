@@ -13,11 +13,15 @@ import {
 export const AureliusContext = createContext({})
 
 export interface AureliusProviderData {
+	author?: string
+	setAuthor?: Dispatch<SetStateAction<string>>
 	content?: string
 	setContent?: Dispatch<SetStateAction<string>>
 	editor?: Editor | null
 	focusMode?: boolean
 	setFocusMode?: Dispatch<SetStateAction<boolean>>
+	footer?: string
+	setFooter?: Dispatch<SetStateAction<string>>
 	isMusicPlaying?: boolean
 	setIsMusicPlaying?: Dispatch<SetStateAction<boolean>>
 	isSaving?: boolean
@@ -82,7 +86,7 @@ export default function AureliusProvider({
 }: AureliusProviderProps) {
 	return (
 		<AureliusContext.Provider value={data}>
-			{children}
+			<div className='au-relative au-w-full au-h-full'>{children}</div>
 		</AureliusContext.Provider>
 	)
 }

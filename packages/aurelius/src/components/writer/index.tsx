@@ -35,12 +35,9 @@ import {
 	WritingSessionGoal,
 } from '../../types'
 import Timer from './timer'
-import { findDOMNode } from 'react-dom'
 import Reset from './reset'
 import WritingSessionRecap from './recap'
 import Export from './export'
-import { toPng } from 'html-to-image'
-import ExportImageContent from './export-image-content'
 
 export default function Writer({
 	post,
@@ -64,10 +61,11 @@ export default function Writer({
 	const savedMusicChannel = settingsData?.music?.musicChannel
 	const savedWordCountTarget = settingsData?.goals?.wordCountTarget
 	const savedYoutubeVideo = settingsData?.music?.youtubeVideo
-	const canvasRef = useRef<HTMLDivElement>(null)
 	const titleRef = useRef<HTMLTextAreaElement>(null)
+	const [author, setAuthor] = useState<string>('')
 	const [content, setContent] = useState('')
 	const [focusMode, setFocusMode] = useState(false)
+	const [footer, setFooter] = useState<string>(savedFooter || '')
 	const [isMusicPlaying, setIsMusicPlaying] = useState(false)
 	const [isSaving, setIsSaving] = useState(false)
 	const [notifyOnSessionEnd, setNotifyOnSessionEnd] = useState(true)
@@ -190,31 +188,6 @@ export default function Writer({
 
 	function downloadFile() {
 		downloadAsMarkdown(title, content)
-	}
-
-	const saveAs = (uri: string, filename: string) => {
-		const link = document.createElement('a')
-
-		if (typeof link.download === 'string') {
-			link.href = uri
-			link.download = filename
-			document.body.appendChild(link)
-			link.click()
-			document.body.removeChild(link)
-		} else {
-			window.open(uri)
-		}
-	}
-
-	function exportPost() {
-		if (window) {
-			// @ts-ignore
-			const element = findDOMNode(canvasRef.current)
-			// @ts-ignore
-			toPng(element).then((dataUrl) => {
-				saveAs(dataUrl, 'file.png')
-			})
-		}
 	}
 
 	async function savePost(data: any) {
@@ -358,11 +331,15 @@ export default function Writer({
 	}
 
 	const data = {
+		author,
+		setAuthor,
 		content,
 		setContent,
 		editor,
 		focusMode,
 		setFocusMode,
+		footer,
+		setFooter,
 		isMusicPlaying,
 		setIsMusicPlaying,
 		isSaving,
@@ -462,18 +439,7 @@ export default function Writer({
 			) : null}
 			{showSettingsDialog ? <Settings /> : null}
 			{showSessionRecapDialog ? <WritingSessionRecap /> : null}
-			{showExportImageDialog ? <Export exportPost={exportPost} /> : null}
-			<ExportImageContent
-				author='Ilango'
-				content={content as string}
-				footer='aurelius.ink/ilango'
-				scale='au-prose-xl'
-				ref={canvasRef}
-				title={title as string}
-				titleAlignment={titleAlignment}
-				type='canvas'
-				watermark={true}
-			/>
+			{showExportImageDialog ? <Export /> : null}
 		</AureliusProvider>
 	)
 }
