@@ -22,6 +22,18 @@ export async function getUserByUsername(username: string) {
 	})
 }
 
+export async function checkUsername(username: string) {
+	const user = await prisma.user.findUnique({
+		where: { username },
+	})
+
+	if (!user) {
+		return true
+	} else {
+		return false
+	}
+}
+
 // @ts-ignore
 export async function findOrCreateUser(email: string, name: string) {
 	let user = await getUserByEmail(email)
