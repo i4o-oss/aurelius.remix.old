@@ -61,7 +61,7 @@ export default function Writer({
 	const [sessionTarget, setSessionTarget] = useState<number>(0)
 	const [sessionFocusMode, setSessionFocusMode] = useState(true)
 	const [sessionMusic, setSessionMusic] = useState(true)
-	const [showExportImageDialog, setShowExportImageDialog] = useState(true)
+	const [showExportImageDialog, setShowExportImageDialog] = useState(false)
 	const [showNewSessionDialog, setShowNewSessionDialog] = useState(false)
 	const [showResetAlert, setShowResetAlert] = useState(false)
 	const [showSessionEndToast, setShowSessionEndToast] = useState(false)

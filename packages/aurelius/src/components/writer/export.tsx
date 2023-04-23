@@ -31,7 +31,7 @@ export default function Export({ exportPost }: ExportProps) {
 			<div className='au-flex au-min-h-[40rem] au-h-auto au-w-[80rem] [&_div[role="tablist"]]:!au-gap-2 au-rounded-lg au-overflow-hidden au-divide-x au-divide-subtle'>
 				<div className='au-w-full au-h-auto au-min-h-[64rem] au-flex-1 au-flex-grow au-grid-cols-2 au-gap-2 au-p-4'>
 					<div
-						className='au-flex au-w-full au-h-full au-aspect-[8/9] au-flex-col au-items-start au-justify-start au-bg-ui au-bg-no-repeat au-bg-cover au-bg-opacity-50'
+						className='au-flex au-w-full au-h-full au-aspect-[8/9] au-flex-col au-items-start au-justify-start au-bg-ui au-bg-no-repeat au-bg-cover au-bg-opacity-50 au-select-none'
 						style={{
 							// backgroundImage: "url('/images/templates/gggrain.svg')",
 							backgroundColor: '#85FFBD',
