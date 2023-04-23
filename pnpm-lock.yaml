@@ -10,8 +10,8 @@ importers:
       turbo: latest
     devDependencies:
       '@aurelius/eslint-config': link:packages/eslint-config
-      prettier: 2.8.7
-      prettier-plugin-tailwindcss: 0.2.5_prettier@2.8.7
+      prettier: 2.8.8
+      prettier-plugin-tailwindcss: 0.2.5_prettier@2.8.8
       turbo: 1.9.3
 
   apps/desktop:
@@ -196,7 +196,7 @@ importers:
       cheerio: 1.0.0-rc.12
       clsx: ^1.2.1
       concurrently: ^7.6.0
-      html2canvas: ^1.4.1
+      html-to-image: ^1.11.11
       lowlight: ^2.8.1
       metascraper: ^5.34.0
       metascraper-author: ^5.33.7
@@ -249,7 +249,7 @@ importers:
       '@tiptap/starter-kit': 2.0.0-beta.220_@tiptap+pm@2.0.0-beta.220
       cheerio: 1.0.0-rc.12
       clsx: 1.2.1
-      html2canvas: 1.4.1
+      html-to-image: 1.11.11
       lowlight: 2.8.1
       metascraper: 5.34.0
       metascraper-author: 5.33.7
@@ -5051,7 +5051,7 @@ packages:
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       postcss-selector-parser: 6.0.10
-      tailwindcss: 3.2.7_aesdjsunmf4wiehhujt67my7tu
+      tailwindcss: 3.2.7_postcss@8.4.21
     dev: false
 
   /@testing-library/dom/8.20.0:
@@ -6238,11 +6238,6 @@ packages:
   /balanced-match/1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
 
-  /base64-arraybuffer/1.0.2:
-    resolution: {integrity: sha512-I3yl4r9QB5ZRY3XuJVEPfc2XhZO6YweFPI+UovAzn+8/hb3oJ6lnysaFcjVpkCPfVWFUDvoZ8kmVDP7WyRtYtQ==}
-    engines: {node: '>= 0.6.0'}
-    dev: false
-
   /base64-js/1.5.1:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
 
@@ -6837,12 +6832,6 @@ packages:
 
   /crypto-js/4.1.1:
     resolution: {integrity: sha512-o2JlM7ydqd3Qk9CA0L4NL6mTzU2sdx96a+oOfPu8Mkl/PK51vSyoi8/rQ8NknZtk44vq15lmhAj9CIAGwgeWKw==}
-    dev: false
-
-  /css-line-break/2.1.0:
-    resolution: {integrity: sha512-FHcKFCZcAha3LwfVBhCQbW2nCNbkZXn7KVUJcsT5/P8YmfsVja0FMPJr0B903j/E69HUphKiV9iQArX8SDYA4w==}
-    dependencies:
-      utrie: 1.0.2
     dev: false
 
   /css-select/5.1.0:
@@ -8683,6 +8672,10 @@ packages:
       style-to-js: 1.1.3
     dev: false
 
+  /html-to-image/1.11.11:
+    resolution: {integrity: sha512-9gux8QhvjRO/erSnDPv28noDZcPZmYE7e1vFsBLKLlRlKDSqNJYebj6Qz1TGd5lsRV+X+xYyjCKjuZdABinWjA==}
+    dev: false
+
   /html-to-text/9.0.3:
     resolution: {integrity: sha512-hxDF1kVCF2uw4VUJ3vr2doc91pXf2D5ngKcNviSitNkhP9OMOaJkDrFIFL6RMvko7NisWTEiqGpQ9LAxcVok1w==}
     engines: {node: '>=14'}
@@ -8692,14 +8685,6 @@ packages:
       dom-serializer: 2.0.0
       htmlparser2: 8.0.2
       selderee: 0.10.0
-    dev: false
-
-  /html2canvas/1.4.1:
-    resolution: {integrity: sha512-fPU6BHNpsyIhr8yyMpTLLxAbkaK8ArIBcmZIRiBLiDhjeqvXolaEmDGmELFuX9I4xDcaKKcJl+TKZLqruBbmWA==}
-    engines: {node: '>=8.0.0'}
-    dependencies:
-      css-line-break: 2.1.0
-      text-segmentation: 1.0.3
     dev: false
 
   /htmlparser2/8.0.1:
@@ -11325,7 +11310,7 @@ packages:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
 
-  /prettier-plugin-tailwindcss/0.2.5_prettier@2.8.7:
+  /prettier-plugin-tailwindcss/0.2.5_prettier@2.8.8:
     resolution: {integrity: sha512-vZ/iKieyCx0WTxHbkf5E1rBlv/ybFk8WTT4hL5W2jlVxum2Zbe0jMUpuQdDrpa4z2vnPiJ5KIWCqL/kd16fKYg==}
     engines: {node: '>=12.17.0'}
     peerDependencies:
@@ -11377,7 +11362,7 @@ packages:
       prettier-plugin-twig-melody:
         optional: true
     dependencies:
-      prettier: 2.8.7
+      prettier: 2.8.8
     dev: true
 
   /prettier/2.7.1:
@@ -11385,8 +11370,8 @@ packages:
     engines: {node: '>=10.13.0'}
     hasBin: true
 
-  /prettier/2.8.7:
-    resolution: {integrity: sha512-yPngTo3aXUUmyuTjeTUT75txrf+aMh9FiD7q9ZE/i6r0bPb22g4FsE6Y338PQX1bmfy08i9QQCB7/rcUAVntfw==}
+  /prettier/2.8.8:
+    resolution: {integrity: sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q==}
     engines: {node: '>=10.13.0'}
     hasBin: true
     dev: true
@@ -13007,12 +12992,6 @@ packages:
       mkdirp: 1.0.4
       yallist: 4.0.0
 
-  /text-segmentation/1.0.3:
-    resolution: {integrity: sha512-iOiPUo/BGnZ6+54OsWxZidGCsdU8YbE4PSpdPinp7DeMtUJNJBoJ/ouUSTJjHkh1KntHaltHl/gDs2FC4i5+Nw==}
-    dependencies:
-      utrie: 1.0.2
-    dev: false
-
   /text-table/0.2.0:
     resolution: {integrity: sha512-N+8UisAXDGk8PFXP4HAzVR9nbfmVJ3zYLAWiTIoqC5v5isinhr+r5uaO8+7r3BMfuNIufIsA7RdpVgacC2cSpw==}
 
@@ -13808,12 +13787,6 @@ packages:
       right-align: 0.1.3
       striptags: 2.2.1
       word-wrap: 1.2.3
-    dev: false
-
-  /utrie/1.0.2:
-    resolution: {integrity: sha512-1MLa5ouZiOmQzUbjbu9VmjLzn1QLXBhwpUa7kdLUQK+KQ5KA9I1vk5U4YHe/X2Ch7PYnJfWuWT+VbuxbGwljhw==}
-    dependencies:
-      base64-arraybuffer: 1.0.2
     dev: false
 
   /uuid/8.0.0:
