@@ -25,7 +25,7 @@ import {
 	SETTINGS_LOCAL_STORAGE_KEY,
 } from '../../constants'
 import NewSession from './new-session'
-import Settings from './settings'
+import Settings from '../settings'
 import { downloadAsMarkdown } from '../../helpers'
 import AureliusProvider from './provider'
 import {
@@ -43,6 +43,8 @@ export default function Writer({
 	post,
 	savePost: savePostToDatabase,
 	saveWritingSession: saveWritingSessionToDatabase,
+	showSettingsDialog,
+	setShowSettingsDialog,
 	sync,
 	theme,
 	toggleTheme,
@@ -80,7 +82,6 @@ export default function Writer({
 	const [showResetAlert, setShowResetAlert] = useState(false)
 	const [showSessionEndToast, setShowSessionEndToast] = useState(false)
 	const [showSessionRecapDialog, setShowSessionRecapDialog] = useState(false)
-	const [showSettingsDialog, setShowSettingsDialog] = useState(false)
 	const [showWritingPaths, setShowWritingPaths] = useState(false)
 	const [title, setTitle] = useState<string>('')
 	const [titleAlignment, setTitleAlignment] = useState<TitleAlignment>('left')
@@ -437,7 +438,12 @@ export default function Writer({
 			{showNewSessionDialog ? (
 				<NewSession startSession={startSession} />
 			) : null}
-			{showSettingsDialog ? <Settings /> : null}
+			<Settings
+				settings={settingsData}
+				showSettingsDialog={showSettingsDialog}
+				setShowSettingsDialog={setShowSettingsDialog}
+				user={user}
+			/>
 			{showSessionRecapDialog ? <WritingSessionRecap /> : null}
 			{showExportImageDialog ? <Export /> : null}
 		</AureliusProvider>

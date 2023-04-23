@@ -86,7 +86,7 @@ export default function AureliusProvider({
 }: AureliusProviderProps) {
 	return (
 		<AureliusContext.Provider value={data}>
-			<div className='au-relative au-w-full au-h-full'>{children}</div>
+			{children}
 		</AureliusContext.Provider>
 	)
 }

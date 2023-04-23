@@ -1,3 +1,4 @@
+import type { Dispatch, SetStateAction } from 'react'
 import type { Editor } from '@tiptap/core'
 
 export interface EditorToolbarProps {
@@ -21,6 +22,8 @@ export interface WriterProps {
 	post?: { title: string; content: string }
 	savePost: (title: string, content: string, wordCount: number) => void
 	saveWritingSession: (WritingSession: string) => void
+	showSettingsDialog?: boolean
+	setShowSettingsDialog?: Dispatch<SetStateAction<boolean>>
 	sync: (params: SyncParams) => void
 	theme: Theme
 	toggleTheme: () => void
