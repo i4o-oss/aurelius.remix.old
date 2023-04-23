@@ -1,10 +1,11 @@
 import type { LoaderArgs } from '@remix-run/node'
 import type { SyncParams } from '@i4o/aurelius'
-import { useRef } from 'react'
-import { Writer } from '@i4o/aurelius'
+import { useRef, useState } from 'react'
+import { SETTINGS_LOCAL_STORAGE_KEY, SettingsData, Writer } from '@i4o/aurelius'
 import { useFetcher, useFetchers, useLoaderData } from '@remix-run/react'
 import { json } from '@remix-run/node'
-import { writeStorage } from '@rehooks/local-storage'
+import useLocalStorage, { writeStorage } from '@rehooks/local-storage'
+import Settings from '~/components/settings'
 import { Theme, useTheme } from '~/lib/theme'
 import { auth } from '~/services/auth.server'
 import { getPostByShareId } from '~/models/post.server'
@@ -27,6 +28,9 @@ export default function Write() {
 	const fetcher = useFetcher()
 	// @ts-ignore
 	const { post, user } = useLoaderData<typeof loader>()
+	const [settings] = useLocalStorage<string>(SETTINGS_LOCAL_STORAGE_KEY)
+	const settingsData = JSON.parse(JSON.stringify(settings)) as SettingsData
+	const [showSettingsDialog, setShowSettingsDialog] = useState(false)
 	const [theme, setTheme] = useTheme()
 
 	// using useRef for storing the post id
@@ -104,9 +108,17 @@ export default function Write() {
 				post={post}
 				savePost={savePost}
 				saveWritingSession={saveWritingSession}
+				showSettingsDialog={showSettingsDialog}
+				setShowSettingsDialog={setShowSettingsDialog}
 				sync={syncLocallySavedData}
 				theme={theme as Theme}
 				toggleTheme={toggleTheme}
+				user={user}
+			/>
+			<Settings
+				settings={settingsData}
+				showSettingsDialog={showSettingsDialog}
+				setShowSettingsDialog={setShowSettingsDialog}
 				user={user}
 			/>
 		</main>
