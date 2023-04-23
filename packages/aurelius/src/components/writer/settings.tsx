@@ -36,8 +36,8 @@ interface Settings {
 }
 
 export default function Settings() {
-	const context: AureliusProviderData = useContext(AureliusContext)
-	const { showSettingsDialog, setShowSettingsDialog } = context
+	const context = useContext<AureliusProviderData>(AureliusContext)
+	const { showSettingsDialog, setShowSettingsDialog, user } = context
 	const [settings] = useLocalStorage<string>(SETTINGS_LOCAL_STORAGE_KEY)
 	const savedDailyGoal = (JSON.parse(JSON.stringify(settings)) as Settings)
 		?.goals?.dailyGoal
@@ -60,7 +60,6 @@ export default function Settings() {
 	const [footerText, setFooterText] = useState<string>('')
 	const [name, setName] = useState<string>('')
 	const [username, setUsername] = useState<string>('')
-	const [showWatermark, setShowWatermark] = useState<boolean>(true)
 	const [wordCountTarget, setWordCountTarget] = useState<number>(
 		(savedWordCountTarget as number) || 300
 	)
@@ -100,22 +99,28 @@ export default function Settings() {
 		writeStorage(SETTINGS_LOCAL_STORAGE_KEY, data)
 	}
 
+	const USER_TABS = user
+		? [
+				{
+					id: 'profile',
+					title: <p className='au-text-left'>Profile</p>,
+					content: (
+						<ProfileSettings
+							bio={bio}
+							setBio={setBio}
+							name={name}
+							setName={setName}
+							saveProfileSettings={saveProfileSettings}
+							username={username}
+							setUsername={setUsername}
+						/>
+					),
+				},
+		  ]
+		: []
+
 	const TABS = [
-		{
-			id: 'profile',
-			title: <p className='au-text-left'>Profile</p>,
-			content: (
-				<ProfileSettings
-					bio={bio}
-					setBio={setBio}
-					name={name}
-					setName={setName}
-					saveProfileSettings={saveProfileSettings}
-					username={username}
-					setUsername={setUsername}
-				/>
-			),
-		},
+		...USER_TABS,
 		{
 			id: 'goals',
 			title: <p className='au-text-left'>Goals</p>,
@@ -163,7 +168,7 @@ export default function Settings() {
 			title=''
 			description=''
 		>
-			<Tabs defaultValue='profile'>
+			<Tabs defaultValue={user ? 'profile' : 'goals'}>
 				<div className='au-flex au-max-h-[96rem] au-min-h-[40rem] au-w-[64rem] [&_div[role="tablist"]]:!au-gap-2 au-rounded-lg au-overflow-hidden au-divide-x au-divide-subtle'>
 					<div className='au-w-64 au-py-4 au-px-4 [&_button]:au-px-2 [&_button]:au-py-1.5 [&_button[data-state=active]]:au-bg-brand [&_button[data-state=active]]:au-text-white'>
 						<h2 className='au-text-md au-font-medium au-text-primary-foreground au-mb-4'>
