@@ -1,7 +1,7 @@
 // TODO: Move this component to web package?
 // TODO: Tabs light and dark mode styles are messed up. Fix them in catalyst ui.
 //
-import { Dispatch, FormEvent, SetStateAction, useContext } from 'react'
+import { Dispatch, FormEvent, SetStateAction } from 'react'
 import { useState } from 'react'
 import {
 	Dialog,
@@ -19,47 +19,44 @@ import {
 	DEFAULT_BACKGROUND,
 	DEFAULT_MUSIC_CHANNEL,
 	SETTINGS_LOCAL_STORAGE_KEY,
-} from '../../constants'
-import { AureliusContext, AureliusProviderData } from './provider'
-import { DailyGoal, SettingsData } from '../../types'
+} from '../constants'
+import { DailyGoal, SettingsData } from '../types'
 
-export default function Settings() {
-	const context = useContext<AureliusProviderData>(AureliusContext)
-	const {
-		savedBackground,
-		savedDailyGoal,
-		savedDurationTarget,
-		savedFooter,
-		savedMusicChannel,
-		savedWordCountTarget,
-		savedYoutubeVideo,
-		settings,
-		showSettingsDialog,
-		setShowSettingsDialog,
-		user,
-	} = context
+interface SettingsProps {
+	settings: SettingsData
+	showSettingsDialog?: boolean
+	setShowSettingsDialog?: Dispatch<SetStateAction<boolean>>
+	user?: any
+}
+
+export default function Settings({
+	settings,
+	showSettingsDialog,
+	setShowSettingsDialog,
+	user,
+}: SettingsProps) {
 	const [background, setBackground] = useState<string>(
-		savedBackground || DEFAULT_BACKGROUND
+		settings?.export?.background || DEFAULT_BACKGROUND
 	)
 	const [bio, setBio] = useState<string>('')
 	const [dailyGoal, setDailyGoal] = useState<DailyGoal>(
 		// @ts-ignore
-		savedDailyGoal || 'duration'
+		settings?.goals?.dailyGoal || 'duration'
 	)
 	const [durationTarget, setDurationTarget] = useState<number>(
-		savedDurationTarget || 20
+		settings?.goals?.durationTarget || 20
 	)
-	const [footer, setFooter] = useState<string>(savedFooter || '')
+	const [footer, setFooter] = useState<string>(settings?.export?.footer || '')
 	const [musicChannel, setMusicChannel] = useState<string>(
-		savedMusicChannel || DEFAULT_MUSIC_CHANNEL
+		settings?.music?.musicChannel || DEFAULT_MUSIC_CHANNEL
 	)
 	const [name, setName] = useState<string>('')
 	const [username, setUsername] = useState<string>('')
 	const [wordCountTarget, setWordCountTarget] = useState<number>(
-		savedWordCountTarget || 300
+		settings?.goals?.wordCountTarget || 300
 	)
 	const [youtubeVideo, setYoutubeVideo] = useState<string>(
-		savedYoutubeVideo || ''
+		settings?.music?.youtubeVideo || ''
 	)
 
 	const saveProfileSettings = (e: FormEvent) => {
@@ -361,6 +358,7 @@ interface ExportSettingsProps {
 	footer: string
 	setFooter: Dispatch<SetStateAction<string>>
 	saveExportSettings: (e: FormEvent) => void
+	user?: any
 }
 
 function ExportSettings({
@@ -369,9 +367,8 @@ function ExportSettings({
 	footer,
 	setFooter,
 	saveExportSettings,
+	user,
 }: ExportSettingsProps) {
-	const context = useContext<AureliusProviderData>(AureliusContext)
-	const { user } = context
 	const BACKGROUND_OPTIONS = [
 		'linear-gradient(45deg, #85FFBD 0%, #FFFB7D 100%)',
 		'linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%)',
@@ -383,7 +380,7 @@ function ExportSettings({
 		'linear-gradient(to top, #accbee 0%, #e7f0fd 100%)',
 	]
 
-	const backgroundItems = BACKGROUND_OPTIONS.map((option, index) => ({
+	const backgroundItems = BACKGROUND_OPTIONS.map((option) => ({
 		value: option,
 		label: '',
 		icon: (
