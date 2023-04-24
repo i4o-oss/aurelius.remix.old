@@ -31,6 +31,12 @@ export default function Export() {
 		wordCount,
 	} = context
 	const canvasRef = useRef<HTMLDivElement>(null)
+	const wordCountLimit = title !== '' ? 320 : 400
+	const isExportable =
+		content &&
+		typeof wordCount !== 'undefined' &&
+		wordCount > 0 &&
+		wordCount <= wordCountLimit
 
 	const saveAs = (uri: string, filename: string) => {
 		const link = document.createElement('a')
@@ -50,20 +56,12 @@ export default function Export() {
 		if (window) {
 			// @ts-ignore
 			const element = findDOMNode(canvasRef.current)
-			if (
-				title &&
-				content &&
-				typeof wordCount !== 'undefined' &&
-				wordCount > 0 &&
-				wordCount <= 320
-			) {
-				// @ts-ignore
-				toPng(element, { pixelRatio: 2 })
-					.then((dataUrl) => {
-						saveAs(dataUrl, 'file.png')
-					})
-					.catch((err) => console.log(err))
-			}
+			// @ts-ignore
+			toPng(element, { pixelRatio: 2 })
+				.then((dataUrl) => {
+					saveAs(dataUrl, 'file.png')
+				})
+				.catch((err) => console.log(err))
 		}
 	}
 
@@ -194,13 +192,20 @@ export default function Export() {
 								see here.
 							</em>
 						</p>
-						<PrimaryButton
-							className='au-mt-4'
-							onClick={exportPost}
-							type='submit'
-						>
-							Export
-						</PrimaryButton>
+						<div className='au-flex au-items-center au-justify-end au-pt-4 au-gap-4'>
+							{!isExportable ? (
+								<p className='au-py-2 au-text-xs au-text-red-500'>
+									<em>Content cannot be empty</em>
+								</p>
+							) : null}
+							<PrimaryButton
+								disabled={!isExportable}
+								onClick={exportPost}
+								type='submit'
+							>
+								Export
+							</PrimaryButton>
+						</div>
 					</div>
 				</div>
 			</div>

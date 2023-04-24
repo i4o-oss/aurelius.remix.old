@@ -233,7 +233,7 @@ export default function Writer({
 	}
 
 	function onResetEditorClick(state: boolean) {
-		if (title && content) {
+		if (content) {
 			setShowResetAlert(state)
 		}
 	}
