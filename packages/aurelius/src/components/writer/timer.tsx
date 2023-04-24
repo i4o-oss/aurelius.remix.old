@@ -71,7 +71,7 @@ export default function Timer({
 
 	return (
 		<>
-			<div className='au-flex au-h-10 au-items-center au-gap-2 au-divide-x au-divide-gray-500 au-rounded-lg au-bg-gray-100 au-p-2 au-text-black dark:au-bg-gray-900 dark:au-text-white'>
+			<div className='au-flex au-h-10 au-items-center au-gap-2 au-divide-x au-divide-subtle au-rounded-lg au-bg-ui au-p-2 au-text-primary-foreground'>
 				{sessionData?.goal === 'duration' ? (
 					<div className='au-flex au-items-center au-gap-0.5 au-px-2 au-text-sm'>
 						<span>{isRunning ? '' : '+ '}</span>
@@ -102,9 +102,9 @@ export default function Timer({
 				<div className='au-flex au-items-center au-gap-1 au-px-2'>
 					{isRunning || isStRunning ? (
 						<IconButton
-							bg='!au-bg-transparent hover:!au-bg-slate-300 hover:dark:!au-bg-slate-700'
+							className='au-p-1'
 							icon={
-								<PauseIcon className='au-h-4 au-w-4 au-text-slate-800 dark:au-text-slate-100' />
+								<PauseIcon className='au-h-4 au-w-4 au-text-primary-foreground' />
 							}
 							onClick={() => {
 								if (isRunning) {
@@ -113,13 +113,12 @@ export default function Timer({
 									stPause()
 								}
 							}}
-							padding='p-1'
 						/>
 					) : (
 						<IconButton
-							bg='!au-bg-transparent hover:!au-bg-slate-300 hover:dark:!au-bg-slate-700'
+							className='au-p-1'
 							icon={
-								<PlayIcon className='au-h-4 au-w-4 au-text-slate-800 dark:au-text-slate-100' />
+								<PlayIcon className='au-h-4 au-w-4 au-text-primary-foreground' />
 							}
 							onClick={() => {
 								if (isRunning) {
@@ -128,16 +127,14 @@ export default function Timer({
 									stStart()
 								}
 							}}
-							padding='p-1'
 						/>
 					)}
 					<IconButton
-						bg='!au-bg-transparent hover:!au-bg-slate-300 hover:dark:!au-bg-slate-700'
+						className='au-p-1'
 						icon={
-							<StopIcon className='au-h-4 au-w-4 au-text-slate-800 dark:au-text-slate-100' />
+							<StopIcon className='au-h-4 au-w-4 au-text-primary-foreground' />
 						}
 						onClick={stopTimers}
-						padding='p-1'
 					/>
 				</div>
 			</div>
@@ -161,7 +158,7 @@ export default function Timer({
 					}
 					actionAltText='End Session'
 					duration={5000}
-					isOpen={showSessionEndToast}
+					open={showSessionEndToast}
 				/>
 			) : null}
 		</>
