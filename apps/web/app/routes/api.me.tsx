@@ -1,15 +1,19 @@
 import { ActionArgs, LoaderArgs, json, redirect } from '@remix-run/node'
+import invariant from 'tiny-invariant'
 import { checkUsername, updateUser } from '~/models/user.server'
 import { auth } from '~/services/auth.server'
 
-export async function loader({ request, params }: LoaderArgs) {
+export async function loader({ request }: LoaderArgs) {
 	const user = await auth.isAuthenticated(request)
 
 	if (!user) {
 		throw redirect('/login', 401)
 	}
 
-	const username = params.username as string
+	const url = new URL(request.url)
+	const username = url.searchParams.get('username')
+	invariant(typeof username === 'string', 'username must be a string')
+	invariant(username.length > 0, 'username cannot be empty')
 	const isAvailable = await checkUsername(username)
 	return json({ isAvailable })
 }

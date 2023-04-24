@@ -15,6 +15,13 @@ export async function getUserById(id: string) {
 	return prisma.user.findUnique({ where: { id } })
 }
 
+export async function getUserProfile(id: string) {
+	return prisma.user.findUnique({
+		select: { name: true, bio: true, username: true },
+		where: { id },
+	})
+}
+
 export async function getUserByUsername(username: string) {
 	return prisma.user.findUnique({
 		select: { id: true, username: true, name: true, bio: true },

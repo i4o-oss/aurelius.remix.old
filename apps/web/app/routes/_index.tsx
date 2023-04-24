@@ -10,6 +10,8 @@ import { Theme, useTheme } from '~/lib/theme'
 import { auth } from '~/services/auth.server'
 import { getPostByShareId } from '~/models/post.server'
 import { POST_ID_LOCAL_STORAGE_KEY } from '~/lib/constants'
+import { getUserProfile } from '~/models/user.server'
+import { getSettingsFromUserId } from '~/models/settings.server'
 
 export async function loader({ request }: LoaderArgs) {
 	const url = new URL(request.url)
@@ -17,19 +19,34 @@ export async function loader({ request }: LoaderArgs) {
 	let user = await auth.isAuthenticated(request)
 	if (user && shareId) {
 		const post = await getPostByShareId(shareId)
-		return json({ post, user })
+		const profile = await getUserProfile(user?.id)
+		const settings = await getSettingsFromUserId(user?.id)
+		return json({ post, settings, user: profile })
+	} else if (user) {
+		const profile = await getUserProfile(user?.id)
+		const settings = await getSettingsFromUserId(user?.id)
+		return json({ settings, user: profile })
 	} else {
-		return json({ user })
+		return json({})
 	}
 }
 
 export default function Write() {
 	const fetchers = useFetchers()
 	const fetcher = useFetcher()
-	// @ts-ignore
-	const { post, user } = useLoaderData<typeof loader>()
+	const {
+		// @ts-ignore
+		post,
+		// @ts-ignore
+		settings: settingsFromDb,
+		// @ts-ignore
+		user,
+	} = useLoaderData()
 	const [settings] = useLocalStorage<string>(SETTINGS_LOCAL_STORAGE_KEY)
-	const settingsData = JSON.parse(JSON.stringify(settings)) as SettingsData
+	const settingsData =
+		user && settingsFromDb
+			? settingsFromDb
+			: (JSON.parse(JSON.stringify(settings)) as SettingsData)
 	const [showSettingsDialog, setShowSettingsDialog] = useState(false)
 	const [theme, setTheme] = useTheme()
 
@@ -109,6 +126,7 @@ export default function Write() {
 				savePost={savePost}
 				saveWritingSession={saveWritingSession}
 				showSettingsDialog={showSettingsDialog}
+				settingsFromDb={settingsFromDb}
 				setShowSettingsDialog={setShowSettingsDialog}
 				sync={syncLocallySavedData}
 				theme={theme as Theme}

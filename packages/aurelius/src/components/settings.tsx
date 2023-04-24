@@ -1,5 +1,4 @@
 // TODO: Move this component to web package?
-// TODO: Tabs light and dark mode styles are messed up. Fix them in catalyst ui.
 //
 import { Dispatch, FormEvent, SetStateAction, useEffect } from 'react'
 import { useState } from 'react'
@@ -22,54 +21,64 @@ import {
 } from '../constants'
 import { DailyGoal, ProfileSettings, SettingsData } from '../types'
 import useDebounce from '../hooks/use-debounce'
+import { CheckIcon } from '@radix-ui/react-icons'
 
 interface SettingsDialogProps {
+	checkUsername?: (username: string) => void
+	fetcher?: any
 	settings: SettingsData
 	showSettingsDialog?: boolean
 	setShowSettingsDialog?: Dispatch<SetStateAction<boolean>>
-	updateUser: (update: ProfileSettings) => void
+	updateSettings?: (update: any) => void
+	updateUser?: (update: ProfileSettings) => void
 	user?: any
 }
 
 export default function Settings({
+	checkUsername,
+	fetcher,
 	settings,
 	showSettingsDialog,
 	setShowSettingsDialog,
+	updateSettings,
 	updateUser,
 	user,
 }: SettingsDialogProps) {
 	const [background, setBackground] = useState<string>(
-		settings?.export?.background || DEFAULT_BACKGROUND
+		settings?.background || DEFAULT_BACKGROUND
 	)
 	const [bio, setBio] = useState<string>(user?.bio || '')
 	const [dailyGoal, setDailyGoal] = useState<DailyGoal>(
-		settings?.goals?.dailyGoal || 'duration'
+		settings?.dailyGoal || 'duration'
 	)
-	const [durationTarget, setDurationTarget] = useState<number>(
-		settings?.goals?.durationTarget || 20
+	const [durationTarget, setDurationTarget] = useState<number>(() =>
+		settings?.dailyGoal === 'duration' ? settings?.target || 20 : 20
 	)
-	const [footer, setFooter] = useState<string>(settings?.export?.footer || '')
+	const [footer, setFooter] = useState<string>(settings?.footer || '')
 	const [musicChannel, setMusicChannel] = useState<string>(
-		settings?.music?.musicChannel || DEFAULT_MUSIC_CHANNEL
+		settings?.musicChannel || DEFAULT_MUSIC_CHANNEL
 	)
 	const [name, setName] = useState<string>(user?.name || '')
 	const [username, setUsername] = useState<string>(user?.username || '')
 	const [debouncedUsername, isDebouncing] = useDebounce(username, 1000)
-	const [wordCountTarget, setWordCountTarget] = useState<number>(
-		settings?.goals?.wordCountTarget || 300
+	const [watermark, setWatermark] = useState<boolean>(
+		settings?.watermark || true
+	)
+	const [wordCountTarget, setWordCountTarget] = useState<number>(() =>
+		settings?.dailyGoal === 'wordCount' ? settings?.target || 300 : 300
 	)
 	const [youtubeVideo, setYoutubeVideo] = useState<string>(
-		settings?.music?.youtubeVideo || ''
+		settings?.youtubeVideo || ''
 	)
 
-	// useEffect(() => {
-	// 	if (
-	// 		typeof debouncedUsername !== 'undefined' &&
-	// 		debouncedUsername !== ''
-	// 	) {
-	// 		checkUsername(debouncedUsername)
-	// 	}
-	// }, [debouncedUsername])
+	useEffect(() => {
+		if (
+			typeof debouncedUsername !== 'undefined' &&
+			debouncedUsername !== ''
+		) {
+			checkUsername?.(debouncedUsername)
+		}
+	}, [debouncedUsername])
 
 	const saveProfileSettings = (e: FormEvent) => {
 		e.preventDefault()
@@ -80,45 +89,69 @@ export default function Settings({
 				username,
 			}
 
-			updateUser(data)
+			updateUser?.(data)
 		}
 	}
 
 	const saveGoalSettings = (e: FormEvent) => {
 		e.preventDefault()
-		const data: SettingsData = {
-			...settings,
-			goals: {
+		if (user) {
+			const data = {
 				dailyGoal,
-				durationTarget: Number(durationTarget),
-				wordCountTarget: Number(wordCountTarget),
-			},
+				target:
+					dailyGoal === 'duration'
+						? Number(durationTarget)
+						: Number(wordCountTarget),
+			}
+			updateSettings?.(data)
+		} else {
+			const data: SettingsData = {
+				...settings,
+				dailyGoal,
+				target:
+					dailyGoal === 'duration'
+						? Number(durationTarget)
+						: Number(wordCountTarget),
+			}
+			writeStorage(SETTINGS_LOCAL_STORAGE_KEY, data)
 		}
-		writeStorage(SETTINGS_LOCAL_STORAGE_KEY, data)
 	}
 
 	const saveExportSettings = (e: FormEvent) => {
 		e.preventDefault()
-		const data: SettingsData = {
-			...settings,
-			export: {
+		if (user) {
+			const data = {
 				background,
 				footer,
-			},
+			}
+			updateSettings?.(data)
+		} else {
+			const data: SettingsData = {
+				...settings,
+				background,
+				footer,
+				watermark,
+			}
+			writeStorage(SETTINGS_LOCAL_STORAGE_KEY, data)
 		}
-		writeStorage(SETTINGS_LOCAL_STORAGE_KEY, data)
 	}
 
 	const saveMusicSettings = (e: FormEvent) => {
 		e.preventDefault()
-		const data: SettingsData = {
-			...settings,
-			music: {
+		if (user) {
+			const data = {
 				musicChannel,
 				youtubeVideo,
-			},
+			}
+			updateSettings?.(data)
+		} else {
+			const data: SettingsData = {
+				...settings,
+				musicChannel,
+				youtubeVideo,
+			}
+			writeStorage(SETTINGS_LOCAL_STORAGE_KEY, data)
 		}
-		writeStorage(SETTINGS_LOCAL_STORAGE_KEY, data)
 	}
 
 	const USER_TABS = user
@@ -130,6 +163,8 @@ export default function Settings({
 						<ProfileSettings
 							bio={bio}
 							setBio={setBio}
+							fetcher={fetcher}
+							hasUsernameChanged={user?.username !== username}
 							isDebouncing={isDebouncing}
 							name={name}
 							setName={setName}
@@ -171,6 +206,8 @@ export default function Settings({
 					setFooter={setFooter}
 					saveExportSettings={saveExportSettings}
 					user={user}
+					watermark={watermark}
+					setWatermark={setWatermark}
 				/>
 			),
 		},
@@ -218,6 +255,8 @@ export default function Settings({
 interface ProfileSettingsProps {
 	bio: string
 	setBio: Dispatch<SetStateAction<string>>
+	fetcher?: any
+	hasUsernameChanged?: boolean
 	isDebouncing?: boolean
 	name: string
 	setName: Dispatch<SetStateAction<string>>
@@ -229,6 +268,8 @@ interface ProfileSettingsProps {
 function ProfileSettings({
 	bio,
 	setBio,
+	fetcher,
+	hasUsernameChanged,
 	isDebouncing,
 	name,
 	setName,
@@ -268,18 +309,31 @@ function ProfileSettings({
 				<label className='au-col-span-1 au-py-2 au-text-sm au-font-medium au-text-primary-foreground'>
 					Username
 				</label>
-				<input
-					className='au-col-span-2 au-h-10 au-w-full au-rounded-md au-px-4 au-py-2 au-text-sm au-font-medium au-text-primary-foreground au-border au-border-subtle au-bg-transparent'
-					value={username}
-					name='name'
-					onChange={(e) => setUsername(e.target.value)}
-					type='text'
-				/>
-				{isDebouncing ? (
-					<p className='au-text-primary-foreground-subtle au-text-xs au-font-normal'>
-						Checking
-					</p>
-				) : null}
+				<div className='au-col-span-2 au-flex au-flex-col au-items-start au-justify-start'>
+					<input
+						className='au-col-span-2 au-h-10 au-w-full au-rounded-md au-px-4 au-py-2 au-text-sm au-font-medium au-text-primary-foreground au-border au-border-subtle au-bg-transparent'
+						value={username}
+						name='name'
+						onChange={(e) => setUsername(e.target.value)}
+						type='text'
+					/>
+					{isDebouncing ||
+					fetcher?.state === 'submitting' ||
+					fetcher?.state === 'loading' ? (
+						<p className='au-text-primary-foreground-subtle au-text-xs au-font-normal au-py-1'>
+							Checking...
+						</p>
+					) : null}
+					{!isDebouncing &&
+					hasUsernameChanged &&
+					fetcher?.data &&
+					fetcher?.data?.isAvailable ? (
+						<p className='au-text-brand au-text-xs au-font-normal au-py-1 au-flex au-items-center'>
+							<CheckIcon />
+							Available
+						</p>
+					) : null}
+				</div>
 			</div>
 			<div className='au-flex au-w-full au-items-center au-justify-end'>
 				<PrimaryButton type='submit'>Save</PrimaryButton>
@@ -328,7 +382,7 @@ function GoalSettings({
 							),
 						},
 						{
-							value: 'word-count',
+							value: 'wordCount',
 							label: 'Word Count',
 							icon: (
 								<div className='au-flex au-w-full au-h-full au-items-center au-justify-center au-py-2 au-px-4'>
@@ -389,6 +443,8 @@ interface ExportSettingsProps {
 	setFooter: Dispatch<SetStateAction<string>>
 	saveExportSettings: (e: FormEvent) => void
 	user?: any
+	watermark: boolean
+	setWatermark: Dispatch<SetStateAction<boolean>>
 }
 
 function ExportSettings({
@@ -398,6 +454,8 @@ function ExportSettings({
 	setFooter,
 	saveExportSettings,
 	user,
+	watermark,
+	setWatermark,
 }: ExportSettingsProps) {
 	const BACKGROUND_OPTIONS = [
 		'linear-gradient(45deg, #85FFBD 0%, #FFFB7D 100%)',
@@ -461,7 +519,11 @@ function ExportSettings({
 						Watermark
 					</label>
 					<div className='au-relative au-py-2'>
-						<Switch name='music-channels' />
+						<Switch
+							defaultChecked={watermark}
+							name='watermark'
+							onCheckedChange={(checked) => setWatermark(checked)}
+						/>
 					</div>
 				</div>
 			) : null}
