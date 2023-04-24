@@ -48,7 +48,7 @@ importers:
       '@aurelius/emails': workspace:*
       '@aurelius/eslint-config': workspace:*
       '@i4o/aurelius': workspace:*
-      '@i4o/catalystui': 1.0.0-alpha.4
+      '@i4o/catalystui': 1.0.0-alpha.5
       '@mdx-js/mdx': ^2.3.0
       '@mdx-js/react': ^2.3.0
       '@prisma/client': 4.11.0
@@ -104,7 +104,7 @@ importers:
     dependencies:
       '@aurelius/emails': link:../../packages/emails
       '@i4o/aurelius': link:../../packages/aurelius
-      '@i4o/catalystui': 1.0.0-alpha.4_zula6vjvt3wdocc4mwcxqa6nzi
+      '@i4o/catalystui': 1.0.0-alpha.5_zula6vjvt3wdocc4mwcxqa6nzi
       '@mdx-js/mdx': 2.3.0
       '@mdx-js/react': 2.3.0_react@18.2.0
       '@prisma/client': 4.11.0_prisma@4.11.0
@@ -165,7 +165,7 @@ importers:
       '@aurelius/eslint-config': workspace:*
       '@aurelius/tsconfig': workspace:*
       '@headlessui/react': ^1.7.12
-      '@i4o/catalystui': 1.0.0-alpha.4
+      '@i4o/catalystui': 1.0.0-alpha.5
       '@radix-ui/react-icons': ^1.2.0
       '@radix-ui/react-tabs': ^1.0.3
       '@rehooks/local-storage': ^2.4.4
@@ -223,7 +223,7 @@ importers:
       typescript: ^4.9.5
     dependencies:
       '@headlessui/react': 1.7.13_biqbaboplfbrettd7655fr4n2y
-      '@i4o/catalystui': 1.0.0-alpha.4_4qaawyptjkcgzqorucvhm3koke
+      '@i4o/catalystui': 1.0.0-alpha.5_4qaawyptjkcgzqorucvhm3koke
       '@radix-ui/react-icons': 1.2.0_react@18.2.0
       '@radix-ui/react-tabs': 1.0.3_biqbaboplfbrettd7655fr4n2y
       '@rehooks/local-storage': 2.4.4_react@18.2.0
@@ -2461,8 +2461,8 @@ packages:
   /@humanwhocodes/object-schema/1.2.1:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
 
-  /@i4o/catalystui/1.0.0-alpha.4_4qaawyptjkcgzqorucvhm3koke:
-    resolution: {integrity: sha512-JYtdqPtPLEe/cWG0AEz63Rcmuh8/8yotLX3opZM1to8gpYttsV0Ve0aYVhbyAENXN08YUdtqpvksq/YZ3lv36w==}
+  /@i4o/catalystui/1.0.0-alpha.5_4qaawyptjkcgzqorucvhm3koke:
+    resolution: {integrity: sha512-WMlreWhTSgY1HQ07x/e1Xvd14vwjW7xmbuKVDYENtsMbup+IgiF3Td8wIvAYI5fva6C6MNTVca7+edZATJpHiA==}
     peerDependencies:
       react: ^18.2.0
       react-dom: ^18.2.0
@@ -2500,8 +2500,8 @@ packages:
       - '@types/react'
     dev: false
 
-  /@i4o/catalystui/1.0.0-alpha.4_zula6vjvt3wdocc4mwcxqa6nzi:
-    resolution: {integrity: sha512-JYtdqPtPLEe/cWG0AEz63Rcmuh8/8yotLX3opZM1to8gpYttsV0Ve0aYVhbyAENXN08YUdtqpvksq/YZ3lv36w==}
+  /@i4o/catalystui/1.0.0-alpha.5_zula6vjvt3wdocc4mwcxqa6nzi:
+    resolution: {integrity: sha512-WMlreWhTSgY1HQ07x/e1Xvd14vwjW7xmbuKVDYENtsMbup+IgiF3Td8wIvAYI5fva6C6MNTVca7+edZATJpHiA==}
     peerDependencies:
       react: ^18.2.0
       react-dom: ^18.2.0
