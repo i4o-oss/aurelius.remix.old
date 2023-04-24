@@ -1,3 +1,4 @@
+import type { Dispatch, SetStateAction } from 'react'
 import type { Editor } from '@tiptap/core'
 
 export interface EditorToolbarProps {
@@ -21,6 +22,9 @@ export interface WriterProps {
 	post?: { title: string; content: string }
 	savePost: (title: string, content: string, wordCount: number) => void
 	saveWritingSession: (WritingSession: string) => void
+	showSettingsDialog?: boolean
+	settingsFromDb?: SettingsData
+	setShowSettingsDialog?: Dispatch<SetStateAction<boolean>>
 	sync: (params: SyncParams) => void
 	theme: Theme
 	toggleTheme: () => void
@@ -41,4 +45,25 @@ export interface WritingSession {
 export enum Theme {
 	DARK = 'dark',
 	LIGHT = 'light',
+}
+
+export type TitleAlignment = 'left' | 'center'
+
+export interface ProfileSettings {
+	name?: string
+	bio?: string
+	username?: string
+}
+
+export type DailyGoal = 'duration' | 'wordCount'
+
+export interface SettingsData {
+	dailyGoal: DailyGoal
+	target?: number
+	musicChannel?: string
+	youtubeVideo?: string
+	background?: string
+	footer?: string
+	watermark?: boolean
+	user?: ProfileSettings
 }

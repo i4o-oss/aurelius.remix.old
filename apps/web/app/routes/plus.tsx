@@ -156,18 +156,18 @@ function Pricing() {
 		<section className='py-24 sm:py-32'>
 			<div className='mx-auto max-w-5xl px-6 lg:px-8'>
 				<div className='mx-auto max-w-2xl sm:text-center'>
-					<h2 className='text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-50 sm:text-4xl'>
+					<h2 className='text-primary-foreground text-3xl font-bold tracking-tight sm:text-4xl'>
 						Pricing
 					</h2>
-					<p className='mt-6 text-lg leading-8 text-slate-700 dark:text-slate-300'>
+					<p className='text-primary-foreground-subtle mt-6 text-lg leading-8'>
 						Get instant access to current features and all future
 						updates.
 					</p>
 				</div>
 
-				<div className='mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-slate-400 dark:ring-slate-700 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none'>
+				<div className='ring-subtle mx-auto mt-16 max-w-2xl rounded-3xl ring-1 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none'>
 					<div className='flex flex-col justify-center p-8 sm:p-10 lg:flex-auto'>
-						<h3 className='text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-50'>
+						<h3 className='text-primary-foreground text-2xl font-bold tracking-tight'>
 							Subscription
 						</h3>
 						{/* <p className='mt-6 text-base leading-7 text-slate-700 dark:text-slate-300'> */}
@@ -180,16 +180,16 @@ function Pricing() {
 							<h4 className='text-brand-500 flex-none text-sm font-semibold leading-6'>
 								What’s included
 							</h4>
-							<div className='h-px flex-auto bg-slate-900 dark:bg-slate-50' />
+							<div className='bg-subtle h-px flex-auto' />
 						</div>
 						<ul
 							role='list'
-							className='mt-8 grid grid-cols-1 gap-4 text-sm leading-6 text-slate-600 dark:text-slate-500 sm:grid-cols-2 sm:gap-6'
+							className='text-primary-foreground-subtle mt-8 grid grid-cols-1 gap-4 text-sm leading-6 sm:grid-cols-2 sm:gap-6'
 						>
 							{includedFeatures.map((feature) => (
 								<li key={feature} className='flex gap-x-3'>
 									<CheckIcon
-										className='text-brand-500 h-6 w-5 flex-none'
+										className='text-brand h-6 w-5 flex-none'
 										aria-hidden='true'
 									/>
 									{feature}
@@ -198,9 +198,13 @@ function Pricing() {
 						</ul>
 					</div>
 					<div className='-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0'>
-						<div className='relative rounded-2xl bg-slate-100 py-6 text-center ring-1 ring-inset ring-slate-400 dark:bg-slate-800 dark:ring-slate-700 lg:flex lg:flex-col lg:justify-center lg:py-12'>
+						<div className='bg-primary-subtle late-100 ring-subtle relative rounded-2xl py-6 text-center ring-1 ring-inset lg:flex lg:flex-col lg:justify-center lg:py-12'>
 							<div className='absolute top-4 right-4 flex items-center justify-center gap-x-2'>
-								<label className='text-xs'>Monthly</label>
+								<label className='text-xs'>
+									{billingPeriod === 'monthly'
+										? 'Monthly'
+										: 'Yearly'}
+								</label>
 								<Switch
 									name='billing-period'
 									defaultChecked={billingPeriod === 'yearly'}
@@ -210,16 +214,15 @@ function Pricing() {
 										)
 									}
 								/>
-								<label className='text-xs'>Yearly</label>
 							</div>
 							<div className='mx-auto max-w-xs px-8'>
 								<p className='mt-6 flex items-baseline justify-center gap-x-2'>
-									<span className='text-5xl font-bold tracking-tight text-slate-900 dark:text-slate-50'>
+									<span className='text-primary-foreground text-5xl font-bold tracking-tight'>
 										{billingPeriod === 'monthly'
 											? '$15'
 											: '$12.5'}
 									</span>
-									<span className='text-sm font-semibold leading-6 tracking-wide text-slate-700 dark:text-slate-300'>
+									<span className='text-primary-foreground-subtle text-sm font-semibold leading-6 tracking-wide'>
 										/month
 									</span>
 								</p>
@@ -239,7 +242,7 @@ function Pricing() {
 								>
 									Try it free for 14 days
 								</PrimaryButton>
-								<p className='mt-6 text-xs leading-5 text-slate-700 dark:text-slate-300'>
+								<p className='text-primary-foreground-subtle mt-6 text-xs leading-5'>
 									Cancel anytime. We'll remind you 3 days
 									before trial ends.
 								</p>
@@ -248,9 +251,9 @@ function Pricing() {
 					</div>
 				</div>
 
-				<div className='mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-slate-400 dark:ring-slate-700 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none'>
+				<div className='ring-subtle mx-auto mt-16 max-w-2xl rounded-3xl ring-1 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none'>
 					<div className='flex flex-col justify-center p-8 sm:p-10 lg:flex-auto'>
-						<h3 className='text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-50'>
+						<h3 className='text-primary-foreground text-2xl font-bold tracking-tight'>
 							Lifetime membership
 						</h3>
 						{/* <p className='mt-6 text-base leading-7 text-slate-700 dark:text-slate-300'> */}
@@ -263,16 +266,16 @@ function Pricing() {
 							<h4 className='text-brand-500 flex-none text-sm font-semibold leading-6'>
 								What’s included
 							</h4>
-							<div className='h-px flex-auto bg-slate-900 dark:bg-slate-50' />
+							<div className='bg-subtle h-px flex-auto' />
 						</div>
 						<ul
 							role='list'
-							className='mt-8 grid grid-cols-1 gap-4 text-sm leading-6 text-slate-600 dark:text-slate-500 sm:grid-cols-2 sm:gap-6'
+							className='text-primary-foreground mt-8 grid grid-cols-1 gap-4 text-sm leading-6 sm:grid-cols-2 sm:gap-6'
 						>
 							{includedFeatures.map((feature) => (
 								<li key={feature} className='flex gap-x-3'>
 									<CheckIcon
-										className='text-brand-500 h-6 w-5 flex-none'
+										className='text-brand h-6 w-5 flex-none'
 										aria-hidden='true'
 									/>
 									{feature}
@@ -281,13 +284,13 @@ function Pricing() {
 						</ul>
 					</div>
 					<div className='-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0'>
-						<div className='rounded-2xl bg-slate-100 py-6 text-center ring-1 ring-inset ring-slate-400 dark:bg-slate-800 dark:ring-slate-700 lg:flex lg:flex-col lg:justify-center lg:py-12'>
+						<div className='bg-primary-subtle ring-subtle rounded-2xl py-6 text-center ring-1 ring-inset lg:flex lg:flex-col lg:justify-center lg:py-12'>
 							<div className='mx-auto max-w-xs px-8'>
 								<p className='mt-6 flex items-baseline justify-center gap-x-2'>
-									<span className='text-5xl font-bold tracking-tight text-slate-900 dark:text-slate-50'>
+									<span className='text-primary-foreground text-5xl font-bold tracking-tight'>
 										$40
 									</span>
-									<span className='text-base font-semibold italic leading-6 tracking-wide text-slate-700 dark:text-slate-300'>
+									<span className='text-primary-foreground-subtle text-base font-semibold italic leading-6 tracking-wide'>
 										<s>$300</s>
 									</span>
 								</p>
@@ -301,7 +304,7 @@ function Pricing() {
 								>
 									Try it free for 30 days
 								</PrimaryButton>
-								<p className='mt-6 text-xs leading-5 text-slate-700 dark:text-slate-300'>
+								<p className='text-primary-foreground-subtle mt-6 text-xs leading-5'>
 									30 days refund policy. No questions asked.
 								</p>
 							</div>
@@ -318,25 +321,25 @@ function FAQ() {
 		<section className='py-24 sm:py-32'>
 			<div className='mx-auto max-w-5xl px-6 lg:px-8'>
 				<div className='mx-auto max-w-2xl sm:text-center'>
-					<h2 className='text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-50 sm:text-4xl'>
+					<h2 className='text-primary-foreground text-3xl font-bold tracking-tight sm:text-4xl'>
 						FAQ
 					</h2>
 				</div>
-				<div className='mt-8 flex w-full flex-col gap-4 text-base leading-7 text-gray-700 dark:text-slate-300 lg:max-w-none'>
+				<div className='text-primary-foreground mt-8 flex w-full flex-col gap-4 text-base leading-7 lg:max-w-none'>
 					{faqs.map((faq, index) => (
 						<details
-							className='shadow-10xl group-open:ring-brand-500 group flex flex-wrap justify-between rounded-2xl bg-transparent py-7 px-8 ring-1 ring-slate-400 dark:ring-slate-700'
+							className='shadow-10xl group-open:ring-brand-500 ring-subtle group flex flex-wrap justify-between rounded-2xl bg-transparent py-7 px-8 ring-1'
 							key={`faq-${index}`}
 						>
 							<summary className='flex cursor-pointer list-none items-center justify-between font-medium'>
-								<h3 className='text-lg font-semibold leading-normal text-slate-900 dark:text-slate-50'>
+								<h3 className='text-primary-foreground text-lg font-semibold leading-normal'>
 									{faq.question}
 								</h3>
 								<span className='flex w-auto items-center justify-center p-2 transition group-open:rotate-180'>
 									<ChevronDownIcon className='h-6 w-6' />
 								</span>
 							</summary>
-							<p className='group-open:animate-fadeIn mt-4 font-medium text-slate-700 dark:text-slate-300'>
+							<p className='group-open:animate-fadeIn text-primary-foreground-subtle mt-4 font-medium'>
 								{faq.answer}
 							</p>
 						</details>
@@ -355,16 +358,16 @@ function Features() {
 					{/* <p className='text-brand-500 col-span-2 text-base font-semibold leading-7'> */}
 					{/* 	Become a better writer */}
 					{/* </p> */}
-					<h2 className='col-span-2 mt-2 text-left text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-50 md:text-4xl lg:text-5xl'>
+					<h2 className='text-primary-foreground col-span-2 mt-2 text-left text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl'>
 						Features
 					</h2>
-					<div className='col-span-2 mt-8 grid w-full grid-cols-2 gap-8 text-base leading-7 text-gray-700 dark:text-slate-300 lg:max-w-none'>
+					<div className='text-primary-foreground-subtle col-span-2 mt-8 grid w-full grid-cols-2 gap-8 text-base leading-7 lg:max-w-none'>
 						{features.map((feature) => (
 							<div
 								key={`feature-${feature.title}`}
-								className='hover:ring-brand-500 hover:dark:ring-brand-500 flex flex-col items-start rounded-2xl px-6 py-5 no-underline ring-1 ring-slate-400 transition-all duration-200 dark:ring-slate-700'
+								className='hover:ring-brand hover:dark:ring-brand ring-subtle flex flex-col items-start rounded-2xl px-6 py-5 no-underline ring-1 transition-all duration-200'
 							>
-								<div className='bg-brand-500 mb-4 flex h-12 w-12 items-center justify-center rounded-lg text-white'>
+								<div className='bg-brand mb-4 flex h-12 w-12 items-center justify-center rounded-lg text-white'>
 									{feature.icon}
 								</div>
 								<h2 className='m-0 mb-2 text-lg font-semibold'>
@@ -404,10 +407,10 @@ export default function Home() {
 										}
 										alt='writing illustration'
 									/>
-									<h1 className='text-left text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-50 sm:leading-tight md:text-6xl'>
+									<h1 className='text-primary-foreground text-left text-4xl font-bold tracking-tight sm:leading-tight md:text-6xl'>
 										Writing App for Modern Writers
 									</h1>
-									<p className='mt-6 text-lg leading-8 text-slate-700 dark:text-gray-300'>
+									<p className='text-primary-foreground-subtle mt-6 text-lg leading-8'>
 										Focused writing environment that helps
 										build a writing habit and reach your
 										writing goals.

@@ -18,6 +18,7 @@ import {
 	useNavigation,
 } from '@remix-run/react'
 import { useEffect } from 'react'
+import { withSentry } from '@sentry/remix'
 import { ThemeHead, ThemeProvider, useTheme } from '~/lib/theme'
 import { getThemeSession } from '~/lib/theme.server'
 // @ts-ignore
@@ -38,6 +39,7 @@ export const links: LinksFunction = () => {
 		{
 			rel: 'stylesheet',
 			href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&display=swap',
+			crossOrigin: 'anonymous',
 		},
 		{ rel: 'stylesheet', href: styles },
 		{ rel: 'stylesheet', href: nProgressStyles },
@@ -151,7 +153,7 @@ const Document = ({ children }: DocumentProps) => {
 				<Links />
 				<ThemeHead ssrTheme={Boolean(data.theme)} />
 			</head>
-			<body className='h-full w-full bg-zinc-50 font-sans dark:bg-[#040303]'>
+			<body className='bg-primary h-full w-full font-sans'>
 				<script
 					defer
 					type='text/javascript'
@@ -177,7 +179,7 @@ function App() {
 	)
 }
 
-export default function AppWithProviders() {
+function AppWithProviders() {
 	const data = useLoaderData<LoaderData>()
 
 	return (
@@ -186,3 +188,5 @@ export default function AppWithProviders() {
 		</ThemeProvider>
 	)
 }
+
+export default withSentry(AppWithProviders)

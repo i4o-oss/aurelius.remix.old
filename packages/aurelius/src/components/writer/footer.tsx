@@ -6,6 +6,7 @@ import { Button } from '@i4o/catalystui'
 import { MUSIC_STATIONS, SETTINGS_LOCAL_STORAGE_KEY } from '../../constants'
 import useLocalStorage from '@rehooks/local-storage'
 import { AureliusContext, AureliusProviderData } from './provider'
+import { SettingsData } from '../../types'
 
 // fixes react-player typescript issue
 const ReactPlayer = _ReactPlayer as unknown as React.FC<ReactPlayerProps>
@@ -20,15 +21,16 @@ export default function Footer() {
 		wordCount,
 	} = context
 	const [settings] = useLocalStorage(SETTINGS_LOCAL_STORAGE_KEY)
-	const youtubeVideo = JSON.parse(JSON.stringify(settings))?.music
-		?.youtubeVideo
+	const settingsData = JSON.parse(JSON.stringify(settings)) as SettingsData
+	const musicChannel = settingsData?.music?.musicChannel as string
+	const youtubeVideo = settingsData?.music?.youtubeVideo as string
 
 	return (
 		<div
 			className={`au-fixed au-bottom-0 au-left-0 au-flex au-h-12 au-w-full au-items-center au-justify-between au-px-6 `}
 		>
 			<div
-				className={`au-flex au-items-center au-justify-start au-transition-all au-duration-200 au-hover:opacity-100 ${
+				className={`au-flex au-items-center au-justify-start au-transition-all au-duration-200 hover:au-opacity-100 ${
 					focusMode ? 'au-opacity-5' : 'au-opacity-100'
 				}`}
 			>
@@ -68,27 +70,26 @@ export default function Footer() {
 			>
 				{isMusicPlaying ? (
 					<Button
-						bg='au-bg-transparent hover:!au-bg-slate-300 hover:dark:!au-bg-slate-700'
-						className='au-flex au-h-8 au-w-8 au-items-center au-justify-center'
+						className='au-flex au-h-8 au-w-8 au-items-center au-justify-center au-bg-transparent'
 						onClick={() => setIsMusicPlaying?.(false)}
 						padding='au-px-0 au-py-4'
 					>
-						<PauseIcon className='au-h-4 au-w-4 au-text-slate-800 dark:au-text-slate-100' />
+						<PauseIcon className='au-h-4 au-w-4 au-text-primary-foreground' />
 					</Button>
 				) : (
 					<Button
-						bg='au-bg-transparent hover:!au-bg-slate-300 hover:dark:!au-bg-slate-700'
-						className='au-flex au-h-8 au-w-8 au-items-center au-justify-center'
+						className='au-flex au-h-8 au-w-8 au-items-center au-justify-center au-bg-transparent'
 						onClick={() => setIsMusicPlaying?.(true)}
 						padding='au-px-0 au-py-4'
 					>
-						<PlayIcon className='au-h-4 au-w-4 au-text-slate-800 dark:au-text-slate-100' />
+						<PlayIcon className='au-h-4 au-w-4 au-text-primary-foreground' />
 					</Button>
 				)}
 				<Suspense fallback={<div>Loading...</div>}>
 					<ReactPlayer
 						playing={isMusicPlaying}
-						url={youtubeVideo || MUSIC_STATIONS.LOFI_GIRL_FOCUS}
+						// @ts-ignore
+						url={youtubeVideo || MUSIC_STATIONS[musicChannel]}
 						width='0'
 						height='0'
 						loop={true}

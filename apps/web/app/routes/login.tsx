@@ -1,12 +1,11 @@
 import { Button, PrimaryButton } from '@i4o/catalystui'
 import type { ActionArgs, LoaderArgs } from '@remix-run/node'
 import { sessionStorage } from '~/services/session.server'
-import { Form, useFetcher, useLoaderData } from '@remix-run/react'
+import { Form, useLoaderData } from '@remix-run/react'
 import { json } from '@remix-run/node'
 import { auth } from '~/services/auth.server'
 import { useTheme } from '~/lib/theme'
 import { Theme } from '@i4o/aurelius'
-import { TwitterLogoIcon } from '@radix-ui/react-icons'
 
 export async function loader({ request }: LoaderArgs) {
 	await auth.isAuthenticated(request, { successRedirect: '/' })
@@ -42,21 +41,21 @@ export default function SignIn() {
 					}
 					alt='Logo'
 				/>
-				<div className='flex flex-col items-center justify-center space-y-4 text-slate-900 dark:text-slate-50'>
+				<div className='text-primary-foreground flex flex-col items-center justify-center space-y-4'>
 					<h1 className='text-3xl font-bold'>
 						Get Started with Aurelius
 					</h1>
 				</div>
 			</div>
 			<div className='flex flex-col items-center justify-center'>
-				<div className='flex w-96 max-w-3xl flex-col items-center justify-center rounded-xl bg-slate-200 p-8 text-slate-900 shadow-lg dark:bg-slate-900 dark:text-slate-50'>
+				<div className='bg-primary-subtle text-primary-foreground flex w-96 max-w-3xl flex-col items-center justify-center rounded-xl p-8 shadow-lg'>
 					<Form action='/login' method='post'>
 						<div className='mb-6 w-full space-y-2'>
 							<label htmlFor='email'>
 								Enter your email address
 							</label>
 							<input
-								className='focus:border-brand-500 active:border-brand-500 focus:dark:border-brand-500 active:dark:border-brand-500 h-12 w-full rounded-md border border-slate-700 bg-transparent p-4 text-slate-900 outline-none focus:bg-transparent active:bg-transparent dark:border-slate-300 dark:text-slate-50'
+								className='focus:border-brand-500 active:border-brand-500 focus:dark:border-brand-500 active:dark:border-brand-500 border-subtle text-primary-foreground h-12 w-full rounded-md border bg-transparent p-4 outline-none focus:bg-transparent active:bg-transparent'
 								id='email'
 								type='email'
 								name='email'
@@ -64,13 +63,13 @@ export default function SignIn() {
 								required
 							/>
 							{magicLinkSent ? (
-								<p className='text-xs font-normal text-slate-600 dark:text-slate-400'>
+								<p className='text-primary-foreground-subtle text-xs font-normal'>
 									Successfully sent magic link.
 								</p>
 							) : (
-								<p className='text-xs font-normal text-slate-600 dark:text-slate-400'>
-									If you don't have an account yet, we'll
-									create one for you.
+								<p className='text-primary-foreground-subtle text-xs font-normal'>
+									If you don't have an account, we'll create
+									one for you.
 								</p>
 							)}
 						</div>
@@ -82,7 +81,7 @@ export default function SignIn() {
 							<span className='font-medium'>Sign In</span>
 						</PrimaryButton>
 					</Form>
-					<div className='my-4 flex w-full max-w-[24rem] items-center justify-center text-slate-500 before:relative before:w-1/2 before:border-t before:border-slate-400 before:content-[""] after:relative after:w-1/2 after:border-t after:border-slate-400 after:content-[""] dark:text-slate-500 before:dark:border-slate-600 after:dark:border-slate-600'>
+					<div className='text-primary-foreground-subtle before:border-subtle after:border-subtle my-4 flex w-full max-w-[24rem] items-center justify-center before:relative before:w-1/2 before:border-t before:content-[""] after:relative after:w-1/2 after:border-t after:content-[""]'>
 						<span className='text-md mx-4'>or</span>
 					</div>
 					<Form
@@ -108,32 +107,6 @@ export default function SignIn() {
 						>
 							<span className='font-medium'>
 								Continue with Google
-							</span>
-						</Button>
-					</Form>
-					<Form
-						className='mt-4 w-full'
-						action='/auth/twitter'
-						method='post'
-					>
-						<Button
-							className='flex h-12 w-full'
-							leftIcon={
-								<svg
-									className='h-4 w-4'
-									xmlns='http://www.w3.org/2000/svg'
-									viewBox='0 0 512 512'
-									fill='currentColor'
-								>
-									<path d='M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z' />
-								</svg>
-							}
-							padding='py-4'
-							textSize='text-md'
-							type='submit'
-						>
-							<span className='font-medium'>
-								Continue with Twitter
 							</span>
 						</Button>
 					</Form>

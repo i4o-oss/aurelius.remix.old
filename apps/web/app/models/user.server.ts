@@ -15,10 +15,38 @@ export async function getUserById(id: string) {
 	return prisma.user.findUnique({ where: { id } })
 }
 
+export async function getUserProfile(id: string) {
+	return prisma.user.findUnique({
+		select: { name: true, bio: true, username: true },
+		where: { id },
+	})
+}
+
 export async function getUserByUsername(username: string) {
 	return prisma.user.findUnique({
 		select: { id: true, username: true, name: true, bio: true },
 		where: { username },
+	})
+}
+
+export async function checkUsername(username: string) {
+	const user = await prisma.user.findUnique({
+		where: { username },
+	})
+
+	if (!user) {
+		return true
+	} else {
+		return false
+	}
+}
+
+export async function updateUser(id: string, data: any) {
+	return await prisma.user.update({
+		data,
+		where: {
+			id,
+		},
 	})
 }
 

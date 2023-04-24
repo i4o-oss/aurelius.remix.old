@@ -1,19 +1,16 @@
-import type { ReactNode } from 'react'
+import { ReactNode } from 'react'
 import type { WriterProps } from '../../types'
-import { useCallback, useContext, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useEditor } from '@tiptap/react'
 import BubbleMenuExt from '@tiptap/extension-bubble-menu'
 import { Link } from '@tiptap/extension-link'
 import { Placeholder } from '@tiptap/extension-placeholder'
 import StarterKit from '@tiptap/starter-kit'
+import Highlight from '@tiptap/extension-highlight'
 import SuperImage from '../extensions/super-image'
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
 import { lowlight } from 'lowlight'
-// import TaskItem from '@tiptap/extension-task-item'
-// import TaskList from '@tiptap/extension-task-list'
 import Youtube from '@tiptap/extension-youtube'
-// import VisualBookmark from '../extensions/visual-bookmark'
-import { Alert, Button, Dialog, PrimaryButton } from '@i4o/catalystui'
 import { Autosave } from 'react-autosave'
 import useLocalStorage, {
 	deleteFromStorage,
@@ -25,86 +22,29 @@ import MainMenu from './main-menu'
 import {
 	POST_LOCAL_STORAGE_KEY,
 	SESSION_LOCAL_STORAGE_KEY,
+	SETTINGS_LOCAL_STORAGE_KEY,
 } from '../../constants'
 import NewSession from './new-session'
-import Settings from './settings'
 import { downloadAsMarkdown } from '../../helpers'
-import AureliusProvider, {
-	AureliusContext,
-	AureliusProviderData,
-} from './provider'
-import { WritingSession, WritingSessionGoal } from '../../types'
+import AureliusProvider from './provider'
+import {
+	SettingsData,
+	TitleAlignment,
+	WritingSession,
+	WritingSessionGoal,
+} from '../../types'
 import Timer from './timer'
-
-function Reset({ confirmResetEditor }: { confirmResetEditor: () => void }) {
-	const context: AureliusProviderData = useContext(AureliusContext)
-	const { showResetAlert, setShowResetAlert } = context
-	return (
-		<Alert
-			isOpen={showResetAlert}
-			onOpenChange={setShowResetAlert}
-			cancel={
-				<Button
-					bg='!au-bg-slate-400 dark:!au-bg-slate-800 hover:!au-bg-slate-300 hover:dark:!au-bg-slate-700'
-					onClick={() => setShowResetAlert?.(false)}
-				>
-					Cancel
-				</Button>
-			}
-			action={
-				<PrimaryButton onClick={confirmResetEditor}>
-					Confirm
-				</PrimaryButton>
-			}
-			title={<h3 className='au-px-2 au-text-lg'>Are you sure?</h3>}
-			description='This will clear all the content from the editor. This action cannot be undone.'
-		/>
-	)
-}
-
-function WritingSessionRecap() {
-	const context: AureliusProviderData = useContext(AureliusContext)
-	const { sessionData, showSessionRecapDialog, setShowSessionRecapDialog } =
-		context
-	return (
-		<Dialog
-			isOpen={showSessionRecapDialog}
-			onOpenChange={setShowSessionRecapDialog}
-			title={
-				<h3 className='au-px-2 au-text-lg'>Writing Session Recap</h3>
-			}
-			trigger={null}
-		>
-			<div className='au-grid au-w-[24rem] au-grid-cols-2 au-gap-2 au-px-2 au-text-black dark:au-text-white'>
-				<p className='au-text-left'>Session Target:</p>
-				<p className='au-text-right'>
-					{sessionData?.goal === 'duration'
-						? `${sessionData?.target / 60} minutes`
-						: `${sessionData?.target} words`}
-				</p>
-				<p className='au-text-left'># of words written:</p>
-				<p className='au-text-right'>
-					{`${
-						// @ts-ignore
-						sessionData?.endingWordCount -
-						// @ts-ignore
-						sessionData?.startingWordCount
-					}`}
-				</p>
-				<p className='au-text-left'>Session Duration:</p>
-				<p className='au-text-right'>{`${
-					// @ts-ignore
-					Math.floor(sessionData?.duration / 60)
-				} minutes`}</p>
-			</div>
-		</Dialog>
-	)
-}
+import Reset from './reset'
+import WritingSessionRecap from './recap'
+import Export from './export'
 
 export default function Writer({
 	post,
 	savePost: savePostToDatabase,
 	saveWritingSession: saveWritingSessionToDatabase,
+	showSettingsDialog,
+	settingsFromDb,
+	setShowSettingsDialog,
 	sync,
 	theme,
 	toggleTheme,
@@ -114,9 +54,17 @@ export default function Writer({
 	const [writingSessions] = useLocalStorage<WritingSession[]>(
 		SESSION_LOCAL_STORAGE_KEY
 	)
+
+	const [settings] = useLocalStorage<string>(SETTINGS_LOCAL_STORAGE_KEY)
+	const settingsData =
+		user && settingsFromDb
+			? settingsFromDb
+			: (JSON.parse(JSON.stringify(settings)) as SettingsData)
 	const titleRef = useRef<HTMLTextAreaElement>(null)
+	const [author, setAuthor] = useState<string>('')
 	const [content, setContent] = useState('')
 	const [focusMode, setFocusMode] = useState(false)
+	const [footer, setFooter] = useState<string>(settingsData?.footer || '')
 	const [isMusicPlaying, setIsMusicPlaying] = useState(false)
 	const [isSaving, setIsSaving] = useState(false)
 	const [notifyOnSessionEnd, setNotifyOnSessionEnd] = useState(true)
@@ -126,12 +74,17 @@ export default function Writer({
 	const [sessionTarget, setSessionTarget] = useState<number>(0)
 	const [sessionFocusMode, setSessionFocusMode] = useState(true)
 	const [sessionMusic, setSessionMusic] = useState(true)
+	const [showExportImageDialog, setShowExportImageDialog] = useState(false)
 	const [showNewSessionDialog, setShowNewSessionDialog] = useState(false)
 	const [showResetAlert, setShowResetAlert] = useState(false)
 	const [showSessionEndToast, setShowSessionEndToast] = useState(false)
 	const [showSessionRecapDialog, setShowSessionRecapDialog] = useState(false)
-	const [showSettingsDialog, setShowSettingsDialog] = useState(false)
-	const [title, setTitle] = useState('')
+	const [showWritingPaths, setShowWritingPaths] = useState(false)
+	const [title, setTitle] = useState<string>('')
+	const [titleAlignment, setTitleAlignment] = useState<TitleAlignment>('left')
+	const [watermark, setWatermark] = useState<boolean>(
+		settingsData?.watermark || true
+	)
 	const [wordCount, setWordCount] = useState(0)
 
 	useEffect(() => {
@@ -211,6 +164,7 @@ export default function Writer({
 			Placeholder.configure({
 				placeholder: 'Start writing...',
 			}),
+			Highlight.configure({ multicolor: true }),
 			// @ts-ignore
 			StarterKit.configure({
 				heading: {
@@ -219,7 +173,7 @@ export default function Writer({
 			}),
 		],
 		onUpdate({ editor }) {
-			const html = editor.getHTML()
+			let html = editor.isEmpty ? '' : editor.getHTML()
 			const contentText = editor?.state?.doc?.textContent
 			const wordCount = contentText?.split(' ').length
 			setContent(html)
@@ -376,51 +330,64 @@ export default function Writer({
 		)
 	}
 
+	const data = {
+		author,
+		setAuthor,
+		content,
+		setContent,
+		editor,
+		focusMode,
+		setFocusMode,
+		footer,
+		setFooter,
+		isMusicPlaying,
+		setIsMusicPlaying,
+		isSaving,
+		setIsSaving,
+		localPost,
+		notifyOnSessionEnd,
+		setNotifyOnSessionEnd,
+		post,
+		settings: settingsData,
+		sessionData,
+		setSessionData,
+		sessionFocusMode,
+		setSessionFocusMode,
+		sessionGoal,
+		setSessionGoal,
+		sessionMusic,
+		setSessionMusic,
+		sessionTarget,
+		setSessionTarget,
+		showExportImageDialog,
+		setShowExportImageDialog,
+		showNewSessionDialog,
+		setShowNewSessionDialog,
+		showResetAlert,
+		setShowResetAlert,
+		showSessionEndToast,
+		setShowSessionEndToast,
+		showSessionRecapDialog,
+		setShowSessionRecapDialog,
+		showSettingsDialog,
+		setShowSettingsDialog,
+		showWritingPaths,
+		setShowWritingPaths,
+		theme,
+		toggleTheme,
+		title,
+		setTitle,
+		titleAlignment,
+		setTitleAlignment,
+		user,
+		watermark,
+		setWatermark,
+		wordCount,
+		setWordCount,
+	}
+
 	return (
-		<AureliusProvider
-			data={{
-				content,
-				setContent,
-				editor,
-				focusMode,
-				setFocusMode,
-				isMusicPlaying,
-				setIsMusicPlaying,
-				isSaving,
-				setIsSaving,
-				localPost,
-				notifyOnSessionEnd,
-				setNotifyOnSessionEnd,
-				post,
-				sessionData,
-				setSessionData,
-				sessionFocusMode,
-				setSessionFocusMode,
-				sessionGoal,
-				setSessionGoal,
-				sessionMusic,
-				setSessionMusic,
-				sessionTarget,
-				setSessionTarget,
-				showNewSessionDialog,
-				setShowNewSessionDialog,
-				showResetAlert,
-				setShowResetAlert,
-				showSessionEndToast,
-				setShowSessionEndToast,
-				showSessionRecapDialog,
-				setShowSessionRecapDialog,
-				showSettingsDialog,
-				setShowSettingsDialog,
-				theme,
-				toggleTheme,
-				title,
-				setTitle,
-				user,
-				wordCount,
-				setWordCount,
-			}}
-		>
+		<AureliusProvider data={data}>
 			<main className='au-flex au-h-full au-w-full au-flex-col au-items-center au-justify-start'>
 				<Autosave
 					data={autoSaveData}
@@ -438,6 +405,7 @@ export default function Writer({
 					/>
 					{SessionComponent}
 				</div>
+				{/* <WritingPaths /> */}
 				<section className='au-flex au-h-full au-w-full au-flex-grow au-flex-col au-items-center au-justify-start'>
 					<div className='au-flex au-h-full au-w-full au-flex-col au-items-center au-justify-start au-space-y-4 au-px-4 au-py-24 md:au-py-16 lg:au-px-0'>
 						<div className='au-w-full au-max-w-3xl'>
@@ -458,14 +426,10 @@ export default function Writer({
 				<WriterFooter />
 			</main>
 
-			{showResetAlert ? (
-				<Reset confirmResetEditor={confirmResetEditor} />
-			) : null}
-			{showNewSessionDialog ? (
-				<NewSession startSession={startSession} />
-			) : null}
-			{showSettingsDialog ? <Settings /> : null}
-			{showSessionRecapDialog ? <WritingSessionRecap /> : null}
+			<Reset confirmResetEditor={confirmResetEditor} />
+			<NewSession startSession={startSession} />
+			<WritingSessionRecap />
+			<Export />
 		</AureliusProvider>
 	)
 }

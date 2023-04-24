@@ -55,9 +55,13 @@ export default function NewSession({
 
 	return (
 		<Dialog
-			isOpen={showNewSessionDialog}
+			open={showNewSessionDialog}
 			onOpenChange={setShowNewSessionDialog}
-			title={<h3 className='au-px-2 au-text-lg'>New Writing Session</h3>}
+			title={
+				<h3 className='au-px-4 au-pt-4 au-pb-2 au-text-lg'>
+					New Writing Session
+				</h3>
+			}
 			action={
 				<PrimaryButton onClick={startWritingSession}>
 					<span className='au-text-sm'>Start</span>
@@ -72,8 +76,8 @@ export default function NewSession({
 				</Button>
 			}
 		>
-			<div className='au-mt-4 au-w-96 au-px-2'>
-				<div className='au-grid au-w-full au-grid-cols-5 au-gap-4 au-text-black dark:au-text-white'>
+			<div className='au-mt-4 au-w-96 au-px-4 au-py-2'>
+				<div className='au-grid au-w-full au-grid-cols-5 au-gap-4 au-text-primary-foreground'>
 					<label
 						htmlFor='session_goal'
 						className='au-col-span-3 au-text-sm'
@@ -95,7 +99,7 @@ export default function NewSession({
 					</label>
 					<div className='au-col-span-2 au-flex au-items-center au-justify-start au-space-x-2'>
 						<input
-							className='au-h-8 au-w-16 au-rounded-md au-border au-border-black au-bg-transparent au-px-2 au-py-1 au-text-sm dark:au-border-white'
+							className='au-h-8 au-w-16 au-rounded-md au-border au-border-subtle au-bg-transparent au-px-2 au-py-1 au-text-sm'
 							value={
 								sessionGoal === 'duration'
 									? (sessionTarget || 0) / 60

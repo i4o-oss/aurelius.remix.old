@@ -6,11 +6,13 @@ import { sessionStorage } from '~/services/session.server'
 
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID as string
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET as string
+const APP_URL = process.env.APP_URL as string
 
 if (!GOOGLE_CLIENT_ID)
 	throw new Error('Missing GOOGLE_CLIENT_ID environment variable')
 if (!GOOGLE_CLIENT_SECRET)
 	throw new Error('Missing GOOGLE_CLIENT_SECRET environment variable')
+if (!APP_URL) throw new Error('Missing APP_URL environment variable')
 
 export let auth = new Authenticator<User>(sessionStorage)
 
@@ -20,7 +22,7 @@ auth.use(
 		{
 			clientID: GOOGLE_CLIENT_ID,
 			clientSecret: GOOGLE_CLIENT_SECRET,
-			callbackURL: 'http://localhost:3001/auth/google/callback',
+			callbackURL: `${APP_URL}/auth/google/callback`,
 		},
 		async ({ accessToken, refreshToken, extraParams, profile }) => {
 			const email = profile.emails[0].value
