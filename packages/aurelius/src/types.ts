@@ -48,6 +48,12 @@ export enum Theme {
 
 export type TitleAlignment = 'left' | 'center'
 
+export interface ProfileSettings {
+	name?: string
+	bio?: string
+	username?: string
+}
+
 export type DailyGoal = 'duration' | 'wordCount'
 
 export interface GoalSettings {
@@ -67,6 +73,7 @@ export interface ExportSettings {
 }
 
 export interface SettingsData {
+	user?: ProfileSettings
 	goals?: GoalSettings
 	music?: MusicSettings
 	export?: ExportSettings

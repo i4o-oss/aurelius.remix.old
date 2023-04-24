@@ -1,7 +1,7 @@
 // TODO: Move this component to web package?
 // TODO: Tabs light and dark mode styles are messed up. Fix them in catalyst ui.
 //
-import { Dispatch, FormEvent, SetStateAction } from 'react'
+import { Dispatch, FormEvent, SetStateAction, useEffect } from 'react'
 import { useState } from 'react'
 import {
 	Dialog,
@@ -20,12 +20,14 @@ import {
 	DEFAULT_MUSIC_CHANNEL,
 	SETTINGS_LOCAL_STORAGE_KEY,
 } from '../constants'
-import { DailyGoal, SettingsData } from '../types'
+import { DailyGoal, ProfileSettings, SettingsData } from '../types'
+import useDebounce from '../hooks/use-debounce'
 
-interface SettingsProps {
+interface SettingsDialogProps {
 	settings: SettingsData
 	showSettingsDialog?: boolean
 	setShowSettingsDialog?: Dispatch<SetStateAction<boolean>>
+	updateUser: (update: ProfileSettings) => void
 	user?: any
 }
 
@@ -33,14 +35,14 @@ export default function Settings({
 	settings,
 	showSettingsDialog,
 	setShowSettingsDialog,
+	updateUser,
 	user,
-}: SettingsProps) {
+}: SettingsDialogProps) {
 	const [background, setBackground] = useState<string>(
 		settings?.export?.background || DEFAULT_BACKGROUND
 	)
-	const [bio, setBio] = useState<string>('')
+	const [bio, setBio] = useState<string>(user?.bio || '')
 	const [dailyGoal, setDailyGoal] = useState<DailyGoal>(
-		// @ts-ignore
 		settings?.goals?.dailyGoal || 'duration'
 	)
 	const [durationTarget, setDurationTarget] = useState<number>(
@@ -50,8 +52,9 @@ export default function Settings({
 	const [musicChannel, setMusicChannel] = useState<string>(
 		settings?.music?.musicChannel || DEFAULT_MUSIC_CHANNEL
 	)
-	const [name, setName] = useState<string>('')
-	const [username, setUsername] = useState<string>('')
+	const [name, setName] = useState<string>(user?.name || '')
+	const [username, setUsername] = useState<string>(user?.username || '')
+	const [debouncedUsername, isDebouncing] = useDebounce(username, 1000)
 	const [wordCountTarget, setWordCountTarget] = useState<number>(
 		settings?.goals?.wordCountTarget || 300
 	)
@@ -59,8 +62,26 @@ export default function Settings({
 		settings?.music?.youtubeVideo || ''
 	)
 
+	// useEffect(() => {
+	// 	if (
+	// 		typeof debouncedUsername !== 'undefined' &&
+	// 		debouncedUsername !== ''
+	// 	) {
+	// 		checkUsername(debouncedUsername)
+	// 	}
+	// }, [debouncedUsername])
+
 	const saveProfileSettings = (e: FormEvent) => {
 		e.preventDefault()
+		if (user) {
+			const data = {
+				name,
+				bio,
+				username,
+			}
+
+			updateUser(data)
+		}
 	}
 
 	const saveGoalSettings = (e: FormEvent) => {
@@ -109,6 +130,7 @@ export default function Settings({
 						<ProfileSettings
 							bio={bio}
 							setBio={setBio}
+							isDebouncing={isDebouncing}
 							name={name}
 							setName={setName}
 							saveProfileSettings={saveProfileSettings}
@@ -148,6 +170,7 @@ export default function Settings({
 					footer={footer}
 					setFooter={setFooter}
 					saveExportSettings={saveExportSettings}
+					user={user}
 				/>
 			),
 		},
@@ -195,6 +218,7 @@ export default function Settings({
 interface ProfileSettingsProps {
 	bio: string
 	setBio: Dispatch<SetStateAction<string>>
+	isDebouncing?: boolean
 	name: string
 	setName: Dispatch<SetStateAction<string>>
 	saveProfileSettings: (e: FormEvent) => void
@@ -205,6 +229,7 @@ interface ProfileSettingsProps {
 function ProfileSettings({
 	bio,
 	setBio,
+	isDebouncing,
 	name,
 	setName,
 	saveProfileSettings,
@@ -250,6 +275,11 @@ function ProfileSettings({
 					onChange={(e) => setUsername(e.target.value)}
 					type='text'
 				/>
+				{isDebouncing ? (
+					<p className='au-text-primary-foreground-subtle au-text-xs au-font-normal'>
+						Checking
+					</p>
+				) : null}
 			</div>
 			<div className='au-flex au-w-full au-items-center au-justify-end'>
 				<PrimaryButton type='submit'>Save</PrimaryButton>
@@ -394,6 +424,7 @@ function ExportSettings({
 			/>
 		),
 	}))
+
 	return (
 		<form
 			className='au-flex au-w-full au-flex-col au-items-center au-justify-start au-gap-8'
