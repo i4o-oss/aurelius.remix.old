@@ -34,6 +34,15 @@ export async function checkUsername(username: string) {
 	}
 }
 
+export async function updateUser(id: string, data: any) {
+	return await prisma.user.update({
+		data,
+		where: {
+			id,
+		},
+	})
+}
+
 // @ts-ignore
 export async function findOrCreateUser(email: string, name: string) {
 	let user = await getUserByEmail(email)

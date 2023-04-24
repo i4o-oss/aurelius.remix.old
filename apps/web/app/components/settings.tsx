@@ -17,13 +17,24 @@ export default function Settings({
 }: SettingsProps) {
 	const fetcher = useFetcher()
 
-	const checkUsername = (username: string) => {}
+	const checkUsername = (username: string) => {
+		if (user && username) {
+			fetcher.load(`/api/me?username=${username}`)
+		}
+	}
+
+	const updateUser = (update: any) => {
+		if (update) {
+			fetcher.submit({ ...update }, { method: 'put', action: '/api/me' })
+		}
+	}
 
 	return (
 		<SettingsDialog
 			settings={settings}
 			showSettingsDialog={showSettingsDialog}
 			setShowSettingsDialog={setShowSettingsDialog}
+			updateUser={updateUser}
 			user={user}
 		/>
 	)
