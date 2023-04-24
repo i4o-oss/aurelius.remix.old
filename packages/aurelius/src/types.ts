@@ -23,6 +23,7 @@ export interface WriterProps {
 	savePost: (title: string, content: string, wordCount: number) => void
 	saveWritingSession: (WritingSession: string) => void
 	showSettingsDialog?: boolean
+	settingsFromDb?: SettingsData
 	setShowSettingsDialog?: Dispatch<SetStateAction<boolean>>
 	sync: (params: SyncParams) => void
 	theme: Theme
@@ -56,25 +57,13 @@ export interface ProfileSettings {
 
 export type DailyGoal = 'duration' | 'wordCount'
 
-export interface GoalSettings {
-	dailyGoal: DailyGoal
-	durationTarget?: number
-	wordCountTarget?: number
-}
-
-export interface MusicSettings {
-	musicChannel: string
-	youtubeVideo?: string
-}
-
-export interface ExportSettings {
-	background: string
-	footer: string
-}
-
 export interface SettingsData {
+	dailyGoal: DailyGoal
+	target?: number
+	musicChannel?: string
+	youtubeVideo?: string
+	background?: string
+	footer?: string
+	watermark?: boolean
 	user?: ProfileSettings
-	goals?: GoalSettings
-	music?: MusicSettings
-	export?: ExportSettings
 }

@@ -25,7 +25,6 @@ import {
 	SETTINGS_LOCAL_STORAGE_KEY,
 } from '../../constants'
 import NewSession from './new-session'
-import Settings from '../settings'
 import { downloadAsMarkdown } from '../../helpers'
 import AureliusProvider from './provider'
 import {
@@ -44,6 +43,7 @@ export default function Writer({
 	savePost: savePostToDatabase,
 	saveWritingSession: saveWritingSessionToDatabase,
 	showSettingsDialog,
+	settingsFromDb,
 	setShowSettingsDialog,
 	sync,
 	theme,
@@ -54,20 +54,17 @@ export default function Writer({
 	const [writingSessions] = useLocalStorage<WritingSession[]>(
 		SESSION_LOCAL_STORAGE_KEY
 	)
+
 	const [settings] = useLocalStorage<string>(SETTINGS_LOCAL_STORAGE_KEY)
-	const settingsData = JSON.parse(JSON.stringify(settings)) as SettingsData
-	const savedBackground = settingsData?.export?.background
-	const savedDailyGoal = settingsData?.goals?.dailyGoal
-	const savedDurationTarget = settingsData?.goals?.durationTarget
-	const savedFooter = settingsData?.export?.footer
-	const savedMusicChannel = settingsData?.music?.musicChannel
-	const savedWordCountTarget = settingsData?.goals?.wordCountTarget
-	const savedYoutubeVideo = settingsData?.music?.youtubeVideo
+	const settingsData =
+		user && settingsFromDb
+			? settingsFromDb
+			: (JSON.parse(JSON.stringify(settings)) as SettingsData)
 	const titleRef = useRef<HTMLTextAreaElement>(null)
 	const [author, setAuthor] = useState<string>('')
 	const [content, setContent] = useState('')
 	const [focusMode, setFocusMode] = useState(false)
-	const [footer, setFooter] = useState<string>(savedFooter || '')
+	const [footer, setFooter] = useState<string>(settingsData?.footer || '')
 	const [isMusicPlaying, setIsMusicPlaying] = useState(false)
 	const [isSaving, setIsSaving] = useState(false)
 	const [notifyOnSessionEnd, setNotifyOnSessionEnd] = useState(true)
@@ -85,6 +82,9 @@ export default function Writer({
 	const [showWritingPaths, setShowWritingPaths] = useState(false)
 	const [title, setTitle] = useState<string>('')
 	const [titleAlignment, setTitleAlignment] = useState<TitleAlignment>('left')
+	const [watermark, setWatermark] = useState<boolean>(
+		settingsData?.watermark || true
+	)
 	const [wordCount, setWordCount] = useState(0)
 
 	useEffect(() => {
@@ -348,13 +348,6 @@ export default function Writer({
 		notifyOnSessionEnd,
 		setNotifyOnSessionEnd,
 		post,
-		savedBackground,
-		savedDailyGoal,
-		savedDurationTarget,
-		savedFooter,
-		savedMusicChannel,
-		savedWordCountTarget,
-		savedYoutubeVideo,
 		settings: settingsData,
 		sessionData,
 		setSessionData,
@@ -387,6 +380,8 @@ export default function Writer({
 		titleAlignment,
 		setTitleAlignment,
 		user,
+		watermark,
+		setWatermark,
 		wordCount,
 		setWordCount,
 	}

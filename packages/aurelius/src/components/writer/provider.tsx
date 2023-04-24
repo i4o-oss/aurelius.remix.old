@@ -30,13 +30,6 @@ export interface AureliusProviderData {
 	notifyOnSessionEnd?: boolean
 	setNotifyOnSessionEnd?: Dispatch<SetStateAction<boolean>>
 	post?: { title: string; content: string }
-	savedBackground?: string
-	savedDailyGoal?: DailyGoal
-	savedDurationTarget?: number
-	savedFooter?: string
-	savedMusicChannel?: string
-	savedWordCountTarget?: number
-	savedYoutubeVideo?: string
 	settings?: SettingsData
 	sessionData?: WritingSession | null
 	setSessionData?: Dispatch<SetStateAction<WritingSession | null>>
@@ -71,6 +64,8 @@ export interface AureliusProviderData {
 	titleAlignment?: TitleAlignment
 	setTitleAlignment?: Dispatch<SetStateAction<TitleAlignment>>
 	user?: any
+	watermark?: boolean
+	setWatermark?: Dispatch<SetStateAction<boolean>>
 	wordCount?: number
 	setWordCount?: Dispatch<SetStateAction<number>>
 }

@@ -57,18 +57,16 @@ const ExportImageContent = forwardRef<HTMLDivElement, ExportImageContentProps>(
 							__html: content,
 						}}
 					/>
-					{footer || watermark ? (
-						<div className='au-absolute au-bottom-8 au-left-12 au-w-[calc(100%-6rem)] au-text-gray-700 au-flex au-items-center au-justify-between'>
-							{footer ? (
-								<p className='au-m-0'>{footer}</p>
-							) : (
-								<p className='au-m-0'></p>
-							)}
-							{watermark ? (
-								<p className='au-m-0'>Made with Aurelius</p>
-							) : null}
-						</div>
-					) : null}
+					<div className='au-absolute au-bottom-8 au-left-12 au-w-[calc(100%-6rem)] au-text-gray-700 au-flex au-items-center au-justify-between'>
+						{footer ? (
+							<p className='au-m-0'>{footer}</p>
+						) : (
+							<p className='au-m-0'></p>
+						)}
+						{watermark ? (
+							<p className='au-m-0'>Made with Aurelius</p>
+						) : null}
+					</div>
 				</div>
 			</div>
 		)

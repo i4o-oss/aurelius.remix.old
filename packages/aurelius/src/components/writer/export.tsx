@@ -20,12 +20,14 @@ export default function Export() {
 		content,
 		footer,
 		setFooter,
-		savedBackground,
+		settings,
 		showExportImageDialog,
 		setShowExportImageDialog,
 		title,
 		titleAlignment,
 		setTitleAlignment,
+		watermark,
+		setWatermark,
 		wordCount,
 	} = context
 	const canvasRef = useRef<HTMLDivElement>(null)
@@ -82,14 +84,14 @@ export default function Export() {
 				<div className='au-w-full au-h-auto au-min-h-[64rem] au-flex-1 au-flex-grow au-grid-cols-2 au-gap-2 au-p-4'>
 					<ExportImageContent
 						author={author}
-						background={savedBackground as string}
+						background={settings?.background as string}
 						content={content as string}
 						footer={footer}
 						ref={canvasRef}
 						scale='au-prose-base'
 						title={title as string}
 						titleAlignment={titleAlignment as TitleAlignment}
-						watermark={true}
+						watermark={watermark}
 					/>
 				</div>
 				<div className='au-w-96 au-p-4 au-flex au-flex-col au-justify-start au-relative'>
@@ -151,8 +153,11 @@ export default function Export() {
 							</label>
 							<div className='au-col-span-2 au-relative au-py-2 au-flex au-items-center au-justify-end'>
 								<Switch
-									defaultChecked={true}
-									name='music-channels'
+									defaultChecked={watermark}
+									name='watermark'
+									onCheckedChange={(checked) =>
+										setWatermark?.(checked)
+									}
 								/>
 							</div>
 						</div>
