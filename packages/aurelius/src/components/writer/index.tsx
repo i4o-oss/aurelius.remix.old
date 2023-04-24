@@ -433,12 +433,6 @@ export default function Writer({
 
 			<Reset confirmResetEditor={confirmResetEditor} />
 			<NewSession startSession={startSession} />
-			<Settings
-				settings={settingsData}
-				showSettingsDialog={showSettingsDialog}
-				setShowSettingsDialog={setShowSettingsDialog}
-				user={user}
-			/>
 			<WritingSessionRecap />
 			<Export />
 		</AureliusProvider>
