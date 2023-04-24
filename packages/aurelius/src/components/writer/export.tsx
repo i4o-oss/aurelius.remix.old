@@ -26,6 +26,7 @@ export default function Export() {
 		title,
 		titleAlignment,
 		setTitleAlignment,
+		wordCount,
 	} = context
 	const canvasRef = useRef<HTMLDivElement>(null)
 
@@ -47,12 +48,20 @@ export default function Export() {
 		if (window) {
 			// @ts-ignore
 			const element = findDOMNode(canvasRef.current)
-			// @ts-ignore
-			toPng(element, { pixelRatio: 2 })
-				.then((dataUrl) => {
-					saveAs(dataUrl, 'file.png')
-				})
-				.catch((err) => console.log(err))
+			if (
+				title &&
+				content &&
+				typeof wordCount !== 'undefined' &&
+				wordCount > 0 &&
+				wordCount <= 320
+			) {
+				// @ts-ignore
+				toPng(element, { pixelRatio: 2 })
+					.then((dataUrl) => {
+						saveAs(dataUrl, 'file.png')
+					})
+					.catch((err) => console.log(err))
+			}
 		}
 	}
 
