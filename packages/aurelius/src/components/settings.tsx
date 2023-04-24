@@ -463,10 +463,6 @@ function MusicSettings({
 		{ value: 'post-rock', label: 'Post Rock' },
 	]
 
-	const SELECTED_CHANNEL = CHANNELS.find(
-		(channel) => channel.value === musicChannel
-	)
-
 	return (
 		<form
 			className='au-flex au-w-full au-flex-col au-items-center au-justify-start au-gap-8'
@@ -478,12 +474,10 @@ function MusicSettings({
 				</label>
 				<div className='au-relative'>
 					<Select
-						defaultValue={SELECTED_CHANNEL?.value}
+						defaultValue={musicChannel}
 						items={CHANNELS}
 						name='music-channels'
-						onValueChange={(channel) =>
-							setMusicChannel(channel.value)
-						}
+						onValueChange={setMusicChannel}
 					/>
 				</div>
 			</div>
