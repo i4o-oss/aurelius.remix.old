@@ -85,7 +85,6 @@ export default function Writer({
 	const [showWritingPaths, setShowWritingPaths] = useState(false)
 	const [title, setTitle] = useState<string>('')
 	const [titleAlignment, setTitleAlignment] = useState<TitleAlignment>('left')
-
 	const [wordCount, setWordCount] = useState(0)
 
 	useEffect(() => {
@@ -432,20 +431,16 @@ export default function Writer({
 				<WriterFooter />
 			</main>
 
-			{showResetAlert ? (
-				<Reset confirmResetEditor={confirmResetEditor} />
-			) : null}
-			{showNewSessionDialog ? (
-				<NewSession startSession={startSession} />
-			) : null}
+			<Reset confirmResetEditor={confirmResetEditor} />
+			<NewSession startSession={startSession} />
 			<Settings
 				settings={settingsData}
 				showSettingsDialog={showSettingsDialog}
 				setShowSettingsDialog={setShowSettingsDialog}
 				user={user}
 			/>
-			{showSessionRecapDialog ? <WritingSessionRecap /> : null}
-			{showExportImageDialog ? <Export /> : null}
+			<WritingSessionRecap />
+			<Export />
 		</AureliusProvider>
 	)
 }
