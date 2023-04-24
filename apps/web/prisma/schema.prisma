@@ -70,7 +70,7 @@ model Post {
     userId    String
     createdAt DateTime  @default(now())
     updatedAt DateTime? @default(now()) @updatedAt
-    wordCount Int
+    wordCount Int       @default(0)
     slug      String
     shareId   String    @unique
 
