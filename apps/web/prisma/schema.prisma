@@ -23,6 +23,22 @@ model User {
     Post           Post[]
     WritingSession WritingSession[]
     Writing        Writing[]
+    Settings       Settings[]
+}
+
+model Settings {
+    id           String   @id @default(cuid())
+    dailyGoal    String?  @default("duration")
+    target       Int?     @default(20)
+    background   String?
+    footer       String?
+    watermark    Boolean?
+    musicChannel String?  @default("lofi-hiphop")
+    youtubeVideo String?
+    user         User     @relation(fields: [userId], references: [id])
+    userId       String   @unique
+
+    @@index([userId])
 }
 
 model WritingPath {
