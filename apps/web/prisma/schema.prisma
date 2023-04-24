@@ -70,7 +70,7 @@ model Post {
     userId    String
     createdAt DateTime  @default(now())
     updatedAt DateTime? @default(now()) @updatedAt
-    wordCount Int
+    wordCount Int       @default(0)
     slug      String
     shareId   String    @unique
 
@@ -101,8 +101,8 @@ model WritingSession {
     id                String   @id @default(cuid())
     goal              String
     target            Int
-    startingWordCount Int
-    endingWordCount   Int
+    startingWordCount Int      @default(0)
+    endingWordCount   Int      @default(0)
     result            Int
     createdAt         DateTime @default(now())
     updatedAt         DateTime @default(now()) @updatedAt
