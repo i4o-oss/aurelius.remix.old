@@ -63,10 +63,10 @@ export async function findOrCreateUser(email: string, name: string) {
 
 interface CreateUserParams {
 	email: string
-	name: string
+	name?: string
 }
 
-export async function createUser({ email, name }: CreateUserParams) {
+export async function createUser({ email, name = '' }: CreateUserParams) {
 	// TODO: send welcome email
 	const user = await prisma.user.create({
 		data: {
