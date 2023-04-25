@@ -52,14 +52,14 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
 				{
 					id: 'bold',
 					icon: (
-						<FontBoldIcon className='au-text-black dark:au-text-white' />
+						<FontBoldIcon className='au-text-primary-foreground' />
 					),
 					onSelect: toggleBold,
 				},
 				{
 					id: 'italic',
 					icon: (
-						<FontItalicIcon className='au-text-black dark:au-text-white' />
+						<FontItalicIcon className='au-text-primary-foreground' />
 					),
 					onSelect: () =>
 						editor?.chain().focus().toggleItalic().run(),
@@ -160,25 +160,39 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
 			groupItems: [
 				{
 					id: 'quote',
-					icon: (
-						<QuoteIcon className='au-text-black dark:au-text-white' />
-					),
+					icon: <QuoteIcon className='au-text-primary-foreground ' />,
 					onSelect: () =>
 						editor?.chain().focus().toggleBlockquote().run(),
 				},
 				{
 					id: 'link',
-					icon: (
-						<Link2Icon className='au-text-black dark:au-text-white' />
-					),
+					icon: <Link2Icon className='au-text-primary-foreground ' />,
 					onSelect: () => setToggleLink(true),
 				},
 				{
 					id: 'code',
-					icon: (
-						<CodeIcon className='au-text-black dark:au-text-white' />
-					),
+					icon: <CodeIcon className='au-text-primary-foreground ' />,
 					onSelect: () => editor?.chain().focus().toggleCode().run(),
+				},
+				{
+					id: 'highlight',
+					icon: (
+						<svg
+							className='h-4 w-4'
+							xmlns='http://www.w3.org/2000/svg'
+							viewBox='0 0 24 24'
+							fill='none'
+							stroke='currentColor'
+							strokeWidth='2'
+							strokeLinecap='round'
+							strokeLinejoin='round'
+						>
+							<path d='m9 11-6 6v3h9l3-3'></path>
+							<path d='m22 12-4.6 4.6a2 2 0 0 1-2.8 0l-5.2-5.2a2 2 0 0 1 0-2.8L14 4'></path>
+						</svg>
+					),
+					onSelect: () =>
+						editor?.chain().focus().toggleHighlight().run(),
 				},
 			],
 		},
@@ -188,18 +202,22 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
 		<>
 			<Toolbar
 				ariaLabel='Text Formatting Options'
-				className='au-w-full au-text-black dark:au-text-white'
+				className='au-w-full au-text-primary-foreground '
 				// @ts-ignore
 				items={items}
 			/>
 			<Dialog
-				isOpen={toggleLink}
+				open={toggleLink}
 				onOpenChange={setToggleLink}
-				title={<h3 className='au-text-lg'>Add link</h3>}
+				title={
+					<h3 className='au-px-4 au-pt-4 au-pb-2 au-text-lg'>
+						Add Link
+					</h3>
+				}
 			>
-				<div className='au-flex au-h-12 au-w-full au-items-center au-justify-center au-space-x-2'>
+				<div className='au-flex au-w-[24rem] au-px-4 au-py-2 au-pb-4 au-items-center au-justify-center au-space-x-2'>
 					<input
-						className='au-h-full au-w-auto au-rounded-lg au-border au-bg-transparent au-px-2 au-py-1 au-text-black au-outline-black dark:au-text-white dark:au-outline-white'
+						className='au-h-10 au-w-full au-rounded-lg au-border au-bg-transparent au-px-2 au-py-1 au-text-primary-foreground au-outline-subtle'
 						onBlur={() => {
 							if (!editor?.getAttributes('link').href) {
 								setToggleLink(false)
@@ -221,7 +239,7 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
 								setToggleLink(false)
 							}}
 							padding='au-p-0'
-							textColor='au-text-black'
+							textColor='au-text-primary-foreground'
 						>
 							<LinkBreak2Icon />
 						</Button>

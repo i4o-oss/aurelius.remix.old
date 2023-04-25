@@ -1,4 +1,4 @@
-import { Button, PrimaryButton } from '@i4o/catalystui'
+import { PrimaryButton } from '@i4o/catalystui'
 import type { ActionArgs, LoaderArgs } from '@remix-run/node'
 import { sessionStorage } from '~/services/session.server'
 import { Form, useLoaderData } from '@remix-run/react'
