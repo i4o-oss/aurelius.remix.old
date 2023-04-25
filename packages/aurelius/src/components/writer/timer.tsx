@@ -74,19 +74,21 @@ export default function Timer({
 			<div className='au-flex au-h-10 au-items-center au-gap-2 au-divide-x au-divide-subtle au-rounded-lg au-bg-ui au-p-2 au-text-primary-foreground'>
 				{sessionData?.goal === 'duration' ? (
 					<div className='au-flex au-items-center au-gap-0.5 au-px-2 au-text-sm'>
-						<span>{isRunning ? '' : '+ '}</span>
+						<span>{!countdownExpired ? '' : '+ '}</span>
 						<span>
-							{isRunning ? padZeroes(hours) : padZeroes(stHours)}
+							{!countdownExpired
+								? padZeroes(hours)
+								: padZeroes(stHours)}
 						</span>{' '}
 						:{' '}
 						<span>
-							{isRunning
+							{!countdownExpired
 								? padZeroes(minutes)
 								: padZeroes(stMinutes)}
 						</span>{' '}
 						:{' '}
 						<span>
-							{isRunning
+							{!countdownExpired
 								? padZeroes(seconds)
 								: padZeroes(stSeconds)}
 						</span>
@@ -121,7 +123,7 @@ export default function Timer({
 								<PlayIcon className='au-h-4 au-w-4 au-text-primary-foreground' />
 							}
 							onClick={() => {
-								if (isRunning) {
+								if (!countdownExpired) {
 									resume()
 								} else {
 									stStart()
@@ -157,8 +159,7 @@ export default function Timer({
 						</Button>
 					}
 					actionAltText='End Session'
-					duration={5000}
-					open={showSessionEndToast}
+					duration={3000}
 				/>
 			) : null}
 		</>
