@@ -92,13 +92,11 @@ export default function MainMenu(props: MainMenuProps) {
 				{
 					label: 'Post',
 					icon: <FileTextIcon />,
-					shortcut: 'Ctrl + P',
 					onSelect: () => props.onResetEditorClick(true),
 				},
 				{
 					label: 'Writing Session',
 					icon: <Pencil1Icon />,
-					shortcut: 'Ctrl + N',
 					onSelect: () => setShowNewSessionDialog?.(true),
 				},
 			],
@@ -119,7 +117,6 @@ export default function MainMenu(props: MainMenuProps) {
 		// 			<path d='M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z'></path>
 		// 		</svg>
 		// 	),
-		// 	shortcut: 'Ctrl + O',
 		// },
 		{
 			label: 'Export',
@@ -184,7 +181,6 @@ export default function MainMenu(props: MainMenuProps) {
 		// {
 		// 	label: 'Help',
 		// 	icon: <QuestionMarkCircledIcon />,
-		// 	shortcut: '?',
 		// },
 		{ type: 'separator' },
 		{
