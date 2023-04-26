@@ -8,6 +8,7 @@ import {
 	Button,
 	CopyToClipboard,
 	DangerButton,
+	IconButton,
 	PrimaryButton,
 	Toast,
 } from '@i4o/catalystui'
@@ -62,22 +63,17 @@ interface PostItemProps {
 
 function PostItem({ post }: PostItemProps) {
 	const postFetcher = useFetcher()
-	const [confirmDeletePostAlert, setConfirmDeletePostAlert] = useState(false)
 	const [deletePostToast, setDeletePostToast] = useState(false)
 
 	const deletePostHandler = async () => {
 		postFetcher.submit(
 			{},
-			{ method: 'delete', action: `/posts/${post.id}` }
+			{ method: 'delete', action: `/api/posts/${post.id}` }
 		)
 		setDeletePostToast(true)
 	}
 
-	const shareLink =
-		typeof window !== 'undefined'
-			? // @ts-ignore
-			  `${window?.ENV?.NEXT_PUBLIC_URL}/posts/${post.id}`
-			: ''
+	const shareLink = `/posts/${post.id}`
 
 	return (
 		<>
@@ -106,36 +102,33 @@ function PostItem({ post }: PostItemProps) {
 				<div className='col-span-1 flex h-full w-full items-center justify-end space-x-4'>
 					<CopyToClipboard text={shareLink} />
 					<Link to={`/?edit=${post.shareId}`}>
-						<Button bg='bg-transparent' padding='p-1'>
-							<Pencil1Icon />
-						</Button>
+						<IconButton className='!p-2' icon={<Pencil1Icon />} />
 					</Link>
 					<Alert
-						isOpen={confirmDeletePostAlert}
 						title='Are you sure?'
 						description='This action cannot be undone.'
-						cancel={
-							<Button
-								onClick={() => setConfirmDeletePostAlert(false)}
-							>
-								Cancel
-							</Button>
-						}
+						cancel={<Button>Cancel</Button>}
 						action={
 							<DangerButton onClick={deletePostHandler}>
 								Delete
 							</DangerButton>
 						}
 						trigger={
-							<Button bg='bg-transparent' padding='p-1'>
-								<TrashIcon className='text-danger-500' />
-							</Button>
+							<IconButton
+								className='!p-2'
+								icon={<TrashIcon className='text-danger-500' />}
+							/>
 						}
 					/>
 				</div>
 			</div>
 			{deletePostToast && (
-				<Toast title='Post deleted.' isOpen={deletePostToast} />
+				<Toast
+					description={<span>Post deleted.</span>}
+					defaultOpen={deletePostToast}
+					action=''
+					actionAltText=''
+				/>
 			)}
 		</>
 	)

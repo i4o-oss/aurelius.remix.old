@@ -237,7 +237,7 @@ export default function MainMenu(props: MainMenuProps) {
 				<IconButton
 					className='h-10 w-10'
 					icon={
-						<HamburgerMenuIcon className='text-slate-800 dark:text-slate-100' />
+						<HamburgerMenuIcon className='au-placeholder-primary-foreground' />
 					}
 				/>
 			}
