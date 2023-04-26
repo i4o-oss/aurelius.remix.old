@@ -74,7 +74,7 @@ export default function Write() {
 
 	function savePost(title: string, content: string, wordCount: number) {
 		if (title && wordCount > 1) {
-			if (post.id) {
+			if (post?.id) {
 				fetcher.submit(
 					{ title, content, wordCount: `${wordCount}` },
 					{
