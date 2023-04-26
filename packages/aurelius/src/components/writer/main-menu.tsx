@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { MouseEventHandler, useContext } from 'react'
 import { Dropdown, IconButton, Switch } from '@i4o/catalystui'
 import {
 	Crosshair2Icon,
@@ -206,11 +206,19 @@ export default function MainMenu(props: MainMenuProps) {
 			label: (
 				<div className='flex cursor-pointer items-center justify-between'>
 					<label className='cursor-pointer'>Theme</label>
-					<Switch
-						defaultChecked={theme === Theme.DARK}
-						name='theme-toggle-switch'
-						onCheckedChange={toggleTheme}
-					/>
+					{/* Wrapping the switch in a div so I can use the onclick without having to add it to catalyst. 
+                        This will prevent event bubbling and triggering toggletheme twice. 
+                        Which was why it wasn't working when clicking directly on the switch.. */}
+					<div
+						// @ts-ignore
+						onClick={(e: MouseEvent) => e.preventDefault()}
+					>
+						<Switch
+							defaultChecked={theme === Theme.DARK}
+							name='theme-toggle-switch'
+							onCheckedChange={toggleTheme}
+						/>
+					</div>
 				</div>
 			),
 			icon: theme === Theme.DARK ? <SunIcon /> : <MoonIcon />,
