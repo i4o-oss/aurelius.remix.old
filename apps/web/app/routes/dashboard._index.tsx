@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import type { LoaderArgs, SerializeFrom } from '@remix-run/node'
+import type { LoaderArgs } from '@remix-run/node'
 import { getAllPostsFromAuthor, Post } from '~/models/post.server'
 import { Link, useFetcher, useLoaderData } from '@remix-run/react'
 import { json } from '@remix-run/node'
@@ -16,6 +16,7 @@ import { Pencil1Icon, TrashIcon } from '@radix-ui/react-icons'
 import { formatDistance } from 'date-fns'
 import { getGreeting } from '~/lib/utils'
 import { auth } from '~/services/auth.server'
+import { getUserProfile } from '~/models/user.server'
 
 interface GreetingProps {
 	name: string
@@ -26,7 +27,7 @@ function Greeting(props: GreetingProps) {
 
 	return (
 		<div className='flex w-full items-center justify-start'>
-			<h1 className='text-4xl font-bold text-white'>
+			<h1 className='text-primary-foreground text-4xl font-bold'>
 				{getGreeting(name)}
 			</h1>
 		</div>
@@ -34,23 +35,32 @@ function Greeting(props: GreetingProps) {
 }
 
 interface Props {
+	appUrl: string
 	posts: Post[]
+	username: string
 }
 
-function Posts(props: Props) {
-	const { posts } = props
-
+function Posts({ appUrl, posts, username }: Props) {
 	return (
 		<div className='flex h-full w-full flex-col items-center justify-start space-y-4'>
 			<div className='flex w-full items-center justify-between'>
-				<h2 className='text-3xl font-semibold text-white'>Posts</h2>
+				<h2 className='text-primary-foreground text-3xl font-semibold'>
+					Posts
+				</h2>
 				<Link to='/'>
 					<PrimaryButton>Write</PrimaryButton>
 				</Link>
 			</div>
-			<div className='flex w-full flex-col items-center justify-start divide-y divide-gray-700'>
+			<div className='divide-subtle flex w-full flex-col items-center justify-start divide-y'>
 				{posts.map((post) => {
-					return <PostItem post={post} key={post.id} />
+					return (
+						<PostItem
+							appUrl={appUrl}
+							key={post.id}
+							post={post}
+							username={username}
+						/>
+					)
 				})}
 			</div>
 		</div>
@@ -58,10 +68,12 @@ function Posts(props: Props) {
 }
 
 interface PostItemProps {
+	appUrl: string
 	post: Post
+	username: string
 }
 
-function PostItem({ post }: PostItemProps) {
+function PostItem({ appUrl, post, username }: PostItemProps) {
 	const postFetcher = useFetcher()
 	const [deletePostToast, setDeletePostToast] = useState(false)
 
@@ -73,22 +85,22 @@ function PostItem({ post }: PostItemProps) {
 		setDeletePostToast(true)
 	}
 
-	const shareLink = `/posts/${post.id}`
+	const shareLink = `${appUrl}/${username}/${post.shareId}`
 
 	return (
 		<>
 			<div className='grid w-full grid-cols-3 gap-2 py-8'>
 				<div className='col-span-2 flex h-full w-full flex-col items-start justify-center space-y-4'>
 					<Link to={`/?edit=${post.shareId}`}>
-						<h3 className='text-xl font-medium text-white'>
+						<h3 className='text-primary-foreground text-xl font-medium'>
 							{post.title}
 						</h3>
 					</Link>
 					<div className='flex items-center justify-start space-x-2'>
-						<p className='flex items-center justify-center rounded-md bg-gray-700 px-2 py-1 text-xs text-white'>
+						<p className='bg-ui text-primary-foreground flex items-center justify-center rounded-md px-2 py-1 text-xs'>
 							{post.published ? 'Published' : 'Draft'}
 						</p>
-						<span className='text-xs text-white'>
+						<span className='text-primary-foreground text-xs'>
 							{formatDistance(
 								new Date(post.createdAt),
 								new Date(),
@@ -138,22 +150,31 @@ export async function loader({ request }: LoaderArgs) {
 	const user = await auth.isAuthenticated(request, {
 		failureRedirect: '/login',
 	})
+	const appUrl = process.env.APP_URL
 	const posts = await getAllPostsFromAuthor(user?.id as string)
+	const profile = await getUserProfile(user?.id)
 
-	return json({ posts, user })
+	return json({ appUrl, posts, user: profile })
 }
 
 export default function DashboardHome() {
-	const { posts, user } = useLoaderData<SerializeFrom<typeof loader>>()
+	const { appUrl, posts, user } = useLoaderData<typeof loader>()
 
 	return (
 		<main className='flex h-full w-full flex-col items-center justify-start'>
 			<div className='flex h-full w-full items-start justify-center py-16'>
 				<div className='w-full max-w-3xl flex-col items-center justify-start space-y-16'>
-					<Greeting name={user.name as string} />
+					<Greeting
+						// @ts-ignore
+						name={user?.name}
+					/>
 					<Posts
 						// @ts-ignore
+						appUrl={appUrl}
+						// @ts-ignore
 						posts={posts}
+						// @ts-ignore
+						username={user?.username}
 					/>
 				</div>
 			</div>

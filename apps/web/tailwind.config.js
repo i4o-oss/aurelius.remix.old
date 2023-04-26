@@ -22,6 +22,11 @@ module.exports = {
 				subtle: {
 					DEFAULT: 'rgb(var(--subtle) / <alpha-value>)',
 				},
+				ui: {
+					DEFAULT: 'rgb(var(--ui) / <alpha-value>)',
+					hover: 'rgb(var(--ui-hover) / <alpha-value>)',
+					states: 'rgb(var(--ui-states) / <alpha-value>)',
+				},
 			},
 			fontFamily: {
 				sans: ['Inter', 'sans-serif'],

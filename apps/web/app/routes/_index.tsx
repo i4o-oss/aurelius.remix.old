@@ -31,6 +31,7 @@ export async function loader({ request }: LoaderArgs) {
 	}
 }
 
+// TODO: Fix these types
 interface LoaderData {
 	post?: any
 	settings?: any
