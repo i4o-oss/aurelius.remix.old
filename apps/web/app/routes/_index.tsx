@@ -1,4 +1,4 @@
-import type { LoaderArgs } from '@remix-run/node'
+import type { LoaderArgs, SerializeFrom } from '@remix-run/node'
 import type { SyncParams } from '@i4o/aurelius'
 import { useRef, useState } from 'react'
 import { SETTINGS_LOCAL_STORAGE_KEY, SettingsData, Writer } from '@i4o/aurelius'
@@ -31,17 +31,20 @@ export async function loader({ request }: LoaderArgs) {
 	}
 }
 
+interface LoaderData {
+	post?: any
+	settings?: any
+	user?: any
+}
+
 export default function Write() {
 	const fetchers = useFetchers()
 	const fetcher = useFetcher()
 	const {
-		// @ts-ignore
 		post,
-		// @ts-ignore
 		settings: settingsFromDb,
-		// @ts-ignore
 		user,
-	} = useLoaderData()
+	} = useLoaderData<SerializeFrom<LoaderData>>()
 	const [settings] = useLocalStorage<string>(SETTINGS_LOCAL_STORAGE_KEY)
 	const settingsData =
 		user && settingsFromDb
@@ -56,7 +59,7 @@ export default function Write() {
 	let record = useRef({
 		id: '',
 	})
-	if (user && !record.current.id) {
+	if (user && !record.current.id && !post) {
 		for (const f of fetchers) {
 			if (
 				f.formAction &&
@@ -71,7 +74,15 @@ export default function Write() {
 
 	function savePost(title: string, content: string, wordCount: number) {
 		if (title && wordCount > 1) {
-			if (record.current.id) {
+			if (post.id) {
+				fetcher.submit(
+					{ title, content, wordCount: `${wordCount}` },
+					{
+						method: 'put',
+						action: `/api/posts/${post.id}`,
+					}
+				)
+			} else if (record.current.id) {
 				fetcher.submit(
 					{ title, content, wordCount: `${wordCount}` },
 					{

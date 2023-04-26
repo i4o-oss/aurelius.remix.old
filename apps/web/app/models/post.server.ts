@@ -16,6 +16,7 @@ export async function getPostByShareId(shareId: string) {
 			shareId,
 		},
 		select: {
+			id: true,
 			title: true,
 			content: true,
 		},
