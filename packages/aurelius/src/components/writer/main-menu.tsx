@@ -1,4 +1,4 @@
-import { MouseEventHandler, useContext } from 'react'
+import { useContext } from 'react'
 import { Dropdown, IconButton, Switch } from '@i4o/catalystui'
 import {
 	Crosshair2Icon,
