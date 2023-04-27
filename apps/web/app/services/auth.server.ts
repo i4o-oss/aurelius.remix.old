@@ -22,31 +22,17 @@ auth.use(
 			callbackURL: '/api/verify',
 			validateSessionMagicLink: true,
 		},
-		async ({
-			email,
-			form,
-			magicLinkVerify,
-		}: {
-			email: string
-			form: FormData
-			magicLinkVerify: boolean
-		}) => {
-			const name = form.get('name')
-			// You can validate the inputs however you want
+		async ({ email }: { email: string }) => {
 			invariant(typeof email === 'string', 'email must be a string')
 			invariant(email.length > 0, 'email must not be empty')
-
-			invariant(typeof name === 'string', 'name must be a string')
-			invariant(name.length > 0, 'name must not be empty')
 
 			let user = await getUserByEmail(email)
 			if (user) {
 				return user
 			} else {
-				const newUser = await createUser({ email, name })
+				const newUser = await createUser({ email })
 				return newUser
 			}
 		}
-	),
-	'email-link'
+	)
 )
