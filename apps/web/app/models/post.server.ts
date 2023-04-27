@@ -23,6 +23,20 @@ export async function getPostByShareId(shareId: string) {
 	})
 }
 
+export async function getPostBySlug(slug: string) {
+	return await prisma.post.findFirst({
+		where: {
+			slug,
+		},
+		select: {
+			id: true,
+			title: true,
+			content: true,
+            slug: true
+		},
+	})
+}
+
 export async function getPost(id: string) {
 	return await prisma.post.findUnique({
 		where: {

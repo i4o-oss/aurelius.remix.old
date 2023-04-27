@@ -24,11 +24,11 @@ export default function Profile() {
 	return (
 		<div className='container max-w-4xl p-6 lg:py-10 lg:px-0'>
 			<div className='mb-4 flex h-64 flex-col items-start gap-4 md:flex-row md:items-center md:justify-between md:gap-8'>
-				<div className='flex-1 space-y-4'>
-					<h1 className='inline-block text-4xl font-extrabold tracking-tight text-slate-900 dark:text-slate-50 lg:text-5xl'>
+				<div className='flex flex-1 flex-col items-center justify-center space-y-4'>
+					<h1 className='text-primary-foreground inline-block text-4xl font-extrabold tracking-tight lg:text-5xl'>
 						{user.name}
 					</h1>
-					<p className='text-xl text-slate-700 dark:text-slate-300'>
+					<p className='text-primary-foreground-subtle w-1/2 text-center text-xl'>
 						{user.bio}
 					</p>
 				</div>
@@ -40,7 +40,7 @@ export default function Profile() {
 						(post: any, index: number) => (
 							<article
 								key={`post-${index}`}
-								className='group relative flex flex-col space-y-2'
+								className='group relative flex flex-col space-y-1'
 							>
 								{/* {post.og_image && ( */}
 								{/* 	<img */}
@@ -49,9 +49,19 @@ export default function Profile() {
 								{/* 		className='rounded-lg border border-slate-800 bg-slate-800 transition-colors group-hover:border-slate-900' */}
 								{/* 	/> */}
 								{/* )} */}
+								<Link to={`/${user.username}/${post.slug}`}>
+									<h2 className='text-primary-foreground mb-0 text-2xl font-bold'>
+										{post.title}
+									</h2>
+								</Link>
+								{post.description && (
+									<p className='text-primary-foreground-subtle'>
+										{post.description}
+									</p>
+								)}
 								<div className='flex items-center justify-between py-2'>
 									{post.createdAt && (
-										<p className='text-sm text-slate-500 dark:text-slate-500'>
+										<p className='text-primary-foreground-subtle m-0 text-sm'>
 											{formatDate(post.createdAt)}
 										</p>
 									)}
@@ -61,28 +71,12 @@ export default function Profile() {
 									{/* 	</span> */}
 									{/* )} */}
 								</div>
-								<h2 className='text-2xl font-extrabold text-slate-900 dark:text-slate-50'>
-									{post.title}
-								</h2>
-								{post.description && (
-									<p className='text-slate-700 dark:text-slate-300'>
-										{post.description}
-									</p>
-								)}
-								<Link
-									to={`/blog/${post.slug}`}
-									className='absolute inset-0'
-								>
-									<span className='sr-only'>
-										View Article
-									</span>
-								</Link>
 							</article>
 						)
 					)}
 				</div>
 			) : (
-				<p className='text-slate-900 dark:text-slate-50'>
+				<p className='text-primary-foreground-subtle'>
 					No posts published.
 				</p>
 			)}
