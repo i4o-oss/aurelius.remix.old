@@ -11,13 +11,10 @@ import {
     Dropdown,
     IconButton,
     PrimaryButton,
+    Switch,
     Toast,
 } from '@i4o/catalystui'
-import {
-    DotsVerticalIcon,
-    Pencil1Icon,
-    TrashIcon,
-} from '@radix-ui/react-icons'
+import { DotsVerticalIcon, EyeNoneIcon, EyeOpenIcon, Pencil1Icon, TrashIcon } from '@radix-ui/react-icons'
 import { formatDistance } from 'date-fns'
 import { getGreeting } from '~/lib/utils'
 import { auth } from '~/services/auth.server'
@@ -83,6 +80,13 @@ function PostItem({ appUrl, post, username }: PostItemProps) {
     const [deletePostToast, setDeletePostToast] = useState(false)
     const [showDeletePostAlert, setShowDeletePostAlert] = useState(false)
 
+    const updatePostVisibility = async (published: boolean) => {
+        postFetcher.submit(
+            { published },
+            { method: 'put', action: `/api/posts/${post.id}` }
+        )
+    }
+
     const deletePostHandler = async () => {
         postFetcher.submit(
             {},
@@ -96,13 +100,36 @@ function PostItem({ appUrl, post, username }: PostItemProps) {
         {
             label: 'Edit Post',
             icon: <Pencil1Icon />,
-            link: `/?edit=${post.shareId}`
+            link: `/?edit=${post.shareId}`,
         },
+        {
+            label: (
+                <div className='flex cursor-pointer items-center justify-between'>
+                    <label className='cursor-pointer'>{post.published ? 'Public' : 'Private'}</label>
+                    {/* Wrapping the switch in a div so I can use the onclick without having to add it to catalyst. 
+                        This will prevent event bubbling and triggering toggletheme twice. 
+                        Which was why it wasn't working when clicking directly on the switch.. */}
+                    <div
+                        // @ts-ignore
+                        onClick={(e: MouseEvent) => e.preventDefault()}
+                    >
+                        <Switch
+                            defaultChecked={post.published || false}
+                            name='theme-toggle-switch'
+                            onCheckedChange={updatePostVisibility}
+                        />
+                    </div>
+                </div>
+            ),
+            icon: post.published ? <EyeOpenIcon /> : <EyeNoneIcon />,
+            onSelect: () => updatePostVisibility(!post.published),
+        },
+        { type: 'separator' },
         {
             label: 'Delete Post',
             icon: <TrashIcon />,
-            onSelect: () => setShowDeletePostAlert(true)
-        }
+            onSelect: () => setShowDeletePostAlert(true),
+        },
     ]
 
     return (
