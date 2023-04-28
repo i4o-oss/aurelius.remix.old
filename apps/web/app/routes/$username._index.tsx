@@ -3,7 +3,7 @@ import { json, LoaderArgs } from '@remix-run/node'
 import { formatDate } from '~/lib/utils'
 import { getUserByUsername } from '~/models/user.server'
 import invariant from 'tiny-invariant'
-import { getAllPostsFromAuthor } from '~/models/post.server'
+import { getPublishedPostsFromAuthor } from '~/models/post.server'
 
 export async function loader({ params }: LoaderArgs) {
 	const username = params.username
@@ -14,7 +14,7 @@ export async function loader({ params }: LoaderArgs) {
 	)
 	const user = await getUserByUsername(username)
 	invariant(typeof user?.id === 'string', 'userId must be a string')
-	const posts = await getAllPostsFromAuthor(user?.id)
+	const posts = await getPublishedPostsFromAuthor(user?.id)
 	return json({ user: { username, name: user.name, bio: user.bio }, posts })
 }
 
@@ -24,11 +24,11 @@ export default function Profile() {
 	return (
 		<div className='container max-w-4xl p-6 lg:py-10 lg:px-0'>
 			<div className='mb-4 flex h-64 flex-col items-start gap-4 md:flex-row md:items-center md:justify-between md:gap-8'>
-				<div className='flex flex-1 flex-col items-center justify-center space-y-4'>
+				<div className='flex flex-1 flex-col items-start justify-start space-y-4'>
 					<h1 className='text-primary-foreground inline-block text-4xl font-extrabold tracking-tight lg:text-5xl'>
 						{user.name}
 					</h1>
-					<p className='text-primary-foreground-subtle w-1/2 text-center text-xl'>
+					<p className='text-primary-foreground-subtle w-3/4 text-xl'>
 						{user.bio}
 					</p>
 				</div>
