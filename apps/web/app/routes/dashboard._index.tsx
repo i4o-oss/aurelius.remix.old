@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import type { LoaderArgs } from '@remix-run/node'
+import { defer } from '@remix-run/node'
 import { getAllPostsFromAuthor, Post } from '~/models/post.server'
-import { Link, useFetcher, useLoaderData } from '@remix-run/react'
-import { json } from '@remix-run/node'
+import { Await, Link, useFetcher, useLoaderData } from '@remix-run/react'
 import {
 	Alert,
 	Button,
@@ -26,6 +26,7 @@ import { formatDistance } from 'date-fns'
 import { getGreeting } from '~/lib/utils'
 import { auth } from '~/services/auth.server'
 import { getUserProfile } from '~/models/user.server'
+import Skeleton from '~/components/skeleton'
 
 interface GreetingProps {
 	name: string
@@ -45,33 +46,23 @@ function Greeting(props: GreetingProps) {
 
 interface Props {
 	appUrl: string
-	posts: Post[]
+	posts?: Post[]
 	username: string
 }
 
 function Posts({ appUrl, posts, username }: Props) {
 	return (
-		<div className='flex h-full w-full flex-col items-center justify-start space-y-4'>
-			<div className='flex w-full items-center justify-between'>
-				<h2 className='text-primary-foreground text-3xl font-semibold'>
-					Posts
-				</h2>
-				<Link to='/'>
-					<PrimaryButton>Write</PrimaryButton>
-				</Link>
-			</div>
-			<div className='divide-subtle flex w-full flex-col items-center justify-start divide-y'>
-				{posts.map((post) => {
-					return (
-						<PostItem
-							appUrl={appUrl}
-							key={post.id}
-							post={post}
-							username={username}
-						/>
-					)
-				})}
-			</div>
+		<div className='divide-subtle flex w-full flex-col items-center justify-start divide-y'>
+			{posts?.map((post) => {
+				return (
+					<PostItem
+						appUrl={appUrl}
+						key={post.id}
+						post={post}
+						username={username}
+					/>
+				)
+			})}
 		</div>
 	)
 }
@@ -222,7 +213,7 @@ function PostItem({ appUrl, post, username }: PostItemProps) {
 			{publishedPostToast && (
 				<Toast
 					description={
-						<div className='flex items-center gap-2 -mt-1'>
+						<div className='-mt-1 flex items-center gap-2'>
 							<CheckCircledIcon className='text-brand' />
 							Post Published!
 						</div>
@@ -236,15 +227,35 @@ function PostItem({ appUrl, post, username }: PostItemProps) {
 	)
 }
 
+function DeferFallback() {
+	return (
+		<div className='flex items-center space-x-4'>
+			<Skeleton className='h-12 w-12 rounded-full' />
+			<div className='space-y-2'>
+				<Skeleton className='h-4 w-[250px]' />
+				<Skeleton className='h-4 w-[200px]' />
+			</div>
+		</div>
+	)
+}
+
+function PostsLoadingError() {
+	return (
+		<div className='h-12 w-full rounded-lg'>
+			Error loading posts. Please try again.
+		</div>
+	)
+}
+
 export async function loader({ request }: LoaderArgs) {
 	const user = await auth.isAuthenticated(request, {
 		failureRedirect: '/login',
 	})
 	const appUrl = process.env.APP_URL
-	const posts = await getAllPostsFromAuthor(user?.id as string)
+	const postsPromise = getAllPostsFromAuthor(user?.id as string)
 	const profile = await getUserProfile(user?.id)
 
-	return json({ appUrl, posts, user: profile })
+	return defer({ appUrl, posts: postsPromise, user: profile })
 }
 
 export default function DashboardHome() {
@@ -258,14 +269,33 @@ export default function DashboardHome() {
 						// @ts-ignore
 						name={user?.name}
 					/>
-					<Posts
-						// @ts-ignore
-						appUrl={appUrl}
-						// @ts-ignore
-						posts={posts}
-						// @ts-ignore
-						username={user?.username}
-					/>
+					<div className='flex h-full w-full flex-col items-center justify-start space-y-4'>
+						<div className='flex w-full items-center justify-between'>
+							<h2 className='text-primary-foreground text-3xl font-semibold'>
+								Posts
+							</h2>
+							<Link to='/'>
+								<PrimaryButton>Write</PrimaryButton>
+							</Link>
+						</div>
+						<Suspense fallback={<DeferFallback />}>
+							<Await
+								resolve={posts}
+								errorElement={<PostsLoadingError />}
+							>
+								{(posts) => (
+									<Posts
+										// @ts-ignore
+										appUrl={appUrl}
+										// @ts-ignore
+										posts={posts}
+										// @ts-ignore
+										username={user?.username}
+									/>
+								)}
+							</Await>
+						</Suspense>
+					</div>
 				</div>
 			</div>
 		</main>

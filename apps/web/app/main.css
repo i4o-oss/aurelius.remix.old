@@ -17,6 +17,9 @@
 		--brand: 44 182 125;
 		--brand-hover: 70 210 152;
 		--brand-states: 119 222 179;
+
+		--muted: 210 40% 96.1%;
+		--muted-foreground: 215.4 16.3% 46.9%;
 	}
 
 	.dark {
@@ -29,6 +32,9 @@
 		--ui-states: 46 46 46;
 
 		--subtle: 52 52 52;
+
+		--muted: 223 47% 11%;
+		--muted-foreground: 215.4 16.3% 56.9%;
 	}
 }
 
