@@ -154,14 +154,13 @@ const Document = ({ children }: DocumentProps) => {
 				<ThemeHead ssrTheme={Boolean(data.theme)} />
 			</head>
 			<body className='bg-primary h-full w-full font-sans'>
-				<script
-					defer
-					type='text/javascript'
-					src='https://api.pirsch.io/pirsch.js'
-					id='pirschjs'
-					data-code='M01aHtNN6Pimeeo6xH2NxJYgN9vfJBTP'
-					data-dev={process.env.NODE_ENV === 'development'}
-				></script>
+				{process.env.NODE_ENV !== 'development' ? (
+					<script
+						async
+						src='https://analytics.i4o.dev/script.js'
+						data-website-id='0233b1d4-8e3c-4e89-b43c-e1f3e5361a07'
+					></script>
+				) : null}
 				{children}
 				<ScrollRestoration />
 				<Scripts />
