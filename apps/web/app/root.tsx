@@ -158,7 +158,7 @@ const Document = ({ children }: DocumentProps) => {
 					<script
 						async
 						src='https://analytics.i4o.dev/script.js'
-						data-website-id='0233b1d4-8e3c-4e89-b43c-e1f3e5361a07'
+						data-website-id='7621579d-ef19-4240-bef7-51e71ee9fa96'
 					></script>
 				) : null}
 				{children}
