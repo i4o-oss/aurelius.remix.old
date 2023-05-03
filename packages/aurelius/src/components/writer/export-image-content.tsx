@@ -28,14 +28,14 @@ const ExportImageContent = forwardRef<HTMLDivElement, ExportImageContentProps>(
 	) => {
 		return (
 			<div
-				className='au-flex au-w-full au-h-full au-aspect-[3/4] au-flex-col au-items-start au-justify-start au-bg-ui au-bg-no-repeat au-bg-cover au-bg-opacity-50 au-select-none'
+				className='au-flex au-h-full au-aspect-[3/4] au-flex-col au-items-start au-justify-start au-bg-ui au-bg-no-repeat au-bg-cover au-bg-opacity-50 au-select-none'
 				style={{
 					backgroundImage: background,
 				}}
 				ref={ref}
 			>
 				<div
-					className={`au-relative au-flex au-w-full au-max-w-none au-h-full au-flex-col au-items-start au-justify-center au-py-16 au-px-12 au-prose au-prose-slate ${scale} prose-headings:au-mb-2 au-prose-p:au-mt-2 au-prose-p:au-mb-2 au-prose-li:au-mt-0 prose-blockquote:au-border-slate-900`}
+					className={`au-relative au-flex au-w-full au-max-w-none au-h-full au-flex-col au-items-start au-justify-center au-py-4 au-px-12 au-prose au-prose-slate ${scale} prose-headings:au-mb-2 au-prose-p:au-mt-2 au-prose-p:au-mb-2 au-leading-snug au-prose-li:au-mt-0 prose-blockquote:au-border-slate-900`}
 				>
 					<h1
 						className={`au-w-full au-flex au-flex-col au-text-gray-900 au-font-semibold ${
@@ -47,7 +47,11 @@ const ExportImageContent = forwardRef<HTMLDivElement, ExportImageContentProps>(
 						{title}
 					</h1>
 					{author ? (
-						<p className='au-text-gray-900 au-font-medium au-my-2'>
+						<p className={`au-w-full au-flex au-flex-col au-text-gray-900 au-font-medium au-my-2 ${
+							titleAlignment === 'left'
+								? 'au-text-left'
+								: 'au-text-center'
+						}`}>
 							{author}
 						</p>
 					) : null}
@@ -57,7 +61,7 @@ const ExportImageContent = forwardRef<HTMLDivElement, ExportImageContentProps>(
 							__html: content,
 						}}
 					/>
-					<div className='au-absolute au-bottom-8 au-left-12 au-w-[calc(100%-6rem)] au-text-gray-700 au-flex au-items-center au-justify-between'>
+					<div className='au-absolute au-bottom-8 au-left-12 au-w-[calc(100%-6rem)] au-text-gray-700 au-flex au-items-center au-justify-between au-text-sm'>
 						{footer ? (
 							<p className='au-m-0'>{footer}</p>
 						) : (

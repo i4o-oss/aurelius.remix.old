@@ -11,6 +11,10 @@ module.exports = {
 					hover: 'rgb(var(--brand-hover) / <alpha-value>)',
 					states: 'rgb(var(--brand-states) / <alpha-value>)',
 				},
+				muted: {
+					DEFAULT: 'rgb(var(--muted) / <alpha-value>)',
+					foreground: 'rgb(var(--muted-foreground) / <alpha-value>)',
+				},
 				primary: {
 					DEFAULT: 'rgb(var(--primary) / <alpha-value>)',
 					subtle: 'rgb(var(--primary-subtle) / <alpha-value>)',
