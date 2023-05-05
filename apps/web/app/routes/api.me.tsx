@@ -1,5 +1,6 @@
 import { ActionArgs, LoaderArgs, json, redirect } from '@remix-run/node'
 import invariant from 'tiny-invariant'
+import { USERNAME_DISALLOW_LIST } from '~/lib/constants'
 import { checkUsername, updateUser } from '~/models/user.server'
 import { auth } from '~/services/auth.server'
 
@@ -14,8 +15,9 @@ export async function loader({ request }: LoaderArgs) {
 	const username = url.searchParams.get('username')
 	invariant(typeof username === 'string', 'username must be a string')
 	invariant(username.length > 0, 'username cannot be empty')
+    const isUsernameAllowed = !USERNAME_DISALLOW_LIST.includes(username)
 	const isAvailable = await checkUsername(username)
-	return json({ isAvailable })
+	return json({ isAvailable: isAvailable && isUsernameAllowed })
 }
 
 export async function action({ request }: ActionArgs) {

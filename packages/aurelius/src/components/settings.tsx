@@ -21,7 +21,7 @@ import {
 } from '../constants'
 import { DailyGoal, ProfileSettings, SettingsData } from '../types'
 import useDebounce from '../hooks/use-debounce'
-import { CheckIcon } from '@radix-ui/react-icons'
+import { CheckIcon, Cross2Icon } from '@radix-ui/react-icons'
 
 interface SettingsDialogProps {
     checkUsername?: (username: string) => void
@@ -86,7 +86,7 @@ export default function Settings({
             const data = {
                 name,
                 bio,
-                username,
+                username: fetcher?.data?.isAvailable ? username : user?.username,
             }
 
             updateUser?.(data)
@@ -327,14 +327,20 @@ function ProfileSettings({
                             Checking...
                         </p>
                     ) : null}
-                    {!isDebouncing &&
-                        hasUsernameChanged &&
-                        fetcher?.data &&
-                        fetcher?.data?.isAvailable ? (
-                        <p className='au-text-brand au-text-xs au-font-normal au-py-1 au-flex au-items-center'>
-                            <CheckIcon />
-                            Available
-                        </p>
+                    {!isDebouncing && hasUsernameChanged && fetcher?.data ? (
+                        <>
+                            {fetcher?.data?.isAvailable ? (
+                                <p className='au-text-brand au-text-xs au-font-normal au-py-1 au-flex au-items-center'>
+                                    <CheckIcon />
+                                    Available
+                                </p>
+                            ) : (
+                                <p className='au-text-red-500 au-text-xs au-font-normal au-py-1 au-flex au-items-center'>
+                                    <Cross2Icon />
+                                    Not Available
+                                </p>
+                            )}
+                        </>
                     ) : null}
                 </div>
             </div>
