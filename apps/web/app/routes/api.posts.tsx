@@ -23,7 +23,7 @@ export async function action({ request }: ActionArgs) {
 				title,
 				content,
 				wordCount,
-				slug,
+				slug: '',
 				shareId,
 				userId: user?.id as string,
 			}

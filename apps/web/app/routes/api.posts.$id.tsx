@@ -1,10 +1,12 @@
 import type { ActionArgs } from '@remix-run/node'
 import { json } from '@remix-run/node'
-import { deletePost, updatePost } from '~/models/post.server'
+// import { nanoid } from 'nanoid/async'
+import { deletePost, getPost, updatePost } from '~/models/post.server'
 
 export async function action({ request, params }: ActionArgs) {
 	switch (request.method) {
 		case 'PUT': {
+			const savedPost = await getPost(params.id as string)
 			const formData = await request.formData()
 			const keys = formData.keys()
 			const update = {}
@@ -17,8 +19,39 @@ export async function action({ request, params }: ActionArgs) {
 					)
 				} else if (key === 'published') {
 					const published = formData.get('published') === 'true'
+					if (published) {
+						const slug = savedPost?.title
+							.replace(/[^a-zA-Z ]/g, '')
+							.toLowerCase()
+							.split(' ')
+							.join('-')
+
+						// create slug when post is published
+						// @ts-ignore
+						update.slug = slug
+					}
 					// @ts-ignore
 					update[key as string] = published
+				} else if (key === 'title') {
+					const title = formData.get('title') as string
+					// const id = await nanoid(16)
+					const slug = title
+						.replace(/[^a-zA-Z ]/g, '')
+						.toLowerCase()
+						.split(' ')
+						.join('-')
+					// const shareId = `${slug}-${id}`
+
+					// @ts-ignore
+					update[key as string] = formData.get(key)
+					// update shareid when post title changes
+					// @ts-ignore
+					// update.shareId = shareId
+					// update slug if post is already published
+					if (savedPost?.published) {
+						// @ts-ignore
+						update.slug = slug
+					}
 				} else {
 					// @ts-ignore
 					update[key as string] = formData.get(key)
