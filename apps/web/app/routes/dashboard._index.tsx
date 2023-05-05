@@ -2,12 +2,7 @@ import { Suspense, useEffect, useState } from 'react'
 import type { LoaderArgs } from '@remix-run/node'
 import { defer } from '@remix-run/node'
 import { getAllPostsFromAuthor, Post } from '~/models/post.server'
-import {
-	Await,
-	Link,
-	useFetcher,
-	useLoaderData,
-} from '@remix-run/react'
+import { Await, Link, useFetcher, useLoaderData } from '@remix-run/react'
 import {
 	Alert,
 	Button,
@@ -22,6 +17,7 @@ import {
 import {
 	CheckCircledIcon,
 	DotsVerticalIcon,
+	ExternalLinkIcon,
 	EyeNoneIcon,
 	EyeOpenIcon,
 	Pencil1Icon,
@@ -115,6 +111,7 @@ function PostItem({ appUrl, post, username }: PostItemProps) {
 		)
 	}
 
+	const postLink = `${appUrl}/${username}/${post.slug}`
 	const shareLink = `${appUrl}/${username}/${post.shareId}`
 	const dropdownItems = [
 		{
@@ -179,7 +176,17 @@ function PostItem({ appUrl, post, username }: PostItemProps) {
 					</div>
 				</div>
 				<div className='col-span-1 flex h-full w-full items-center justify-end space-x-4'>
-					<CopyToClipboard text={shareLink} />
+					{post.published ? (
+						<Link to={postLink} target='_blank'>
+							<IconButton
+								className='!p-2'
+								icon={
+									<ExternalLinkIcon className='au-placeholder-primary-foreground' />
+								}
+							/>
+						</Link>
+					) : null}
+                    {/* <CopyToClipboard text={shareLink} /> */}
 					<Alert
 						open={showDeletePostAlert}
 						onOpenChange={setShowDeletePostAlert}
