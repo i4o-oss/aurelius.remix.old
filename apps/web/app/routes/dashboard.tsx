@@ -1,5 +1,4 @@
 import {
-	Settings,
 	SETTINGS_LOCAL_STORAGE_KEY,
 	SettingsData,
 } from '@i4o/aurelius'
@@ -9,6 +8,7 @@ import { json } from '@remix-run/node'
 import { Outlet, useLoaderData } from '@remix-run/react'
 import { useState } from 'react'
 import { Footer, Header } from '~/components'
+import Settings from '~/components/settings'
 import { getSettingsFromUserId } from '~/models/settings.server'
 import { getUserProfile } from '~/models/user.server'
 import { auth } from '~/services/auth.server'

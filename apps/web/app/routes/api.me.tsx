@@ -26,7 +26,7 @@ export async function action({ request }: ActionArgs) {
 	}
 
 	switch (request.method) {
-		case 'PUT': {
+		case 'POST': {
 			const formData = await request.formData()
 			const name = formData.get('name') as string
 			const bio = formData.get('bio') as string
