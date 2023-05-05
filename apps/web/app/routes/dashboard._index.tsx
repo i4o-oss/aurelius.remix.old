@@ -2,7 +2,12 @@ import { Suspense, useEffect, useState } from 'react'
 import type { LoaderArgs } from '@remix-run/node'
 import { defer } from '@remix-run/node'
 import { getAllPostsFromAuthor, Post } from '~/models/post.server'
-import { Await, Link, useFetcher, useLoaderData } from '@remix-run/react'
+import {
+	Await,
+	Link,
+	useFetcher,
+	useLoaderData,
+} from '@remix-run/react'
 import {
 	Alert,
 	Button,
