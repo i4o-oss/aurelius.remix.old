@@ -19,7 +19,7 @@ import { Theme, useTheme } from '~/lib/theme'
 interface Props {
     image: string
     name: string
-    setShowSettingsDialog: Dispatch<SetStateAction<boolean>>
+    setShowSettingsDialog?: Dispatch<SetStateAction<boolean>>
 }
 
 function ProfileDropdown(props: Props) {
@@ -93,7 +93,7 @@ export default function Header({
     setShowSettingsDialog,
     user,
 }: {
-    setShowSettingsDialog: Dispatch<SetStateAction<boolean>>
+    setShowSettingsDialog?: Dispatch<SetStateAction<boolean>>
     user?: any
 }) {
     const [theme] = useTheme()
