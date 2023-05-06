@@ -235,6 +235,7 @@ export default function MainMenu(props: MainMenuProps) {
 			items={dropdownItems}
 			trigger={
 				<IconButton
+                    ariaLabel='Main Menu Dropdown'
 					className='h-10 w-10'
 					icon={
 						<HamburgerMenuIcon className='au-placeholder-primary-foreground' />
