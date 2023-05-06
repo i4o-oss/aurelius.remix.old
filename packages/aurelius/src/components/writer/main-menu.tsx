@@ -15,7 +15,7 @@ import {
 	MixerHorizontalIcon,
 	MoonIcon,
 	Pencil1Icon,
-	RocketIcon,
+	// RocketIcon,
 	// QuestionMarkCircledIcon,
 	StarFilledIcon,
 	SunIcon,
@@ -50,12 +50,12 @@ export default function MainMenu(props: MainMenuProps) {
 					icon: <DashboardIcon />,
 					link: '/dashboard',
 				},
-				{
-					label: 'Plus',
-					icon: <RocketIcon />,
-					link: '/plus',
-					openLinkInNewTab: true,
-				},
+				// {
+				// 	label: 'Plus',
+				// 	icon: <RocketIcon />,
+				// 	link: '/plus',
+				// 	openLinkInNewTab: true,
+				// },
 				{
 					label: (
 						<Form action='/logout' method='post'>
@@ -235,6 +235,7 @@ export default function MainMenu(props: MainMenuProps) {
 			items={dropdownItems}
 			trigger={
 				<IconButton
+                    ariaLabel='Main Menu Dropdown'
 					className='h-10 w-10'
 					icon={
 						<HamburgerMenuIcon className='au-placeholder-primary-foreground' />

@@ -70,6 +70,7 @@ export default function Footer() {
 			>
 				{isMusicPlaying ? (
 					<IconButton
+                        ariaLabel='Pause Music Button'
 						className='au-flex au-h-8 au-w-8 !au-p-0 au-items-center au-justify-center !au-bg-transparent'
 						icon={
 							<PauseIcon className='au-w-4 au-h-4 au-text-primary-foreground' />
@@ -78,6 +79,7 @@ export default function Footer() {
 					/>
 				) : (
 					<IconButton
+                        ariaLabel='Pause Music Button'
 						className='au-flex au-h-8 au-w-8 !au-p-0 au-items-center au-justify-center !au-bg-transparent'
 						icon={
 							<PlayIcon className='au-w-4 au-h-4 au-text-primary-foreground' />

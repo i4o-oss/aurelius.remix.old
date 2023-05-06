@@ -8,24 +8,24 @@ import invariant from 'tiny-invariant'
 import { getUserByUsername } from '~/models/user.server'
 import { getPostBySlug } from '~/models/post.server'
 
-export const meta: MetaFunction = () => {
+export const meta: MetaFunction<typeof loader> = ({ data }) => {
 	// @ts-ignore
-	const { post, user } = useLoaderData<typeof loader>()
+	const { post, user } = data
 
 	return {
 		charset: 'utf-8',
 		title: `${post?.title} - ${user?.name}`,
 		// description: post.description,
-		// 'og:site': `https://aurelius.ink/blog/${post.slug}`,
-		// 'og:url': `https://aurelius.ink/blog/${post.slug}`,
-		// 'og:title': `${post?.title} - Aurelius Blog`,
+		'og:site': `https://aurelius.ink/blog/${post?.slug}`,
+		'og:url': `https://aurelius.ink/blog/${post?.slug}`,
+		'og:title': `${post?.title} - ${user?.name}`,
 		// 'og:description': post.description,
 		// 'og:image': post.og_image,
-		// 'twitter:card': 'summary_large_image',
+		'twitter:card': 'summary_large_image',
 		// 'twitter:site': '@aurelius_ink',
-		// 'twitter:url': `https://aurelius.ink/blog/${post.slug}`,
+		'twitter:url': `https://aurelius.ink/${user?.username}/${post?.slug}`,
 		// 'twitter:creator': '@aurelius_ink',
-		// 'twitter:title': `${post?.title} - Aurelius Blog`,
+		'twitter:title': `${post?.title} - ${user?.name}`,
 		// 'twitter:description': post.description,
 		// 'twitter:image': post.og_image,
 		viewport: 'width=device-width,initial-scale=1',
@@ -54,7 +54,7 @@ export async function loader({ params }: LoaderArgs) {
 
 export default function BlogPost() {
 	const { post, user } = useLoaderData<typeof loader>()
-	const permalink = `${ORIGIN}/blog/${post?.slug}`
+	const permalink = `${ORIGIN}/${user.username}/${post?.slug}`
 	const tweetMessage = `I just published a post: ${post?.title} 👇`
 
 	return (

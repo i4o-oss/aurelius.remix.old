@@ -44,20 +44,11 @@ export default function Footer() {
 						<HeartFilledIcon className='mx-1 text-red-500' /> by{' '}
 						<a
 							className='ml-1 underline'
-							href='https://i4o.dev'
+							href='https://twitter.com/i4o_dev'
 							target='_blank'
 							rel='noreferrer noopener'
 						>
 							i4o
-						</a>
-						. Illustrations by
-						<a
-							className='ml-1 underline'
-							href='https://popsy.co'
-							target='_blank'
-							rel='noreferrer noopener'
-						>
-							popsy.co
 						</a>
 						.
 					</p>
