@@ -1,5 +1,6 @@
 User-agent: Googlebot
 Disallow: /nogooglebot/
+Disallow: /dashboard
     
 User-agent: *
 Allow: /
