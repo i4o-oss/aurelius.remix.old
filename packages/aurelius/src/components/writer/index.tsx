@@ -37,6 +37,7 @@ import Timer from './timer'
 import Reset from './reset'
 import WritingSessionRecap from './recap'
 import Export from './export'
+import SplashScreen from './splash'
 
 export default function Writer({
 	post,
@@ -79,6 +80,7 @@ export default function Writer({
 	const [showResetAlert, setShowResetAlert] = useState(false)
 	const [showSessionEndToast, setShowSessionEndToast] = useState(false)
 	const [showSessionRecapDialog, setShowSessionRecapDialog] = useState(false)
+    const [showSplashScreenDialog, setShowSplashScreenDialog] = useState(true)
 	const [showWritingPaths, setShowWritingPaths] = useState(false)
 	const [title, setTitle] = useState<string>('')
 	const [titleAlignment, setTitleAlignment] = useState<TitleAlignment>('left')
@@ -371,6 +373,8 @@ export default function Writer({
 		setShowSessionRecapDialog,
 		showSettingsDialog,
 		setShowSettingsDialog,
+        showSplashScreenDialog,
+        setShowSplashScreenDialog,
 		showWritingPaths,
 		setShowWritingPaths,
 		theme,
@@ -430,6 +434,7 @@ export default function Writer({
 			<NewSession startSession={startSession} />
 			<WritingSessionRecap />
 			<Export />
+            <SplashScreen />
 		</AureliusProvider>
 	)
 }
