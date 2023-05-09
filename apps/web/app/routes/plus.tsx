@@ -240,7 +240,7 @@ function Pricing() {
 									padding='px-6 py-4'
 									textSize='text-lg'
 								>
-									Try it free for 14 days
+									Try it free for 7 days
 								</PrimaryButton>
 								<p className='text-primary-foreground-subtle mt-6 text-xs leading-5'>
 									Cancel anytime. We'll remind you 3 days
@@ -302,7 +302,7 @@ function Pricing() {
 									padding='px-6 py-4'
 									textSize='text-lg'
 								>
-									Try it free for 30 days
+									Try it free for 14 days
 								</PrimaryButton>
 								<p className='text-primary-foreground-subtle mt-6 text-xs leading-5'>
 									30 days refund policy. No questions asked.
