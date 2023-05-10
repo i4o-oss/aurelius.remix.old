@@ -52,12 +52,12 @@ export default function SplashScreen() {
 									New Post
 								</Button>
 								<span className='au-flex au-items-center au-gap-1 au-text-xs '>
-								    <kbd className='au-px-2 au-py-1 au-font-semibold au-text-primary-foreground-subtle au-bg-primary au-border au-border-subtle au-rounded'>
-								        Alt
-								    </kbd>
-								    <kbd className='au-px-2 au-py-1 au-font-semibold au-text-primary-foreground-subtle au-bg-primary au-border au-border-subtle au-rounded'>
-								        N
-								    </kbd>
+									<kbd className='au-px-2 au-py-1 au-font-semibold au-text-primary-foreground-subtle au-bg-primary au-border au-border-subtle au-rounded'>
+										Alt
+									</kbd>
+									<kbd className='au-px-2 au-py-1 au-font-semibold au-text-primary-foreground-subtle au-bg-primary au-border au-border-subtle au-rounded'>
+										N
+									</kbd>
 								</span>
 							</li>
 							<li className='au-flex au-items-center au-justify-between'>
@@ -68,12 +68,12 @@ export default function SplashScreen() {
 									New Writing Session
 								</Button>
 								<span className='au-flex au-items-center au-gap-1 au-text-xs '>
-								    <kbd className='au-px-2 au-py-1 au-font-semibold au-text-primary-foreground-subtle au-bg-primary au-border au-border-subtle au-rounded'>
-								        Alt
-								    </kbd>
-								    <kbd className='au-px-2 au-py-1 au-font-semibold au-text-primary-foreground-subtle au-bg-primary au-border au-border-subtle au-rounded'>
-								        W
-								    </kbd>
+									<kbd className='au-px-2 au-py-1 au-font-semibold au-text-primary-foreground-subtle au-bg-primary au-border au-border-subtle au-rounded'>
+										Alt
+									</kbd>
+									<kbd className='au-px-2 au-py-1 au-font-semibold au-text-primary-foreground-subtle au-bg-primary au-border au-border-subtle au-rounded'>
+										W
+									</kbd>
 								</span>
 							</li>
 							<li className='au-flex au-items-center au-justify-between'>
@@ -84,12 +84,12 @@ export default function SplashScreen() {
 									Preferences
 								</Button>
 								<span className='au-flex au-items-center au-gap-1 au-text-xs '>
-								    <kbd className='au-px-2 au-py-1 au-font-semibold au-text-primary-foreground-subtle au-bg-primary au-border au-border-subtle au-rounded'>
-								        Alt
-								    </kbd>
-								    <kbd className='au-px-2 au-py-1 au-font-semibold au-text-primary-foreground-subtle au-bg-primary au-border au-border-subtle au-rounded'>
-								        S
-								    </kbd>
+									<kbd className='au-px-2 au-py-1 au-font-semibold au-text-primary-foreground-subtle au-bg-primary au-border au-border-subtle au-rounded'>
+										Alt
+									</kbd>
+									<kbd className='au-px-2 au-py-1 au-font-semibold au-text-primary-foreground-subtle au-bg-primary au-border au-border-subtle au-rounded'>
+										S
+									</kbd>
 								</span>
 							</li>
 						</ul>
@@ -127,12 +127,12 @@ export default function SplashScreen() {
 									Help
 								</Button>
 								<span className='au-flex au-items-center au-gap-1'>
-								    <kbd className='au-px-2 au-py-1 au-text-xs au-font-semibold au-text-primary-foreground-subtle au-bg-primary au-border au-border-subtle au-rounded'>
-								        Alt
-								    </kbd>
-								    <kbd className='au-px-2 au-py-1 au-text-xs au-font-semibold au-text-primary-foreground-subtle au-bg-primary au-border au-border-subtle au-rounded'>
-								        ?
-								    </kbd>
+									<kbd className='au-px-2 au-py-1 au-text-xs au-font-semibold au-text-primary-foreground-subtle au-bg-primary au-border au-border-subtle au-rounded'>
+										Alt
+									</kbd>
+									<kbd className='au-px-2 au-py-1 au-text-xs au-font-semibold au-text-primary-foreground-subtle au-bg-primary au-border au-border-subtle au-rounded'>
+										?
+									</kbd>
 								</span>
 							</li>
 						</ul>
