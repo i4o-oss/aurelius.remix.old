@@ -28,12 +28,12 @@ import { Form } from '@remix-run/react'
 
 interface MainMenuProps {
 	downloadFile: () => void
-	onResetEditorClick: (state: boolean) => void
 }
 
 export default function MainMenu(props: MainMenuProps) {
 	const {
 		focusMode,
+        onResetEditorClick,
 		setFocusMode,
 		setShowExportImageDialog,
 		setShowNewSessionDialog,
@@ -92,7 +92,7 @@ export default function MainMenu(props: MainMenuProps) {
 				{
 					label: 'Post',
 					icon: <FileTextIcon />,
-					onSelect: () => props.onResetEditorClick(true),
+					onSelect: () => onResetEditorClick?.(true),
 				},
 				{
 					label: 'Writing Session',

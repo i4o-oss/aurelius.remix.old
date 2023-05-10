@@ -1,23 +1,40 @@
 import { Button, Checkbox, Dialog } from '@i4o/catalystui'
 import {
 	CounterClockwiseClockIcon,
-	DashboardIcon,
 	FileTextIcon,
 	GearIcon,
 	InfoCircledIcon,
 	Pencil1Icon,
 	RocketIcon,
 	StackIcon,
-	TargetIcon,
 } from '@radix-ui/react-icons'
 import { useContext } from 'react'
 import { AureliusContext, AureliusProviderData } from './provider'
 
-const SPLASH_SCREEN_OPTIONS = []
-
 export default function SplashScreen() {
-	const context: AureliusProviderData = useContext(AureliusContext)
-	const { showSplashScreenDialog, setShowSplashScreenDialog } = context
+	const {
+		onResetEditorClick,
+		setShowNewSessionDialog,
+		setShowSettingsDialog,
+		showSplashScreenDialog,
+		setShowSplashScreenDialog,
+		user,
+	} = useContext<AureliusProviderData>(AureliusContext)
+
+	function newPostHandler() {
+		setShowSplashScreenDialog?.(false)
+		onResetEditorClick?.(true)
+	}
+
+	function newWritingSessionHandler() {
+		setShowSplashScreenDialog?.(false)
+		setShowNewSessionDialog?.(true)
+	}
+
+	function preferencesHandler() {
+		setShowSplashScreenDialog?.(false)
+		setShowSettingsDialog?.(true)
+	}
 
 	return (
 		<Dialog
@@ -48,6 +65,7 @@ export default function SplashScreen() {
 								<Button
 									className='!au-px-0 !au-py-1 !au-bg-transparent hover:!au-bg-transparent au-flex au-items-center au-font-normal'
 									leftIcon={<FileTextIcon />}
+									onClick={newPostHandler}
 								>
 									New Post
 								</Button>
@@ -64,6 +82,7 @@ export default function SplashScreen() {
 								<Button
 									className='!au-px-0 !au-py-1 !au-bg-transparent hover:!au-bg-transparent au-flex au-items-center au-font-normal'
 									leftIcon={<Pencil1Icon />}
+									onClick={newWritingSessionHandler}
 								>
 									New Writing Session
 								</Button>
@@ -80,6 +99,7 @@ export default function SplashScreen() {
 								<Button
 									className='!au-px-0 !au-py-1 !au-bg-transparent hover:!au-bg-transparent au-flex au-items-center au-font-normal'
 									leftIcon={<GearIcon />}
+									onClick={preferencesHandler}
 								>
 									Preferences
 								</Button>
@@ -108,12 +128,14 @@ export default function SplashScreen() {
 								</Button>
 							</li>
 							<li className='au-flex au-items-center au-justify-between'>
-								<Button
-									className='!au-px-0 !au-py-1 !au-bg-transparent hover:!au-bg-transparent au-flex au-items-center au-font-normal'
-									leftIcon={<StackIcon />}
-								>
-									See all posts
-								</Button>
+								<a href='/dashboard'>
+									<Button
+										className='!au-px-0 !au-py-1 !au-bg-transparent hover:!au-bg-transparent au-flex au-items-center au-font-normal'
+										leftIcon={<StackIcon />}
+									>
+										See all posts
+									</Button>
+								</a>
 							</li>
 						</ul>
 					</div>
@@ -149,12 +171,14 @@ export default function SplashScreen() {
 							</li>
 						</ul>
 					</div>
-					<div className='au-col-span-2 au-py-2  au-flex au-flex-col'>
-						<p className='au-leading-relaxed au-italic au-text-xs au-text-primary-foreground-subtle'>
-							Note: All your data will be saved locally in the
-							browser.
-						</p>
-					</div>
+					{!user ? (
+						<div className='au-col-span-2 au-py-2  au-flex au-flex-col'>
+							<p className='au-leading-relaxed au-italic au-text-xs au-text-primary-foreground-subtle'>
+								Note: All your data will be saved locally in the
+								browser.
+							</p>
+						</div>
+					) : null}
 				</div>
 				<div className='au-w-full au-px-8 au-py-4'>
 					<Checkbox

@@ -80,7 +80,7 @@ export default function Writer({
 	const [showResetAlert, setShowResetAlert] = useState(false)
 	const [showSessionEndToast, setShowSessionEndToast] = useState(false)
 	const [showSessionRecapDialog, setShowSessionRecapDialog] = useState(false)
-    const [showSplashScreenDialog, setShowSplashScreenDialog] = useState(true)
+	const [showSplashScreenDialog, setShowSplashScreenDialog] = useState(true)
 	const [showWritingPaths, setShowWritingPaths] = useState(false)
 	const [title, setTitle] = useState<string>('')
 	const [titleAlignment, setTitleAlignment] = useState<TitleAlignment>('left')
@@ -349,6 +349,7 @@ export default function Writer({
 		localPost,
 		notifyOnSessionEnd,
 		setNotifyOnSessionEnd,
+		onResetEditorClick,
 		post,
 		settings: settingsData,
 		sessionData,
@@ -373,8 +374,8 @@ export default function Writer({
 		setShowSessionRecapDialog,
 		showSettingsDialog,
 		setShowSettingsDialog,
-        showSplashScreenDialog,
-        setShowSplashScreenDialog,
+		showSplashScreenDialog,
+		setShowSplashScreenDialog,
 		showWritingPaths,
 		setShowWritingPaths,
 		theme,
@@ -403,10 +404,7 @@ export default function Writer({
 						focusMode ? 'au-opacity-5' : 'au-opacity-100'
 					}`}
 				>
-					<MainMenu
-						downloadFile={downloadFile}
-						onResetEditorClick={onResetEditorClick}
-					/>
+					<MainMenu downloadFile={downloadFile} />
 					{SessionComponent}
 				</div>
 				{/* <WritingPaths /> */}
@@ -434,7 +432,7 @@ export default function Writer({
 			<NewSession startSession={startSession} />
 			<WritingSessionRecap />
 			<Export />
-            <SplashScreen />
+			<SplashScreen />
 		</AureliusProvider>
 	)
 }
