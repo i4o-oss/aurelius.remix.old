@@ -160,7 +160,13 @@ const Document = ({ children }: DocumentProps) => {
 						src='https://analytics.i4o.dev/script.js'
 						data-website-id='7621579d-ef19-4240-bef7-51e71ee9fa96'
 					></script>
-				) : null}
+				) : (
+					<script
+						async
+						src='https://analytics.i4o.dev/script.js'
+						data-website-id='efb3fedc-7312-4e9f-bb7d-7a2085019dd1'
+					></script>
+				)}
 				{children}
 				<ScrollRestoration />
 				<Scripts />
