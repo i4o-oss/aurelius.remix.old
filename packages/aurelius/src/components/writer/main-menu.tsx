@@ -3,14 +3,14 @@ import { Dropdown, IconButton, Switch } from '@i4o/catalystui'
 import {
 	Crosshair2Icon,
 	DashboardIcon,
+	DownloadIcon,
 	EnterIcon,
 	ExitIcon,
-	DownloadIcon,
 	FileIcon,
 	FileTextIcon,
 	HamburgerMenuIcon,
-	InstagramLogoIcon,
 	ImageIcon,
+	InstagramLogoIcon,
 	// InfoCircledIcon,
 	MixerHorizontalIcon,
 	MoonIcon,
@@ -23,8 +23,9 @@ import {
 	TwitterLogoIcon,
 } from '@radix-ui/react-icons'
 import { AureliusContext, AureliusProviderData } from './provider'
-import { Theme } from '../../types'
+import { EventType, Theme } from '../../types'
 import { Form } from '@remix-run/react'
+import { sendEvent } from '../../helpers'
 
 interface MainMenuProps {
 	downloadFile: () => void
@@ -32,8 +33,9 @@ interface MainMenuProps {
 
 export default function MainMenu(props: MainMenuProps) {
 	const {
+		content,
 		focusMode,
-        onResetEditorClick,
+		onResetEditorClick,
 		setFocusMode,
 		setShowExportImageDialog,
 		setShowNewSessionDialog,
@@ -92,12 +94,20 @@ export default function MainMenu(props: MainMenuProps) {
 				{
 					label: 'Post',
 					icon: <FileTextIcon />,
-					onSelect: () => onResetEditorClick?.(true),
+					onSelect: () => {
+						onResetEditorClick?.(true)
+						if (!content) {
+							sendEvent(EventType.NEW_POST_CLICKED)
+						}
+					},
 				},
 				{
 					label: 'Writing Session',
 					icon: <Pencil1Icon />,
-					onSelect: () => setShowNewSessionDialog?.(true),
+					onSelect: () => {
+						setShowNewSessionDialog?.(true)
+						sendEvent(EventType.NEW_WRITING_SESSION_CLICKED)
+					},
 				},
 			],
 			type: 'submenu',
@@ -206,8 +216,8 @@ export default function MainMenu(props: MainMenuProps) {
 			label: (
 				<div className='flex cursor-pointer items-center justify-between'>
 					<label className='cursor-pointer'>Theme</label>
-					{/* Wrapping the switch in a div so I can use the onclick without having to add it to catalyst. 
-                        This will prevent event bubbling and triggering toggletheme twice. 
+					{/* Wrapping the switch in a div so I can use the onclick without having to add it to catalyst.
+                        This will prevent event bubbling and triggering toggletheme twice.
                         Which was why it wasn't working when clicking directly on the switch.. */}
 					<div
 						// @ts-ignore
@@ -235,7 +245,7 @@ export default function MainMenu(props: MainMenuProps) {
 			items={dropdownItems}
 			trigger={
 				<IconButton
-                    ariaLabel='Main Menu Dropdown'
+					ariaLabel='Main Menu Dropdown'
 					className='h-10 w-10'
 					icon={
 						<HamburgerMenuIcon className='au-placeholder-primary-foreground' />

@@ -12,10 +12,13 @@ import {
 import { writeStorage } from '@rehooks/local-storage'
 import { useContext } from 'react'
 import { LOCAL_STORAGE_KEYS } from '../../constants'
+import { sendEvent } from '../../helpers'
 import { AureliusContext, AureliusProviderData } from './provider'
+import { EventType } from '../../types'
 
 export default function SplashScreen() {
 	const {
+		content,
 		localPost,
 		onResetEditorClick,
 		setShowNewSessionDialog,
@@ -25,18 +28,22 @@ export default function SplashScreen() {
 		user,
 	} = useContext<AureliusProviderData>(AureliusContext)
 
-    function saveDisplaySplashScreenSetting(checked: boolean) {
+	function saveDisplaySplashScreenSetting(checked: boolean) {
 		writeStorage(LOCAL_STORAGE_KEYS.SPLASH_SCREEN, !checked)
-    }
+	}
 
 	function newPostHandler() {
 		setShowSplashScreenDialog?.(false)
 		onResetEditorClick?.(true)
+		if (!content) {
+			sendEvent(EventType.NEW_POST_CLICKED)
+		}
 	}
 
 	function newWritingSessionHandler() {
 		setShowSplashScreenDialog?.(false)
 		setShowNewSessionDialog?.(true)
+        sendEvent(EventType.NEW_WRITING_SESSION_CLICKED)
 	}
 
 	function preferencesHandler() {
@@ -222,7 +229,11 @@ export default function SplashScreen() {
 					) : null}
 				</div>
 				<div className='au-w-full au-px-8 au-py-4 au-flex au-items-center au-gap-2'>
-					<Switch defaultChecked={false} name='dont-show-again' onCheckedChange={saveDisplaySplashScreenSetting} />
+					<Switch
+						defaultChecked={false}
+						name='dont-show-again'
+						onCheckedChange={saveDisplaySplashScreenSetting}
+					/>
 					<p className='au-text-primary-foreground-subtle au-text-xs'>
 						Don't show this again.
 					</p>

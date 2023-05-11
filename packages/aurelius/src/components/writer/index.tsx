@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import type { WriterProps } from '../../types'
+import { EventType, WriterProps } from '../../types'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useEditor } from '@tiptap/react'
 import BubbleMenuExt from '@tiptap/extension-bubble-menu'
@@ -20,13 +20,13 @@ import TipTap from './tiptap'
 import WriterFooter from './footer'
 import MainMenu from './main-menu'
 import {
-    LOCAL_STORAGE_KEYS,
+	LOCAL_STORAGE_KEYS,
 	POST_LOCAL_STORAGE_KEY,
 	SESSION_LOCAL_STORAGE_KEY,
 	SETTINGS_LOCAL_STORAGE_KEY,
 } from '../../constants'
 import NewSession from './new-session'
-import { downloadAsMarkdown } from '../../helpers'
+import { downloadAsMarkdown, sendEvent } from '../../helpers'
 import AureliusProvider from './provider'
 import {
 	SettingsData,
@@ -52,7 +52,10 @@ export default function Writer({
 	toggleTheme,
 	user,
 }: WriterProps) {
-    const [displaySplashScreen] = useLocalStorage<boolean>(LOCAL_STORAGE_KEYS.SPLASH_SCREEN, true)
+	const [displaySplashScreen] = useLocalStorage<boolean>(
+		LOCAL_STORAGE_KEYS.SPLASH_SCREEN,
+		true
+	)
 	const [localPost] = useLocalStorage(POST_LOCAL_STORAGE_KEY)
 	const [writingSessions] = useLocalStorage<WritingSession[]>(
 		SESSION_LOCAL_STORAGE_KEY
@@ -82,7 +85,8 @@ export default function Writer({
 	const [showResetAlert, setShowResetAlert] = useState(false)
 	const [showSessionEndToast, setShowSessionEndToast] = useState(false)
 	const [showSessionRecapDialog, setShowSessionRecapDialog] = useState(false)
-	const [showSplashScreenDialog, setShowSplashScreenDialog] = useState<boolean>(displaySplashScreen)
+	const [showSplashScreenDialog, setShowSplashScreenDialog] =
+		useState<boolean>(displaySplashScreen)
 	const [showWritingPaths, setShowWritingPaths] = useState(false)
 	const [title, setTitle] = useState<string>('')
 	const [titleAlignment, setTitleAlignment] = useState<TitleAlignment>('left')
@@ -192,6 +196,7 @@ export default function Writer({
 
 	function downloadFile() {
 		downloadAsMarkdown(title, content)
+        sendEvent(EventType.MARKDOWN_EXPORTED)
 	}
 
 	async function savePost(data: any) {
@@ -280,6 +285,14 @@ export default function Writer({
 			setFocusMode(false)
 		}
 		setShowSessionRecapDialog(true)
+		sendEvent(EventType.WRITING_SESSION_FINISHED, {
+			goal: sessionData?.goal,
+			target: sessionData?.target,
+			duration: sessionData?.duration,
+			wordCount:
+				// @ts-ignore
+				sessionData?.endingWordCount - sessionData?.startingWordCount,
+		})
 	}
 
 	function endWordCountSession(totalTime: number) {
@@ -306,6 +319,14 @@ export default function Writer({
 			setFocusMode(false)
 		}
 		setShowSessionRecapDialog(true)
+		sendEvent(EventType.WRITING_SESSION_FINISHED, {
+			goal: sessionData?.goal,
+			target: sessionData?.target,
+			duration: sessionData?.duration,
+			wordCount:
+				// @ts-ignore
+				sessionData?.endingWordCount - sessionData?.startingWordCount,
+		})
 	}
 
 	let SessionComponent: ReactNode

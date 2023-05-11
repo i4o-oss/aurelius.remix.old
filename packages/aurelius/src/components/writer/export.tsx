@@ -8,9 +8,10 @@ import {
     ToggleGroup,
 } from '@i4o/catalystui'
 import { toPng } from 'html-to-image'
-import { TitleAlignment } from '../../types'
+import { EventType, TitleAlignment } from '../../types'
 import ExportImageContent from './export-image-content'
 import { AureliusContext, AureliusProviderData } from './provider'
+import { sendEvent } from '../../helpers'
 
 export default function Export() {
     const context: AureliusProviderData = useContext(AureliusContext)
@@ -54,14 +55,22 @@ export default function Export() {
 
     function exportPost() {
         if (window) {
+            const slug = title
+                ?.replace(/[^a-zA-Z ]/g, '')
+                .toLowerCase()
+                .split(' ')
+                .join('-')
+            const filename = slug || `aurelius_untitled_post_${Date.now()}`
             // @ts-ignore
             const element = findDOMNode(canvasRef.current)
             // @ts-ignore
             toPng(element, { pixelRatio: 2 })
                 .then((dataUrl) => {
-                    saveAs(dataUrl, 'file.png')
+                    saveAs(dataUrl, `${filename}.png`)
                 })
                 .catch((err) => console.log(err))
+
+            sendEvent(EventType.IMAGE_EXPORTED)
         }
     }
 
