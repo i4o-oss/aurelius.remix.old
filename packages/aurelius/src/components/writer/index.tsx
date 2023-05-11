@@ -20,6 +20,7 @@ import TipTap from './tiptap'
 import WriterFooter from './footer'
 import MainMenu from './main-menu'
 import {
+    LOCAL_STORAGE_KEYS,
 	POST_LOCAL_STORAGE_KEY,
 	SESSION_LOCAL_STORAGE_KEY,
 	SETTINGS_LOCAL_STORAGE_KEY,
@@ -51,6 +52,7 @@ export default function Writer({
 	toggleTheme,
 	user,
 }: WriterProps) {
+    const [displaySplashScreen] = useLocalStorage<boolean>(LOCAL_STORAGE_KEYS.SPLASH_SCREEN, true)
 	const [localPost] = useLocalStorage(POST_LOCAL_STORAGE_KEY)
 	const [writingSessions] = useLocalStorage<WritingSession[]>(
 		SESSION_LOCAL_STORAGE_KEY
@@ -80,7 +82,7 @@ export default function Writer({
 	const [showResetAlert, setShowResetAlert] = useState(false)
 	const [showSessionEndToast, setShowSessionEndToast] = useState(false)
 	const [showSessionRecapDialog, setShowSessionRecapDialog] = useState(false)
-	const [showSplashScreenDialog, setShowSplashScreenDialog] = useState(true)
+	const [showSplashScreenDialog, setShowSplashScreenDialog] = useState<boolean>(displaySplashScreen)
 	const [showWritingPaths, setShowWritingPaths] = useState(false)
 	const [title, setTitle] = useState<string>('')
 	const [titleAlignment, setTitleAlignment] = useState<TitleAlignment>('left')

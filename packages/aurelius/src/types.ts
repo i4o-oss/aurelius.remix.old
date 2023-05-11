@@ -58,6 +58,7 @@ export interface ProfileSettings {
 export type DailyGoal = 'duration' | 'wordCount'
 
 export interface SettingsData {
+    displaySplashScreen: boolean
 	dailyGoal: DailyGoal
 	target?: number
 	musicChannel?: string
