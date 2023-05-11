@@ -171,10 +171,10 @@ export default function MainMenu(props: MainMenuProps) {
 		{
 			label: 'Reset Editor',
 			icon: <TrashIcon />,
-			onSelect: () => props.onResetEditorClick(true),
+			onSelect: () => onResetEditorClick?.(true),
 		},
 		{
-			label: 'Settings',
+			label: 'Preferences',
 			icon: <MixerHorizontalIcon />,
 			onSelect: () => setShowSettingsDialog?.(true),
 		},
