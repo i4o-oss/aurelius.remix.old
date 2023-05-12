@@ -9,51 +9,30 @@ import {
 	// RocketIcon,
 	StackIcon,
 } from '@radix-ui/react-icons'
-import { writeStorage } from '@rehooks/local-storage'
 import { useContext } from 'react'
-import { LOCAL_STORAGE_KEYS } from '../../constants'
-import { sendEvent } from '../../helpers'
 import { AureliusContext, AureliusProviderData } from './provider'
-import { EventType } from '../../types'
 
-export default function SplashScreen() {
+interface SplashScreenProps {
+	continueWritingHandler: () => void
+	newPostHandler: () => void
+	newWritingSessionHandler: () => void
+	preferencesHandler: () => void
+	saveDisplaySplashScreenSetting: (checked: boolean) => void
+}
+
+export default function SplashScreen({
+	continueWritingHandler,
+	newPostHandler,
+	newWritingSessionHandler,
+	preferencesHandler,
+	saveDisplaySplashScreenSetting,
+}: SplashScreenProps) {
 	const {
-		content,
 		localPost,
-		onResetEditorClick,
-		setShowNewSessionDialog,
-		setShowSettingsDialog,
 		showSplashScreenDialog,
 		setShowSplashScreenDialog,
 		user,
 	} = useContext<AureliusProviderData>(AureliusContext)
-
-	function saveDisplaySplashScreenSetting(checked: boolean) {
-		writeStorage(LOCAL_STORAGE_KEYS.SPLASH_SCREEN, !checked)
-	}
-
-	function newPostHandler() {
-		setShowSplashScreenDialog?.(false)
-		onResetEditorClick?.(true)
-		if (!content) {
-			sendEvent(EventType.NEW_POST_CLICKED)
-		}
-	}
-
-	function newWritingSessionHandler() {
-		setShowSplashScreenDialog?.(false)
-		setShowNewSessionDialog?.(true)
-        sendEvent(EventType.NEW_WRITING_SESSION_CLICKED)
-	}
-
-	function preferencesHandler() {
-		setShowSplashScreenDialog?.(false)
-		setShowSettingsDialog?.(true)
-	}
-
-	function continueWritingHandler() {
-		setShowSplashScreenDialog?.(false)
-	}
 
 	return (
 		<Dialog
@@ -88,14 +67,14 @@ export default function SplashScreen() {
 								>
 									New Post
 								</Button>
-								{/* <span className='au-flex au-items-center au-gap-1 au-text-xs '> */}
-								{/* 	<kbd className='au-px-2 au-py-1 au-font-semibold au-text-primary-foreground-subtle au-bg-primary au-border au-border-subtle au-rounded'> */}
-								{/* 		Alt */}
-								{/* 	</kbd> */}
-								{/* 	<kbd className='au-px-2 au-py-1 au-font-semibold au-text-primary-foreground-subtle au-bg-primary au-border au-border-subtle au-rounded'> */}
-								{/* 		N */}
-								{/* 	</kbd> */}
-								{/* </span> */}
+								<span className='au-flex au-items-center au-gap-1 au-text-xs '>
+									<kbd className='au-px-2 au-py-1 au-font-semibold au-text-primary-foreground-subtle au-bg-primary au-border au-border-subtle au-rounded'>
+										Alt
+									</kbd>
+									<kbd className='au-px-2 au-py-1 au-font-semibold au-text-primary-foreground-subtle au-bg-primary au-border au-border-subtle au-rounded'>
+										N
+									</kbd>
+								</span>
 							</li>
 							<li className='au-flex au-items-center au-justify-between'>
 								<Button
@@ -105,14 +84,14 @@ export default function SplashScreen() {
 								>
 									New Writing Session
 								</Button>
-								{/* <span className='au-flex au-items-center au-gap-1 au-text-xs '> */}
-								{/* 	<kbd className='au-px-2 au-py-1 au-font-semibold au-text-primary-foreground-subtle au-bg-primary au-border au-border-subtle au-rounded'> */}
-								{/* 		Alt */}
-								{/* 	</kbd> */}
-								{/* 	<kbd className='au-px-2 au-py-1 au-font-semibold au-text-primary-foreground-subtle au-bg-primary au-border au-border-subtle au-rounded'> */}
-								{/* 		W */}
-								{/* 	</kbd> */}
-								{/* </span> */}
+								<span className='au-flex au-items-center au-gap-1 au-text-xs '>
+									<kbd className='au-px-2 au-py-1 au-font-semibold au-text-primary-foreground-subtle au-bg-primary au-border au-border-subtle au-rounded'>
+										Alt
+									</kbd>
+									<kbd className='au-px-2 au-py-1 au-font-semibold au-text-primary-foreground-subtle au-bg-primary au-border au-border-subtle au-rounded'>
+										W
+									</kbd>
+								</span>
 							</li>
 							<li className='au-flex au-items-center au-justify-between'>
 								<Button
@@ -122,14 +101,14 @@ export default function SplashScreen() {
 								>
 									Preferences
 								</Button>
-								{/* <span className='au-flex au-items-center au-gap-1 au-text-xs '> */}
-								{/* 	<kbd className='au-px-2 au-py-1 au-font-semibold au-text-primary-foreground-subtle au-bg-primary au-border au-border-subtle au-rounded'> */}
-								{/* 		Alt */}
-								{/* 	</kbd> */}
-								{/* 	<kbd className='au-px-2 au-py-1 au-font-semibold au-text-primary-foreground-subtle au-bg-primary au-border au-border-subtle au-rounded'> */}
-								{/* 		S */}
-								{/* 	</kbd> */}
-								{/* </span> */}
+								<span className='au-flex au-items-center au-gap-1 au-text-xs '>
+									<kbd className='au-px-2 au-py-1 au-font-semibold au-text-primary-foreground-subtle au-bg-primary au-border au-border-subtle au-rounded'>
+										Alt
+									</kbd>
+									<kbd className='au-px-2 au-py-1 au-font-semibold au-text-primary-foreground-subtle au-bg-primary au-border au-border-subtle au-rounded'>
+										S
+									</kbd>
+								</span>
 							</li>
 						</ul>
 					</div>
@@ -150,6 +129,11 @@ export default function SplashScreen() {
 										>
 											Continue Writing
 										</Button>
+										<span className='au-flex au-items-center au-gap-1 au-text-xs '>
+											<kbd className='au-px-2 au-py-1 au-font-semibold au-text-primary-foreground-subtle au-bg-primary au-border au-border-subtle au-rounded'>
+												Esc
+											</kbd>
+										</span>
 									</li>
 								) : null}
 								{user ? (

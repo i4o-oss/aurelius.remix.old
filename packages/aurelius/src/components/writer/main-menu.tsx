@@ -100,6 +100,7 @@ export default function MainMenu(props: MainMenuProps) {
 							sendEvent(EventType.NEW_POST_CLICKED)
 						}
 					},
+					shortcut: 'Alt + N',
 				},
 				{
 					label: 'Writing Session',
@@ -108,6 +109,7 @@ export default function MainMenu(props: MainMenuProps) {
 						setShowNewSessionDialog?.(true)
 						sendEvent(EventType.NEW_WRITING_SESSION_CLICKED)
 					},
+					shortcut: 'Alt + W',
 				},
 			],
 			type: 'submenu',
@@ -129,7 +131,7 @@ export default function MainMenu(props: MainMenuProps) {
 		// 	),
 		// },
 		{
-			label: 'Export',
+			label: 'Export As',
 			icon: <DownloadIcon />,
 			type: 'submenu',
 			submenu: [
@@ -147,12 +149,13 @@ export default function MainMenu(props: MainMenuProps) {
 				// 	),
 				// },
 				{
-					label: 'Export to PNG',
+					label: 'Image',
 					icon: <ImageIcon />,
 					onSelect: () => setShowExportImageDialog?.(true),
+					shortcut: 'Alt + I',
 				},
 				{
-					label: 'Export to Markdown',
+					label: 'Markdown',
 					icon: (
 						<svg
 							xmlns='http://www.w3.org/2000/svg'
@@ -170,6 +173,7 @@ export default function MainMenu(props: MainMenuProps) {
 						</svg>
 					),
 					onSelect: props.downloadFile,
+					shortcut: 'Alt + D',
 				},
 			],
 		},
@@ -177,16 +181,19 @@ export default function MainMenu(props: MainMenuProps) {
 			label: 'Focus Mode',
 			icon: <Crosshair2Icon />,
 			onSelect: () => setFocusMode?.(!focusMode),
+			shortcut: 'Alt + M',
 		},
 		{
 			label: 'Reset Editor',
 			icon: <TrashIcon />,
 			onSelect: () => onResetEditorClick?.(true),
+			shortcut: 'Alt + R',
 		},
 		{
 			label: 'Preferences',
 			icon: <MixerHorizontalIcon />,
 			onSelect: () => setShowSettingsDialog?.(true),
+			shortcut: 'Alt + S',
 		},
 		// {
 		// 	label: 'Help',

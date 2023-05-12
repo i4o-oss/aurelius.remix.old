@@ -39,6 +39,8 @@ import Reset from './reset'
 import WritingSessionRecap from './recap'
 import Export from './export'
 import SplashScreen from './splash'
+import { Keystrokes } from '@rwh/keystrokes'
+import { KeystrokesProvider, useKeyCombo } from '@rwh/react-keystrokes'
 
 export default function Writer({
 	post,
@@ -94,6 +96,46 @@ export default function Writer({
 		settingsData?.watermark || true
 	)
 	const [wordCount, setWordCount] = useState(0)
+	const keystrokes = new Keystrokes()
+	const isExportToMarkdownComboPressed = useKeyCombo('alt + d')
+	const isExportToPngComboPressed = useKeyCombo('alt + i')
+	const isFocusModeComboPressed = useKeyCombo('alt + m')
+	const isNewPostComboPressed = useKeyCombo('alt + n')
+	const isNewWritingSessionComboPressed = useKeyCombo('alt + w')
+	const isPreferencesComboPressed = useKeyCombo('alt + s')
+	const isResetEditorComboPressed = useKeyCombo('alt + r')
+
+	useEffect(() => {
+		if (isExportToMarkdownComboPressed) {
+			downloadFile()
+		}
+		if (isExportToPngComboPressed) {
+			setShowExportImageDialog(true)
+		}
+		if (isFocusModeComboPressed) {
+			setFocusMode(!focusMode)
+		}
+		if (isNewPostComboPressed) {
+			newPostHandler()
+		}
+		if (isNewWritingSessionComboPressed) {
+			newWritingSessionHandler()
+		}
+		if (isPreferencesComboPressed) {
+			preferencesHandler()
+		}
+		if (isResetEditorComboPressed) {
+			onResetEditorClick(true)
+		}
+	}, [
+		isExportToMarkdownComboPressed,
+		isExportToPngComboPressed,
+		isFocusModeComboPressed,
+		isNewPostComboPressed,
+		isNewWritingSessionComboPressed,
+		isPreferencesComboPressed,
+		isResetEditorComboPressed,
+	])
 
 	useEffect(() => {
 		if (!title && !content) {
@@ -196,7 +238,7 @@ export default function Writer({
 
 	function downloadFile() {
 		downloadAsMarkdown(title, content)
-        sendEvent(EventType.MARKDOWN_EXPORTED)
+		sendEvent(EventType.MARKDOWN_EXPORTED)
 	}
 
 	async function savePost(data: any) {
@@ -329,6 +371,33 @@ export default function Writer({
 		})
 	}
 
+	function saveDisplaySplashScreenSetting(checked: boolean) {
+		writeStorage(LOCAL_STORAGE_KEYS.SPLASH_SCREEN, !checked)
+	}
+
+	function newPostHandler() {
+		setShowSplashScreenDialog?.(false)
+		onResetEditorClick?.(true)
+		if (!content) {
+			sendEvent(EventType.NEW_POST_CLICKED)
+		}
+	}
+
+	function newWritingSessionHandler() {
+		setShowSplashScreenDialog?.(false)
+		setShowNewSessionDialog?.(true)
+		sendEvent(EventType.NEW_WRITING_SESSION_CLICKED)
+	}
+
+	function preferencesHandler() {
+		setShowSplashScreenDialog?.(false)
+		setShowSettingsDialog?.(true)
+	}
+
+	function continueWritingHandler() {
+		setShowSplashScreenDialog?.(false)
+	}
+
 	let SessionComponent: ReactNode
 	if (sessionData && sessionData.goal === 'duration') {
 		const time = new Date()
@@ -415,47 +484,57 @@ export default function Writer({
 	}
 
 	return (
-		<AureliusProvider data={data}>
-			<main className='au-flex au-h-full au-w-full au-flex-col au-items-center au-justify-start'>
-				<Autosave
-					data={autoSaveData}
-					interval={5000}
-					onSave={autoSavePost}
-				/>
-				<div
-					className={`au-absolute au-top-4 au-left-4 au-flex au-items-center au-gap-4 au-transition-all au-duration-200 hover:au-opacity-100 ${
-						focusMode ? 'au-opacity-5' : 'au-opacity-100'
-					}`}
-				>
-					<MainMenu downloadFile={downloadFile} />
-					{SessionComponent}
-				</div>
-				{/* <WritingPaths /> */}
-				<section className='au-flex au-h-full au-w-full au-flex-grow au-flex-col au-items-center au-justify-start'>
-					<div className='au-flex au-h-full au-w-full au-flex-col au-items-center au-justify-start au-space-y-4 au-px-4 au-py-24 md:au-py-16 lg:au-px-0'>
-						<div className='au-w-full au-max-w-3xl'>
-							<textarea
-								autoFocus
-								className='au-min-h-[2rem] au-w-full au-resize-none au-overflow-y-hidden au-bg-transparent au-text-2xl au-font-semibold au-leading-snug au-text-black focus:au-outline-none dark:au-text-white lg:au-min-h-[6rem] lg:au-text-5xl'
-								onChange={(e) => setTitle(e.target.value)}
-								placeholder='Title'
-								ref={titleRef}
-								rows={1}
-								value={title}
-							/>
-						</div>
-						<TipTap />
+		<KeystrokesProvider keystrokes={keystrokes}>
+			<AureliusProvider data={data}>
+				<main className='au-flex au-h-full au-w-full au-flex-col au-items-center au-justify-start'>
+					<Autosave
+						data={autoSaveData}
+						interval={5000}
+						onSave={autoSavePost}
+					/>
+					<div
+						className={`au-absolute au-top-4 au-left-4 au-flex au-items-center au-gap-4 au-transition-all au-duration-200 hover:au-opacity-100 ${
+							focusMode ? 'au-opacity-5' : 'au-opacity-100'
+						}`}
+					>
+						<MainMenu downloadFile={downloadFile} />
+						{SessionComponent}
 					</div>
-				</section>
+					{/* <WritingPaths /> */}
+					<section className='au-flex au-h-full au-w-full au-flex-grow au-flex-col au-items-center au-justify-start'>
+						<div className='au-flex au-h-full au-w-full au-flex-col au-items-center au-justify-start au-space-y-4 au-px-4 au-py-24 md:au-py-16 lg:au-px-0'>
+							<div className='au-w-full au-max-w-3xl'>
+								<textarea
+									autoFocus
+									className='au-min-h-[2rem] au-w-full au-resize-none au-overflow-y-hidden au-bg-transparent au-text-2xl au-font-semibold au-leading-snug au-text-black focus:au-outline-none dark:au-text-white lg:au-min-h-[6rem] lg:au-text-5xl'
+									onChange={(e) => setTitle(e.target.value)}
+									placeholder='Title'
+									ref={titleRef}
+									rows={1}
+									value={title}
+								/>
+							</div>
+							<TipTap />
+						</div>
+					</section>
 
-				<WriterFooter />
-			</main>
+					<WriterFooter />
+				</main>
 
-			<Reset confirmResetEditor={confirmResetEditor} />
-			<NewSession startSession={startSession} />
-			<WritingSessionRecap />
-			<Export />
-			<SplashScreen />
-		</AureliusProvider>
+				<Reset confirmResetEditor={confirmResetEditor} />
+				<NewSession startSession={startSession} />
+				<WritingSessionRecap />
+				<Export />
+				<SplashScreen
+					continueWritingHandler={continueWritingHandler}
+					newPostHandler={newPostHandler}
+					newWritingSessionHandler={newWritingSessionHandler}
+					preferencesHandler={preferencesHandler}
+					saveDisplaySplashScreenSetting={
+						saveDisplaySplashScreenSetting
+					}
+				/>
+			</AureliusProvider>
+		</KeystrokesProvider>
 	)
 }

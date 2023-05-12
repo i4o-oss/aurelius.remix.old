@@ -55,6 +55,8 @@
         "@remix-run/dev": "1.14.0",
         "@remix-run/node": "1.14.0",
         "@remix-run/react": "1.14.0",
+        "@rwh/keystrokes": "1.0.0-beta.12",
+        "@rwh/react-keystrokes": "1.0.0-beta.12",
         "@tailwindcss/typography": "^0.5.9",
         "@tiptap/core": "2.0.0-beta.220",
         "@tiptap/extension-bubble-menu": "2.0.0-beta.220",

@@ -255,6 +255,12 @@ importers:
       '@remix-run/react':
         specifier: 1.14.0
         version: 1.14.0(react-dom@18.2.0)(react@18.2.0)
+      '@rwh/keystrokes':
+        specifier: 1.0.0-beta.12
+        version: 1.0.0-beta.12
+      '@rwh/react-keystrokes':
+        specifier: 1.0.0-beta.12
+        version: 1.0.0-beta.12(@rwh/keystrokes@1.0.0-beta.12)(react@18.2.0)
       '@tailwindcss/typography':
         specifier: ^0.5.9
         version: 0.5.9(tailwindcss@3.2.7)
@@ -5025,6 +5031,20 @@ packages:
 
   /@rushstack/eslint-patch@1.2.0:
     resolution: {integrity: sha512-sXo/qW2/pAcmT43VoRKOJbDOfV3cYpq3szSVfIThQXNt+E4DfKj361vaAt3c88U5tPUxzEswam7GW48PJqtKAg==}
+    dev: false
+
+  /@rwh/keystrokes@1.0.0-beta.12:
+    resolution: {integrity: sha512-T5dYwoYJaLYJCPGHkU1AyK/XSvYdcLwFq3SG7CZxw1O/nPGXfClifgo9L/ldL9EiOK8lveZqESmsXXuxrF04Bg==}
+    dev: false
+
+  /@rwh/react-keystrokes@1.0.0-beta.12(@rwh/keystrokes@1.0.0-beta.12)(react@18.2.0):
+    resolution: {integrity: sha512-kPswKOZVIXGBliuIOmKeRcz1nNYR/3ZwvCY69Q3KBlxNcMec7z1ks3ChTJjd1WcLmQyeAfZ+J/a7tEr9ROa2eg==}
+    peerDependencies:
+      '@rwh/keystrokes': 1.0.0-beta.12
+      react: '>=17'
+    dependencies:
+      '@rwh/keystrokes': 1.0.0-beta.12
+      react: 18.2.0
     dev: false
 
   /@selderee/plugin-htmlparser2@0.10.0:
