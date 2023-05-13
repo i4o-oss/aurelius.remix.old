@@ -9,6 +9,12 @@ export const MUSIC_STATIONS = {
 	'post-rock': 'https://www.youtube.com/watch?v=MRhplCpkPKE',
 }
 
+export const LOCAL_STORAGE_KEYS = {
+    POSTS: '',
+    SESSIONS: '',
+    SETTINGS: '',
+    SPLASH_SCREEN: '__aurelius_display_splash_screen'
+}
 export const POST_LOCAL_STORAGE_KEY = '__aurelius_guest_user_post'
 export const SESSION_LOCAL_STORAGE_KEY = '__aurelius_guest_user_sessions'
 export const SETTINGS_LOCAL_STORAGE_KEY = '__aurelius_guest_user_settings'

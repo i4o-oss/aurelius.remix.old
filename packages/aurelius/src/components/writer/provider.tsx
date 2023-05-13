@@ -2,7 +2,6 @@ import type { Editor } from '@tiptap/react'
 import type { Dispatch, ReactNode, SetStateAction } from 'react'
 import { createContext } from 'react'
 import {
-	DailyGoal,
 	SettingsData,
 	Theme,
 	TitleAlignment,
@@ -29,6 +28,7 @@ export interface AureliusProviderData {
 	localPost?: any
 	notifyOnSessionEnd?: boolean
 	setNotifyOnSessionEnd?: Dispatch<SetStateAction<boolean>>
+    onResetEditorClick?: (state: boolean) => void
 	post?: { title: string; content: string }
 	settings?: SettingsData
 	sessionData?: WritingSession | null
@@ -55,6 +55,8 @@ export interface AureliusProviderData {
 	setShowSessionRecapDialog?: Dispatch<SetStateAction<boolean>>
 	showSettingsDialog?: boolean
 	setShowSettingsDialog?: Dispatch<SetStateAction<boolean>>
+	showSplashScreenDialog?: boolean
+	setShowSplashScreenDialog?: Dispatch<SetStateAction<boolean>>
 	showWritingPaths?: boolean
 	setShowWritingPaths?: Dispatch<SetStateAction<boolean>>
 	theme?: Theme
