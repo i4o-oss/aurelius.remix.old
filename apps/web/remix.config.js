@@ -3,8 +3,8 @@
  */
 module.exports = {
 	future: {
-		postcss: true,
-		tailwind: true,
+		unstable_postcss: true,
+		unstable_tailwind: true,
 		v2_routeConvention: true,
 	},
 	// When running locally in development mode, we use the built in remix
