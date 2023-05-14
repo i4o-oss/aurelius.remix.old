@@ -12,7 +12,7 @@
     "dependencies": {
         "@aurelius/emails": "workspace:*",
         "@i4o/aurelius": "workspace:*",
-        "@i4o/catalystui": "1.0.0-alpha.6",
+        "@i4o/catalystui": "1.0.0-alpha.7",
         "@mdx-js/mdx": "^2.3.0",
         "@mdx-js/react": "^2.3.0",
         "@prisma/client": "4.11.0",
