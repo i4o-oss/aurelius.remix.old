@@ -3,8 +3,7 @@
  */
 module.exports = {
 	future: {
-		unstable_postcss: true,
-		unstable_tailwind: true,
+        unstable_dev: true,
 		v2_routeConvention: true,
 	},
 	// When running locally in development mode, we use the built in remix
@@ -15,6 +14,8 @@ module.exports = {
 	// assetsBuildDirectory: "public/build",
 	// serverBuildPath: "api/index.js",
 	// publicPath: "/build/",
+	postcss: true,
+	tailwind: true,
 	serverDependenciesToBundle: [
 		'@i4o/aurelius',
 		/^@mdx-js*/,
