@@ -221,8 +221,8 @@ export default function MainMenu(props: MainMenuProps) {
 		{ type: 'separator' },
 		{
 			label: (
-				<div className='flex cursor-pointer items-center justify-between'>
-					<label className='cursor-pointer'>Theme</label>
+				<div className='au-flex au-cursor-pointer au-items-center au-justify-between'>
+					<label className='au-cursor-pointer'>Theme</label>
 					{/* Wrapping the switch in a div so I can use the onclick without having to add it to catalyst.
                         This will prevent event bubbling and triggering toggletheme twice.
                         Which was why it wasn't working when clicking directly on the switch.. */}
