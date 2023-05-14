@@ -112,7 +112,7 @@ export default function TipTap() {
 						/>
 						<input
 							accept='image/*'
-							className='hidden'
+							className='au-hidden'
 							multiple={false}
 							onChange={insertImage}
 							ref={fileUploadInputRef}

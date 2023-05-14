@@ -1,8 +1,8 @@
-@import 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/tokyo-night-light.min.css';
-@media (prefers-color-scheme: dark) {
-	@import 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/tokyo-night-dark.min.css';
-}
-
+/* @import 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/tokyo-night-light.min.css'; */
+/* @media (prefers-color-scheme: dark) { */
+/* 	@import 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/tokyo-night-dark.min.css'; */
+/* } */
+/**/
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
