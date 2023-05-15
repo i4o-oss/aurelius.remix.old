@@ -15,7 +15,7 @@ import {
 	MixerHorizontalIcon,
 	MoonIcon,
 	Pencil1Icon,
-	// RocketIcon,
+	RocketIcon,
 	// QuestionMarkCircledIcon,
 	StarFilledIcon,
 	SunIcon,
@@ -52,12 +52,12 @@ export default function MainMenu(props: MainMenuProps) {
 					icon: <DashboardIcon />,
 					link: '/dashboard',
 				},
-				// {
-				// 	label: 'Plus',
-				// 	icon: <RocketIcon />,
-				// 	link: '/plus',
-				// 	openLinkInNewTab: true,
-				// },
+				{
+					label: 'Plus',
+					icon: <RocketIcon />,
+					link: '/plus',
+					openLinkInNewTab: true,
+				},
 				{
 					label: (
 						<Form action='/logout' method='post'>
@@ -195,10 +195,6 @@ export default function MainMenu(props: MainMenuProps) {
 			onSelect: () => setShowSettingsDialog?.(true),
 			shortcut: 'Alt + S',
 		},
-		// {
-		// 	label: 'Help',
-		// 	icon: <QuestionMarkCircledIcon />,
-		// },
 		{ type: 'separator' },
 		{
 			label: 'Blog',
@@ -218,6 +214,10 @@ export default function MainMenu(props: MainMenuProps) {
 			link: 'https://instagram.com/aurelius_ink',
 			openLinkInNewTab: true,
 		},
+		// {
+		// 	label: 'Help',
+		// 	icon: <QuestionMarkCircledIcon />,
+		// },
 		{ type: 'separator' },
 		{
 			label: (
