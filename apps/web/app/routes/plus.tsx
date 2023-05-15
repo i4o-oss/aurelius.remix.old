@@ -459,7 +459,7 @@ export default function Home() {
 					</main>
 
 					{/* <div className='mx-auto max-w-5xl px-8 text-left lg:px-8'> */}
-					{/* 	TODO: Add a big carousel of screenshots (shots.so) */}
+					{/* 	TODO: add a carousel or just a video or some screenshots (shots.co) */}
 					{/* </div> */}
 
 					<Features />

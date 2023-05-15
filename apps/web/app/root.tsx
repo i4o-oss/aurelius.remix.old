@@ -78,7 +78,6 @@ export const links: LinksFunction = () => {
     ]
 }
 
-// TODO: Add favicons and logo
 export const meta: MetaFunction = () => ({
     charset: 'utf-8',
     'msapplication-TileColor': '#2b5797',

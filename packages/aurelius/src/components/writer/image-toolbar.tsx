@@ -2,7 +2,7 @@ import type { EditorToolbarProps } from '../../types'
 // import type { ToolbarItem } from '@i4o/catalystui'
 import { Toolbar } from '@i4o/catalystui'
 
-// TODO: Fix the types here
+// TODO: fix these types
 export default function ImageToolbar({ editor }: EditorToolbarProps) {
 	const items = [
 		{

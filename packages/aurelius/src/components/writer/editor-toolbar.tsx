@@ -11,7 +11,7 @@ import {
 	QuoteIcon,
 } from '@radix-ui/react-icons'
 
-// TODO: Fix types here
+// TODO: fix these types
 export default function EditorToolbar({ editor }: EditorToolbarProps) {
 	const linkInputRef = useRef<HTMLInputElement>(null)
 	const [link, setLink] = useState('')

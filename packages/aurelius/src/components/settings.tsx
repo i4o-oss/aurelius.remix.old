@@ -1,5 +1,3 @@
-// TODO: Move this component to web package?
-//
 import { Dispatch, FormEvent, SetStateAction, useEffect } from 'react'
 import { useState } from 'react'
 import {

@@ -13,7 +13,7 @@ import { getSettingsFromUserId } from '~/models/settings.server'
 import { getUserProfile } from '~/models/user.server'
 import { auth } from '~/services/auth.server'
 
-// TODO: Fix these types
+// TODO: fix these types
 interface LoaderData {
 	post?: any
 	settings?: any

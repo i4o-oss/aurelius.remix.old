@@ -1,5 +1,3 @@
-// TODO: Move this component to web package?
-
 import { useContext } from 'react'
 import {
 	Button,
