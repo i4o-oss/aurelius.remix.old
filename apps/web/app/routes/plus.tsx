@@ -169,8 +169,10 @@ function Pricing() {
 					</h2>
 					<p className='text-primary-foreground-subtle mt-6 text-lg leading-8'>
 						Aurelius is currently free to use. For now, everyone who
-						signs up will get all the features. We will let you know
-						2 weeks before rolling out pricing.
+						signs up will get all the features. Below is a preview
+						of how we're thinking about pricing (but it's subject to
+						change). We will let you know 2 weeks before rolling out
+						pricing.
 					</p>
 				</div>
 
