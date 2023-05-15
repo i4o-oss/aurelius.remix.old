@@ -76,7 +76,7 @@ function ProfileDropdown(props: Props) {
                                 alt='User Profile Image'
                                 fallback={
                                     name?.charAt(0)?.toUpperCase() || (
-                                        <PersonIcon className='text-white' />
+                                        <PersonIcon className='text-primary-foreground' />
                                     )
                                 }
                                 variant='rounded'
@@ -114,7 +114,7 @@ export default function Header({
                                 alt='Aurelius Logo'
                             />
                         </Link>
-                        <span className='bg-ui rounded-lg px-2 py-1 text-[0.6rem] uppercase'>
+                        <span className='bg-ui rounded-lg px-2 py-1 text-[0.6rem] uppercase text-primary-foreground'>
                             beta
                         </span>
                     </div>
