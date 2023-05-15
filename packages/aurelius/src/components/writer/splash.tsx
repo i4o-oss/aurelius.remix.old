@@ -6,7 +6,7 @@ import {
 	GearIcon,
 	// InfoCircledIcon,
 	Pencil1Icon,
-	// RocketIcon,
+	RocketIcon,
 	StackIcon,
 } from '@radix-ui/react-icons'
 import { useContext } from 'react'
@@ -162,47 +162,47 @@ export default function SplashScreen({
 											className='!au-px-0 !au-py-1 !au-bg-transparent hover:!au-bg-transparent au-flex au-items-center au-font-normal'
 											leftIcon={<EnterIcon />}
 										>
-											Sign Up or Login
+											Sign Up for free!
 										</Button>
 									</a>
 								</li>
 							</ul>
 						</div>
 					)}
-					{/* <div className='au-col-span-2 au-py-2  au-flex au-flex-col'> */}
-					{/* 	<ul className='au-w-full au-grid au-grid-cols-2 au-text-sm au-gap-8'> */}
-					{/* 		<li className='au-col-span-1 au-flex au-items-center au-justify-between'> */}
-					{/* 			<Button */}
-					{/* 				className='!au-px-0 !au-py-1 !au-bg-transparent hover:!au-bg-transparent au-flex au-items-center au-font-normal' */}
-					{/* 				leftIcon={<InfoCircledIcon />} */}
-					{/* 			> */}
-					{/* 				Help */}
-					{/* 			</Button> */}
-					{/* 			<span className='au-flex au-items-center au-gap-1'> */}
-					{/* 				<kbd className='au-px-2 au-py-1 au-text-xs au-font-semibold au-text-primary-foreground-subtle au-bg-primary au-border au-border-subtle au-rounded'> */}
-					{/* 					Alt */}
-					{/* 				</kbd> */}
-					{/* 				<kbd className='au-px-2 au-py-1 au-text-xs au-font-semibold au-text-primary-foreground-subtle au-bg-primary au-border au-border-subtle au-rounded'> */}
-					{/* 					? */}
-					{/* 				</kbd> */}
-					{/* 			</span> */}
-					{/* 		</li> */}
-					{/* 		<li className='au-col-span-1 au-flex au-items-center au-justify-between'> */}
-					{/* 			<a */}
-					{/* 				href='/plus' */}
-					{/* 				target='_blank' */}
-					{/* 				rel='noreferrer noopener' */}
-					{/* 			> */}
-					{/* 				<Button */}
-					{/* 					className='!au-px-0 !au-py-1 !au-bg-transparent hover:!au-bg-transparent au-flex au-items-center au-font-normal' */}
-					{/* 					leftIcon={<RocketIcon />} */}
-					{/* 				> */}
-					{/* 					Try Aurelius Plus! */}
-					{/* 				</Button> */}
-					{/* 			</a> */}
-					{/* 		</li> */}
-					{/* 	</ul> */}
-					{/* </div> */}
+					<div className='au-col-span-2 au-py-2  au-flex au-flex-col'>
+						<ul className='au-w-full au-grid au-grid-cols-2 au-text-sm au-gap-8'>
+							{/* <li className='au-col-span-1 au-flex au-items-center au-justify-between'> */}
+							{/* 	<Button */}
+							{/* 		className='!au-px-0 !au-py-1 !au-bg-transparent hover:!au-bg-transparent au-flex au-items-center au-font-normal' */}
+							{/* 		leftIcon={<InfoCircledIcon />} */}
+							{/* 	> */}
+							{/* 		Help */}
+							{/* 	</Button> */}
+							{/* 	<span className='au-flex au-items-center au-gap-1'> */}
+							{/* 		<kbd className='au-px-2 au-py-1 au-text-xs au-font-semibold au-text-primary-foreground-subtle au-bg-primary au-border au-border-subtle au-rounded'> */}
+							{/* 			Alt */}
+							{/* 		</kbd> */}
+							{/* 		<kbd className='au-px-2 au-py-1 au-text-xs au-font-semibold au-text-primary-foreground-subtle au-bg-primary au-border au-border-subtle au-rounded'> */}
+							{/* 			? */}
+							{/* 		</kbd> */}
+							{/* 	</span> */}
+							{/* </li> */}
+							<li className='au-col-span-1 au-flex au-items-center au-justify-between'>
+								<a
+									href='/plus'
+									target='_blank'
+									rel='noreferrer noopener'
+								>
+									<Button
+										className='!au-px-0 !au-py-1 !au-bg-transparent hover:!au-bg-transparent au-flex au-items-center au-font-normal'
+										leftIcon={<RocketIcon />}
+									>
+										Try Aurelius Plus!
+									</Button>
+								</a>
+							</li>
+						</ul>
+					</div>
 					{!user ? (
 						<div className='au-col-span-2 au-py-2  au-flex au-flex-col'>
 							<p className='au-leading-relaxed au-italic au-text-xs au-text-primary-foreground-subtle'>
