@@ -66,8 +66,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/aurelius
       '@i4o/catalystui':
-        specifier: 1.0.0-alpha.7
-        version: 1.0.0-alpha.7(@types/react@18.0.28)(react-dom@18.2.0)(react@18.2.0)
+        specifier: 1.0.0-alpha.8
+        version: 1.0.0-alpha.8(@types/react@18.0.28)(react-dom@18.2.0)(react@18.2.0)
       '@mdx-js/mdx':
         specifier: ^2.3.0
         version: 2.3.0
@@ -235,8 +235,8 @@ importers:
         specifier: ^1.7.12
         version: 1.7.12(react-dom@18.2.0)(react@18.2.0)
       '@i4o/catalystui':
-        specifier: 1.0.0-alpha.7
-        version: 1.0.0-alpha.7(@types/react@18.0.28)(react-dom@18.2.0)(react@18.2.0)
+        specifier: 1.0.0-alpha.8
+        version: 1.0.0-alpha.8(@types/react@18.0.28)(react-dom@18.2.0)(react@18.2.0)
       '@radix-ui/react-icons':
         specifier: ^1.2.0
         version: 1.2.0(react@18.2.0)
@@ -2617,8 +2617,8 @@ packages:
   /@humanwhocodes/object-schema@1.2.1:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
 
-  /@i4o/catalystui@1.0.0-alpha.7(@types/react@18.0.28)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-ahS+FB6JaWOVQ5SwikUC4RcqtceHRn6GbuKqTSvu9TB9KhtNQLa2+3TohUf8ZV5Rxudd5Uk3BEo7EVG3EDWEyQ==}
+  /@i4o/catalystui@1.0.0-alpha.8(@types/react@18.0.28)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-3kbNTds8pczE1xpViM3ZyEoQ2u/SXVYpV/nFpt/BoHsVq5KUgj+6k1G336pXjZO2Gr53eEJfTJgpvc0r4H6BsQ==}
     peerDependencies:
       react: ^18.2.0
       react-dom: ^18.2.0
