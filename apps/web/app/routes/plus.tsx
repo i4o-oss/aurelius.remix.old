@@ -1,5 +1,5 @@
 import { Link } from '@remix-run/react'
-import { PrimaryButton, Switch } from '@i4o/catalystui'
+import { PrimaryButton } from '@i4o/catalystui'
 import { Footer, Header } from '~/components'
 import {
 	BarChartIcon,
@@ -11,7 +11,6 @@ import {
 	Share1Icon,
 } from '@radix-ui/react-icons'
 import { Theme, useTheme } from '~/lib/theme'
-import { useState } from 'react'
 import { EMAIL_ADDRESS } from '~/lib/constants'
 
 const features = [
@@ -68,18 +67,22 @@ const features = [
 
 const freeFeatures = [
 	'Unlimited Posts',
-	'Cloud Sync',
-	'1 Writing Session / day',
+	'Unlimited Writing Sessions',
+	'Store Data in your Browser',
+	'Access your writing from 1 device',
 	'Simple Writing Stats',
+	'Some Updates',
 ]
 
 const includedFeatures = [
 	'Everything from free plan',
-	'Unlimited Writing Sessions',
+	'Store data in our cloud',
+	'Unlimited Devices',
 	'All updates',
 	'Advanced Writing Stats',
 	'Public Profiles',
-	'Early access to features',
+	'Early access to new features',
+	'Discord Server (Coming Soon)',
 ]
 
 const faqs = [
@@ -157,9 +160,6 @@ const faqs = [
 ]
 
 function Pricing() {
-	const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'yearly'>(
-		'yearly'
-	)
 	return (
 		<section className='py-24 sm:py-32'>
 			<div className='mx-auto max-w-5xl px-6 lg:px-8'>
@@ -170,9 +170,8 @@ function Pricing() {
 					<p className='text-primary-foreground-subtle mt-6 text-lg leading-8'>
 						Aurelius is currently free to use. For now, everyone who
 						signs up will get all the features. Below is a preview
-						of how we're thinking about pricing (but it's subject to
-						change). We will let you know 2 weeks before rolling out
-						pricing.
+						of how we're thinking about pricing. We will let you
+						know 2 weeks before rolling out pricing.
 					</p>
 				</div>
 
@@ -204,88 +203,8 @@ function Pricing() {
 					</div>
 				</div>
 
-				<div className='ring-subtle mx-auto mt-16 max-w-2xl rounded-3xl ring-1 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none'>
-					<div className='flex flex-col justify-center p-8 sm:p-10 lg:flex-auto'>
-						<h3 className='text-primary-foreground text-2xl font-bold tracking-tight'>
-							Subscription
-						</h3>
-						<div className='mt-10 flex items-center gap-x-4'>
-							<h4 className='text-brand-500 flex-none text-sm font-semibold leading-6'>
-								What’s included
-							</h4>
-							<div className='bg-subtle h-px flex-auto' />
-						</div>
-						<ul
-							role='list'
-							className='text-primary-foreground-subtle mt-8 grid grid-cols-1 gap-4 text-sm leading-6 sm:grid-cols-2 sm:gap-6'
-						>
-							{includedFeatures.map((feature) => (
-								<li key={feature} className='flex gap-x-3'>
-									<CheckIcon
-										className='text-brand h-6 w-5 flex-none'
-										aria-hidden='true'
-									/>
-									{feature}
-								</li>
-							))}
-						</ul>
-					</div>
-					<div className='-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-sm lg:flex-shrink-0'>
-						<div className='bg-primary-subtle late-100 ring-subtle relative rounded-2xl py-6 text-center ring-1 ring-inset lg:flex lg:flex-col lg:justify-center lg:py-12'>
-							<div className='absolute top-4 right-4 flex items-center justify-center gap-x-2'>
-								<label className='text-xs'>
-									{billingPeriod === 'monthly'
-										? 'Monthly'
-										: 'Yearly'}
-								</label>
-								<Switch
-									name='billing-period'
-									defaultChecked={billingPeriod === 'monthly'}
-									onCheckedChange={(state) =>
-										setBillingPeriod(
-											state ? 'monthly' : 'yearly'
-										)
-									}
-								/>
-							</div>
-							<div className='mx-auto max-w-xs px-8'>
-								<p className='mt-6 flex items-baseline justify-center gap-x-2'>
-									<span className='text-primary-foreground text-5xl font-bold tracking-tight'>
-										{billingPeriod === 'monthly'
-											? '$15'
-											: '$12.5'}
-									</span>
-									<span className='text-primary-foreground-subtle text-sm font-semibold leading-6 tracking-wide'>
-										/month
-									</span>
-								</p>
-								{billingPeriod === 'yearly' ? (
-									<p className='mt-4 text-sm italic'>
-										billed annually ($150)
-									</p>
-								) : (
-									<p className='mt-4 text-sm italic'>
-										billed monthly
-									</p>
-								)}
-								<PrimaryButton
-									className='mt-10 w-full'
-									padding='px-6 py-4'
-									textSize='text-lg'
-								>
-									Try it free for 7 days
-								</PrimaryButton>
-								<p className='text-primary-foreground-subtle mt-6 text-xs leading-5'>
-									Cancel anytime. We'll remind you 3 days
-									before trial ends.
-								</p>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div className='ring-subtle mx-auto mt-16 max-w-2xl rounded-3xl ring-1 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none'>
-					<div className='flex flex-col justify-center p-8 sm:p-10 lg:flex-auto'>
+				<div className='ring-subtle mx-auto mt-16 grid max-w-2xl grid-cols-3 rounded-3xl ring-1 sm:mt-20 lg:mx-0 lg:max-w-none'>
+					<div className='col-span-2 flex flex-col justify-center p-8 sm:p-10 lg:flex-auto'>
 						<h3 className='text-primary-foreground text-2xl font-bold tracking-tight'>
 							Lifetime membership
 						</h3>
@@ -310,7 +229,7 @@ function Pricing() {
 							))}
 						</ul>
 					</div>
-					<div className='-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-sm lg:flex-shrink-0'>
+					<div className='col-span-1 flex flex-col justify-center p-2 lg:flex-auto'>
 						<div className='bg-primary-subtle ring-subtle rounded-2xl py-6 text-center ring-1 ring-inset lg:flex lg:flex-col lg:justify-center lg:py-12'>
 							<div className='mx-auto max-w-xs px-8'>
 								<p className='mt-6 flex items-baseline justify-center gap-x-2'>
