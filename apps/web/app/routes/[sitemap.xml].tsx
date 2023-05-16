@@ -1,11 +1,20 @@
+import invariant from 'tiny-invariant'
 import { ORIGIN, staticPages } from '~/lib/constants'
 import { toXmlSitemap } from '~/lib/utils'
-import { getBlogMdxItems } from '~/services/mdx.server'
+import { getPublishedPostsFromAuthor } from '~/models/post.server'
 
 // code from: https://ericnish.io/blog/sitemap-xml-with-remix
 export const loader = async () => {
     try {
-        const posts = await getBlogMdxItems({})
+        const userId = process.env.BLOG_USER_ID
+
+        invariant(typeof userId === 'string', 'userId must be a string')
+        invariant(
+            userId !== '' || userId !== undefined,
+            'userId must not be empty or undefined'
+        )
+
+        const posts = await getPublishedPostsFromAuthor(userId)
         const sitemap = toXmlSitemap([
             ...staticPages
                 .filter(({ to }) => to !== '/')
