@@ -1,8 +1,8 @@
 import cheerio from 'cheerio'
 import { extract, hasProvider } from 'oembed-parser'
 import TurndownService from 'turndown'
-import * as amplitude from '@amplitude/analytics-browser';
-import { AmplitudeEventType, EventType } from './types'
+import * as amplitude from '@amplitude/analytics-browser'
+import { AmplitudeEventType } from './types'
 
 export function downloadAsMarkdown(title: string, content: string) {
 	const htmlContent = `<h1>${title}</h1>${content}`
@@ -130,6 +130,9 @@ export function padZeroes(n: number, z = 2) {
 //     }
 // }
 
-export function sendAmplitudeEvent(event: AmplitudeEventType, properties?: any) {
-    amplitude.track(event, properties)
+export function sendAmplitudeEvent(
+	event: AmplitudeEventType,
+	properties?: any
+) {
+	amplitude.track(event, properties)
 }
