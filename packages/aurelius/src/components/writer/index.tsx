@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { EventType, WriterProps } from '../../types'
+import { AmplitudeEventType, WriterProps } from '../../types'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useEditor } from '@tiptap/react'
 import BubbleMenuExt from '@tiptap/extension-bubble-menu'
@@ -26,7 +26,7 @@ import {
 	SETTINGS_LOCAL_STORAGE_KEY,
 } from '../../constants'
 import NewSession from './new-session'
-import { downloadAsMarkdown, sendEvent } from '../../helpers'
+import { downloadAsMarkdown, sendAmplitudeEvent } from '../../helpers'
 import AureliusProvider from './provider'
 import {
 	SettingsData,
@@ -238,7 +238,7 @@ export default function Writer({
 
 	function downloadFile() {
 		downloadAsMarkdown(title, content)
-		sendEvent(EventType.MARKDOWN_EXPORTED)
+		sendAmplitudeEvent(AmplitudeEventType.MARKDOWN_EXPORTED)
 	}
 
 	async function savePost(data: any) {
@@ -327,7 +327,7 @@ export default function Writer({
 			setFocusMode(false)
 		}
 		setShowSessionRecapDialog(true)
-		sendEvent(EventType.WRITING_SESSION_FINISHED, {
+		sendAmplitudeEvent(AmplitudeEventType.WRITING_SESSION_FINISHED, {
 			goal: sessionData?.goal,
 			target: sessionData?.target,
 			duration: sessionData?.duration,
@@ -361,7 +361,7 @@ export default function Writer({
 			setFocusMode(false)
 		}
 		setShowSessionRecapDialog(true)
-		sendEvent(EventType.WRITING_SESSION_FINISHED, {
+		sendAmplitudeEvent(AmplitudeEventType.WRITING_SESSION_FINISHED, {
 			goal: sessionData?.goal,
 			target: sessionData?.target,
 			duration: sessionData?.duration,
@@ -379,14 +379,14 @@ export default function Writer({
 		setShowSplashScreenDialog?.(false)
 		onResetEditorClick?.(true)
 		if (!content) {
-			sendEvent(EventType.NEW_POST_CLICKED)
+			sendAmplitudeEvent(AmplitudeEventType.POST_CREATED)
 		}
 	}
 
 	function newWritingSessionHandler() {
 		setShowSplashScreenDialog?.(false)
 		setShowNewSessionDialog?.(true)
-		sendEvent(EventType.NEW_WRITING_SESSION_CLICKED)
+		sendAmplitudeEvent(AmplitudeEventType.WRITING_SESSION_CLICKED)
 	}
 
 	function preferencesHandler() {

@@ -8,10 +8,10 @@ import {
     ToggleGroup,
 } from '@i4o/catalystui'
 import { toPng } from 'html-to-image'
-import { EventType, TitleAlignment } from '../../types'
+import { AmplitudeEventType, TitleAlignment } from '../../types'
 import ExportImageContent from './export-image-content'
 import { AureliusContext, AureliusProviderData } from './provider'
-import { sendEvent } from '../../helpers'
+import { sendAmplitudeEvent } from '../../helpers'
 
 export default function Export() {
     const context: AureliusProviderData = useContext(AureliusContext)
@@ -70,7 +70,7 @@ export default function Export() {
                 })
                 .catch((err) => console.log(err))
 
-            sendEvent(EventType.IMAGE_EXPORTED)
+            sendAmplitudeEvent(AmplitudeEventType.IMAGE_EXPORTED)
         }
     }
 
