@@ -10,6 +10,7 @@
         "typecheck": "tsc -b"
     },
     "dependencies": {
+        "@amplitude/analytics-browser": "^1.10.3",
         "@aurelius/emails": "workspace:*",
         "@i4o/aurelius": "workspace:*",
         "@i4o/catalystui": "1.0.0-alpha.8",
