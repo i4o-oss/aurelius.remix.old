@@ -28,7 +28,7 @@ import { getGreeting } from '~/lib/utils'
 import { auth } from '~/services/auth.server'
 import { getUserProfile } from '~/models/user.server'
 import Skeleton from '~/components/skeleton'
-import { EventType, sendEvent } from '@i4o/aurelius'
+import { AmplitudeEventType, sendAmplitudeEvent } from '@i4o/aurelius'
 
 interface GreetingProps {
 	name: string
@@ -103,7 +103,7 @@ function PostItem({ appUrl, post, username }: PostItemProps) {
 			{ published },
 			{ method: 'put', action: `/api/posts/${post.id}` }
 		)
-        sendEvent(EventType.POST_PUBLISHED)
+        sendAmplitudeEvent(AmplitudeEventType.POST_PUBLISHED)
 	}
 
 	const deletePostHandler = async () => {

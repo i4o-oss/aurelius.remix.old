@@ -23,9 +23,9 @@ import {
 	TwitterLogoIcon,
 } from '@radix-ui/react-icons'
 import { AureliusContext, AureliusProviderData } from './provider'
-import { EventType, Theme } from '../../types'
+import { AmplitudeEventType, Theme } from '../../types'
 import { Form } from '@remix-run/react'
-import { sendEvent } from '../../helpers'
+import { sendAmplitudeEvent } from '../../helpers'
 
 interface MainMenuProps {
 	downloadFile: () => void
@@ -97,7 +97,7 @@ export default function MainMenu(props: MainMenuProps) {
 					onSelect: () => {
 						onResetEditorClick?.(true)
 						if (!content) {
-							sendEvent(EventType.NEW_POST_CLICKED)
+							sendAmplitudeEvent(AmplitudeEventType.POST_CREATED)
 						}
 					},
 					shortcut: 'Alt + N',
@@ -107,7 +107,9 @@ export default function MainMenu(props: MainMenuProps) {
 					icon: <Pencil1Icon />,
 					onSelect: () => {
 						setShowNewSessionDialog?.(true)
-						sendEvent(EventType.NEW_WRITING_SESSION_CLICKED)
+						sendAmplitudeEvent(
+							AmplitudeEventType.WRITING_SESSION_CLICKED
+						)
 					},
 					shortcut: 'Alt + W',
 				},

@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { EventType, WriterProps } from '../../types'
+import { AmplitudeEventType, WriterProps } from '../../types'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useEditor } from '@tiptap/react'
 import BubbleMenuExt from '@tiptap/extension-bubble-menu'
@@ -26,7 +26,7 @@ import {
 	SETTINGS_LOCAL_STORAGE_KEY,
 } from '../../constants'
 import NewSession from './new-session'
-import { downloadAsMarkdown, sendEvent } from '../../helpers'
+import { downloadAsMarkdown, sendAmplitudeEvent } from '../../helpers'
 import AureliusProvider from './provider'
 import {
 	SettingsData,
@@ -41,6 +41,7 @@ import Export from './export'
 import SplashScreen from './splash'
 import { Keystrokes } from '@rwh/keystrokes'
 import { KeystrokesProvider, useKeyCombo } from '@rwh/react-keystrokes'
+import Help from './help'
 
 export default function Writer({
 	post,
@@ -83,6 +84,7 @@ export default function Writer({
 	const [sessionFocusMode, setSessionFocusMode] = useState(true)
 	const [sessionMusic, setSessionMusic] = useState(true)
 	const [showExportImageDialog, setShowExportImageDialog] = useState(false)
+	const [showHelpDialog, setShowHelpDialog] = useState(false)
 	const [showNewSessionDialog, setShowNewSessionDialog] = useState(false)
 	const [showResetAlert, setShowResetAlert] = useState(false)
 	const [showSessionEndToast, setShowSessionEndToast] = useState(false)
@@ -100,6 +102,7 @@ export default function Writer({
 	const isExportToMarkdownComboPressed = useKeyCombo('alt + d')
 	const isExportToPngComboPressed = useKeyCombo('alt + i')
 	const isFocusModeComboPressed = useKeyCombo('alt + m')
+	const isHelpComboPressed = useKeyCombo('alt + Shift + ?')
 	const isNewPostComboPressed = useKeyCombo('alt + n')
 	const isNewWritingSessionComboPressed = useKeyCombo('alt + w')
 	const isPreferencesComboPressed = useKeyCombo('alt + s')
@@ -114,6 +117,10 @@ export default function Writer({
 		}
 		if (isFocusModeComboPressed) {
 			setFocusMode(!focusMode)
+		}
+		if (isHelpComboPressed) {
+			setShowHelpDialog(!showHelpDialog)
+            // console.log('help key combo pressed')
 		}
 		if (isNewPostComboPressed) {
 			newPostHandler()
@@ -131,6 +138,7 @@ export default function Writer({
 		isExportToMarkdownComboPressed,
 		isExportToPngComboPressed,
 		isFocusModeComboPressed,
+		isHelpComboPressed,
 		isNewPostComboPressed,
 		isNewWritingSessionComboPressed,
 		isPreferencesComboPressed,
@@ -238,7 +246,7 @@ export default function Writer({
 
 	function downloadFile() {
 		downloadAsMarkdown(title, content)
-		sendEvent(EventType.MARKDOWN_EXPORTED)
+		sendAmplitudeEvent(AmplitudeEventType.MARKDOWN_EXPORTED)
 	}
 
 	async function savePost(data: any) {
@@ -327,7 +335,7 @@ export default function Writer({
 			setFocusMode(false)
 		}
 		setShowSessionRecapDialog(true)
-		sendEvent(EventType.WRITING_SESSION_FINISHED, {
+		sendAmplitudeEvent(AmplitudeEventType.WRITING_SESSION_FINISHED, {
 			goal: sessionData?.goal,
 			target: sessionData?.target,
 			duration: sessionData?.duration,
@@ -361,7 +369,7 @@ export default function Writer({
 			setFocusMode(false)
 		}
 		setShowSessionRecapDialog(true)
-		sendEvent(EventType.WRITING_SESSION_FINISHED, {
+		sendAmplitudeEvent(AmplitudeEventType.WRITING_SESSION_FINISHED, {
 			goal: sessionData?.goal,
 			target: sessionData?.target,
 			duration: sessionData?.duration,
@@ -379,14 +387,14 @@ export default function Writer({
 		setShowSplashScreenDialog?.(false)
 		onResetEditorClick?.(true)
 		if (!content) {
-			sendEvent(EventType.NEW_POST_CLICKED)
+			sendAmplitudeEvent(AmplitudeEventType.POST_CREATED)
 		}
 	}
 
 	function newWritingSessionHandler() {
 		setShowSplashScreenDialog?.(false)
 		setShowNewSessionDialog?.(true)
-		sendEvent(EventType.NEW_WRITING_SESSION_CLICKED)
+		sendAmplitudeEvent(AmplitudeEventType.WRITING_SESSION_CLICKED)
 	}
 
 	function preferencesHandler() {
@@ -456,6 +464,8 @@ export default function Writer({
 		setSessionTarget,
 		showExportImageDialog,
 		setShowExportImageDialog,
+		showHelpDialog,
+		setShowHelpDialog,
 		showNewSessionDialog,
 		setShowNewSessionDialog,
 		showResetAlert,
@@ -534,6 +544,7 @@ export default function Writer({
 						saveDisplaySplashScreenSetting
 					}
 				/>
+				<Help />
 			</AureliusProvider>
 		</KeystrokesProvider>
 	)

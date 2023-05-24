@@ -7,8 +7,8 @@ import {
 	Switch,
 } from '@i4o/catalystui'
 import { AureliusContext, AureliusProviderData } from './provider'
-import { sendEvent } from '../../helpers'
-import { EventType } from '../../types'
+import { sendAmplitudeEvent } from '../../helpers'
+import { AmplitudeEventType } from '../../types'
 
 const SESSION_GOAL_OPTIONS = [
 	{
@@ -51,7 +51,7 @@ export default function NewSession({
 	function startWritingSession() {
 		startSession()
 		setShowNewSessionDialog?.(false)
-        sendEvent(EventType.WRITING_SESSION_STARTED)
+		sendAmplitudeEvent(AmplitudeEventType.WRITING_SESSION_STARTED)
 	}
 
 	return (

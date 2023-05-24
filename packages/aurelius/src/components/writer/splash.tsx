@@ -1,10 +1,10 @@
-import { Button, Checkbox, Dialog, Switch } from '@i4o/catalystui'
+import { Button, Dialog, Switch } from '@i4o/catalystui'
 import {
 	CounterClockwiseClockIcon,
 	EnterIcon,
 	FileTextIcon,
 	GearIcon,
-	// InfoCircledIcon,
+	InfoCircledIcon,
 	Pencil1Icon,
 	RocketIcon,
 	StackIcon,
@@ -40,7 +40,7 @@ export default function SplashScreen({
 			onOpenChange={setShowSplashScreenDialog}
 			title=''
 		>
-			<div className='au-flex au-flex-col au-min-h-[36rem] au-h-auto au-w-[40rem] au-rounded-lg au-overflow-hidden au-bg-primary au-divide-y au-divide-subtle'>
+			<div className='au-flex au-flex-col au-min-h-[36rem] au-h-auto au-w-[40rem] au-rounded-lg au-overflow-hidden au-divide-y au-divide-subtle'>
 				<div className='au-relative au-w-full au-h-[16rem] au-flex au-items-start au-justify-start au-p-8'>
 					<img
 						className='au-w-full au-h-full au-object-cover au-object-center au-z-0 au-absolute au-top-0 au-left-0'
@@ -171,22 +171,22 @@ export default function SplashScreen({
 					)}
 					<div className='au-col-span-2 au-py-2  au-flex au-flex-col'>
 						<ul className='au-w-full au-grid au-grid-cols-2 au-text-sm au-gap-8'>
-							{/* <li className='au-col-span-1 au-flex au-items-center au-justify-between'> */}
-							{/* 	<Button */}
-							{/* 		className='!au-px-0 !au-py-1 !au-bg-transparent hover:!au-bg-transparent au-flex au-items-center au-font-normal' */}
-							{/* 		leftIcon={<InfoCircledIcon />} */}
-							{/* 	> */}
-							{/* 		Help */}
-							{/* 	</Button> */}
-							{/* 	<span className='au-flex au-items-center au-gap-1'> */}
-							{/* 		<kbd className='au-px-2 au-py-1 au-text-xs au-font-semibold au-text-primary-foreground-subtle au-bg-primary au-border au-border-subtle au-rounded'> */}
-							{/* 			Alt */}
-							{/* 		</kbd> */}
-							{/* 		<kbd className='au-px-2 au-py-1 au-text-xs au-font-semibold au-text-primary-foreground-subtle au-bg-primary au-border au-border-subtle au-rounded'> */}
-							{/* 			? */}
-							{/* 		</kbd> */}
-							{/* 	</span> */}
-							{/* </li> */}
+							<li className='au-col-span-1 au-flex au-items-center au-justify-between'>
+								<Button
+									className='!au-px-0 !au-py-1 !au-bg-transparent hover:!au-bg-transparent au-flex au-items-center au-font-normal'
+									leftIcon={<InfoCircledIcon />}
+								>
+									Help
+								</Button>
+								<span className='au-flex au-items-center au-gap-1'>
+									<kbd className='au-px-2 au-py-1 au-text-xs au-font-semibold au-text-primary-foreground-subtle au-bg-primary au-border au-border-subtle au-rounded'>
+										Alt
+									</kbd>
+									<kbd className='au-px-2 au-py-1 au-text-xs au-font-semibold au-text-primary-foreground-subtle au-bg-primary au-border au-border-subtle au-rounded'>
+										?
+									</kbd>
+								</span>
+							</li>
 							<li className='au-col-span-1 au-flex au-items-center au-justify-between'>
 								<a
 									href='/plus'

@@ -47,6 +47,7 @@
         "access": "public"
     },
     "dependencies": {
+        "@amplitude/analytics-browser": "^1.10.3",
         "@headlessui/react": "^1.7.12",
         "@i4o/catalystui": "1.0.0-alpha.8",
         "@radix-ui/react-icons": "^1.2.0",
