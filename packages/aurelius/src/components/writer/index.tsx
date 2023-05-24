@@ -41,6 +41,7 @@ import Export from './export'
 import SplashScreen from './splash'
 import { Keystrokes } from '@rwh/keystrokes'
 import { KeystrokesProvider, useKeyCombo } from '@rwh/react-keystrokes'
+import Help from './help'
 
 export default function Writer({
 	post,
@@ -83,6 +84,7 @@ export default function Writer({
 	const [sessionFocusMode, setSessionFocusMode] = useState(true)
 	const [sessionMusic, setSessionMusic] = useState(true)
 	const [showExportImageDialog, setShowExportImageDialog] = useState(false)
+	const [showHelpDialog, setShowHelpDialog] = useState(false)
 	const [showNewSessionDialog, setShowNewSessionDialog] = useState(false)
 	const [showResetAlert, setShowResetAlert] = useState(false)
 	const [showSessionEndToast, setShowSessionEndToast] = useState(false)
@@ -100,6 +102,7 @@ export default function Writer({
 	const isExportToMarkdownComboPressed = useKeyCombo('alt + d')
 	const isExportToPngComboPressed = useKeyCombo('alt + i')
 	const isFocusModeComboPressed = useKeyCombo('alt + m')
+	const isHelpComboPressed = useKeyCombo('alt + Shift + ?')
 	const isNewPostComboPressed = useKeyCombo('alt + n')
 	const isNewWritingSessionComboPressed = useKeyCombo('alt + w')
 	const isPreferencesComboPressed = useKeyCombo('alt + s')
@@ -114,6 +117,10 @@ export default function Writer({
 		}
 		if (isFocusModeComboPressed) {
 			setFocusMode(!focusMode)
+		}
+		if (isHelpComboPressed) {
+			setShowHelpDialog(!showHelpDialog)
+            // console.log('help key combo pressed')
 		}
 		if (isNewPostComboPressed) {
 			newPostHandler()
@@ -131,6 +138,7 @@ export default function Writer({
 		isExportToMarkdownComboPressed,
 		isExportToPngComboPressed,
 		isFocusModeComboPressed,
+		isHelpComboPressed,
 		isNewPostComboPressed,
 		isNewWritingSessionComboPressed,
 		isPreferencesComboPressed,
@@ -456,6 +464,8 @@ export default function Writer({
 		setSessionTarget,
 		showExportImageDialog,
 		setShowExportImageDialog,
+		showHelpDialog,
+		setShowHelpDialog,
 		showNewSessionDialog,
 		setShowNewSessionDialog,
 		showResetAlert,
@@ -534,6 +544,7 @@ export default function Writer({
 						saveDisplaySplashScreenSetting
 					}
 				/>
+				<Help />
 			</AureliusProvider>
 		</KeystrokesProvider>
 	)
