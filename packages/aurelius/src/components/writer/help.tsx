@@ -159,6 +159,17 @@ export default function Help() {
 									</kbd>
 								</p>
 							</li>
+							<li className='au-flex au-items-center au-justify-between au-px-4 au-py-2'>
+								<p>Help</p>
+								<p className='au-flex au-items-center au-gap-1 au-text-xs'>
+									<kbd className='au-px-2 au-py-1 au-font-semibold au-text-primary-foreground-subtle au-bg-primary au-border au-border-subtle au-rounded'>
+										Alt
+									</kbd>
+									<kbd className='au-px-2 au-py-1 au-font-semibold au-text-primary-foreground-subtle au-bg-primary au-border au-border-subtle au-rounded'>
+										?
+									</kbd>
+								</p>
+							</li>
 						</ul>
 					</section>
 				</div>
