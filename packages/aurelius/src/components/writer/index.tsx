@@ -121,7 +121,6 @@ export default function Writer({
 		}
 		if (isHelpComboPressed) {
 			setShowHelpDialog(!showHelpDialog)
-			// console.log('help key combo pressed')
 		}
 		if (isNewPostComboPressed) {
 			newPostHandler()
