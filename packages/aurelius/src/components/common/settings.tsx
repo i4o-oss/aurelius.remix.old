@@ -13,13 +13,14 @@ import {
 } from '@i4o/catalystui'
 import useLocalStorage, { writeStorage } from '@rehooks/local-storage'
 import {
+    BACKGROUND_OPTIONS,
 	DEFAULT_BACKGROUND,
 	DEFAULT_MUSIC_CHANNEL,
 	LOCAL_STORAGE_KEYS,
 	SETTINGS_LOCAL_STORAGE_KEY,
-} from '../constants'
-import { DailyGoal, ProfileSettings, SettingsData } from '../types'
-import useDebounce from '../hooks/use-debounce'
+} from '../../constants'
+import { DailyGoal, ProfileSettings, SettingsData } from '../../types'
+import useDebounce from '../../hooks/use-debounce'
 import { CheckIcon, Cross2Icon } from '@radix-ui/react-icons'
 
 interface SettingsDialogProps {
@@ -549,17 +550,6 @@ function ExportSettings({
 	watermark,
 	setWatermark,
 }: ExportSettingsProps) {
-	const BACKGROUND_OPTIONS = [
-		'linear-gradient(45deg, #85FFBD 0%, #FFFB7D 100%)',
-		'linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%)',
-		'linear-gradient(45deg, #8bc6ec 0%, #9599e2 100%)',
-		'linear-gradient(180deg, #A9C9FF 0%, #FFBBEC 100%)',
-		'linear-gradient(0deg, #FFDEE9 0%, #B5FFFC 100%)',
-		'linear-gradient(to top, #d299c2 0%, #fef9d7 100%)',
-		'linear-gradient(to top, #fff1eb 0%, #ace0f9 100%)',
-		'linear-gradient(to top, #accbee 0%, #e7f0fd 100%)',
-	]
-
 	const backgroundItems = BACKGROUND_OPTIONS.map((option) => ({
 		value: option,
 		label: '',

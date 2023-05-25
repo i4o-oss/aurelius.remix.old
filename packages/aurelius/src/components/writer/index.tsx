@@ -37,7 +37,7 @@ import {
 import Timer from './timer'
 import Reset from './reset'
 import WritingSessionRecap from './recap'
-import Export from './export'
+import Export from '../common/export'
 import SplashScreen from './splash'
 import { Keystrokes } from '@rwh/keystrokes'
 import { KeystrokesProvider, useKeyCombo } from '@rwh/react-keystrokes'

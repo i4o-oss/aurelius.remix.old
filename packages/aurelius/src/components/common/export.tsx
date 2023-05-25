@@ -1,5 +1,4 @@
 import { useContext, useRef } from 'react'
-import { findDOMNode } from 'react-dom'
 import {
     Dialog,
     PrimaryButton,
@@ -7,14 +6,13 @@ import {
     Switch,
     ToggleGroup,
 } from '@i4o/catalystui'
-import { toPng } from 'html-to-image'
 import { AmplitudeEventType, TitleAlignment } from '../../types'
 import ExportImageContent from './export-image-content'
-import { AureliusContext, AureliusProviderData } from './provider'
+import { AureliusContext, AureliusProviderData } from '../writer/provider'
 import { sendAmplitudeEvent } from '../../helpers'
 
 interface ExportProps {
-    exportPost: () => void
+    exportPost: (data: any) => void
 }
 
 export default function Export({ exportPost }: ExportProps) {
@@ -42,41 +40,21 @@ export default function Export({ exportPost }: ExportProps) {
         typeof wordCount !== 'undefined' &&
         wordCount > 0 &&
         wordCount <= wordCountLimit
+    
+    function exportToImage() {
+        const data = {
+            author,
+            background: settings?.background as string,
+            content,
+            footer,
+            title,
+            titleAlignment,
+            watermark
+        }
 
-    // const saveAs = (uri: string, filename: string) => {
-    //     const link = document.createElement('a')
-    //
-    //     if (typeof link.download === 'string') {
-    //         link.href = uri
-    //         link.download = filename
-    //         document.body.appendChild(link)
-    //         link.click()
-    //         document.body.removeChild(link)
-    //     } else {
-    //         window.open(uri)
-    //     }
-    // }
-
-    // function exportPost() {
-    //     if (window) {
-    //         const slug = title
-    //             ?.replace(/[^a-zA-Z ]/g, '')
-    //             .toLowerCase()
-    //             .split(' ')
-    //             .join('-')
-    //         const filename = slug || `aurelius_untitled_post_${Date.now()}`
-    //         // @ts-ignore
-    //         const element = findDOMNode(canvasRef.current)
-    //         // @ts-ignore
-    //         toPng(element, { pixelRatio: 2 })
-    //             .then((dataUrl) => {
-    //                 saveAs(dataUrl, `${filename}.png`)
-    //             })
-    //             .catch((err) => console.log(err))
-    //
-    //         sendAmplitudeEvent(AmplitudeEventType.IMAGE_EXPORTED)
-    //     }
-    // }
+        exportPost(data)
+        sendAmplitudeEvent(AmplitudeEventType.IMAGE_EXPORTED)
+    }
 
     const CHANNELS = [
         { value: 'twitter', label: 'Twitter' },
@@ -92,19 +70,17 @@ export default function Export({ exportPost }: ExportProps) {
             title=''
         >
             <div className='au-flex au-max-h-[90vh] au-h-auto au-min-w-[60vw] au-max-w-[80vw] [&_div[role="tablist"]]:!au-gap-2 au-rounded-lg au-overflow-hidden au-divide-x au-divide-subtle'>
-                <div className='au-min-h-full au-flex au-items-center au-justify-center au-flex-1 au-flex-grow au-p-4'>
-                    <ExportImageContent
-                        author={author}
-                        background={settings?.background as string}
-                        content={content as string}
-                        footer={footer}
-                        ref={canvasRef}
-                        scale='au-prose-base'
-                        title={title as string}
-                        titleAlignment={titleAlignment as TitleAlignment}
-                        watermark={watermark}
-                    />
-                </div>
+                <ExportImageContent
+                    author={author}
+                    background={settings?.background as string}
+                    content={content as string}
+                    footer={footer}
+                    ref={canvasRef}
+                    scale='au-prose-base'
+                    title={title as string}
+                    titleAlignment={titleAlignment as TitleAlignment}
+                    watermark={watermark}
+                />
                 <div className='au-w-96 au-p-4 au-flex au-flex-col au-justify-start au-relative'>
                     <h2 className='au-text-md au-font-medium au-text-primary-foreground au-mb-4'>
                         Export Settings
@@ -219,7 +195,7 @@ export default function Export({ exportPost }: ExportProps) {
                             ) : null}
                             <PrimaryButton
                                 disabled={!isExportable}
-                                onClick={exportPost}
+                                onClick={exportToImage}
                                 type='submit'
                             >
                                 Export
