@@ -19,7 +19,7 @@ export interface SyncParams {
 }
 
 export interface WriterProps {
-	exportPost: () => void
+	exportPost: (data: any) => void
 	post?: { title: string; content: string }
 	savePost: (title: string, content: string, wordCount: number) => void
 	saveWritingSession: (WritingSession: string) => void
