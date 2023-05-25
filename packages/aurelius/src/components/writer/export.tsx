@@ -13,7 +13,11 @@ import ExportImageContent from './export-image-content'
 import { AureliusContext, AureliusProviderData } from './provider'
 import { sendAmplitudeEvent } from '../../helpers'
 
-export default function Export() {
+interface ExportProps {
+    exportPost: () => void
+}
+
+export default function Export({ exportPost }: ExportProps) {
     const context: AureliusProviderData = useContext(AureliusContext)
     const {
         author,
@@ -39,40 +43,40 @@ export default function Export() {
         wordCount > 0 &&
         wordCount <= wordCountLimit
 
-    const saveAs = (uri: string, filename: string) => {
-        const link = document.createElement('a')
+    // const saveAs = (uri: string, filename: string) => {
+    //     const link = document.createElement('a')
+    //
+    //     if (typeof link.download === 'string') {
+    //         link.href = uri
+    //         link.download = filename
+    //         document.body.appendChild(link)
+    //         link.click()
+    //         document.body.removeChild(link)
+    //     } else {
+    //         window.open(uri)
+    //     }
+    // }
 
-        if (typeof link.download === 'string') {
-            link.href = uri
-            link.download = filename
-            document.body.appendChild(link)
-            link.click()
-            document.body.removeChild(link)
-        } else {
-            window.open(uri)
-        }
-    }
-
-    function exportPost() {
-        if (window) {
-            const slug = title
-                ?.replace(/[^a-zA-Z ]/g, '')
-                .toLowerCase()
-                .split(' ')
-                .join('-')
-            const filename = slug || `aurelius_untitled_post_${Date.now()}`
-            // @ts-ignore
-            const element = findDOMNode(canvasRef.current)
-            // @ts-ignore
-            toPng(element, { pixelRatio: 2 })
-                .then((dataUrl) => {
-                    saveAs(dataUrl, `${filename}.png`)
-                })
-                .catch((err) => console.log(err))
-
-            sendAmplitudeEvent(AmplitudeEventType.IMAGE_EXPORTED)
-        }
-    }
+    // function exportPost() {
+    //     if (window) {
+    //         const slug = title
+    //             ?.replace(/[^a-zA-Z ]/g, '')
+    //             .toLowerCase()
+    //             .split(' ')
+    //             .join('-')
+    //         const filename = slug || `aurelius_untitled_post_${Date.now()}`
+    //         // @ts-ignore
+    //         const element = findDOMNode(canvasRef.current)
+    //         // @ts-ignore
+    //         toPng(element, { pixelRatio: 2 })
+    //             .then((dataUrl) => {
+    //                 saveAs(dataUrl, `${filename}.png`)
+    //             })
+    //             .catch((err) => console.log(err))
+    //
+    //         sendAmplitudeEvent(AmplitudeEventType.IMAGE_EXPORTED)
+    //     }
+    // }
 
     const CHANNELS = [
         { value: 'twitter', label: 'Twitter' },

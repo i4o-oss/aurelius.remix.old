@@ -19,6 +19,7 @@ export interface SyncParams {
 }
 
 export interface WriterProps {
+	exportPost: () => void
 	post?: { title: string; content: string }
 	savePost: (title: string, content: string, wordCount: number) => void
 	saveWritingSession: (WritingSession: string) => void
@@ -83,7 +84,7 @@ export interface SettingsData {
 
 export const AmplitudeEventType = {
 	POST_CREATED: 'Post Created',
-    POST_PUBLISHED: 'Post Published',
+	POST_PUBLISHED: 'Post Published',
 	WRITING_SESSION_CLICKED: 'Writing Session Clicked',
 	WRITING_SESSION_STARTED: 'Writing Session Started',
 	WRITING_SESSION_FINISHED: 'Writing Session Finished',
@@ -91,4 +92,5 @@ export const AmplitudeEventType = {
 	MARKDOWN_EXPORTED: 'Markdown Exported',
 } as const
 
-export type AmplitudeEventType = (typeof AmplitudeEventType)[keyof typeof AmplitudeEventType]
+export type AmplitudeEventType =
+	(typeof AmplitudeEventType)[keyof typeof AmplitudeEventType]

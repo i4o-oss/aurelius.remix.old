@@ -73,6 +73,10 @@ export default function Write() {
 		}
 	}
 
+	function exportPost() {
+		fetcher.submit({}, { method: 'post', action: '/api/export/image' })
+	}
+
 	function savePost(title: string, content: string, wordCount: number) {
 		if (title && wordCount > 1) {
 			if (post?.id) {
@@ -134,6 +138,7 @@ export default function Write() {
 	return (
 		<main className='flex h-full w-full flex-col items-center justify-start'>
 			<Writer
+				exportPost={exportPost}
 				post={post}
 				savePost={savePost}
 				saveWritingSession={saveWritingSession}
