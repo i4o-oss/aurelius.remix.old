@@ -331,7 +331,7 @@ function Features() {
 	)
 }
 
-export default function Home() {
+export default function Plus() {
 	const [theme] = useTheme()
 	return (
 		<>
