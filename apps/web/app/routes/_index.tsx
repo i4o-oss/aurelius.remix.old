@@ -1,6 +1,6 @@
 import type { LoaderArgs, SerializeFrom } from '@remix-run/node'
 import type { SyncParams } from '@i4o/aurelius'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { SETTINGS_LOCAL_STORAGE_KEY, SettingsData, Writer } from '@i4o/aurelius'
 import { useFetcher, useFetchers, useLoaderData } from '@remix-run/react'
 import { json } from '@remix-run/node'
@@ -73,6 +73,40 @@ export default function Write() {
 		}
 	}
 
+	useEffect(() => {
+		if (
+			fetcher.state === 'loading' &&
+			fetcher.data?.message === 'success' &&
+			fetcher.formMethod === 'POST'
+		) {
+			saveAs(fetcher.data?.url, fetcher.data?.name)
+		}
+	}, [fetcher])
+
+	const saveAs = (uri: string, filename: string) => {
+		const link = document.createElement('a')
+
+		if (typeof link.download === 'string') {
+			link.href = uri
+			link.download = filename
+			document.body.appendChild(link)
+			link.click()
+			document.body.removeChild(link)
+		} else {
+			window.open(uri)
+		}
+	}
+
+	function exportPost(data: any) {
+		fetcher.submit(
+			{ ...data },
+			{
+				method: 'post',
+				action: '/api/export/image',
+			}
+		)
+	}
+
 	function savePost(title: string, content: string, wordCount: number) {
 		if (title && wordCount > 1) {
 			if (post?.id) {
@@ -134,6 +168,7 @@ export default function Write() {
 	return (
 		<main className='flex h-full w-full flex-col items-center justify-start'>
 			<Writer
+				exportPost={exportPost}
 				post={post}
 				savePost={savePost}
 				saveWritingSession={saveWritingSession}

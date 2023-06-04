@@ -56,6 +56,10 @@ export default function Help() {
 								<p>Strikethrough</p>
 							</li>
 							<li className='au-flex au-items-center au-justify-between au-px-4 au-py-2'>
+								<p>[text](url)</p>
+								<p>Hyperlink</p>
+							</li>
+							<li className='au-flex au-items-center au-justify-between au-px-4 au-py-2'>
 								<p>==text==</p>
 								<p>Highlight</p>
 							</li>

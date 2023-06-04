@@ -40,7 +40,6 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
 	}
 
 	const toggleBold = () => {
-		console.log(editor)
 		editor?.chain().focus().toggleBold().run()
 	}
 

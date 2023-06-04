@@ -37,13 +37,14 @@ import {
 import Timer from './timer'
 import Reset from './reset'
 import WritingSessionRecap from './recap'
-import Export from './export'
+import Export from '../common/export'
 import SplashScreen from './splash'
 import { Keystrokes } from '@rwh/keystrokes'
 import { KeystrokesProvider, useKeyCombo } from '@rwh/react-keystrokes'
 import Help from './help'
 
 export default function Writer({
+	exportPost,
 	post,
 	savePost: savePostToDatabase,
 	saveWritingSession: saveWritingSessionToDatabase,
@@ -120,7 +121,6 @@ export default function Writer({
 		}
 		if (isHelpComboPressed) {
 			setShowHelpDialog(!showHelpDialog)
-            // console.log('help key combo pressed')
 		}
 		if (isNewPostComboPressed) {
 			newPostHandler()
@@ -534,7 +534,7 @@ export default function Writer({
 				<Reset confirmResetEditor={confirmResetEditor} />
 				<NewSession startSession={startSession} />
 				<WritingSessionRecap />
-				<Export />
+				<Export exportPost={exportPost} />
 				<SplashScreen
 					continueWritingHandler={continueWritingHandler}
 					newPostHandler={newPostHandler}

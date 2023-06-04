@@ -29,6 +29,7 @@ export default function SplashScreen({
 }: SplashScreenProps) {
 	const {
 		localPost,
+        setShowHelpDialog,
 		showSplashScreenDialog,
 		setShowSplashScreenDialog,
 		user,
@@ -175,6 +176,7 @@ export default function SplashScreen({
 								<Button
 									className='!au-px-0 !au-py-1 !au-bg-transparent hover:!au-bg-transparent au-flex au-items-center au-font-normal'
 									leftIcon={<InfoCircledIcon />}
+                                    onClick={() => setShowHelpDialog?.(true)}
 								>
 									Help
 								</Button>
