@@ -1,7 +1,12 @@
 import type { ActionArgs } from '@remix-run/node'
 import { json } from '@remix-run/node'
 // import { nanoid } from 'nanoid/async'
-import { deletePost, getPost, updatePost } from '~/models/post.server'
+import {
+	deletePost,
+	getPost,
+	getPostBySlug,
+	updatePost,
+} from '~/models/post.server'
 
 export async function action({ request, params }: ActionArgs) {
 	switch (request.method) {
@@ -26,9 +31,16 @@ export async function action({ request, params }: ActionArgs) {
 							.split(' ')
 							.join('-')
 
-						// create slug when post is published
-						// @ts-ignore
-						update.slug = slug
+						const post = await getPostBySlug(slug as string)
+
+						if (post) {
+							// @ts-ignore
+							update.slug = `${slug}-${Date.now()}`
+						} else {
+							// create slug when post is published
+							// @ts-ignore
+							update.slug = slug
+						}
 					}
 					// @ts-ignore
 					update[key as string] = published
