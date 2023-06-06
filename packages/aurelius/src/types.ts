@@ -21,7 +21,15 @@ export interface SyncParams {
 export interface WriterProps {
 	exportPost: (data: any) => void
 	post?: { title: string; content: string }
-	savePost: (title: string, content: string, wordCount: number) => void
+	savePost: ({
+		title,
+		content,
+		wordCount,
+	}: {
+		title: string
+		content: string
+		wordCount: number
+	}) => void
 	saveWritingSession: (WritingSession: string) => void
 	showSettingsDialog?: boolean
 	settingsFromDb?: SettingsData
