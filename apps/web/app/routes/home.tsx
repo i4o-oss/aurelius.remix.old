@@ -114,7 +114,7 @@ export default function Home() {
                                         alt='writing illustration'
                                     />
                                     <h1 className='text-primary-foreground text-left text-4xl font-bold tracking-tight sm:leading-tight md:text-6xl'>
-                                        Writing App for Modern Writers
+                                        The Writing App for Modern Writers
                                     </h1>
                                     <p className='text-primary-foreground-subtle mt-6 text-lg leading-8'>
                                         Focused writing environment that helps
