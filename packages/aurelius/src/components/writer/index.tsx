@@ -264,7 +264,7 @@ export default function Writer({
 			}
 
 			if (user) {
-				savePostToDatabase(title, content, wordCount)
+				savePostToDatabase({ title, content, wordCount })
 			} else {
 				writeStorage(POST_LOCAL_STORAGE_KEY, update)
 			}
