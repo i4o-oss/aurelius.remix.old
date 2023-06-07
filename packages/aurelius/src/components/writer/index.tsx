@@ -72,7 +72,7 @@ export default function Writer({
 			: (JSON.parse(JSON.stringify(settings)) as SettingsData)
 	const titleRef = useRef<HTMLTextAreaElement>(null)
 	const [author, setAuthor] = useState<string>('')
-	const [content, setContent] = useState('')
+	const content = useRef('')
 	const [focusMode, setFocusMode] = useState(false)
 	const [footer, setFooter] = useState<string>(settingsData?.footer || '')
 	const [isMusicPlaying, setIsMusicPlaying] = useState(false)
@@ -234,10 +234,14 @@ export default function Writer({
 			let html = editor.isEmpty ? '' : editor.getHTML()
 			const contentText = editor?.state?.doc?.textContent
 			const wordCount = contentText?.split(' ').length
-			setContent(html)
+			content.current = html
 			setWordCount(wordCount)
 		},
 	})
+
+    function setContent(html: string) {
+        content.current = html
+    }
 
 	function clearLocalData() {
 		deleteFromStorage(POST_LOCAL_STORAGE_KEY)
@@ -245,7 +249,7 @@ export default function Writer({
 	}
 
 	function downloadFile() {
-		downloadAsMarkdown(title, content)
+		downloadAsMarkdown(title, content.current)
 		sendAmplitudeEvent(AmplitudeEventType.MARKDOWN_EXPORTED)
 	}
 
@@ -264,7 +268,7 @@ export default function Writer({
 			}
 
 			if (user) {
-				savePostToDatabase({ title, content, wordCount })
+				savePostToDatabase({ title, content: content.current, wordCount })
 			} else {
 				writeStorage(POST_LOCAL_STORAGE_KEY, update)
 			}
@@ -275,13 +279,13 @@ export default function Writer({
 		}
 	}
 
-	const autoSavePost = useCallback(savePost, [title, content])
-	const autoSaveData = { title, content, wordCount }
+	const autoSavePost = useCallback(savePost, [title, content.current])
+	const autoSaveData = { title, content: content.current, wordCount }
 
 	function confirmResetEditor() {
 		deleteFromStorage(POST_LOCAL_STORAGE_KEY)
 		setTitle('')
-		setContent('')
+		content.current = ''
 		editor?.commands.clearContent(true)
 		setWordCount(0)
 		setShowResetAlert(false)
@@ -435,7 +439,7 @@ export default function Writer({
 	const data = {
 		author,
 		setAuthor,
-		content,
+		content: content.current,
 		setContent,
 		editor,
 		focusMode,

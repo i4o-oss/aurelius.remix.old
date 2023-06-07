@@ -15,7 +15,7 @@ export interface AureliusProviderData {
 	author?: string
 	setAuthor?: Dispatch<SetStateAction<string>>
 	content?: string
-	setContent?: Dispatch<SetStateAction<string>>
+	setContent?: (html: string) => void
 	editor?: Editor | null
 	focusMode?: boolean
 	setFocusMode?: Dispatch<SetStateAction<boolean>>
