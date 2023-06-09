@@ -29,7 +29,7 @@ export interface AureliusProviderData {
 	notifyOnSessionEnd?: boolean
 	setNotifyOnSessionEnd?: Dispatch<SetStateAction<boolean>>
     onResetEditorClick?: (state: boolean) => void
-	post?: { title: string; content: string }
+	post: { title: string; content: string } | undefined
 	settings?: SettingsData
 	sessionData?: WritingSession | null
 	setSessionData?: Dispatch<SetStateAction<WritingSession | null>>
@@ -55,8 +55,8 @@ export interface AureliusProviderData {
 	setShowSessionEndToast?: Dispatch<SetStateAction<boolean>>
 	showSessionRecapDialog?: boolean
 	setShowSessionRecapDialog?: Dispatch<SetStateAction<boolean>>
-	showSettingsDialog?: boolean
-	setShowSettingsDialog?: Dispatch<SetStateAction<boolean>>
+	showSettingsDialog?: boolean | undefined
+	setShowSettingsDialog?: Dispatch<SetStateAction<boolean>> | undefined
 	showSplashScreenDialog?: boolean
 	setShowSplashScreenDialog?: Dispatch<SetStateAction<boolean>>
 	showWritingPaths?: boolean

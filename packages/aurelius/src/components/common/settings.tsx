@@ -253,6 +253,7 @@ export default function Settings({
 	]
 
 	return (
+        // @ts-ignore
 		<Dialog
 			open={showSettingsDialog}
 			onOpenChange={setShowSettingsDialog}
