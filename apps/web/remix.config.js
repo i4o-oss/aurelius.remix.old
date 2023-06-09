@@ -16,7 +16,7 @@ module.exports = {
     // serverBuildPath: "api/index.js",
     // publicPath: "/build/",
     serverDependenciesToBundle: [
-        '@i4o/aurelius',
+        '@aurelius/writer',
         /^@mdx-js*/,
         'bail',
         'ccount',

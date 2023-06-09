@@ -1,4 +1,4 @@
-import { TitleAlignment } from '@i4o/aurelius'
+import { TitleAlignment } from '@aurelius/writer'
 import { ActionArgs, json } from '@remix-run/node'
 import puppeteer from 'puppeteer'
 

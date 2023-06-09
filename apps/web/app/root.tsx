@@ -28,7 +28,7 @@ import NProgress from 'nprogress'
 import nProgressStyles from 'nprogress/nprogress.css'
 import styles from '~/main.css'
 import cuiStyles from '@i4o/catalystui/main.css'
-import aureliusStyles from '@i4o/aurelius/main.css'
+import aureliusStyles from '@aurelius/writer/main.css'
 
 interface DocumentProps {
     children: React.ReactNode

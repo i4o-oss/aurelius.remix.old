@@ -28,7 +28,7 @@ import { getGreeting } from '~/lib/utils'
 import { auth } from '~/services/auth.server'
 import { getUserProfile } from '~/models/user.server'
 import Skeleton from '~/components/skeleton'
-import { AmplitudeEventType, sendAmplitudeEvent } from '@i4o/aurelius'
+import { AmplitudeEventType, sendAmplitudeEvent } from '@aurelius/writer'
 
 interface GreetingProps {
 	name: string

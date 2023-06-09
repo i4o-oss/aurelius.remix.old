@@ -5,7 +5,7 @@ import {
 	getOembed,
 	getOembedDataFromScraper,
 	getOembedFromLink,
-} from '@i4o/aurelius'
+} from '@aurelius/writer'
 
 export async function loader({ request }: LoaderArgs) {
 	const requestUrl = new URL(request.url)

@@ -1,8 +1,8 @@
-import type { TitleAlignment } from "@i4o/aurelius"
-import { ExportImageContent } from '@i4o/aurelius'
-import { json, LoaderArgs } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
-import { useRef } from "react";
+import type { TitleAlignment } from '@aurelius/writer'
+import { ExportImageContent } from '@aurelius/writer'
+import { json, LoaderArgs } from '@remix-run/node'
+import { useLoaderData } from '@remix-run/react'
+import { useRef } from 'react'
 
 export async function loader({ request }: LoaderArgs) {
     const url = new URL(request.url)
@@ -11,18 +11,39 @@ export async function loader({ request }: LoaderArgs) {
     const content = url.searchParams.get('content') as string
     const footer = url.searchParams.get('footer') as string
     const title = url.searchParams.get('title') as string
-    const titleAlignment = url.searchParams.get('titleAlignment') as TitleAlignment
-    const watermark = url.searchParams.get('watermark') as string === 'true'
+    const titleAlignment = url.searchParams.get(
+        'titleAlignment'
+    ) as TitleAlignment
+    const watermark = (url.searchParams.get('watermark') as string) === 'true'
 
-    return json({ author, background, content, footer, title, titleAlignment, watermark }, 200)
+    return json(
+        {
+            author,
+            background,
+            content,
+            footer,
+            title,
+            titleAlignment,
+            watermark,
+        },
+        200
+    )
 }
 
 export default function DefaultImageRenderer() {
-    const { author, background, content, footer, title, titleAlignment, watermark } = useLoaderData<typeof loader>()
+    const {
+        author,
+        background,
+        content,
+        footer,
+        title,
+        titleAlignment,
+        watermark,
+    } = useLoaderData<typeof loader>()
     const canvasRef = useRef<HTMLDivElement>(null)
 
     return (
-        <div className='w-[1080px] h-[1440px] flex items-start justify-start'>
+        <div className='flex h-[1440px] w-[1080px] items-start justify-start'>
             <ExportImageContent
                 author={author}
                 background={background}

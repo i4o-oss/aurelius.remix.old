@@ -1,7 +1,7 @@
 import {
 	SETTINGS_LOCAL_STORAGE_KEY,
 	SettingsData,
-} from '@i4o/aurelius'
+} from '@aurelius/writer'
 import useLocalStorage from '@rehooks/local-storage'
 import type { LoaderArgs, SerializeFrom } from '@remix-run/node'
 import { json } from '@remix-run/node'

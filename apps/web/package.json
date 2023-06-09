@@ -12,7 +12,7 @@
     "dependencies": {
         "@amplitude/analytics-browser": "^1.10.3",
         "@aurelius/emails": "workspace:*",
-        "@i4o/aurelius": "workspace:*",
+        "@aurelius/writer": "workspace:*",
         "@i4o/catalystui": "1.0.0-alpha.8",
         "@mdx-js/mdx": "^2.3.0",
         "@mdx-js/react": "^2.3.0",
