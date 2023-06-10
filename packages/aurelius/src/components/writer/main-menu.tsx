@@ -16,7 +16,7 @@ import {
 	MoonIcon,
 	Pencil1Icon,
 	RocketIcon,
-	// QuestionMarkCircledIcon,
+	QuestionMarkCircledIcon,
 	StarFilledIcon,
 	SunIcon,
 	TrashIcon,
@@ -36,7 +36,9 @@ export default function MainMenu(props: MainMenuProps) {
 		content,
 		focusMode,
 		onResetEditorClick,
+        showHelpDialog,
 		setFocusMode,
+        setShowHelpDialog,
 		setShowExportImageDialog,
 		setShowNewSessionDialog,
 		setShowSettingsDialog,
@@ -216,10 +218,12 @@ export default function MainMenu(props: MainMenuProps) {
 			link: 'https://instagram.com/aurelius_ink',
 			openLinkInNewTab: true,
 		},
-		// {
-		// 	label: 'Help',
-		// 	icon: <QuestionMarkCircledIcon />,
-		// },
+		{
+			label: 'Help',
+			icon: <QuestionMarkCircledIcon />,
+            onSelect: () => setShowHelpDialog?.(!showHelpDialog),
+            shortcut: 'Alt + ?'
+		},
 		{ type: 'separator' },
 		{
 			label: (
