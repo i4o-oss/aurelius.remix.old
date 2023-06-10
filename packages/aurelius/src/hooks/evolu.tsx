@@ -1,18 +1,18 @@
 import * as Schema from '@effect/schema/Schema'
 import * as Evolu from 'evolu'
 
-const TodoId = Evolu.id('Todo')
-type TodoId = Schema.To<typeof TodoId>
+const PostId = Evolu.id('Post')
+type PostId = Schema.To<typeof PostId>
 
-const TodoTable = Schema.struct({
-    id: TodoId,
-    title: Evolu.NonEmptyString1000,
+const PostTable = Schema.struct({
+    id: PostId,
+    title: Evolu.String1000,
     isCompleted: Evolu.SqliteBoolean,
 })
-type TodoTable = Schema.To<typeof TodoTable>
+type PostTable = Schema.To<typeof PostTable>
 
 const Database = Schema.struct({
-    todo: TodoTable,
+    post: PostTable,
 })
 
 export const {
