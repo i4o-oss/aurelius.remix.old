@@ -42,6 +42,7 @@ import SplashScreen from './splash'
 import { Keystrokes } from '@rwh/keystrokes'
 import { KeystrokesProvider, useKeyCombo } from '@rwh/react-keystrokes'
 import Help from './help'
+import { useMutation } from '../../hooks/evolu'
 
 export default function Writer({
 	exportPost,
@@ -64,12 +65,12 @@ export default function Writer({
 	const [writingSessions] = useLocalStorage<WritingSession[]>(
 		SESSION_LOCAL_STORAGE_KEY
 	)
-
 	const [settings] = useLocalStorage<string>(SETTINGS_LOCAL_STORAGE_KEY)
 	const settingsData =
 		user && settingsFromDb
 			? settingsFromDb
 			: (JSON.parse(JSON.stringify(settings)) as SettingsData)
+	const { create: createLocal } = useMutation()
 	const titleRef = useRef<HTMLTextAreaElement>(null)
 	const [author, setAuthor] = useState<string>('')
 	const content = useRef('')
@@ -239,9 +240,9 @@ export default function Writer({
 		},
 	})
 
-    function setContent(html: string) {
-        content.current = html
-    }
+	function setContent(html: string) {
+		content.current = html
+	}
 
 	function clearLocalData() {
 		deleteFromStorage(POST_LOCAL_STORAGE_KEY)
@@ -268,9 +269,15 @@ export default function Writer({
 			}
 
 			if (user) {
-				savePostToDatabase({ title, content: content.current, wordCount })
+				savePostToDatabase({
+					title,
+					content: content.current,
+					wordCount,
+				})
 			} else {
-				writeStorage(POST_LOCAL_STORAGE_KEY, update)
+				const createdAt = new Date()
+				// writeStorage(POST_LOCAL_STORAGE_KEY, update)
+				createLocal('post', { ...update, createdAt })
 			}
 
 			saveTimeout = setTimeout(() => {
