@@ -17,6 +17,7 @@
         "resolveJsonModule": true,
         "target": "ES2019",
         "strict": true,
+        "exactOptionalPropertyTypes": true,
         "baseUrl": ".",
         "paths": {
             "~/*": [

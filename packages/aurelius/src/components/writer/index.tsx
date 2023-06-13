@@ -42,12 +42,12 @@ import SplashScreen from './splash'
 import { Keystrokes } from '@rwh/keystrokes'
 import { KeystrokesProvider, useKeyCombo } from '@rwh/react-keystrokes'
 import Help from './help'
-import { useMutation } from '../../hooks/evolu'
 
 export default function Writer({
 	exportPost,
 	post,
-	savePost: savePostToDatabase,
+	savePostToDatabase,
+    savePostToLocal,
 	saveWritingSession: saveWritingSessionToDatabase,
 	showSettingsDialog,
 	settingsFromDb,
@@ -70,7 +70,6 @@ export default function Writer({
 		user && settingsFromDb
 			? settingsFromDb
 			: (JSON.parse(JSON.stringify(settings)) as SettingsData)
-	const { create: createLocal } = useMutation()
 	const titleRef = useRef<HTMLTextAreaElement>(null)
 	const [author, setAuthor] = useState<string>('')
 	const content = useRef('')
@@ -264,20 +263,14 @@ export default function Writer({
 
 			const update = {
 				title,
-				content,
+				content: content.current,
 				wordCount,
 			}
 
 			if (user) {
-				savePostToDatabase({
-					title,
-					content: content.current,
-					wordCount,
-				})
+				savePostToDatabase(update)
 			} else {
-				const createdAt = new Date()
-				// writeStorage(POST_LOCAL_STORAGE_KEY, update)
-				createLocal('post', { ...update, createdAt })
+				savePostToLocal(update)
 			}
 
 			saveTimeout = setTimeout(() => {

@@ -25,6 +25,7 @@ module.exports = {
         'decode-named-character-reference',
         /^estree-util-*/,
         'estree-walker',
+        'evolu',
         'fault',
         'gray-matter',
         /^hast-util-*/,

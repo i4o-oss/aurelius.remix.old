@@ -1,10 +1,12 @@
 import * as Schema from '@effect/schema/Schema'
 import { pipe } from '@effect/data/Function'
-import * as Evolu from 'evolu'
-import type { UseMutation } from 'evolu'
+import { create, id, SqliteDate } from 'evolu'
 
-const PostId = Evolu.id('Post')
+const PostId = id('Post')
 type PostId = Schema.To<typeof PostId>
+
+const Title = pipe(Schema.string, Schema.minLength(1))
+type Title = Schema.To<typeof Title>
 
 const Content = pipe(Schema.string, Schema.minLength(1))
 type Content = Schema.To<typeof Content>
@@ -14,9 +16,9 @@ type WordCount = Schema.To<typeof WordCount>
 
 const PostTable = Schema.struct({
 	id: PostId,
-	title: Evolu.NonEmptyString1000,
+	title: Title,
 	content: Content,
-	createdAt: Evolu.SqliteDate,
+	createdAt: SqliteDate,
 	wordCount: WordCount,
 })
 type PostTable = Schema.To<typeof PostTable>
@@ -25,6 +27,5 @@ const Database = Schema.struct({
 	post: PostTable,
 })
 
-// @ts-ignore
-export const { useMutation }: { useMutation: UseMutation } = Evolu.create(Database)
+export const { useMutation, useQuery, useEvoluError } = create(Database)
 
