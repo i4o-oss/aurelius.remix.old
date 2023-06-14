@@ -3,6 +3,8 @@ import { startTransition, StrictMode, useEffect } from 'react'
 import { hydrateRoot } from 'react-dom/client'
 import * as Sentry from '@sentry/remix'
 import * as amplitude from '@amplitude/analytics-browser'
+import localforage from 'localforage'
+import { LOCAL_FORAGE_DB_NAME } from './lib/constants'
 
 // initialize sentry
 Sentry.init({
@@ -31,6 +33,21 @@ if (process.env.NODE_ENV === 'production') {
         },
     })
 }
+
+// initialize localforage
+localforage.config({
+    driver: localforage.INDEXEDDB,
+    name: LOCAL_FORAGE_DB_NAME,
+})
+
+localforage
+    .ready()
+    .then(() => {
+        console.log(localforage.driver())
+    })
+    .catch((e) => {
+        console.log(e)
+    })
 
 function hydrate() {
     startTransition(() => {

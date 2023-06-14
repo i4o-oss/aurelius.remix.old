@@ -19,6 +19,7 @@ import {
 } from '~/lib/constants'
 import { getUserProfile } from '~/models/user.server'
 import { getSettingsFromUserId } from '~/models/settings.server'
+// import { postStore } from '~/lib/local.client'
 
 export async function loader({ request }: LoaderArgs) {
     const url = new URL(request.url)
@@ -157,11 +158,12 @@ export default function Write() {
         }
     }
 
-    function savePostToLocal(update: {
+    async function savePostToLocal(update: {
         title: string
         content: string
         wordCount: string
     }) {
+        // postStore.setItem('test', update)
         writeStorage(POST_LOCAL_STORAGE_KEY, update)
     }
 
