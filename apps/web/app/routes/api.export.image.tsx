@@ -1,6 +1,6 @@
 import { TitleAlignment } from '@aurelius/writer'
 import { ActionArgs, json } from '@remix-run/node'
-import puppeteer from 'puppeteer'
+import { getBrowser } from '~/lib/helpers.server'
 
 export async function action({ request }: ActionArgs) {
     switch (request.method) {
@@ -17,7 +17,7 @@ export async function action({ request }: ActionArgs) {
             ) as TitleAlignment
             const watermark = (formData.get('watermark') as string) === 'true'
 
-            const browser = await puppeteer.launch({ headless: 'new' })
+            const browser = await getBrowser()
             const page = await browser.newPage()
 
             const url = `http://localhost:3000/renders/image/default?author=${encodeURIComponent(author)}&background=${encodeURIComponent(background)}&content=${encodeURIComponent(content)}&footer=${encodeURIComponent(footer)}&title=${encodeURIComponent(title)}&titleAlignment=${encodeURIComponent(titleAlignment)}&watermark=${encodeURIComponent(watermark)}`
