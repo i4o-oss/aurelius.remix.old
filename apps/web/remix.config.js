@@ -2,9 +2,10 @@
  * @type {import('@remix-run/dev').AppConfig}
  */
 module.exports = {
+    postcss: true,
+    tailwind: true,
     future: {
-        unstable_postcss: true,
-        unstable_tailwind: true,
+        unstable_dev: true,
         v2_routeConvention: true,
     },
     // When running locally in development mode, we use the built in remix
@@ -15,6 +16,7 @@ module.exports = {
     // assetsBuildDirectory: "public/build",
     // serverBuildPath: "api/index.js",
     // publicPath: "/build/",
+    serverModuleFormat: 'cjs',
     serverDependenciesToBundle: [
         '@aurelius/writer',
         /^@mdx-js*/,
@@ -30,7 +32,7 @@ module.exports = {
         'gray-matter',
         /^hast-util-*/,
         /^is-*/,
-        'lowlight',
+        /^lowlight*/,
         /^mdast-util-*/,
         /^micromark*/,
         /^nanoid*/,
