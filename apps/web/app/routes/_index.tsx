@@ -13,11 +13,12 @@ import Settings from '~/components/settings'
 import { Theme, useTheme } from '~/lib/theme'
 import { auth } from '~/services/auth.server'
 import { getPostByShareId } from '~/models/post.server'
-import { POST_ID_LOCAL_STORAGE_KEY } from '~/lib/constants'
+import {
+    POST_ID_LOCAL_STORAGE_KEY,
+    POST_LOCAL_STORAGE_KEY,
+} from '~/lib/constants'
 import { getUserProfile } from '~/models/user.server'
 import { getSettingsFromUserId } from '~/models/settings.server'
-import { useMutation, useQuery } from '~/lib/evolu'
-import { useLocalPosts } from '~/lib/local'
 
 export async function loader({ request }: LoaderArgs) {
     const url = new URL(request.url)
@@ -57,8 +58,6 @@ export default function Write() {
         user && settingsFromDb
             ? settingsFromDb
             : (JSON.parse(JSON.stringify(settings)) as SettingsData)
-    const { create: createLocal } = useMutation()
-    const [localPostId, setLocalPostId] = useState('')
     const [showSettingsDialog, setShowSettingsDialog] = useState(false)
     const [theme, setTheme] = useTheme()
 
@@ -115,6 +114,10 @@ export default function Write() {
         )
     }
 
+    // TODO: refactor all functions that save stuff to planetscale or indexeddb
+    // so that only the remix app does the saving operations
+    // the writer package should only handle writing and should pass all data that should
+    // be saved to the remix app
     function savePostToDatabase({
         title,
         content,
@@ -159,15 +162,7 @@ export default function Write() {
         content: string
         wordCount: string
     }) {
-        const createdAt = new Date()
-        console.log('saving post to opfs')
-        const { id } = createLocal('post', {
-            title: update.title || 'Untitled Post',
-            content: update.content,
-            wordCount: Number(update.wordCount),
-            createdAt,
-        })
-        setLocalPostId(id)
+        writeStorage(POST_LOCAL_STORAGE_KEY, update)
     }
 
     function saveWritingSession(writingSession: string) {
