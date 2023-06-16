@@ -15,11 +15,10 @@ import { auth } from '~/services/auth.server'
 import { getPostByShareId } from '~/models/post.server'
 import {
     POST_ID_LOCAL_STORAGE_KEY,
-    POST_LOCAL_STORAGE_KEY,
 } from '~/lib/constants'
 import { getUserProfile } from '~/models/user.server'
 import { getSettingsFromUserId } from '~/models/settings.server'
-// import { postStore } from '~/lib/local.client'
+import { postStore } from '~/lib/local.client'
 
 export async function loader({ request }: LoaderArgs) {
     const url = new URL(request.url)
@@ -115,10 +114,10 @@ export default function Write() {
         )
     }
 
-    // TODO: refactor all functions that save stuff to planetscale or indexeddb
-    // so that only the remix app does the saving operations
+    // TODO: refactor all functions that save and load stuff from/to planetscale/indexeddb
+    // so that only the remix app does the saving and loading operations
     // the writer package should only handle writing and should pass all data that should
-    // be saved to the remix app
+    // be saved and loaded to the remix app
     function savePostToDatabase({
         title,
         content,
@@ -163,8 +162,8 @@ export default function Write() {
         content: string
         wordCount: string
     }) {
-        // postStore.setItem('test', update)
-        writeStorage(POST_LOCAL_STORAGE_KEY, update)
+        postStore.setItem('test', update)
+        // writeStorage(POST_LOCAL_STORAGE_KEY, update)
     }
 
     function saveWritingSession(writingSession: string) {
