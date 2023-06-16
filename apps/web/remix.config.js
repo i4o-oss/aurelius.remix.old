@@ -6,6 +6,7 @@ module.exports = {
     tailwind: true,
     future: {
         unstable_dev: true,
+        v2_meta: true,
         v2_routeConvention: true,
     },
     // When running locally in development mode, we use the built in remix

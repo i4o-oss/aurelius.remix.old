@@ -2,8 +2,8 @@ import React, { useMemo } from 'react'
 import type {
     LinksFunction,
     LoaderArgs,
-    MetaFunction,
     SerializeFrom,
+    V2_MetaFunction,
 } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import {
@@ -78,29 +78,81 @@ export const links: LinksFunction = () => {
     ]
 }
 
-export const meta: MetaFunction = () => ({
-    charset: 'utf-8',
-    'msapplication-TileColor': '#2b5797',
-    'og:site': 'https://aurelius.ink',
-    'og:url': 'https://aurelius.ink',
-    'og:title': 'Aurelius',
-    'og:description':
-        'Beautiful, minimal writing app. Eliminate distractions when writing, build a writing habit, track your daily writing goal, and more.',
-    'og:image': '/images/aurelius_open_graph.png',
-    'theme-color': '#ffffff',
-    title: 'Aurelius',
-    description:
-        'Beautiful, minimal writing app. Eliminate distractions when writing, build a writing habit, track your daily writing goal, and more.',
-    'twitter:card': 'summary_large_image',
-    'twitter:site': '@aurelius_ink',
-    'twitter:url': 'https://aurelius.ink/',
-    'twitter:creator': '@aurelius_ink',
-    'twitter:title': 'Aurelius',
-    'twitter:description':
-        'Beautiful, minimal writing app. Eliminate distractions when writing, build a writing habit, track your daily writing goal, and more.',
-    'twitter:image': 'https://www.aurelius.ink/images/aurelius_open_graph.png',
-    viewport: 'width=device-width,initial-scale=1',
-})
+export const meta: V2_MetaFunction = () => [
+    {
+        charSet: 'utf-8',
+    },
+    {
+        name: 'msapplication-TileColor',
+        content: '#2b5797',
+    },
+    {
+        property: 'og:site',
+        content: 'https://aurelius.ink',
+    },
+    {
+        property: 'og:url',
+        content: 'https://aurelius.ink',
+    },
+    {
+        property: 'og:title',
+        content: 'Aurelius',
+    },
+    {
+        property: 'og:description',
+        content:
+            'Beautiful, minimal writing app. Eliminate distractions when writing, build a writing habit, track your daily writing goal, and more.',
+    },
+    {
+        property: 'og:image',
+        content: '/images/aurelius_open_graph.png',
+    },
+    {
+        name: 'theme-color',
+        content: '#ffffff',
+    },
+    {
+        title: 'Aurelius',
+    },
+    {
+        name: 'description',
+        content:
+            'Beautiful, minimal writing app. Eliminate distractions when writing, build a writing habit, track your daily writing goal, and more.',
+    },
+    {
+        name: 'twitter:card',
+        content: 'summary_large_image',
+    },
+    {
+        name: 'twitter:site',
+        content: '@aurelius_ink',
+    },
+    {
+        name: 'twitter:url',
+        content: 'https://aurelius.ink/',
+    },
+    {
+        name: 'twitter:creator',
+        content: '@aurelius_ink',
+    },
+    {
+        name: 'twitter:title',
+        content: 'Aurelius',
+    },
+    {
+        name: 'twitter:description',
+        content:
+            'Beautiful, minimal writing app. Eliminate distractions when writing, build a writing habit, track your daily writing goal, and more.',
+    },
+    {
+        name: 'twitter:image',
+        content: 'https://www.aurelius.ink/images/aurelius_open_graph.png',
+    },
+    {
+        name: 'viewport',
+        content: 'width=device-width,initial-scale=1',
+    },
+]
 
 export type LoaderData = SerializeFrom<typeof loader>
 
