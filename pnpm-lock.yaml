@@ -1,9 +1,5 @@
 lockfileVersion: '6.0'
 
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false
-
 importers:
 
   .:
@@ -94,17 +90,17 @@ importers:
         specifier: ^2.4.4
         version: 2.4.4(react@18.2.0)
       '@remix-run/node':
-        specifier: 1.17.0
-        version: 1.17.0
+        specifier: 1.17.1
+        version: 1.17.1
       '@remix-run/react':
-        specifier: 1.17.0
-        version: 1.17.0(react-dom@18.2.0)(react@18.2.0)
+        specifier: 1.17.1
+        version: 1.17.1(react-dom@18.2.0)(react@18.2.0)
       '@remix-run/serve':
-        specifier: 1.17.0
-        version: 1.17.0
+        specifier: 1.17.1
+        version: 1.17.1
       '@sentry/remix':
         specifier: ^7.47.0
-        version: 7.47.0(@remix-run/node@1.17.0)(@remix-run/react@1.17.0)(react@18.2.0)
+        version: 7.47.0(@remix-run/node@1.17.1)(@remix-run/react@1.17.1)(react@18.2.0)
       '@tailwindcss/aspect-ratio':
         specifier: 0.4.2
         version: 0.4.2(tailwindcss@3.2.7)
@@ -167,16 +163,16 @@ importers:
         version: 4.0.1
       remix-auth:
         specifier: 3.4.0
-        version: 3.4.0(@remix-run/react@1.17.0)(@remix-run/server-runtime@1.17.0)
+        version: 3.4.0(@remix-run/react@1.17.1)(@remix-run/server-runtime@1.17.1)
       remix-auth-email-link:
         specifier: ^2.0.2
-        version: 2.0.2(@remix-run/server-runtime@1.17.0)(remix-auth@3.4.0)
+        version: 2.0.2(@remix-run/server-runtime@1.17.1)(remix-auth@3.4.0)
       remix-auth-form:
         specifier: ^1.3.0
-        version: 1.3.0(@remix-run/server-runtime@1.17.0)(remix-auth@3.4.0)
+        version: 1.3.0(@remix-run/server-runtime@1.17.1)(remix-auth@3.4.0)
       remix-auth-google:
         specifier: ^1.2.0
-        version: 1.2.0(@remix-run/server-runtime@1.17.0)(remix-auth@3.4.0)
+        version: 1.2.0(@remix-run/server-runtime@1.17.1)(remix-auth@3.4.0)
       tiny-invariant:
         specifier: ^1.3.1
         version: 1.3.1
@@ -185,17 +181,17 @@ importers:
         version: 3.21.4
       zodix:
         specifier: ^0.4.0
-        version: 0.4.0(@remix-run/server-runtime@1.17.0)(zod@3.21.4)
+        version: 0.4.0(@remix-run/server-runtime@1.17.1)(zod@3.21.4)
     devDependencies:
       '@aurelius/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
       '@remix-run/dev':
-        specifier: 1.17.0
-        version: 1.17.0(@remix-run/serve@1.17.0)(@types/node@18.15.10)(ts-node@10.9.1)
+        specifier: 1.17.1
+        version: 1.17.1(@remix-run/serve@1.17.1)(@types/node@18.15.10)(ts-node@10.9.1)
       '@remix-run/server-runtime':
-        specifier: 1.17.0
-        version: 1.17.0
+        specifier: 1.17.1
+        version: 1.17.1
       '@types/bcrypt':
         specifier: ^5.0.0
         version: 5.0.0
@@ -263,14 +259,14 @@ importers:
         specifier: ^2.4.4
         version: 2.4.4(react@18.2.0)
       '@remix-run/dev':
-        specifier: 1.17.0
-        version: 1.17.0(@remix-run/serve@1.17.0)
+        specifier: 1.17.1
+        version: 1.17.1(@remix-run/serve@1.17.1)(@types/node@18.15.10)(ts-node@10.9.1)
       '@remix-run/node':
-        specifier: 1.17.0
-        version: 1.17.0
+        specifier: 1.17.1
+        version: 1.17.1
       '@remix-run/react':
-        specifier: 1.17.0
-        version: 1.17.0(react-dom@18.2.0)(react@18.2.0)
+        specifier: 1.17.1
+        version: 1.17.1(react-dom@18.2.0)(react@18.2.0)
       '@rwh/keystrokes':
         specifier: 1.0.0-beta.12
         version: 1.0.0-beta.12
@@ -1910,7 +1906,6 @@ packages:
     cpu: [arm64]
     os: [android]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/android-arm64@0.17.6:
@@ -1936,7 +1931,6 @@ packages:
     cpu: [arm]
     os: [android]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/android-arm@0.17.6:
@@ -1962,7 +1956,6 @@ packages:
     cpu: [x64]
     os: [android]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/android-x64@0.17.6:
@@ -1988,7 +1981,6 @@ packages:
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/darwin-arm64@0.17.6:
@@ -2014,7 +2006,6 @@ packages:
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/darwin-x64@0.17.6:
@@ -2040,7 +2031,6 @@ packages:
     cpu: [arm64]
     os: [freebsd]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/freebsd-arm64@0.17.6:
@@ -2066,7 +2056,6 @@ packages:
     cpu: [x64]
     os: [freebsd]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/freebsd-x64@0.17.6:
@@ -2092,7 +2081,6 @@ packages:
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/linux-arm64@0.17.6:
@@ -2118,7 +2106,6 @@ packages:
     cpu: [arm]
     os: [linux]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/linux-arm@0.17.6:
@@ -2144,7 +2131,6 @@ packages:
     cpu: [ia32]
     os: [linux]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/linux-ia32@0.17.6:
@@ -2170,7 +2156,6 @@ packages:
     cpu: [loong64]
     os: [linux]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/linux-loong64@0.17.6:
@@ -2196,7 +2181,6 @@ packages:
     cpu: [mips64el]
     os: [linux]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/linux-mips64el@0.17.6:
@@ -2222,7 +2206,6 @@ packages:
     cpu: [ppc64]
     os: [linux]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/linux-ppc64@0.17.6:
@@ -2248,7 +2231,6 @@ packages:
     cpu: [riscv64]
     os: [linux]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/linux-riscv64@0.17.6:
@@ -2274,7 +2256,6 @@ packages:
     cpu: [s390x]
     os: [linux]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/linux-s390x@0.17.6:
@@ -2300,7 +2281,6 @@ packages:
     cpu: [x64]
     os: [linux]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/linux-x64@0.17.6:
@@ -2326,7 +2306,6 @@ packages:
     cpu: [x64]
     os: [netbsd]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/netbsd-x64@0.17.6:
@@ -2352,7 +2331,6 @@ packages:
     cpu: [x64]
     os: [openbsd]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/openbsd-x64@0.17.6:
@@ -2378,7 +2356,6 @@ packages:
     cpu: [x64]
     os: [sunos]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/sunos-x64@0.17.6:
@@ -2404,7 +2381,6 @@ packages:
     cpu: [arm64]
     os: [win32]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/win32-arm64@0.17.6:
@@ -2430,7 +2406,6 @@ packages:
     cpu: [ia32]
     os: [win32]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/win32-ia32@0.17.6:
@@ -2456,7 +2431,6 @@ packages:
     cpu: [x64]
     os: [win32]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/win32-x64@0.17.6:
@@ -4811,85 +4785,7 @@ packages:
       picomatch: 2.3.1
       postcss: 8.4.21
       postcss-discard-duplicates: 5.1.0(postcss@8.4.21)
-      postcss-load-config: 4.0.1(postcss@8.4.21)(ts-node@10.9.1)
-      postcss-modules: 6.0.0(postcss@8.4.21)
-      prettier: 2.8.8
-      pretty-ms: 7.0.1
-      proxy-agent: 5.0.0
-      react-refresh: 0.14.0
-      recast: 0.21.5
-      remark-frontmatter: 4.0.1
-      remark-mdx-frontmatter: 1.1.1
-      semver: 7.5.1
-      sort-package-json: 1.57.0
-      tar-fs: 2.1.1
-      tsconfig-paths: 4.2.0
-      ws: 7.5.9
-      xdm: 2.1.0
-    transitivePeerDependencies:
-      - '@types/node'
-      - bluebird
-      - bufferutil
-      - encoding
-      - less
-      - sass
-      - stylus
-      - sugarss
-      - supports-color
-      - terser
-      - ts-node
-      - utf-8-validate
-
-  /@remix-run/dev@1.17.0(@remix-run/serve@1.17.0)(@types/node@18.15.10)(ts-node@10.9.1):
-    resolution: {integrity: sha512-UczyZdcUfQCS8a53VT4UtGFUCLYPKFiMwfvZMMgDL6kbWnYrknvXkXICqG26QbyR3bKDR6JPm5I6wVsmTGp+vQ==}
-    engines: {node: '>=14'}
-    hasBin: true
-    peerDependencies:
-      '@remix-run/serve': ^1.17.0
-    peerDependenciesMeta:
-      '@remix-run/serve':
-        optional: true
-    dependencies:
-      '@babel/core': 7.22.5
-      '@babel/generator': 7.22.5
-      '@babel/parser': 7.22.5
-      '@babel/plugin-syntax-jsx': 7.22.5(@babel/core@7.22.5)
-      '@babel/plugin-syntax-typescript': 7.22.5(@babel/core@7.22.5)
-      '@babel/preset-env': 7.22.5(@babel/core@7.22.5)
-      '@babel/preset-typescript': 7.22.5(@babel/core@7.22.5)
-      '@babel/traverse': 7.22.5
-      '@babel/types': 7.22.5
-      '@npmcli/package-json': 2.0.0
-      '@remix-run/serve': 1.17.0
-      '@remix-run/server-runtime': 1.17.0
-      '@vanilla-extract/integration': 6.2.1(@types/node@18.15.10)
-      arg: 5.0.2
-      cacache: 15.3.0
-      chalk: 4.1.2
-      chokidar: 3.5.3
-      dotenv: 16.1.4
-      esbuild: 0.17.6
-      esbuild-plugin-polyfill-node: 0.2.0(esbuild@0.17.6)
-      execa: 5.1.1
-      exit-hook: 2.2.1
-      express: 4.18.2
-      fast-glob: 3.2.11
-      fs-extra: 10.1.0
-      get-port: 5.1.1
-      gunzip-maybe: 1.4.2
-      inquirer: 8.2.5
-      jsesc: 3.0.2
-      json5: 2.2.3
-      lodash: 4.17.21
-      lodash.debounce: 4.0.8
-      lru-cache: 7.18.3
-      minimatch: 9.0.1
-      node-fetch: 2.6.11
-      ora: 5.4.1
-      picomatch: 2.3.1
-      postcss: 8.4.21
-      postcss-discard-duplicates: 5.1.0(postcss@8.4.21)
-      postcss-load-config: 4.0.1(postcss@8.4.21)(ts-node@10.9.1)
+      postcss-load-config: 4.0.1(postcss@8.4.24)(ts-node@10.9.1)
       postcss-modules: 6.0.0(postcss@8.4.21)
       prettier: 2.8.8
       pretty-ms: 7.0.1
@@ -4918,6 +4814,85 @@ packages:
       - ts-node
       - utf-8-validate
     dev: true
+
+  /@remix-run/dev@1.17.1(@remix-run/serve@1.17.1)(@types/node@18.15.10)(ts-node@10.9.1):
+    resolution: {integrity: sha512-HW6y9Ki3+3LsrqhGngHwK3CSZ91Zcfrp8JNIMQQBq083+PprStsoyEenZye3rFacjeBMjDzhfRfFn2QFuDcVhg==}
+    engines: {node: '>=14'}
+    hasBin: true
+    peerDependencies:
+      '@remix-run/serve': ^1.17.1
+    peerDependenciesMeta:
+      '@remix-run/serve':
+        optional: true
+    dependencies:
+      '@babel/core': 7.22.5
+      '@babel/generator': 7.22.5
+      '@babel/parser': 7.22.5
+      '@babel/plugin-syntax-jsx': 7.22.5(@babel/core@7.22.5)
+      '@babel/plugin-syntax-typescript': 7.22.5(@babel/core@7.22.5)
+      '@babel/preset-env': 7.22.5(@babel/core@7.22.5)
+      '@babel/preset-typescript': 7.22.5(@babel/core@7.22.5)
+      '@babel/traverse': 7.22.5
+      '@babel/types': 7.22.5
+      '@npmcli/package-json': 2.0.0
+      '@remix-run/serve': 1.17.1
+      '@remix-run/server-runtime': 1.17.1
+      '@vanilla-extract/integration': 6.2.1(@types/node@18.15.10)
+      arg: 5.0.2
+      cacache: 15.3.0
+      chalk: 4.1.2
+      chokidar: 3.5.3
+      dotenv: 16.1.4
+      esbuild: 0.17.6
+      esbuild-plugins-node-modules-polyfill: 1.0.15(esbuild@0.17.6)
+      execa: 5.1.1
+      exit-hook: 2.2.1
+      express: 4.18.2
+      fast-glob: 3.2.11
+      fs-extra: 10.1.0
+      get-port: 5.1.1
+      gunzip-maybe: 1.4.2
+      inquirer: 8.2.5
+      jsesc: 3.0.2
+      json5: 2.2.3
+      lodash: 4.17.21
+      lodash.debounce: 4.0.8
+      lru-cache: 7.18.3
+      minimatch: 9.0.1
+      node-fetch: 2.6.11
+      ora: 5.4.1
+      picomatch: 2.3.1
+      postcss: 8.4.24
+      postcss-discard-duplicates: 5.1.0(postcss@8.4.24)
+      postcss-load-config: 4.0.1(postcss@8.4.24)(ts-node@10.9.1)
+      postcss-modules: 6.0.0(postcss@8.4.24)
+      prettier: 2.8.8
+      pretty-ms: 7.0.1
+      proxy-agent: 5.0.0
+      react-refresh: 0.14.0
+      recast: 0.21.5
+      remark-frontmatter: 4.0.1
+      remark-mdx-frontmatter: 1.1.1
+      semver: 7.5.1
+      sort-package-json: 1.57.0
+      tar-fs: 2.1.1
+      tsconfig-paths: 4.2.0
+      ws: 7.5.9
+      xdm: 2.1.0
+    transitivePeerDependencies:
+      - '@types/node'
+      - bluebird
+      - bufferutil
+      - encoding
+      - less
+      - rollup
+      - sass
+      - stylus
+      - sugarss
+      - supports-color
+      - terser
+      - ts-node
+      - utf-8-validate
 
   /@remix-run/eslint-config@1.13.0(eslint@8.34.0)(react@18.2.0)(typescript@4.9.5):
     resolution: {integrity: sha512-qz/N99D/q1mQefZl2X+p11xVk03r6aFDMvk/4mG+8IrMRU4BqMJ/bF53/CUOveSzvzLua4Pfi2wmqF+deHw0GQ==}
@@ -4964,11 +4939,34 @@ packages:
       '@remix-run/node': 1.17.0
       express: 4.18.2
 
+  /@remix-run/express@1.17.1(express@4.18.2):
+    resolution: {integrity: sha512-VOrrdl4dh9ZLgRzdt8bf7E+iFMnxsjFl1VtfLP1KgR8Pw4q872L5pwnOEtYA2PVoXbVopvKVcy9MnL1gQsTDWg==}
+    engines: {node: '>=14'}
+    peerDependencies:
+      express: ^4.17.1
+    dependencies:
+      '@remix-run/node': 1.17.1
+      express: 4.18.2
+
   /@remix-run/node@1.17.0:
     resolution: {integrity: sha512-V7RLOwOBZci/gbIi7eALR3BFvJmN3t9RGgCEaZfzU3Cc0OBKf5+/dp4cK6tEwa9eOEagzkLV2YTFl5OA3Zws8Q==}
     engines: {node: '>=14'}
     dependencies:
       '@remix-run/server-runtime': 1.17.0
+      '@remix-run/web-fetch': 4.3.4
+      '@remix-run/web-file': 3.0.2
+      '@remix-run/web-stream': 1.0.3
+      '@web3-storage/multipart-parser': 1.0.0
+      abort-controller: 3.0.0
+      cookie-signature: 1.2.1
+      source-map-support: 0.5.21
+      stream-slice: 0.1.2
+
+  /@remix-run/node@1.17.1:
+    resolution: {integrity: sha512-TDTWOrD1uAizlNRJaw0NjdsxtiYAiwjiBdXZ0sPdA7ABSqK1BH5I4NxxGpdcDPIbEReNRUTPnlu/bYqjG4JDag==}
+    engines: {node: '>=14'}
+    dependencies:
+      '@remix-run/server-runtime': 1.17.1
       '@remix-run/web-fetch': 4.3.4
       '@remix-run/web-file': 3.0.2
       '@remix-run/web-stream': 1.0.3
@@ -4991,6 +4989,19 @@ packages:
       react-router-dom: 6.12.0(react-dom@18.2.0)(react@18.2.0)
     dev: false
 
+  /@remix-run/react@1.17.1(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-KDrkVkIFeDfn1xW3L8lqe0VlG7KsngdUKz09FSc9e3zYvJJV4ix998Y0qpfkDp/OnLFy2FtHzkh7c3OMnpOBnA==}
+    engines: {node: '>=14'}
+    peerDependencies:
+      react: '>=16.8'
+      react-dom: '>=16.8'
+    dependencies:
+      '@remix-run/router': 1.6.3
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      react-router-dom: 6.13.0(react-dom@18.2.0)(react@18.2.0)
+    dev: false
+
   /@remix-run/router@1.6.3:
     resolution: {integrity: sha512-EXJysQ7J3veRECd0kZFQwYYd5sJMcq2O/m60zu1W2l3oVQ9xtub8jTOtYRE0+M2iomyG/W3Ps7+vp2kna0C27Q==}
     engines: {node: '>=14'}
@@ -5008,8 +5019,31 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
+  /@remix-run/serve@1.17.1:
+    resolution: {integrity: sha512-ae4dGG4HlVYOjuX0cO9g4tYKVR8+d8JmJZBhS5FJ+CA4MGBgCVRa8Monu33kDvWy0IOA02tMUoy4cJxOWTf7Pg==}
+    engines: {node: '>=14'}
+    hasBin: true
+    dependencies:
+      '@remix-run/express': 1.17.1(express@4.18.2)
+      '@remix-run/node': 1.17.1
+      compression: 1.7.4
+      express: 4.18.2
+      morgan: 1.10.0
+    transitivePeerDependencies:
+      - supports-color
+
   /@remix-run/server-runtime@1.17.0:
     resolution: {integrity: sha512-xcUXaOibfIFZlvuyuWouz/t3fYhHCqRoKeGxQFGd1BvQBCmPaiau7B1Ao4aJFKyY7eU/L35KCaGzZBTdIF+d5w==}
+    engines: {node: '>=14'}
+    dependencies:
+      '@remix-run/router': 1.6.3
+      '@web3-storage/multipart-parser': 1.0.0
+      cookie: 0.4.2
+      set-cookie-parser: 2.6.0
+      source-map: 0.7.4
+
+  /@remix-run/server-runtime@1.17.1:
+    resolution: {integrity: sha512-PuLDaf7WmrOaQzM70yCcM6Jm+g+UHzeBFvocxdqohJnO/8+/n5pFIKHwhooqcSq2TR0WtVpSVhCakdywiOH2mA==}
     engines: {node: '>=14'}
     dependencies:
       '@remix-run/router': 1.6.3
@@ -5055,6 +5089,19 @@ packages:
     resolution: {integrity: sha512-iKnFXr7NkdZAIHiIWE+BX5ULi/ucVFYWD6TbAV+rZctiRTY2PL6tsIKhoIOaoskiWAkgu+VsbXgUVDNLHf+InQ==}
     engines: {node: '>= 8.0.0'}
     dependencies:
+      estree-walker: 2.0.2
+      picomatch: 2.3.1
+
+  /@rollup/pluginutils@5.0.2:
+    resolution: {integrity: sha512-pTd9rIsP92h+B6wWwFbW8RkZv4hiR/xKsqre4SIuAOaOEQRxi0lqLke9k2/7WegC85GgUs9pjmOjCUi3In4vwA==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      rollup: ^1.20.0||^2.0.0||^3.0.0
+    peerDependenciesMeta:
+      rollup:
+        optional: true
+    dependencies:
+      '@types/estree': 1.0.1
       estree-walker: 2.0.2
       picomatch: 2.3.1
 
@@ -5161,7 +5208,7 @@ packages:
       tslib: 1.14.1
     dev: false
 
-  /@sentry/remix@7.47.0(@remix-run/node@1.17.0)(@remix-run/react@1.17.0)(react@18.2.0):
+  /@sentry/remix@7.47.0(@remix-run/node@1.17.1)(@remix-run/react@1.17.1)(react@18.2.0):
     resolution: {integrity: sha512-CFWpwmB5nXwBLPdyT5k1TPRyf8+KFxCmOy0R4w/s8FcknnSsu0bIH8FJwDrVtFCq9LPpSlIG0KL/e7OBiiOxfA==}
     engines: {node: '>=14'}
     hasBin: true
@@ -5170,8 +5217,8 @@ packages:
       '@remix-run/react': 1.x
       react: 16.x || 17.x || 18.x
     dependencies:
-      '@remix-run/node': 1.17.0
-      '@remix-run/react': 1.17.0(react-dom@18.2.0)(react@18.2.0)
+      '@remix-run/node': 1.17.1
+      '@remix-run/react': 1.17.1(react-dom@18.2.0)(react@18.2.0)
       '@sentry/cli': 2.2.0
       '@sentry/core': 7.47.0
       '@sentry/node': 7.47.0
@@ -7609,6 +7656,18 @@ packages:
       '@jspm/core': 2.0.1
       esbuild: 0.17.6
       import-meta-resolve: 2.2.2
+    dev: true
+
+  /esbuild-plugins-node-modules-polyfill@1.0.15(esbuild@0.17.6):
+    resolution: {integrity: sha512-UCCLY5A3+zE1t7XHfdPQGO2FRECQgNWZ/TG1Iej9qtqv/pgiFiPGGDdRbv4RkGTqsxosUVks4NYvGtSlwqgb6A==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      esbuild: ^0.14.0 || ^0.15.0 || ^0.16.0 || ^0.17.0 || ^0.18.0
+    dependencies:
+      esbuild: 0.17.6
+      modern-node-polyfills: 1.0.0(esbuild@0.17.6)
+    transitivePeerDependencies:
+      - rollup
 
   /esbuild@0.16.4:
     resolution: {integrity: sha512-qQrPMQpPTWf8jHugLWHoGqZjApyx3OEm76dlTXobHwh/EBbavbRdjXdYi/GWr43GyN0sfpap14GPkb05NH3ROA==}
@@ -7668,7 +7727,6 @@ packages:
       '@esbuild/win32-arm64': 0.17.19
       '@esbuild/win32-ia32': 0.17.19
       '@esbuild/win32-x64': 0.17.19
-    dev: true
 
   /esbuild@0.17.6:
     resolution: {integrity: sha512-TKFRp9TxrJDdRWfSsSERKEovm6v30iHnrjlcGhLBOtReE28Yp1VSBRfO3GTaOFMoxsNerx4TjrhzSuma9ha83Q==}
@@ -8818,7 +8876,7 @@ packages:
       '@types/glob': 7.2.0
       array-union: 2.1.0
       dir-glob: 3.0.1
-      fast-glob: 3.2.11
+      fast-glob: 3.2.12
       glob: 7.2.3
       ignore: 5.2.4
       merge2: 1.4.1
@@ -9131,6 +9189,15 @@ packages:
       postcss: ^8.1.0
     dependencies:
       postcss: 8.4.21
+    dev: true
+
+  /icss-utils@5.1.0(postcss@8.4.24):
+    resolution: {integrity: sha512-soFhflCVWLfRNOPU3iv5Z9VUdT44xFRbzjLsEzSr5AQmgqPMTHdU3PMT1Cf1ssx8fLNJDA1juftYl+PUcv3MqA==}
+    engines: {node: ^10 || ^12 || >= 14}
+    peerDependencies:
+      postcss: ^8.1.0
+    dependencies:
+      postcss: 8.4.24
 
   /ieee754@1.1.13:
     resolution: {integrity: sha512-4vf7I2LYV/HaWerSo3XmlMkp5eZ83i+/CDluXi/IGTs/O1sejBNhTtnxzmRZfvOUqj7lZjqHkeTvpgSFDlWZTg==}
@@ -9161,6 +9228,7 @@ packages:
 
   /import-meta-resolve@2.2.2:
     resolution: {integrity: sha512-f8KcQ1D80V7RnqVm+/lirO9zkOxjGxhaTC1IPrBGd3MEfNgmNG67tSUO9gTi2F3Blr2Az6g1vocaxzkVnWl9MA==}
+    dev: true
 
   /imurmurhash@0.1.4:
     resolution: {integrity: sha512-JmXMZ6wuvDmLiHEml9ykzqO6lwFbof0GG4IkcGaENdCRDDmMVnny7s5HsIgHCbaq0w2MyPhDqkhTUgS2LU2PHA==}
@@ -9843,6 +9911,10 @@ packages:
   /loader-utils@3.2.1:
     resolution: {integrity: sha512-ZvFw1KWS3GVyYBYb7qkmRM/WwL2TQQBxgCK62rlvm4WpVQ23Nb4tYjApUlfjrEGvOs7KHEsmyUn75OHZrJMWPw==}
     engines: {node: '>= 12.13.0'}
+
+  /local-pkg@0.4.3:
+    resolution: {integrity: sha512-SFppqq5p42fe2qcZQqqEOiVRXl+WCP1MdT6k7BDEW1j++sp5fIY+/fdRQitvKgB5BrBcmrs5m/L0v2FrU5MY1g==}
+    engines: {node: '>=14'}
 
   /localforage@1.10.0:
     resolution: {integrity: sha512-14/H1aX7hzBBmmh7sGPd+AOMkkIrHM3Z1PAyGgZigA1H1p5O5ANnMyWzvpAETtG68/dC4pC0ncy3+PPGzXZHPg==}
@@ -10743,6 +10815,19 @@ packages:
       pkg-types: 1.0.3
       ufo: 1.1.2
 
+  /modern-node-polyfills@1.0.0(esbuild@0.17.6):
+    resolution: {integrity: sha512-w1yb6ae5qSUJJ2u41krkUAxs+L7i9143Qam8EuXwDMeZHxl1JN8RfTSXG4S2bt0RHIRMeoWm/HCeO0pNIHmIYQ==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      esbuild: ^0.14.0 || ^0.15.0 || ^0.16.0 || ^0.17.0 || ^0.18.0
+    dependencies:
+      '@jspm/core': 2.0.1
+      '@rollup/pluginutils': 5.0.2
+      esbuild: 0.17.6
+      local-pkg: 0.4.3
+    transitivePeerDependencies:
+      - rollup
+
   /morgan@1.10.0:
     resolution: {integrity: sha512-AbegBVI4sh6El+1gNwvD5YIck7nSA36weD7xvIxG4in80j/UoK8AEGaWnnz8v1GxonMCltmlNs5ZKbGvl9b1XQ==}
     engines: {node: '>= 0.8.0'}
@@ -11430,6 +11515,15 @@ packages:
       postcss: ^8.2.15
     dependencies:
       postcss: 8.4.21
+    dev: true
+
+  /postcss-discard-duplicates@5.1.0(postcss@8.4.24):
+    resolution: {integrity: sha512-zmX3IoSI2aoenxHV6C7plngHWWhUOV3sP1T8y2ifzxzbtnuhk1EdPwm0S1bIUNaJ2eNbWeGLEwzw8huPD67aQw==}
+    engines: {node: ^10 || ^12 || >=14.0}
+    peerDependencies:
+      postcss: ^8.2.15
+    dependencies:
+      postcss: 8.4.24
 
   /postcss-import@14.1.0(postcss@8.4.19):
     resolution: {integrity: sha512-flwI+Vgm4SElObFVPpTIT7SU7R3qk2L7PyduMcokiaVKuWv9d/U+Gm/QAd8NDLuykTWTkcrjOeD2Pp1rMeBTGw==}
@@ -11473,23 +11567,6 @@ packages:
       camelcase-css: 2.0.1
       postcss: 8.4.21
 
-  /postcss-load-config@3.1.4(postcss@8.4.19):
-    resolution: {integrity: sha512-6DiM4E7v4coTE4uzA8U//WhtPwyhiim3eyjEMFCnUpzbrkK9wJHgKDT2mR+HbtSrd/NubVaYTOpSpjUl8NQeRg==}
-    engines: {node: '>= 10'}
-    peerDependencies:
-      postcss: '>=8.0.9'
-      ts-node: '>=9.0.0'
-    peerDependenciesMeta:
-      postcss:
-        optional: true
-      ts-node:
-        optional: true
-    dependencies:
-      lilconfig: 2.1.0
-      postcss: 8.4.19
-      yaml: 1.10.2
-    dev: true
-
   /postcss-load-config@3.1.4(postcss@8.4.21)(ts-node@10.9.1):
     resolution: {integrity: sha512-6DiM4E7v4coTE4uzA8U//WhtPwyhiim3eyjEMFCnUpzbrkK9wJHgKDT2mR+HbtSrd/NubVaYTOpSpjUl8NQeRg==}
     engines: {node: '>= 10'}
@@ -11507,7 +11584,7 @@ packages:
       ts-node: 10.9.1(@types/node@18.15.10)(typescript@4.9.5)
       yaml: 1.10.2
 
-  /postcss-load-config@4.0.1(postcss@8.4.21)(ts-node@10.9.1):
+  /postcss-load-config@4.0.1(postcss@8.4.24)(ts-node@10.9.1):
     resolution: {integrity: sha512-vEJIc8RdiBRu3oRAI0ymerOn+7rPuMvRXslTvZUKZonDHFIczxztIyJ1urxM1x9JXEikvpWWTUUqal5j/8QgvA==}
     engines: {node: '>= 14'}
     peerDependencies:
@@ -11520,7 +11597,7 @@ packages:
         optional: true
     dependencies:
       lilconfig: 2.1.0
-      postcss: 8.4.21
+      postcss: 8.4.24
       ts-node: 10.9.1(@types/node@18.15.10)(typescript@4.9.5)
       yaml: 2.3.1
 
@@ -11531,6 +11608,15 @@ packages:
       postcss: ^8.1.0
     dependencies:
       postcss: 8.4.21
+    dev: true
+
+  /postcss-modules-extract-imports@3.0.0(postcss@8.4.24):
+    resolution: {integrity: sha512-bdHleFnP3kZ4NYDhuGlVK+CMrQ/pqUm8bx/oGL93K6gVwiclvX5x0n76fYMKuIGKzlABOy13zsvqjb0f92TEXw==}
+    engines: {node: ^10 || ^12 || >= 14}
+    peerDependencies:
+      postcss: ^8.1.0
+    dependencies:
+      postcss: 8.4.24
 
   /postcss-modules-local-by-default@4.0.3(postcss@8.4.21):
     resolution: {integrity: sha512-2/u2zraspoACtrbFRnTijMiQtb4GW4BvatjaG/bCjYQo8kLTdevCUlwuBHx2sCnSyrI3x3qj4ZK1j5LQBgzmwA==}
@@ -11542,6 +11628,18 @@ packages:
       postcss: 8.4.21
       postcss-selector-parser: 6.0.13
       postcss-value-parser: 4.2.0
+    dev: true
+
+  /postcss-modules-local-by-default@4.0.3(postcss@8.4.24):
+    resolution: {integrity: sha512-2/u2zraspoACtrbFRnTijMiQtb4GW4BvatjaG/bCjYQo8kLTdevCUlwuBHx2sCnSyrI3x3qj4ZK1j5LQBgzmwA==}
+    engines: {node: ^10 || ^12 || >= 14}
+    peerDependencies:
+      postcss: ^8.1.0
+    dependencies:
+      icss-utils: 5.1.0(postcss@8.4.24)
+      postcss: 8.4.24
+      postcss-selector-parser: 6.0.13
+      postcss-value-parser: 4.2.0
 
   /postcss-modules-scope@3.0.0(postcss@8.4.21):
     resolution: {integrity: sha512-hncihwFA2yPath8oZ15PZqvWGkWf+XUfQgUGamS4LqoP1anQLOsOJw0vr7J7IwLpoY9fatA2qiGUGmuZL0Iqlg==}
@@ -11550,6 +11648,16 @@ packages:
       postcss: ^8.1.0
     dependencies:
       postcss: 8.4.21
+      postcss-selector-parser: 6.0.13
+    dev: true
+
+  /postcss-modules-scope@3.0.0(postcss@8.4.24):
+    resolution: {integrity: sha512-hncihwFA2yPath8oZ15PZqvWGkWf+XUfQgUGamS4LqoP1anQLOsOJw0vr7J7IwLpoY9fatA2qiGUGmuZL0Iqlg==}
+    engines: {node: ^10 || ^12 || >= 14}
+    peerDependencies:
+      postcss: ^8.1.0
+    dependencies:
+      postcss: 8.4.24
       postcss-selector-parser: 6.0.13
 
   /postcss-modules-values@4.0.0(postcss@8.4.21):
@@ -11560,6 +11668,16 @@ packages:
     dependencies:
       icss-utils: 5.1.0(postcss@8.4.21)
       postcss: 8.4.21
+    dev: true
+
+  /postcss-modules-values@4.0.0(postcss@8.4.24):
+    resolution: {integrity: sha512-RDxHkAiEGI78gS2ofyvCsu7iycRv7oqw5xMWn9iMoR0N/7mf9D50ecQqUo5BZ9Zh2vH4bCUR/ktCqbB9m8vJjQ==}
+    engines: {node: ^10 || ^12 || >= 14}
+    peerDependencies:
+      postcss: ^8.1.0
+    dependencies:
+      icss-utils: 5.1.0(postcss@8.4.24)
+      postcss: 8.4.24
 
   /postcss-modules@6.0.0(postcss@8.4.21):
     resolution: {integrity: sha512-7DGfnlyi/ju82BRzTIjWS5C4Tafmzl3R79YP/PASiocj+aa6yYphHhhKUOEoXQToId5rgyFgJ88+ccOUydjBXQ==}
@@ -11574,6 +11692,22 @@ packages:
       postcss-modules-local-by-default: 4.0.3(postcss@8.4.21)
       postcss-modules-scope: 3.0.0(postcss@8.4.21)
       postcss-modules-values: 4.0.0(postcss@8.4.21)
+      string-hash: 1.1.3
+    dev: true
+
+  /postcss-modules@6.0.0(postcss@8.4.24):
+    resolution: {integrity: sha512-7DGfnlyi/ju82BRzTIjWS5C4Tafmzl3R79YP/PASiocj+aa6yYphHhhKUOEoXQToId5rgyFgJ88+ccOUydjBXQ==}
+    peerDependencies:
+      postcss: ^8.0.0
+    dependencies:
+      generic-names: 4.0.0
+      icss-utils: 5.1.0(postcss@8.4.24)
+      lodash.camelcase: 4.3.0
+      postcss: 8.4.24
+      postcss-modules-extract-imports: 3.0.0(postcss@8.4.24)
+      postcss-modules-local-by-default: 4.0.3(postcss@8.4.24)
+      postcss-modules-scope: 3.0.0(postcss@8.4.24)
+      postcss-modules-values: 4.0.0(postcss@8.4.24)
       string-hash: 1.1.3
 
   /postcss-nested@6.0.0(postcss@8.4.19):
@@ -12289,8 +12423,31 @@ packages:
       react-router: 6.12.0(react@18.2.0)
     dev: false
 
+  /react-router-dom@6.13.0(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-6Nqoqd7fgwxxVGdbiMHTpDHCYPq62d7Wk1Of7B82vH7ZPwwsRaIa22zRZKPPg413R5REVNiyuQPKDG1bubcOFA==}
+    engines: {node: '>=14'}
+    peerDependencies:
+      react: '>=16.8'
+      react-dom: '>=16.8'
+    dependencies:
+      '@remix-run/router': 1.6.3
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      react-router: 6.13.0(react@18.2.0)
+    dev: false
+
   /react-router@6.12.0(react@18.2.0):
     resolution: {integrity: sha512-/tCGtLq9umxRvbYeIx3j94CmpQfue0E3qnetVm9luKhu58cR4t+3O4ZrQXBdXfJrBATOAj+wF/1ihJJQI8AoTw==}
+    engines: {node: '>=14'}
+    peerDependencies:
+      react: '>=16.8'
+    dependencies:
+      '@remix-run/router': 1.6.3
+      react: 18.2.0
+    dev: false
+
+  /react-router@6.13.0(react@18.2.0):
+    resolution: {integrity: sha512-Si6KnfEnJw7gUQkNa70dlpI1bul46FuSxX5t5WwlUBxE25DAz2BjVkwaK8Y2s242bQrZPXCpmwLPtIO5pv4tXg==}
     engines: {node: '>=14'}
     peerDependencies:
       react: '>=16.8'
@@ -12522,62 +12679,62 @@ packages:
       mdast-util-to-hast: 11.3.0
       unified: 10.1.2
 
-  /remix-auth-email-link@2.0.2(@remix-run/server-runtime@1.17.0)(remix-auth@3.4.0):
+  /remix-auth-email-link@2.0.2(@remix-run/server-runtime@1.17.1)(remix-auth@3.4.0):
     resolution: {integrity: sha512-Lze9c50fsqBpixXQKe37wI2Dm4rlYYkNA6Eskxk8erQ7tbyN8xiFXOgo7Y3Al0SSjzkezw8au3uc2vCLJ8A5mQ==}
     peerDependencies:
       '@remix-run/server-runtime': ^1.1.1
       remix-auth: ^3.2.1
     dependencies:
-      '@remix-run/server-runtime': 1.17.0
+      '@remix-run/server-runtime': 1.17.1
       crypto-js: 4.1.1
-      remix-auth: 3.4.0(@remix-run/react@1.17.0)(@remix-run/server-runtime@1.17.0)
+      remix-auth: 3.4.0(@remix-run/react@1.17.1)(@remix-run/server-runtime@1.17.1)
     dev: false
 
-  /remix-auth-form@1.3.0(@remix-run/server-runtime@1.17.0)(remix-auth@3.4.0):
+  /remix-auth-form@1.3.0(@remix-run/server-runtime@1.17.1)(remix-auth@3.4.0):
     resolution: {integrity: sha512-m+pwFJM61+qGPIvROHmN7LANJMbpL2QgYen/wY8wnJfwwannWt2+7zEoGWF7NbxMnoxCib75EGlPZpyyvwtBXQ==}
     peerDependencies:
       '@remix-run/server-runtime': ^1.0.0
       remix-auth: ^3.4.0
     dependencies:
-      '@remix-run/server-runtime': 1.17.0
-      remix-auth: 3.4.0(@remix-run/react@1.17.0)(@remix-run/server-runtime@1.17.0)
+      '@remix-run/server-runtime': 1.17.1
+      remix-auth: 3.4.0(@remix-run/react@1.17.1)(@remix-run/server-runtime@1.17.1)
     dev: false
 
-  /remix-auth-google@1.2.0(@remix-run/server-runtime@1.17.0)(remix-auth@3.4.0):
+  /remix-auth-google@1.2.0(@remix-run/server-runtime@1.17.1)(remix-auth@3.4.0):
     resolution: {integrity: sha512-llyrtOt8vk503XlAoEdGuEmrHRACFOP13yPVn92VkrcogTUyALzuy8ky2O1/FSJ7Q2+B0di5yMiCF4IYD/Yn4g==}
     peerDependencies:
       '@remix-run/server-runtime': ^1.1.1
       remix-auth: ^3.2.1
     dependencies:
-      '@remix-run/server-runtime': 1.17.0
-      remix-auth: 3.4.0(@remix-run/react@1.17.0)(@remix-run/server-runtime@1.17.0)
-      remix-auth-oauth2: 1.7.0(@remix-run/server-runtime@1.17.0)(remix-auth@3.4.0)
+      '@remix-run/server-runtime': 1.17.1
+      remix-auth: 3.4.0(@remix-run/react@1.17.1)(@remix-run/server-runtime@1.17.1)
+      remix-auth-oauth2: 1.7.0(@remix-run/server-runtime@1.17.1)(remix-auth@3.4.0)
     transitivePeerDependencies:
       - supports-color
     dev: false
 
-  /remix-auth-oauth2@1.7.0(@remix-run/server-runtime@1.17.0)(remix-auth@3.4.0):
+  /remix-auth-oauth2@1.7.0(@remix-run/server-runtime@1.17.1)(remix-auth@3.4.0):
     resolution: {integrity: sha512-hgSJWz1j13Zf1tcNdSs0OFXikDda24md+E93xtQQKIuuIUZ7YtlujT/pnXeqTjJ0f8DwBrzGyPGNF/lugxT6WA==}
     peerDependencies:
       '@remix-run/server-runtime': ^1.0.0
       remix-auth: ^3.2.2
     dependencies:
-      '@remix-run/server-runtime': 1.17.0
+      '@remix-run/server-runtime': 1.17.1
       debug: 4.3.4
-      remix-auth: 3.4.0(@remix-run/react@1.17.0)(@remix-run/server-runtime@1.17.0)
+      remix-auth: 3.4.0(@remix-run/react@1.17.1)(@remix-run/server-runtime@1.17.1)
       uuid: 8.3.2
     transitivePeerDependencies:
       - supports-color
     dev: false
 
-  /remix-auth@3.4.0(@remix-run/react@1.17.0)(@remix-run/server-runtime@1.17.0):
+  /remix-auth@3.4.0(@remix-run/react@1.17.1)(@remix-run/server-runtime@1.17.1):
     resolution: {integrity: sha512-VRliJo9VRAS4sSYgMjYbi7rYRixPWU2Tb8PFZb06OIj0nONK/1KRzHf2+Y6VGZeIacepLVgan6g2IUJjayE2rQ==}
     peerDependencies:
       '@remix-run/react': ^1.0.0
       '@remix-run/server-runtime': ^1.0.0
     dependencies:
-      '@remix-run/react': 1.17.0(react-dom@18.2.0)(react@18.2.0)
-      '@remix-run/server-runtime': 1.17.0
+      '@remix-run/react': 1.17.1(react-dom@18.2.0)(react@18.2.0)
+      '@remix-run/server-runtime': 1.17.1
       uuid: 8.3.2
     dev: false
 
@@ -13231,7 +13388,7 @@ packages:
       postcss: 8.4.19
       postcss-import: 14.1.0(postcss@8.4.19)
       postcss-js: 4.0.1(postcss@8.4.19)
-      postcss-load-config: 3.1.4(postcss@8.4.19)
+      postcss-load-config: 3.1.4(postcss@8.4.21)(ts-node@10.9.1)
       postcss-nested: 6.0.0(postcss@8.4.19)
       postcss-selector-parser: 6.0.13
       postcss-value-parser: 4.2.0
@@ -14137,7 +14294,7 @@ packages:
         optional: true
     dependencies:
       '@types/node': 18.15.10
-      esbuild: 0.17.6
+      esbuild: 0.17.19
       postcss: 8.4.24
       rollup: 3.25.1
     optionalDependencies:
@@ -14442,15 +14599,19 @@ packages:
     resolution: {integrity: sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==}
     dev: false
 
-  /zodix@0.4.0(@remix-run/server-runtime@1.17.0)(zod@3.21.4):
+  /zodix@0.4.0(@remix-run/server-runtime@1.17.1)(zod@3.21.4):
     resolution: {integrity: sha512-FfQSfQsGp/rmS9eYAuLoo8hYdd/DsvrBUy+Wm31g4sb0aOqC5aJKKrdzbCGmcoeG9Z8ANAIlknwcQo/Edf1lJg==}
     peerDependencies:
       '@remix-run/server-runtime': 1.x
       zod: 3.x
     dependencies:
-      '@remix-run/server-runtime': 1.17.0
+      '@remix-run/server-runtime': 1.17.1
       zod: 3.21.4
     dev: false
 
   /zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
