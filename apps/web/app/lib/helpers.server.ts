@@ -5,6 +5,5 @@ export async function getBrowser() {
         headless: 'new',
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
         ignoreDefaultArgs: ['--disable-extensions'],
-        executablePath: '/usr/bin/google-chrome-stable'
     })
 }
