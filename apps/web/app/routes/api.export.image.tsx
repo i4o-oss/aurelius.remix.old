@@ -20,7 +20,7 @@ export async function action({ request }: ActionArgs) {
             const browser = await getBrowser()
             const page = await browser.newPage()
 
-            const url = `http://localhost:3000/renders/image/default?author=${encodeURIComponent(author)}&background=${encodeURIComponent(background)}&content=${encodeURIComponent(content)}&footer=${encodeURIComponent(footer)}&title=${encodeURIComponent(title)}&titleAlignment=${encodeURIComponent(titleAlignment)}&watermark=${encodeURIComponent(watermark)}`
+            const url = `${process.env.APP_URL}/renders/image/default?author=${encodeURIComponent(author)}&background=${encodeURIComponent(background)}&content=${encodeURIComponent(content)}&footer=${encodeURIComponent(footer)}&title=${encodeURIComponent(title)}&titleAlignment=${encodeURIComponent(titleAlignment)}&watermark=${encodeURIComponent(watermark)}`
 
             await page.goto(url)
             await page.waitForNetworkIdle()
