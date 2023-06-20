@@ -7,7 +7,7 @@
         "build": "remix build",
         "dev": "remix dev",
         "start": "pnpm prisma generate && remix-serve build",
-        "postinstall": "npm install puppeteer",
+        "postinstall": "pnpm i puppeteer",
         "typecheck": "tsc -b"
     },
     "dependencies": {
