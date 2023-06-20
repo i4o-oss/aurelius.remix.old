@@ -2,11 +2,11 @@ FROM node:18
 
 # From: https://github.com/puppeteer/puppeteer/blob/main/docker/pack.sh
 RUN pnpm pack --workspace puppeteer --workspace puppeteer-core --workspace @puppeteer/browsers --pack-destination . \
-    && rm -f puppeteer-core-latest.tgz
-    && rm -f puppeteer-latest.tgz
-    && rm -f puppeteer-browsers-latest.tgz
-    && mv puppeteer-core-*.tgz puppeteer-core-latest.tgz
-    && mv puppeteer-browsers-*.tgz puppeteer-browsers-latest.tgz
+    && rm -f puppeteer-core-latest.tgz \
+    && rm -f puppeteer-latest.tgz \
+    && rm -f puppeteer-browsers-latest.tgz \
+    && mv puppeteer-core-*.tgz puppeteer-core-latest.tgz \
+    && mv puppeteer-browsers-*.tgz puppeteer-browsers-latest.tgz \
     && mv puppeteer-[0-9]*.tgz puppeteer-latest.tgz 
 
 # Install latest chrome dev package and fonts to support major charsets (Chinese, Japanese, Arabic, Hebrew, Thai and a few others)
