@@ -6,8 +6,7 @@
     "scripts": {
         "build": "remix build",
         "dev": "remix dev",
-        "start": "pnpm prisma generate && remix-serve build",
-        "postinstall": "pnpm i puppeteer",
+        "start": "pnpm i puppeteer && pnpm prisma generate && remix-serve build",
         "typecheck": "tsc -b"
     },
     "dependencies": {
@@ -41,7 +40,7 @@
         "nanoid": "4.0.1",
         "nprogress": "0.2.0",
         "periscopic": "^3.1.0",
-        "puppeteer": "^20.3.0",
+        "puppeteer": "20.7.2",
         "react": "18.2.0",
         "react-dom": "18.2.0",
         "remark-frontmatter": "^4.0.1",
