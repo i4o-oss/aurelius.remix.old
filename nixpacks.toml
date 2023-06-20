@@ -18,5 +18,6 @@
     'libxrandr2',
     'libxss1',
     'libxtst6',
-    'xdg-utils'
+    'xdg-utils',
+    'google-chrome-stable'
     ]
