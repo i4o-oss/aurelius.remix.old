@@ -1,5 +1,5 @@
 import type { LoaderArgs, SerializeFrom } from '@remix-run/node'
-import type { SyncParams } from '@aurelius/writer'
+import type { SyncParams, WriterUpdate } from '@aurelius/writer'
 import { useEffect, useRef, useState } from 'react'
 import {
     SETTINGS_LOCAL_STORAGE_KEY,
@@ -14,11 +14,12 @@ import { Theme, useTheme } from '~/lib/theme'
 import { auth } from '~/services/auth.server'
 import { getPostByShareId } from '~/models/post.server'
 import {
-    POST_ID_LOCAL_STORAGE_KEY,
+    USER_LATEST_POST_ID_LS_KEY,
 } from '~/lib/constants'
 import { getUserProfile } from '~/models/user.server'
 import { getSettingsFromUserId } from '~/models/settings.server'
 import { postStore } from '~/lib/local.client'
+import { nanoid } from 'nanoid/async'
 
 export async function loader({ request }: LoaderArgs) {
     const url = new URL(request.url)
@@ -58,6 +59,7 @@ export default function Write() {
         user && settingsFromDb
             ? settingsFromDb
             : (JSON.parse(JSON.stringify(settings)) as SettingsData)
+    const [localPostId, setLocalPostId] = useState('')
     const [showSettingsDialog, setShowSettingsDialog] = useState(false)
     const [theme, setTheme] = useTheme()
 
@@ -75,7 +77,7 @@ export default function Write() {
                 f.data
             ) {
                 record.current.id = f.data.id
-                writeStorage(POST_ID_LOCAL_STORAGE_KEY, record.current.id)
+                writeStorage(USER_LATEST_POST_ID_LS_KEY, record.current.id)
             }
         }
     }
@@ -122,11 +124,7 @@ export default function Write() {
         title,
         content,
         wordCount,
-    }: {
-        title: string
-        content: string
-        wordCount: number
-    }) {
+    }: WriterUpdate) {
         if (wordCount > 1) {
             if (post?.id) {
                 fetcher.submit(
@@ -157,13 +155,14 @@ export default function Write() {
         }
     }
 
-    async function savePostToLocal(update: {
-        title: string
-        content: string
-        wordCount: string
-    }) {
-        postStore.setItem('test', update)
-        // writeStorage(POST_LOCAL_STORAGE_KEY, update)
+    async function savePostToLocal(update: WriterUpdate) {
+        if (!localPostId) {
+            const id = await nanoid(16)
+            postStore.setItem(id, update)
+            setLocalPostId(id)
+        } else {
+            postStore.setItem(localPostId, update)
+        }
     }
 
     function saveWritingSession(writingSession: string) {
