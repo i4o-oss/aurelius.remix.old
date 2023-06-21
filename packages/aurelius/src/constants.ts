@@ -21,11 +21,12 @@ export const MUSIC_STATIONS = {
 }
 
 export const LOCAL_STORAGE_KEYS = {
-	POSTS: '',
+    GUEST_LATEST_POST: '__aurelius_guest_latest_post_id',
+    USER_LATEST_POST: '__aurelius_user_latest_post_id',
 	SESSIONS: '',
 	SETTINGS: '',
 	SPLASH_SCREEN: '__aurelius_display_splash_screen',
 }
-export const POST_LOCAL_STORAGE_KEY = '__aurelius_guest_user_post'
+
 export const SESSION_LOCAL_STORAGE_KEY = '__aurelius_guest_user_sessions'
 export const SETTINGS_LOCAL_STORAGE_KEY = '__aurelius_guest_user_settings'

@@ -25,11 +25,10 @@ export interface AureliusProviderData {
 	setIsMusicPlaying?: Dispatch<SetStateAction<boolean>>
 	isSaving?: boolean
 	setIsSaving?: Dispatch<SetStateAction<boolean>>
-	localPost?: any
 	notifyOnSessionEnd?: boolean
 	setNotifyOnSessionEnd?: Dispatch<SetStateAction<boolean>>
     onResetEditorClick?: (state: boolean) => void
-	post: { title: string; content: string } | undefined
+	post?: { title: string; content: string, wordCount: number }
 	settings?: SettingsData
 	sessionData?: WritingSession | null
 	setSessionData?: Dispatch<SetStateAction<WritingSession | null>>
@@ -55,8 +54,8 @@ export interface AureliusProviderData {
 	setShowSessionEndToast?: Dispatch<SetStateAction<boolean>>
 	showSessionRecapDialog?: boolean
 	setShowSessionRecapDialog?: Dispatch<SetStateAction<boolean>>
-	showSettingsDialog?: boolean | undefined
-	setShowSettingsDialog?: Dispatch<SetStateAction<boolean>> | undefined
+	showSettingsDialog?: boolean 
+	setShowSettingsDialog?: Dispatch<SetStateAction<boolean>>
 	showSplashScreenDialog?: boolean
 	setShowSplashScreenDialog?: Dispatch<SetStateAction<boolean>>
 	showWritingPaths?: boolean

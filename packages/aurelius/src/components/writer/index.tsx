@@ -21,7 +21,6 @@ import WriterFooter from './footer'
 import MainMenu from './main-menu'
 import {
 	LOCAL_STORAGE_KEYS,
-	POST_LOCAL_STORAGE_KEY,
 	SESSION_LOCAL_STORAGE_KEY,
 	SETTINGS_LOCAL_STORAGE_KEY,
 } from '../../constants'
@@ -61,7 +60,6 @@ export default function Writer({
 		LOCAL_STORAGE_KEYS.SPLASH_SCREEN,
 		true
 	)
-	const [localPost] = useLocalStorage(POST_LOCAL_STORAGE_KEY)
 	const [writingSessions] = useLocalStorage<WritingSession[]>(
 		SESSION_LOCAL_STORAGE_KEY
 	)
@@ -177,7 +175,7 @@ export default function Writer({
 	useEffect(() => {
 		if (user) {
 			sync({
-				post: localPost ? JSON.stringify(localPost) : '',
+				post,
 				writingSessions:
 					writingSessions && writingSessions?.length > 0
 						? JSON.stringify(writingSessions)
@@ -244,7 +242,7 @@ export default function Writer({
 	}
 
 	function clearLocalData() {
-		deleteFromStorage(POST_LOCAL_STORAGE_KEY)
+		deleteFromStorage(LOCAL_STORAGE_KEYS.GUEST_LATEST_POST)
 		deleteFromStorage(SESSION_LOCAL_STORAGE_KEY)
 	}
 
@@ -283,7 +281,7 @@ export default function Writer({
 	const autoSaveData = { title, content: content.current, wordCount }
 
 	function confirmResetEditor() {
-		deleteFromStorage(POST_LOCAL_STORAGE_KEY)
+		deleteFromStorage(LOCAL_STORAGE_KEYS.GUEST_LATEST_POST)
 		setTitle('')
 		content.current = ''
 		editor?.commands.clearContent(true)
@@ -450,7 +448,6 @@ export default function Writer({
 		setIsMusicPlaying,
 		isSaving,
 		setIsSaving,
-		localPost,
 		notifyOnSessionEnd,
 		setNotifyOnSessionEnd,
 		onResetEditorClick,

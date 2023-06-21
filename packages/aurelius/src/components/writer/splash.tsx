@@ -28,7 +28,7 @@ export default function SplashScreen({
 	saveDisplaySplashScreenSetting,
 }: SplashScreenProps) {
 	const {
-		localPost,
+		post,
         setShowHelpDialog,
 		showSplashScreenDialog,
 		setShowSplashScreenDialog,
@@ -113,13 +113,13 @@ export default function SplashScreen({
 							</li>
 						</ul>
 					</div>
-					{user || localPost ? (
+					{user || post ? (
 						<div className='au-col-span-1 au-py-2  au-flex au-flex-col'>
 							<h3 className='au-text-sm au-font-semibold au-text-primary-foreground-subtle au-mb-4'>
 								Previous Session
 							</h3>
 							<ul className='au-text-sm au-flex au-flex-col au-gap-4'>
-								{localPost ? (
+								{post ? (
 									<li className='au-flex au-items-center au-justify-between'>
 										<Button
 											className='!au-px-0 !au-py-1 !au-bg-transparent hover:!au-bg-transparent au-flex au-items-center au-font-normal'

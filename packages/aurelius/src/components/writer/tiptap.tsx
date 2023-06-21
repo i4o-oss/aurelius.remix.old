@@ -10,7 +10,6 @@ export default function TipTap() {
 	const context: AureliusProviderData = useContext(AureliusContext)
 	const {
 		editor,
-		localPost,
 		post,
 		setContent,
 		setTitle,
@@ -21,17 +20,17 @@ export default function TipTap() {
 
 	useEffect(() => {
 		if (!user) {
-			if (editor && localPost) {
+			if (editor && post) {
 				loadLocalPost()
 			}
 		} else {
 			if (editor && post) {
 				loadSavedPostFromDatabase()
-			} else if (editor && localPost) {
+			} else if (editor && post) {
 				loadLocalPost()
 			}
 		}
-	}, [editor, localPost])
+	}, [editor, post])
 
 	function updateEditorWordCount(content: string) {
 		const wordCount = content.split(' ').length
@@ -53,8 +52,8 @@ export default function TipTap() {
 	}
 
 	function loadLocalPost() {
-		if (editor && localPost) {
-			const { title, content } = JSON.parse(JSON.stringify(localPost))
+		if (editor && post) {
+			const { title, content } = JSON.parse(JSON.stringify(post))
 
 			setTitle?.(title)
 			setContent?.(content)

@@ -13,32 +13,22 @@ export interface EditorToolbarProps {
 	editor: Editor | null
 }
 
+export interface WriterUpdate {
+    title: string
+    content: string
+    wordCount: number
+}
+
 export interface SyncParams {
-	post?: string
+	post?: WriterUpdate
 	writingSessions?: string
 }
 
 export interface WriterProps {
 	exportPost: (data: any) => void
-	post?: { title: string; content: string }
-	savePostToDatabase: ({
-		title,
-		content,
-		wordCount,
-	}: {
-		title: string
-		content: string
-		wordCount: number
-	}) => void
-	savePostToLocal: ({
-		title,
-		content,
-		wordCount,
-	}: {
-		title: string
-		content: string
-		wordCount: number
-	}) => void
+	post?: { title: string; content: string, wordCount: number }
+	savePostToDatabase: (update: WriterUpdate) => void
+	savePostToLocal: (update: WriterUpdate) => void
 	saveWritingSession: (WritingSession: string) => void
 	showSettingsDialog?: boolean
 	settingsFromDb?: SettingsData
