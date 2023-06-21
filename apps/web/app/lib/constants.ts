@@ -18,13 +18,12 @@ export const EMAIL_ADDRESS = 'hello@aurelius.ink'
 
 export const LOCAL_FORAGE_DB_NAME = '__aurelius_local_db'
 
-export const POST_LOCAL_STORAGE_KEY = '__aurelius_guest_user_post'
-export const POST_ID_LOCAL_STORAGE_KEY = '__aurelius_user_post_id'
+export const GUEST_LATEST_POST_ID_LS_KEY = '__aurelius_guest_latest_post_id'
+export const USER_LATEST_POST_ID_LS_KEY = '__aurelius_user_latest_post_id'
 
 // export a list of all static pages
 export const staticPages = [
     { to: '/', text: 'Home' },
-    { to: '/blog', text: 'Blog' },
     { to: '/login', text: 'Login' },
     { to: '/plus', text: 'Plus' },
     { to: '/privacy', text: 'Privacy Policy' },
