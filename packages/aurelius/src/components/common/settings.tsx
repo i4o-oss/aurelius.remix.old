@@ -20,7 +20,7 @@ import {
 	SETTINGS_LOCAL_STORAGE_KEY,
 } from '../../constants'
 import { DailyGoal, ProfileSettings, SettingsData } from '../../types'
-import useDebounce from '../../hooks/use-debounce'
+import { useDebounce } from '../../hooks'
 import { CheckIcon, Cross2Icon } from '@radix-ui/react-icons'
 
 interface SettingsDialogProps {
