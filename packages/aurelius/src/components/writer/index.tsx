@@ -51,7 +51,7 @@ export default function Writer({
 	showSettingsDialog,
 	settingsFromDb,
 	setShowSettingsDialog,
-	sync,
+	// sync,
 	theme,
 	toggleTheme,
 	user,
@@ -172,18 +172,18 @@ export default function Writer({
 		}
 	}, [showSessionRecapDialog])
 
-	useEffect(() => {
-		if (user) {
-			sync({
-				post,
-				writingSessions:
-					writingSessions && writingSessions?.length > 0
-						? JSON.stringify(writingSessions)
-						: '',
-			})
-			clearLocalData()
-		}
-	}, [])
+	// useEffect(() => {
+	// 	if (user) {
+	// 		sync({
+	// 			post,
+	// 			writingSessions:
+	// 				writingSessions && writingSessions?.length > 0
+	// 					? JSON.stringify(writingSessions)
+	// 					: '',
+	// 		})
+	// 		clearLocalData()
+	// 	}
+	// }, [])
 
 	const editor = useEditor({
 		content,

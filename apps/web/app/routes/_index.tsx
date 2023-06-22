@@ -14,12 +14,12 @@ import { Theme, useTheme } from '~/lib/theme'
 import { auth } from '~/services/auth.server'
 import { getPostByShareId } from '~/models/post.server'
 import {
+    GUEST_LATEST_POST_ID_LS_KEY,
     USER_LATEST_POST_ID_LS_KEY,
 } from '~/lib/constants'
 import { getUserProfile } from '~/models/user.server'
 import { getSettingsFromUserId } from '~/models/settings.server'
-import { postStore } from '~/lib/local.client'
-import { nanoid } from 'nanoid/async'
+import useIDBPost from '~/lib/hooks/use-idb-post'
 
 export async function loader({ request }: LoaderArgs) {
     const url = new URL(request.url)
@@ -54,12 +54,16 @@ export default function Write() {
         settings: settingsFromDb,
         user,
     } = useLoaderData<SerializeFrom<LoaderData>>()
+    const [latestGuestPostId] = useLocalStorage<string>(
+        GUEST_LATEST_POST_ID_LS_KEY
+    )
+    const { create, post: localPost, update: updatePost } = useIDBPost(latestGuestPostId as string)
     const [settings] = useLocalStorage<string>(SETTINGS_LOCAL_STORAGE_KEY)
     const settingsData =
         user && settingsFromDb
             ? settingsFromDb
             : (JSON.parse(JSON.stringify(settings)) as SettingsData)
-    const [localPostId, setLocalPostId] = useState('')
+    const [localPostId, setLocalPostId] = useState(latestGuestPostId || '')
     const [showSettingsDialog, setShowSettingsDialog] = useState(false)
     const [theme, setTheme] = useTheme()
 
@@ -92,6 +96,16 @@ export default function Write() {
         }
     }, [fetcher])
 
+    useEffect(() => {
+        if (localPostId) {
+            if (user) {
+                writeStorage(USER_LATEST_POST_ID_LS_KEY, localPostId)
+            } else {
+                writeStorage(GUEST_LATEST_POST_ID_LS_KEY, localPostId)
+            }
+        }
+    }, [localPostId])
+
     const saveAs = (uri: string, filename: string) => {
         const link = document.createElement('a')
 
@@ -120,11 +134,7 @@ export default function Write() {
     // so that only the remix app does the saving and loading operations
     // the writer package should only handle writing and should pass all data that should
     // be saved and loaded to the remix app
-    function savePostToDatabase({
-        title,
-        content,
-        wordCount,
-    }: WriterUpdate) {
+    function savePostToDatabase({ title, content, wordCount }: WriterUpdate) {
         if (wordCount > 1) {
             if (post?.id) {
                 fetcher.submit(
@@ -134,6 +144,7 @@ export default function Write() {
                         action: `/api/posts/${post.id}`,
                     }
                 )
+                setLocalPostId(`${post.id}`)
             } else if (record.current.id) {
                 fetcher.submit(
                     { title, content, wordCount: `${wordCount}` },
@@ -142,6 +153,7 @@ export default function Write() {
                         action: `/api/posts/${record.current.id}`,
                     }
                 )
+                setLocalPostId(record.current.id)
             } else {
                 fetcher.submit(
                     {
@@ -157,11 +169,10 @@ export default function Write() {
 
     async function savePostToLocal(update: WriterUpdate) {
         if (!localPostId) {
-            const id = await nanoid(16)
-            postStore.setItem(id, update)
-            setLocalPostId(id)
+            const postId = await create(update)
+            setLocalPostId(postId)
         } else {
-            postStore.setItem(localPostId, update)
+            updatePost(localPostId, update)
         }
     }
 
@@ -177,18 +188,18 @@ export default function Write() {
         )
     }
 
-    function syncLocallySavedData({ post, writingSessions }: SyncParams) {
-        fetcher.submit(
-            {
-                post: post as string,
-                writingSessions: writingSessions as string,
-            },
-            {
-                method: 'post',
-                action: '/api/sync',
-            }
-        )
-    }
+    // function syncLocallySavedData({ post, writingSessions }: SyncParams) {
+    //     fetcher.submit(
+    //         {
+    //             post: post as string,
+    //             writingSessions: writingSessions as string,
+    //         },
+    //         {
+    //             method: 'post',
+    //             action: '/api/sync',
+    //         }
+    //     )
+    // }
 
     function toggleTheme() {
         setTheme((prevTheme) =>
@@ -200,14 +211,13 @@ export default function Write() {
         <main className='flex h-full w-full flex-col items-center justify-start'>
             <Writer
                 exportPost={exportPost}
-                post={post}
+                post={user ? post : localPost}
                 savePostToDatabase={savePostToDatabase}
                 savePostToLocal={savePostToLocal}
                 saveWritingSession={saveWritingSession}
                 showSettingsDialog={showSettingsDialog}
                 settingsFromDb={settingsFromDb}
                 setShowSettingsDialog={setShowSettingsDialog}
-                sync={syncLocallySavedData}
                 theme={theme as Theme}
                 toggleTheme={toggleTheme}
                 user={user}
