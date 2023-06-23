@@ -26,14 +26,16 @@ export interface SyncParams {
 
 export interface WriterProps {
 	exportPost: (data: any) => void
-	post?: { title: string; content: string, wordCount: number }
+	post: { title: string; content: string, wordCount: number }
 	savePostToDatabase: (update: WriterUpdate) => void
 	savePostToLocal: (update: WriterUpdate) => void
-	saveWritingSession: (WritingSession: string) => void
+	saveWritingSessionToDatabase: (writingSession: WritingSession) => void
+	saveWritingSessionToLocal: (writingSession: WritingSession) => void
 	showSettingsDialog?: boolean
 	settingsFromDb?: SettingsData
 	setShowSettingsDialog?: Dispatch<SetStateAction<boolean>>
-	sync: (params: SyncParams) => void
+    // TODO: bring back sync once local saving is well tested
+	// sync: (params: SyncParams) => void
 	theme: Theme
 	toggleTheme: () => void
 	user: any
@@ -66,8 +68,8 @@ export interface ProfileSettings {
 export type DailyGoal = 'duration' | 'wordCount'
 
 export interface SettingsData {
-	displaySplashScreen: boolean
-	dailyGoal: DailyGoal
+	displaySplashScreen?: boolean
+	dailyGoal?: DailyGoal
 	target?: number
 	musicChannel?: string
 	youtubeVideo?: string

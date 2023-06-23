@@ -1,8 +1,8 @@
 import type { LoaderArgs, SerializeFrom } from '@remix-run/node'
-import type { SyncParams, WriterUpdate } from '@aurelius/writer'
+import type { WriterUpdate, WritingSession } from '@aurelius/writer'
 import { useEffect, useRef, useState } from 'react'
 import {
-    SETTINGS_LOCAL_STORAGE_KEY,
+    LOCAL_STORAGE_KEYS,
     SettingsData,
     Writer,
 } from '@aurelius/writer'
@@ -12,7 +12,7 @@ import useLocalStorage, { writeStorage } from '@rehooks/local-storage'
 import Settings from '~/components/settings'
 import { Theme, useTheme } from '~/lib/theme'
 import { auth } from '~/services/auth.server'
-import { getPostByShareId } from '~/models/post.server'
+import { getPostByShareId, Post } from '~/models/post.server'
 import {
     GUEST_LATEST_POST_ID_LS_KEY,
     USER_LATEST_POST_ID_LS_KEY,
@@ -20,6 +20,7 @@ import {
 import { getUserProfile } from '~/models/user.server'
 import { getSettingsFromUserId } from '~/models/settings.server'
 import useIDBPost from '~/lib/hooks/use-idb-post'
+import useIDBWritingSession from '~/lib/hooks/use-idb-writing-session'
 
 export async function loader({ request }: LoaderArgs) {
     const url = new URL(request.url)
@@ -41,7 +42,7 @@ export async function loader({ request }: LoaderArgs) {
 
 // TODO: fix these types
 interface LoaderData {
-    post?: any
+    post?: Post
     settings?: any
     user?: any
 }
@@ -54,11 +55,21 @@ export default function Write() {
         settings: settingsFromDb,
         user,
     } = useLoaderData<SerializeFrom<LoaderData>>()
+    const postData: WriterUpdate = {
+        title: post?.title || '',
+        content: post?.content || '',
+        wordCount: post?.wordCount || 0
+    }
     const [latestGuestPostId] = useLocalStorage<string>(
         GUEST_LATEST_POST_ID_LS_KEY
     )
-    const { create, post: localPost, update: updatePost } = useIDBPost(latestGuestPostId as string)
-    const [settings] = useLocalStorage<string>(SETTINGS_LOCAL_STORAGE_KEY)
+    const {
+        create: createPost,
+        post: localPost,
+        update: updatePost,
+    } = useIDBPost(latestGuestPostId as string)
+    const { create: createWritingSession } = useIDBWritingSession()
+    const [settings] = useLocalStorage<string>(LOCAL_STORAGE_KEYS.GUEST_SETTINGS)
     const settingsData =
         user && settingsFromDb
             ? settingsFromDb
@@ -169,23 +180,32 @@ export default function Write() {
 
     async function savePostToLocal(update: WriterUpdate) {
         if (!localPostId) {
-            const postId = await create(update)
+            const postId = await createPost(update)
             setLocalPostId(postId)
         } else {
             updatePost(localPostId, update)
         }
     }
 
-    function saveWritingSession(writingSession: string) {
+    function saveWritingSessionToDatabase(writingSession: WritingSession) {
         fetcher.submit(
             {
-                writingSession,
+                goal: writingSession.goal,
+                target: `${writingSession.target}`,
+                duration: `${writingSession.duration}`,
+                result: `${writingSession.result}`,
+                startingWordCount: `${writingSession.startingWordCount}`,
+                endingWordCount: `${writingSession.endingWordCount}`,
             },
             {
                 method: 'post',
                 action: '/api/sessions',
             }
         )
+    }
+
+    async function saveWritingSessionToLocal(writingSession: WritingSession) {
+        await createWritingSession(writingSession)
     }
 
     // function syncLocallySavedData({ post, writingSessions }: SyncParams) {
@@ -211,10 +231,11 @@ export default function Write() {
         <main className='flex h-full w-full flex-col items-center justify-start'>
             <Writer
                 exportPost={exportPost}
-                post={user ? post : localPost}
+                post={localPost || postData}
                 savePostToDatabase={savePostToDatabase}
                 savePostToLocal={savePostToLocal}
-                saveWritingSession={saveWritingSession}
+                saveWritingSessionToDatabase={saveWritingSessionToDatabase}
+                saveWritingSessionToLocal={saveWritingSessionToLocal}
                 showSettingsDialog={showSettingsDialog}
                 settingsFromDb={settingsFromDb}
                 setShowSettingsDialog={setShowSettingsDialog}

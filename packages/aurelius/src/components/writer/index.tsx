@@ -19,11 +19,7 @@ import useLocalStorage, {
 import TipTap from './tiptap'
 import WriterFooter from './footer'
 import MainMenu from './main-menu'
-import {
-	LOCAL_STORAGE_KEYS,
-	SESSION_LOCAL_STORAGE_KEY,
-	SETTINGS_LOCAL_STORAGE_KEY,
-} from '../../constants'
+import { LOCAL_STORAGE_KEYS } from '../../constants'
 import NewSession from './new-session'
 import { downloadAsMarkdown, sendAmplitudeEvent } from '../../helpers'
 import AureliusProvider from './provider'
@@ -46,8 +42,9 @@ export default function Writer({
 	exportPost,
 	post,
 	savePostToDatabase,
-    savePostToLocal,
-	saveWritingSession: saveWritingSessionToDatabase,
+	savePostToLocal,
+	saveWritingSessionToDatabase,
+	saveWritingSessionToLocal,
 	showSettingsDialog,
 	settingsFromDb,
 	setShowSettingsDialog,
@@ -60,10 +57,9 @@ export default function Writer({
 		LOCAL_STORAGE_KEYS.SPLASH_SCREEN,
 		true
 	)
-	const [writingSessions] = useLocalStorage<WritingSession[]>(
-		SESSION_LOCAL_STORAGE_KEY
+	const [settings] = useLocalStorage<string>(
+		LOCAL_STORAGE_KEYS.GUEST_SETTINGS
 	)
-	const [settings] = useLocalStorage<string>(SETTINGS_LOCAL_STORAGE_KEY)
 	const settingsData =
 		user && settingsFromDb
 			? settingsFromDb
@@ -172,19 +168,6 @@ export default function Writer({
 		}
 	}, [showSessionRecapDialog])
 
-	// useEffect(() => {
-	// 	if (user) {
-	// 		sync({
-	// 			post,
-	// 			writingSessions:
-	// 				writingSessions && writingSessions?.length > 0
-	// 					? JSON.stringify(writingSessions)
-	// 					: '',
-	// 		})
-	// 		clearLocalData()
-	// 	}
-	// }, [])
-
 	const editor = useEditor({
 		content,
 		editorProps: {
@@ -239,11 +222,6 @@ export default function Writer({
 
 	function setContent(html: string) {
 		content.current = html
-	}
-
-	function clearLocalData() {
-		deleteFromStorage(LOCAL_STORAGE_KEYS.GUEST_LATEST_POST)
-		deleteFromStorage(SESSION_LOCAL_STORAGE_KEY)
 	}
 
 	function downloadFile() {
@@ -323,12 +301,9 @@ export default function Writer({
 		} as WritingSession
 		setSessionData(data)
 		if (user) {
-			saveWritingSessionToDatabase(JSON.stringify(data))
+			saveWritingSessionToDatabase(data)
 		} else {
-			writeStorage(SESSION_LOCAL_STORAGE_KEY, [
-				...(JSON.parse(JSON.stringify(writingSessions)) || []),
-				data,
-			])
+			saveWritingSessionToLocal(data)
 		}
 		if (sessionMusic) {
 			setIsMusicPlaying(false)
@@ -357,12 +332,9 @@ export default function Writer({
 		} as WritingSession
 		setSessionData(data)
 		if (user) {
-			saveWritingSessionToDatabase(JSON.stringify(data))
+			saveWritingSessionToDatabase(data)
 		} else {
-			writeStorage(SESSION_LOCAL_STORAGE_KEY, [
-				...(JSON.parse(JSON.stringify(writingSessions)) || []),
-				data,
-			])
+			saveWritingSessionToLocal(data)
 		}
 		if (sessionMusic) {
 			setIsMusicPlaying(false)
