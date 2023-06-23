@@ -17,7 +17,6 @@ import {
 	DEFAULT_BACKGROUND,
 	DEFAULT_MUSIC_CHANNEL,
 	LOCAL_STORAGE_KEYS,
-	SETTINGS_LOCAL_STORAGE_KEY,
 } from '../../constants'
 import { DailyGoal, ProfileSettings, SettingsData } from '../../types'
 import { useDebounce } from '../../hooks'
@@ -124,7 +123,7 @@ export default function Settings({
 						? Number(durationTarget)
 						: Number(wordCountTarget),
 			}
-			writeStorage(SETTINGS_LOCAL_STORAGE_KEY, data)
+			writeStorage(LOCAL_STORAGE_KEYS.GUEST_SETTINGS, data)
 		}
 	}
 
@@ -143,7 +142,7 @@ export default function Settings({
 				footer,
 				watermark,
 			}
-			writeStorage(SETTINGS_LOCAL_STORAGE_KEY, data)
+			writeStorage(LOCAL_STORAGE_KEYS.GUEST_SETTINGS, data)
 		}
 	}
 
@@ -161,7 +160,7 @@ export default function Settings({
 				musicChannel,
 				youtubeVideo,
 			}
-			writeStorage(SETTINGS_LOCAL_STORAGE_KEY, data)
+			writeStorage(LOCAL_STORAGE_KEYS.GUEST_SETTINGS, data)
 		}
 	}
 
