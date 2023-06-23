@@ -16,6 +16,8 @@ export default function useIDBPost(id = '') {
             const post = await postStore.getItem(id)
             if (post) {
                 postRef.current = post as LocalPost
+            } else {
+                postRef.current = { title: '', content: '', wordCount: 0 }
             }
         }
 
