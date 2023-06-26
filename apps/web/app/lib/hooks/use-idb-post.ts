@@ -6,10 +6,30 @@ interface LocalPost {
     title: string
     content: string
     wordCount: number
+    createdAt?: Date
+    updatedAt?: Date
 }
 
 export default function useIDBPost(id = '') {
+    const posts = useRef<LocalPost[]>()
     const postRef = useRef<LocalPost>()
+
+    useEffect(() => {
+        async function readAllPosts() {
+            const localPosts: any[] = []
+            await postStore.iterate(
+                (value: LocalPost, key: string, index: number) => {
+                    localPosts.push({
+                        id: key,
+                        ...value,
+                    })
+                }
+            )
+            posts.current = localPosts
+        }
+
+        readAllPosts().then(() => {})
+    }, [])
 
     useEffect(() => {
         async function readPostById() {
@@ -22,15 +42,20 @@ export default function useIDBPost(id = '') {
         }
 
         if (id) {
-            readPostById().then(() => {})
+            readPostById().then(() => { })
         }
     }, [id])
 
     const create = useCallback(
         async (post: LocalPost) => {
             const id = await nanoid(16)
-            await postStore.setItem(id, post)
-            postRef.current = post
+            const data = {
+                ...post,
+                createdAt: new Date(),
+                updatedAt: new Date()
+            }
+            await postStore.setItem(id, data)
+            postRef.current = data
             return id
         },
         [postRef]
@@ -43,8 +68,13 @@ export default function useIDBPost(id = '') {
 
     const update = useCallback(
         (id: string, post: LocalPost) => {
-            postStore.setItem(id, post)
-            postRef.current = post
+            const data = {
+                ...post,
+                ...postRef.current,
+                updatedAt: new Date()
+            }
+            postStore.setItem(id, data)
+            postRef.current = data
         },
         [postRef]
     )
@@ -53,6 +83,7 @@ export default function useIDBPost(id = '') {
         create,
         read,
         update,
+        posts: posts.current,
         post: postRef.current,
     }
 }
