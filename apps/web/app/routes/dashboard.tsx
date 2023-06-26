@@ -12,20 +12,19 @@ import { auth } from '~/services/auth.server'
 
 // TODO: fix these types
 interface LoaderData {
-    post?: any
     settings?: any
     user?: any
 }
 
 export async function loader({ request }: LoaderArgs) {
-    let user = await auth.isAuthenticated(request, {
-        failureRedirect: '/login',
-    })
+    let user = await auth.isAuthenticated(request)
     if (user) {
         const profile = await getUserProfile(user?.id)
         const settings = await getSettingsFromUserId(user?.id)
         return json({ settings, user: profile })
     }
+
+    return json({})
 }
 
 export default function Dashboard() {
