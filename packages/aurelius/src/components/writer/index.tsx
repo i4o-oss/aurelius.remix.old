@@ -41,6 +41,7 @@ import Help from './help'
 export default function Writer({
 	exportPost,
 	post,
+	reset,
 	savePostToDatabase,
 	savePostToLocal,
 	saveWritingSessionToDatabase,
@@ -266,6 +267,7 @@ export default function Writer({
 		setWordCount(0)
 		setShowResetAlert(false)
 		titleRef?.current?.focus()
+		reset()
 		if (user) {
 			window.location.href = '/'
 		}

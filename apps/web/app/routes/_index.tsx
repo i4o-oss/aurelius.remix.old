@@ -141,6 +141,10 @@ export default function Write() {
         )
     }
 
+    function reset() {
+        localPostId.current = ''
+    }
+
     // TODO: refactor all functions that save and load stuff from/to planetscale/indexeddb
     // so that only the remix app does the saving and loading operations
     // the writer package should only handle writing and should pass all data that should
@@ -232,6 +236,7 @@ export default function Write() {
             <Writer
                 exportPost={exportPost}
                 post={localPost || postData}
+                reset={reset}
                 savePostToDatabase={savePostToDatabase}
                 savePostToLocal={savePostToLocal}
                 saveWritingSessionToDatabase={saveWritingSessionToDatabase}
