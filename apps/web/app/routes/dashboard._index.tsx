@@ -151,7 +151,7 @@ function PostItem({ appUrl, isSignedIn, post, username }: PostItemProps) {
         {
             label: 'Edit Post',
             icon: <Pencil1Icon />,
-            link: `/?edit=${post.shareId}`,
+            link: isSignedIn ? `/?edit=${post.shareId}` : `/?edit=${post.id}`,
         },
         ...userDropdownItems,
         { type: 'separator' },

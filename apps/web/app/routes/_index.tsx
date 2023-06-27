@@ -24,10 +24,10 @@ import useIDBWritingSession from '~/lib/hooks/use-idb-writing-session'
 
 export async function loader({ request }: LoaderArgs) {
     const url = new URL(request.url)
-    const shareId = url.searchParams.get('edit')
+    const id = url.searchParams.get('edit')
     let user = await auth.isAuthenticated(request)
-    if (user && shareId) {
-        const post = await getPostByShareId(shareId)
+    if (user && id) {
+        const post = await getPostByShareId(id)
         const profile = await getUserProfile(user?.id)
         const settings = await getSettingsFromUserId(user?.id)
         return json({ post, settings, user: profile })
@@ -36,12 +36,13 @@ export async function loader({ request }: LoaderArgs) {
         const settings = await getSettingsFromUserId(user?.id)
         return json({ settings, user: profile })
     } else {
-        return json({})
+        return json({ id })
     }
 }
 
 // TODO: fix these types
 interface LoaderData {
+    id?: string
     post?: Post
     settings?: any
     user?: any
@@ -51,6 +52,7 @@ export default function Write() {
     const fetchers = useFetchers()
     const fetcher = useFetcher()
     const {
+        id,
         post,
         settings: settingsFromDb,
         user,
@@ -67,14 +69,14 @@ export default function Write() {
         create: createPost,
         post: localPost,
         update: updatePost,
-    } = useIDBPost(latestGuestPostId as string)
+    } = useIDBPost(id || latestGuestPostId as string)
     const { create: createWritingSession } = useIDBWritingSession()
     const [settings] = useLocalStorage<string>(LOCAL_STORAGE_KEYS.GUEST_SETTINGS)
     const settingsData =
         user && settingsFromDb
             ? settingsFromDb
             : (JSON.parse(JSON.stringify(settings)) as SettingsData)
-    const localPostId = useRef<string>(latestGuestPostId || '')
+    const localPostId = useRef<string>(id || latestGuestPostId || '')
     const [showSettingsDialog, setShowSettingsDialog] = useState(false)
     const [theme, setTheme] = useTheme()
 
