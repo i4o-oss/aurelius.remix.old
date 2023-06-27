@@ -2,7 +2,7 @@ import { Suspense, useEffect, useState } from 'react'
 import { json, LoaderArgs, SerializeFrom } from '@remix-run/node'
 import { defer } from '@remix-run/node'
 import { getAllPostsFromAuthor, Post } from '~/models/post.server'
-import { Await, Link, useFetcher, useLoaderData } from '@remix-run/react'
+import { Await, Link, useFetcher, useLoaderData, useNavigate } from '@remix-run/react'
 import {
     Alert,
     Button,
@@ -28,8 +28,9 @@ import { getGreeting } from '~/lib/utils'
 import { auth } from '~/services/auth.server'
 import { getUserProfile } from '~/models/user.server'
 import Skeleton from '~/components/skeleton'
-import { AmplitudeEventType, sendAmplitudeEvent } from '@aurelius/writer'
+import { AmplitudeEventType, LOCAL_STORAGE_KEYS, sendAmplitudeEvent } from '@aurelius/writer'
 import useIDBPost from '~/lib/hooks/use-idb-post'
+import { writeStorage } from '@rehooks/local-storage'
 
 interface GreetingProps {
     name: string
@@ -81,6 +82,7 @@ interface PostItemProps {
 
 function PostItem({ appUrl, isSignedIn, post, username }: PostItemProps) {
     const postFetcher = useFetcher()
+    const { remove: removePost } = useIDBPost()
     const [deletePostToast, setDeletePostToast] = useState(false)
     const [publishedPostToast, setPublishedPostToast] = useState(false)
     const [showDeletePostAlert, setShowDeletePostAlert] = useState(false)
@@ -111,10 +113,14 @@ function PostItem({ appUrl, isSignedIn, post, username }: PostItemProps) {
     }
 
     const deletePostHandler = async () => {
-        postFetcher.submit(
-            {},
-            { method: 'delete', action: `/api/posts/${post.id}` }
-        )
+        if (isSignedIn) {
+            postFetcher.submit(
+                {},
+                { method: 'delete', action: `/api/posts/${post.id}` }
+            )
+        } else {
+            await removePost(post.id)
+        }
     }
 
     const postLink = `${appUrl}/${username}/${post.slug}`
@@ -296,6 +302,12 @@ export async function loader({ request }: LoaderArgs) {
 export default function DashboardHome() {
     const { appUrl, posts, user } = useLoaderData<SerializeFrom<LoaderData>>()
     const { posts: localPosts } = useIDBPost()
+    const navigate = useNavigate()
+
+    const writeNewPost = () => {
+        writeStorage(LOCAL_STORAGE_KEYS.GUEST_LATEST_POST, '')
+        navigate('/')
+    }
 
     return (
         <main className='flex h-full w-full flex-col items-center justify-start'>
@@ -310,9 +322,7 @@ export default function DashboardHome() {
                             <h2 className='text-primary-foreground text-3xl font-semibold'>
                                 Posts
                             </h2>
-                            <Link to='/'>
-                                <PrimaryButton>Write</PrimaryButton>
-                            </Link>
+                            <PrimaryButton onClick={writeNewPost}>Write</PrimaryButton>
                         </div>
                         <Suspense fallback={<DeferFallback />}>
                             <Await
