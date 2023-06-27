@@ -14,9 +14,9 @@ export interface EditorToolbarProps {
 }
 
 export interface WriterUpdate {
-    title: string
-    content: string
-    wordCount: number
+	title: string
+	content: string
+	wordCount: number
 }
 
 export interface SyncParams {
@@ -26,7 +26,8 @@ export interface SyncParams {
 
 export interface WriterProps {
 	exportPost: (data: any) => void
-	post: { title: string; content: string, wordCount: number }
+	reset: () => void
+	post: { title: string; content: string; wordCount: number }
 	savePostToDatabase: (update: WriterUpdate) => void
 	savePostToLocal: (update: WriterUpdate) => void
 	saveWritingSessionToDatabase: (writingSession: WritingSession) => void
@@ -34,7 +35,7 @@ export interface WriterProps {
 	showSettingsDialog?: boolean
 	settingsFromDb?: SettingsData
 	setShowSettingsDialog?: Dispatch<SetStateAction<boolean>>
-    // TODO: bring back sync once local saving is well tested
+	// TODO: bring back sync once local saving is well tested
 	// sync: (params: SyncParams) => void
 	theme: Theme
 	toggleTheme: () => void

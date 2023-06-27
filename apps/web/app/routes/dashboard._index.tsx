@@ -172,9 +172,13 @@ function PostItem({ appUrl, isSignedIn, post, username }: PostItemProps) {
                         </h3>
                     </Link>
                     <div className='flex items-center justify-start space-x-2'>
-                        <p className='bg-ui text-primary-foreground flex items-center justify-center rounded-md px-2 py-1 text-xs'>
-                            {post.published ? 'Published' : 'Draft'}
-                        </p>
+                        {
+                            isSignedIn ? (
+                                <p className='bg-ui text-primary-foreground flex items-center justify-center rounded-md px-2 py-1 text-xs'>
+                                    {post.published ? 'Published' : 'Draft'}
+                                </p>
+                            ) : null
+                        }
                         <span className='text-primary-foreground text-xs'>
                             {formatDistance(
                                 new Date(post.createdAt),
@@ -292,7 +296,6 @@ export async function loader({ request }: LoaderArgs) {
 export default function DashboardHome() {
     const { appUrl, posts, user } = useLoaderData<SerializeFrom<LoaderData>>()
     const { posts: localPosts } = useIDBPost()
-    console.log(localPosts)
 
     return (
         <main className='flex h-full w-full flex-col items-center justify-start'>
