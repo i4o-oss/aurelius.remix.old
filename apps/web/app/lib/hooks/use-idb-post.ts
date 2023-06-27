@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid/async'
-import { useCallback, useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { postStore } from '../local.client'
 
 interface LocalPost {
@@ -11,7 +11,7 @@ interface LocalPost {
 }
 
 export default function useIDBPost(id = '') {
-    const posts = useRef<LocalPost[]>()
+    const [posts, setPosts] = useState<LocalPost[]>([])
     const postRef = useRef<LocalPost>()
 
     useEffect(() => {
@@ -25,10 +25,10 @@ export default function useIDBPost(id = '') {
                     })
                 }
             )
-            posts.current = localPosts
+            setPosts(localPosts)
         }
 
-        readAllPosts().then(() => {})
+        readAllPosts().then(() => { })
     }, [])
 
     useEffect(() => {
@@ -52,7 +52,7 @@ export default function useIDBPost(id = '') {
             const data = {
                 ...post,
                 createdAt: new Date(),
-                updatedAt: new Date()
+                updatedAt: new Date(),
             }
             await postStore.setItem(id, data)
             postRef.current = data
@@ -67,19 +67,26 @@ export default function useIDBPost(id = '') {
     }, [])
 
     const update = useCallback(
-        (id: string, post: LocalPost) => {
-            const data = Object.assign({}, postRef.current, post, { updatedAt: new Date() })
-            postStore.setItem(id, data)
+        async (id: string, post: LocalPost) => {
+            const data = Object.assign({}, postRef.current, post, {
+                updatedAt: new Date(),
+            })
+            await postStore.setItem(id, data)
             postRef.current = data
         },
         [postRef]
     )
 
+    const remove = useCallback(async (id: string) => {
+        await postStore.removeItem(id)
+    }, [])
+
     return {
         create,
         read,
+        remove,
         update,
-        posts: posts.current,
+        posts,
         post: postRef.current,
     }
 }
