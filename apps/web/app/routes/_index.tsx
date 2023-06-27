@@ -13,10 +13,6 @@ import Settings from '~/components/settings'
 import { Theme, useTheme } from '~/lib/theme'
 import { auth } from '~/services/auth.server'
 import { getPostByShareId, Post } from '~/models/post.server'
-import {
-    GUEST_LATEST_POST_ID_LS_KEY,
-    USER_LATEST_POST_ID_LS_KEY,
-} from '~/lib/constants'
 import { getUserProfile } from '~/models/user.server'
 import { getSettingsFromUserId } from '~/models/settings.server'
 import useIDBPost from '~/lib/hooks/use-idb-post'
@@ -63,7 +59,7 @@ export default function Write() {
         wordCount: post?.wordCount || 0
     }
     const [latestGuestPostId] = useLocalStorage<string>(
-        GUEST_LATEST_POST_ID_LS_KEY
+        LOCAL_STORAGE_KEYS.GUEST_LATEST_POST
     )
     const {
         create: createPost,
@@ -94,7 +90,7 @@ export default function Write() {
                 f.data
             ) {
                 record.current.id = f.data.id
-                writeStorage(USER_LATEST_POST_ID_LS_KEY, record.current.id)
+                writeStorage(LOCAL_STORAGE_KEYS.USER_LATEST_POST, record.current.id)
             }
         }
     }
@@ -108,16 +104,6 @@ export default function Write() {
             saveAs(fetcher.data?.url, fetcher.data?.name)
         }
     }, [fetcher])
-
-    useEffect(() => {
-        if (localPostId.current) {
-            if (user) {
-                writeStorage(USER_LATEST_POST_ID_LS_KEY, localPostId.current)
-            } else {
-                writeStorage(GUEST_LATEST_POST_ID_LS_KEY, localPostId.current)
-            }
-        }
-    }, [localPostId.current])
 
     const saveAs = (uri: string, filename: string) => {
         const link = document.createElement('a')
@@ -171,6 +157,7 @@ export default function Write() {
                     }
                 )
                 localPostId.current = record.current.id
+                writeStorage(LOCAL_STORAGE_KEYS.USER_LATEST_POST, record.current.id)
             } else {
                 fetcher.submit(
                     {
@@ -190,6 +177,7 @@ export default function Write() {
         } else {
             const postId = await createPost(update)
             localPostId.current = postId
+            writeStorage(LOCAL_STORAGE_KEYS.GUEST_LATEST_POST, postId)
         }
     }
 

@@ -18,9 +18,6 @@ export const EMAIL_ADDRESS = 'hello@aurelius.ink'
 
 export const LOCAL_FORAGE_DB_NAME = '__aurelius_local_db'
 
-export const GUEST_LATEST_POST_ID_LS_KEY = '__aurelius_guest_latest_post_id'
-export const USER_LATEST_POST_ID_LS_KEY = '__aurelius_user_latest_post_id'
-
 // export a list of all static pages
 export const staticPages = [
     { to: '/', text: 'Home' },
@@ -426,6 +423,7 @@ export const USERNAME_DISALLOW_LIST = [
     'welcome',
     'wiki',
     'win',
+    'world',
     'wpad',
     'ww',
     'wws',
