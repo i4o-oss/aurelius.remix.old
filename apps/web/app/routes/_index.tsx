@@ -74,7 +74,7 @@ export default function Write() {
         user && settingsFromDb
             ? settingsFromDb
             : (JSON.parse(JSON.stringify(settings)) as SettingsData)
-    const [localPostId, setLocalPostId] = useState(latestGuestPostId || '')
+    const localPostId = useRef<string>(latestGuestPostId || '')
     const [showSettingsDialog, setShowSettingsDialog] = useState(false)
     const [theme, setTheme] = useTheme()
 
@@ -108,14 +108,14 @@ export default function Write() {
     }, [fetcher])
 
     useEffect(() => {
-        if (localPostId) {
+        if (localPostId.current) {
             if (user) {
-                writeStorage(USER_LATEST_POST_ID_LS_KEY, localPostId)
+                writeStorage(USER_LATEST_POST_ID_LS_KEY, localPostId.current)
             } else {
-                writeStorage(GUEST_LATEST_POST_ID_LS_KEY, localPostId)
+                writeStorage(GUEST_LATEST_POST_ID_LS_KEY, localPostId.current)
             }
         }
-    }, [localPostId])
+    }, [localPostId.current])
 
     const saveAs = (uri: string, filename: string) => {
         const link = document.createElement('a')
@@ -155,7 +155,7 @@ export default function Write() {
                         action: `/api/posts/${post.id}`,
                     }
                 )
-                setLocalPostId(`${post.id}`)
+                localPostId.current = `${post.id}`
             } else if (record.current.id) {
                 fetcher.submit(
                     { title, content, wordCount: `${wordCount}` },
@@ -164,7 +164,7 @@ export default function Write() {
                         action: `/api/posts/${record.current.id}`,
                     }
                 )
-                setLocalPostId(record.current.id)
+                localPostId.current = record.current.id
             } else {
                 fetcher.submit(
                     {
@@ -179,11 +179,11 @@ export default function Write() {
     }
 
     async function savePostToLocal(update: WriterUpdate) {
-        if (!localPostId) {
-            const postId = await createPost(update)
-            setLocalPostId(postId)
+        if (localPostId.current) {
+            updatePost(localPostId.current, update)
         } else {
-            updatePost(localPostId, update)
+            const postId = await createPost(update)
+            localPostId.current = postId
         }
     }
 

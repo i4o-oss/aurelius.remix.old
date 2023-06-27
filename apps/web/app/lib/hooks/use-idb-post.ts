@@ -68,11 +68,7 @@ export default function useIDBPost(id = '') {
 
     const update = useCallback(
         (id: string, post: LocalPost) => {
-            const data = {
-                ...post,
-                ...postRef.current,
-                updatedAt: new Date()
-            }
+            const data = Object.assign({}, postRef.current, post, { updatedAt: new Date() })
             postStore.setItem(id, data)
             postRef.current = data
         },
