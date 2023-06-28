@@ -5,7 +5,7 @@ import { Form, useLoaderData } from '@remix-run/react'
 import { json } from '@remix-run/node'
 import { auth } from '~/services/auth.server'
 import { useTheme } from '~/lib/theme'
-import { Theme } from '@i4o/aurelius'
+import { Theme } from '@aurelius/writer'
 
 export async function loader({ request }: LoaderArgs) {
 	await auth.isAuthenticated(request, { successRedirect: '/' })

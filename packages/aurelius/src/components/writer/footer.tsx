@@ -3,7 +3,7 @@ import React, { Suspense, useContext } from 'react'
 import { default as _ReactPlayer } from 'react-player/youtube'
 import { PlayIcon, PauseIcon } from '@radix-ui/react-icons'
 import { Button, IconButton } from '@i4o/catalystui'
-import { MUSIC_STATIONS, SETTINGS_LOCAL_STORAGE_KEY } from '../../constants'
+import { MUSIC_STATIONS, LOCAL_STORAGE_KEYS } from '../../constants'
 import useLocalStorage from '@rehooks/local-storage'
 import { AureliusContext, AureliusProviderData } from './provider'
 import { SettingsData } from '../../types'
@@ -20,7 +20,7 @@ export default function Footer() {
 		isSaving,
 		wordCount,
 	} = context
-	const [settings] = useLocalStorage(SETTINGS_LOCAL_STORAGE_KEY)
+	const [settings] = useLocalStorage(LOCAL_STORAGE_KEYS.GUEST_SETTINGS)
 	const settingsData = JSON.parse(JSON.stringify(settings)) as SettingsData
 	const musicChannel = settingsData?.musicChannel as string
 	const youtubeVideo = settingsData?.youtubeVideo as string

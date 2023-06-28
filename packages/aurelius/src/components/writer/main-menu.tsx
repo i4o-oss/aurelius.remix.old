@@ -77,6 +77,11 @@ export default function MainMenu(props: MainMenuProps) {
 		  ]
 		: [
 				{
+					label: 'Dashboard',
+					icon: <DashboardIcon />,
+					link: '/dashboard',
+				},
+				{
 					label: 'Sign Up',
 					icon: <StarFilledIcon />,
 					link: '/login',

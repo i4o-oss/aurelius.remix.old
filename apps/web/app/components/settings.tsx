@@ -1,4 +1,4 @@
-import { Settings as SettingsDialog, SettingsData } from '@i4o/aurelius'
+import { Settings as SettingsDialog, SettingsData } from '@aurelius/writer'
 import { Toast } from '@i4o/catalystui'
 import { CheckCircledIcon } from '@radix-ui/react-icons'
 import { useFetcher } from '@remix-run/react'
@@ -23,7 +23,8 @@ export default function Settings({
 	useEffect(() => {
 		if (
 			fetcher.state === 'loading' &&
-			(fetcher.data?.message === 'settings_updated' || fetcher.data?.message === 'user_updated') &&
+			(fetcher.data?.message === 'settings_updated' ||
+				fetcher.data?.message === 'user_updated') &&
 			fetcher.formMethod === 'POST'
 		) {
 			setSaveSettingsToast(true)

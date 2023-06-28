@@ -3,6 +3,7 @@
     "display": "Aurelius",
     "extends": "./base.json",
     "compilerOptions": {
+        "strict": true,
         "jsx": "react-jsx",
         "lib": [
             "DOM",

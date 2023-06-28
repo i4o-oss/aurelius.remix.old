@@ -1,4 +1,4 @@
-import { DailyGoal } from '@i4o/aurelius'
+import { DailyGoal } from '@aurelius/writer'
 import { ActionArgs, json, redirect } from '@remix-run/node'
 import { createOrUpdateSettings } from '~/models/settings.server'
 import { auth } from '~/services/auth.server'

@@ -6,6 +6,7 @@ import { createPost } from '~/models/post.server'
 import { auth } from '~/services/auth.server'
 import { createWritingSession } from '~/models/writing-session.server'
 
+// TODO: update sync api so it syncs all available posts
 export async function action({ request }: ActionArgs) {
 	const user = await auth.isAuthenticated(request)
 	switch (request.method) {

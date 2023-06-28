@@ -8,15 +8,18 @@ export async function action({ request }: ActionArgs) {
 	switch (request.method) {
 		case 'POST': {
 			const formData = await request.formData()
-			const writingSession = JSON.parse(
-				formData.get('writingSession') as string
-			)
+			const goal = formData.get('goal') as string
+			const target = Number(formData.get('target') as string)
+			const result = Number(formData.get('result') as string)
+			const startingWordCount = Number(formData.get('startingWordCount') as string)
+			const endingWordCount = Number(formData.get('endingWordCount') as string)
+
 			await createWritingSession({
-				goal: writingSession.goal,
-				target: writingSession.target,
-				result: writingSession.result,
-				startingWordCount: writingSession.startingWordCount,
-				endingWordCount: writingSession.endingWordCount,
+				goal,
+				target,
+				result,
+				startingWordCount,
+				endingWordCount,
 				userId: user?.id as string,
 			})
 

@@ -13,28 +13,30 @@ export interface EditorToolbarProps {
 	editor: Editor | null
 }
 
+export interface WriterUpdate {
+	title: string
+	content: string
+	wordCount: number
+}
+
 export interface SyncParams {
-	post?: string
+	post?: WriterUpdate
 	writingSessions?: string
 }
 
 export interface WriterProps {
 	exportPost: (data: any) => void
-	post?: { title: string; content: string }
-	savePost: ({
-		title,
-		content,
-		wordCount,
-	}: {
-		title: string
-		content: string
-		wordCount: number
-	}) => void
-	saveWritingSession: (WritingSession: string) => void
+	reset: () => void
+	post: { title: string; content: string; wordCount: number }
+	savePostToDatabase: (update: WriterUpdate) => void
+	savePostToLocal: (update: WriterUpdate) => void
+	saveWritingSessionToDatabase: (writingSession: WritingSession) => void
+	saveWritingSessionToLocal: (writingSession: WritingSession) => void
 	showSettingsDialog?: boolean
 	settingsFromDb?: SettingsData
 	setShowSettingsDialog?: Dispatch<SetStateAction<boolean>>
-	sync: (params: SyncParams) => void
+	// TODO: bring back sync once local saving is well tested
+	// sync: (params: SyncParams) => void
 	theme: Theme
 	toggleTheme: () => void
 	user: any
@@ -64,11 +66,14 @@ export interface ProfileSettings {
 	username?: string
 }
 
+export type ToolbarMode = 'fixed' | 'floating'
+
 export type DailyGoal = 'duration' | 'wordCount'
 
 export interface SettingsData {
-	displaySplashScreen: boolean
-	dailyGoal: DailyGoal
+	displaySplashScreen?: boolean
+	toolbarMode?: ToolbarMode
+	dailyGoal?: DailyGoal
 	target?: number
 	musicChannel?: string
 	youtubeVideo?: string

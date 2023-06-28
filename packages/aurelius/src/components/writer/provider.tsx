@@ -1,10 +1,11 @@
 import type { Editor } from '@tiptap/react'
 import type { Dispatch, ReactNode, SetStateAction } from 'react'
 import { createContext } from 'react'
-import {
+import type {
 	SettingsData,
 	Theme,
 	TitleAlignment,
+	ToolbarMode,
 	WritingSession,
 	WritingSessionGoal,
 } from '../../types'
@@ -25,11 +26,10 @@ export interface AureliusProviderData {
 	setIsMusicPlaying?: Dispatch<SetStateAction<boolean>>
 	isSaving?: boolean
 	setIsSaving?: Dispatch<SetStateAction<boolean>>
-	localPost?: any
 	notifyOnSessionEnd?: boolean
 	setNotifyOnSessionEnd?: Dispatch<SetStateAction<boolean>>
     onResetEditorClick?: (state: boolean) => void
-	post?: { title: string; content: string }
+	post?: { title: string; content: string, wordCount: number }
 	settings?: SettingsData
 	sessionData?: WritingSession | null
 	setSessionData?: Dispatch<SetStateAction<WritingSession | null>>
@@ -55,7 +55,7 @@ export interface AureliusProviderData {
 	setShowSessionEndToast?: Dispatch<SetStateAction<boolean>>
 	showSessionRecapDialog?: boolean
 	setShowSessionRecapDialog?: Dispatch<SetStateAction<boolean>>
-	showSettingsDialog?: boolean
+	showSettingsDialog?: boolean 
 	setShowSettingsDialog?: Dispatch<SetStateAction<boolean>>
 	showSplashScreenDialog?: boolean
 	setShowSplashScreenDialog?: Dispatch<SetStateAction<boolean>>
@@ -67,6 +67,7 @@ export interface AureliusProviderData {
 	setTitle?: Dispatch<SetStateAction<string>>
 	titleAlignment?: TitleAlignment
 	setTitleAlignment?: Dispatch<SetStateAction<TitleAlignment>>
+    toolbarMode?: ToolbarMode
 	user?: any
 	watermark?: boolean
 	setWatermark?: Dispatch<SetStateAction<boolean>>

@@ -16,14 +16,14 @@ export const TWITTER_PROFILE = 'https://twitter.com/aurelius_ink'
 export const INSTAGRAM_PROFILE = 'https://instagram.com/aurelius_ink'
 export const EMAIL_ADDRESS = 'hello@aurelius.ink'
 
-export const POST_ID_LOCAL_STORAGE_KEY = '__aurelius_user_post_id'
+export const LOCAL_FORAGE_DB_NAME = '__aurelius_local_db'
 
 // export a list of all static pages
 export const staticPages = [
     { to: '/', text: 'Home' },
-    { to: '/blog', text: 'Blog' },
     { to: '/login', text: 'Login' },
     { to: '/plus', text: 'Plus' },
+    { to: '/readme', text: 'Readme' },
     { to: '/privacy', text: 'Privacy Policy' },
     { to: '/terms', text: 'Terms of Service' },
 ]
@@ -424,6 +424,7 @@ export const USERNAME_DISALLOW_LIST = [
     'welcome',
     'wiki',
     'win',
+    'world',
     'wpad',
     'ww',
     'wws',
