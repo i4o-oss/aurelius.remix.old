@@ -66,6 +66,8 @@ export interface ProfileSettings {
 	username?: string
 }
 
+export type ToolbarMode = 'fixed' | 'floating'
+
 export type DailyGoal = 'duration' | 'wordCount'
 
 export interface SettingsData {

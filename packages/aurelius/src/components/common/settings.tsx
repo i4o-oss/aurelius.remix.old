@@ -18,11 +18,9 @@ import {
     DEFAULT_MUSIC_CHANNEL,
     LOCAL_STORAGE_KEYS,
 } from '../../constants'
-import { DailyGoal, ProfileSettings, SettingsData } from '../../types'
+import { DailyGoal, ProfileSettings, SettingsData, ToolbarMode } from '../../types'
 import { useDebounce } from '../../hooks'
 import { CheckIcon, Cross2Icon } from '@radix-ui/react-icons'
-
-type ToolbarMode = 'fixed' | 'floating'
 
 interface SettingsDialogProps {
     checkUsername?: (username: string) => void

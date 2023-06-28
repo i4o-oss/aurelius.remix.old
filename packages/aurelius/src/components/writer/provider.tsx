@@ -1,10 +1,11 @@
 import type { Editor } from '@tiptap/react'
 import type { Dispatch, ReactNode, SetStateAction } from 'react'
 import { createContext } from 'react'
-import {
+import type {
 	SettingsData,
 	Theme,
 	TitleAlignment,
+	ToolbarMode,
 	WritingSession,
 	WritingSessionGoal,
 } from '../../types'
@@ -66,6 +67,7 @@ export interface AureliusProviderData {
 	setTitle?: Dispatch<SetStateAction<string>>
 	titleAlignment?: TitleAlignment
 	setTitleAlignment?: Dispatch<SetStateAction<TitleAlignment>>
+    toolbarMode?: ToolbarMode
 	user?: any
 	watermark?: boolean
 	setWatermark?: Dispatch<SetStateAction<boolean>>
