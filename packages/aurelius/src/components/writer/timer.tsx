@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react'
-import { useTimer, useStopwatch } from 'react-timer-hook'
+import { useStopwatch, useTimer } from 'react-timer-hook'
 import { Button, IconButton, Toast } from '@i4o/catalystui'
-import { PlayIcon, PauseIcon, StopIcon } from '@radix-ui/react-icons'
+import { PauseIcon, PlayIcon, StopIcon } from '@radix-ui/react-icons'
 import { padZeroes } from '../../helpers'
 import { AureliusContext, AureliusProviderData } from './provider'
 
@@ -95,10 +95,12 @@ export default function Timer({
 					</div>
 				) : (
 					<div className='au-flex au-items-center au-gap-0.5 au-px-2 au-text-sm'>
-						<span>{`${
-							(wordCount || 0) -
-							(sessionData?.startingWordCount || 0)
-						} / ${sessionData?.target}`}</span>
+						<span>
+							{`${
+								(wordCount || 0) -
+								(sessionData?.startingWordCount || 0)
+							} / ${sessionData?.target}`}
+						</span>
 					</div>
 				)}
 				<div className='au-flex au-items-center au-gap-1 au-px-2'>
@@ -141,26 +143,38 @@ export default function Timer({
 				</div>
 			</div>
 			{showSessionEndToast ? (
-				<Toast
-					title={<h4 className='au-text-base'>You did it!</h4>}
-					description={
-						<span className='au-pr-3 au-text-sm'>
-							You've reached the end of your writing session. You
-							can keep going if you wish.
-						</span>
-					}
-					action={
-						<Button
-							padding='au-px-2'
-							className='au-text-sm !au-text-red-500'
-							onClick={stopTimers}
-						>
-							End Session
-						</Button>
-					}
-					actionAltText='End Session'
-					duration={3000}
-				/>
+				<>
+					<Toast
+						title={<h4 className='au-text-base'>You did it!</h4>}
+						description={
+							<span className='au-pr-3 au-text-sm'>
+								You've reached the end of your writing session.
+								You can keep going if you wish.
+							</span>
+						}
+						action={
+							<Button
+								padding='au-px-2'
+								className='au-text-sm !au-text-red-500'
+								onClick={stopTimers}
+							>
+								End Session
+							</Button>
+						}
+						actionAltText='End Session'
+						duration={3000}
+					/>
+					<figure className='au-hidden'>
+						<audio
+							src='https://assets.mixkit.co/active_storage/sfx/591/591.wav'
+							controls={false}
+							autoPlay={true}
+							crossOrigin='anonymous'
+							loop={false}
+							preload='auto'
+						/>
+					</figure>
+				</>
 			) : null}
 		</>
 	)
