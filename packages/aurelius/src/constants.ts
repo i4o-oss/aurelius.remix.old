@@ -25,6 +25,7 @@ export const LOCAL_STORAGE_KEYS = {
     USER_LATEST_POST: '__aurelius_user_latest_post_id',
 	GUEST_SETTINGS: '__aurelius_guest_settings',
 	SPLASH_SCREEN: '__aurelius_display_splash_screen',
+    TOOLBAR_MODE: '__aurelius_toolbar_mode',
 }
 
 export const SESSION_LOCAL_STORAGE_KEY = '__aurelius_guest_user_sessions'

@@ -1,4 +1,5 @@
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
+import type { Editor } from '@tiptap/core'
 import { AmplitudeEventType, WriterProps } from '../../types'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useEditor } from '@tiptap/react'
@@ -37,6 +38,7 @@ import SplashScreen from './splash'
 import { Keystrokes } from '@rwh/keystrokes'
 import { KeystrokesProvider, useKeyCombo } from '@rwh/react-keystrokes'
 import Help from './help'
+import EditorToolbar from './editor-toolbar'
 
 export default function Writer({
 	exportPost,
@@ -485,8 +487,15 @@ export default function Writer({
 						<MainMenu downloadFile={downloadFile} />
 						{SessionComponent}
 					</div>
+					<div
+						className={`au-absolute au-top-4 au-left-[50%] -au-translate-x-[50%] au-flex au-items-center au-gap-4 au-transition-all au-duration-200 hover:au-opacity-100 ${
+							focusMode ? 'au-opacity-5' : 'au-opacity-100'
+						}`}
+					>
+                        <EditorToolbar editor={editor as Editor} />
+					</div>
 					{/* <WritingPaths /> */}
-					<section className='au-flex au-h-full au-w-full au-flex-grow au-flex-col au-items-center au-justify-start'>
+					<section className={`au-flex au-h-full au-w-full au-flex-grow au-flex-col au-items-center au-justify-start`}>
 						<div className='au-flex au-h-full au-w-full au-flex-col au-items-center au-justify-start au-space-y-4 au-px-4 au-py-24 md:au-py-16 lg:au-px-0'>
 							<div className='au-w-full au-max-w-3xl'>
 								<textarea
