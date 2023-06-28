@@ -72,6 +72,7 @@ export type DailyGoal = 'duration' | 'wordCount'
 
 export interface SettingsData {
 	displaySplashScreen?: boolean
+	toolbarMode?: ToolbarMode
 	dailyGoal?: DailyGoal
 	target?: number
 	musicChannel?: string
