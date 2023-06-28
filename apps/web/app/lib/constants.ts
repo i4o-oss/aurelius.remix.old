@@ -23,6 +23,7 @@ export const staticPages = [
     { to: '/', text: 'Home' },
     { to: '/login', text: 'Login' },
     { to: '/plus', text: 'Plus' },
+    { to: '/readme', text: 'Readme' },
     { to: '/privacy', text: 'Privacy Policy' },
     { to: '/terms', text: 'Terms of Service' },
 ]
