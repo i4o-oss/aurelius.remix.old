@@ -651,10 +651,13 @@ function ExportSettings({
             </div>
             {user ? (
                 <div className='au-grid au-grid-cols-3 au-w-full au-gap-2'>
-                    <label className='au-col-span-1 au-py-2 au-text-sm au-font-medium au-text-primary-foreground'>
+                    <label className='au-flex au-flex-col au-col-span-2 au-gap-2 au-py-2 au-text-sm au-font-medium au-text-primary-foreground'>
                         Watermark
+                        <small className='au-text-xs au-font-light'>
+                            Show a "Made with Aurelius" watermark at the bottom of the exported image
+                        </small>
                     </label>
-                    <div className='au-relative au-py-2'>
+                    <div className='au-col-span-1 au-flex au-items-center au-justify-end au-relative au-py-2'>
                         <Switch
                             defaultChecked={watermark}
                             name='watermark'
