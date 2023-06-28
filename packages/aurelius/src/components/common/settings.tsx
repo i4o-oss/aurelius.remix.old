@@ -71,7 +71,8 @@ export default function Settings({
         settings?.musicChannel || DEFAULT_MUSIC_CHANNEL
     )
     const [name, setName] = useState<string>(user?.name || '')
-    const [toolbarMode, setToolbarMode] = useState<ToolbarMode>(savedToolbarMode)
+    const [toolbarMode, setToolbarMode] =
+        useState<ToolbarMode>(savedToolbarMode)
     const [username, setUsername] = useState<string>(user?.username || '')
     const [debouncedUsername, isDebouncing] = useDebounce(username, 1000)
     const [watermark, setWatermark] = useState<boolean>(
@@ -295,7 +296,7 @@ interface GeneralSettingsProps {
     displaySplashScreen: boolean
     setDisplaySplashScreen: Dispatch<SetStateAction<boolean>>
     fetcher?: any
-    toolbarMode: ToolbarMode,
+    toolbarMode: ToolbarMode
     setToolbarMode: Dispatch<SetStateAction<ToolbarMode>>
     saveGeneralSettings: (e: FormEvent) => void
 }
@@ -349,7 +350,9 @@ function GeneralSettings({
                         defaultValue={toolbarMode}
                         items={TOOLBAR_MODES}
                         name='toolbar-mode'
-                        onValueChange={(value) => setToolbarMode(value as ToolbarMode)}
+                        onValueChange={(value) =>
+                            setToolbarMode(value as ToolbarMode)
+                        }
                     />
                 </div>
             </div>
@@ -489,72 +492,73 @@ function GoalSettings({
     wordCountTarget,
     setWordCountTarget,
 }: GoalSettingsProps) {
+    const DAILY_GOAL_OPTIONS = [
+        { value: 'duration', label: 'Duration' },
+        { value: 'wordCount', label: 'Word Count' },
+    ]
+
     return (
         <form
             className='au-flex au-w-full au-flex-col au-items-start au-justify-start au-gap-8'
             onSubmit={saveGoalSettings}
         >
-            <div className='au-w-full [&_div[role="group"]]:au-col-span-2 [&_div[role="group"]]:au-divide-y-0 [&_div[role="group"]]:au-divide-x au-grid au-grid-cols-3 au-gap-2 au-text-primary-foreground [&_button[role="radio"]]:au-h-full [&_button[role="radio"]]:au-p-0 [&_button[role="radio"]]:au-col-span-1 [&_button[role="radio"]]:au-rounded-none [&_div[role="group"]]:au-grid [&_div[role="group"]]:au-h-10 [&_div[role="group"]]:au-w-full [&_div[role="group"]]:au-grid-cols-2 [&_div[role="group"]]:au-overflow-hidden [&_div[role="group"]]:au-rounded-lg'>
-                <label className='au-col-span-1 au-py-2 au-text-sm au-font-medium au-text-primary-foreground'>
+            <div className='au-w-full [&_div[role="group"]]:au-col-span-2 [&_div[role="group"]]:au-divide-y-0 [&_div[role="group"]]:au-divide-x au-grid au-grid-cols-3 au-gap-2 au-text-primary-foreground [&_button[role="radio"]]:au-h-10 [&_button[role="radio"]]:au-p-0 [&_button[role="radio"]]:au-col-span-1 [&_button[role="radio"]]:au-rounded-none [&_div[role="group"]]:au-grid [&_div[role="group"]]:au-h-10 [&_div[role="group"]]:au-w-full [&_div[role="group"]]:au-grid-cols-2 [&_div[role="group"]]:au-overflow-hidden [&_div[role="group"]]:au-rounded-lg'>
+                <label className='au-flex au-flex-col au-col-span-2 au-gap-2 au-py-2 au-text-sm au-font-medium au-text-primary-foreground'>
                     Daily Goal
+                    <small className='au-text-xs au-font-light'>
+                        Whether the daily goal should be an amount of time or
+                        number of words
+                    </small>
                 </label>
-                <ToggleGroup
-                    items={[
-                        {
-                            value: 'duration',
-                            label: 'Duration',
-                            icon: (
-                                <div className='au-flex au-w-full au-h-full au-items-center au-justify-center au-py-2 au-px-4'>
-                                    <span>Duration</span>
-                                </div>
-                            ),
-                        },
-                        {
-                            value: 'wordCount',
-                            label: 'Word Count',
-                            icon: (
-                                <div className='au-flex au-w-full au-h-full au-items-center au-justify-center au-py-2 au-px-4'>
-                                    <span>Word Count</span>
-                                </div>
-                            ),
-                        },
-                    ]}
-                    // @ts-ignore
-                    defaultValue={dailyGoal}
-                    onValueChange={setDailyGoal}
-                    orientation='vertical'
-                    type='single'
-                />
+                <div className='au-col-span-1 au-flex au-items-center au-justify-end'>
+                    <Select
+                        defaultValue={dailyGoal}
+                        items={DAILY_GOAL_OPTIONS}
+                        name='daily-goal'
+                        onValueChange={setDailyGoal}
+                    />
+                </div>
             </div>
             {dailyGoal === 'duration' ? (
                 <div className='au-grid au-grid-cols-3 au-w-full au-gap-2'>
-                    <label className='au-col-span-1 au-py-2 au-text-sm au-font-medium au-text-primary-foreground'>
-                        Duration (in minutes)
+                    <label className='au-flex au-flex-col au-col-span-2 au-gap-2 au-py-2 au-text-sm au-font-medium au-text-primary-foreground'>
+                        Duration
+                        <small className='au-text-xs au-font-light'>
+                            The amount of time you want to write everyday
+                            measured in minutes
+                        </small>
                     </label>
-                    <input
-                        className='au-col-span-2 au-h-10 au-w-full au-rounded-md au-px-4 au-py-2 au-text-sm au-font-medium au-text-primary-foreground au-border au-border-subtle au-bg-transparent'
-                        value={durationTarget}
-                        name='wordCount'
-                        onChange={(e) =>
-                            setDurationTarget(Number(e.target.value))
-                        }
-                        type='text'
-                    />
+                    <div className='au-col-span-1 au-flex au-justify-end au-items-center'>
+                        <input
+                            className='au-h-10 au-w-full au-rounded-md au-px-4 au-py-2 au-text-sm au-font-medium au-text-primary-foreground au-border au-border-subtle au-bg-transparent'
+                            value={durationTarget}
+                            name='wordCount'
+                            onChange={(e) =>
+                                setDurationTarget(Number(e.target.value))
+                            }
+                            type='text'
+                        />
+                    </div>
                 </div>
             ) : (
                 <div className='au-grid au-grid-cols-3 au-w-full au-gap-2'>
-                    <label className='au-col-span-1 au-py-2 au-text-sm au-font-medium au-text-primary-foreground'>
+                    <label className='au-flex au-flex-col au-col-span-2 au-gap-2 au-py-2 au-text-sm au-font-medium au-text-primary-foreground'>
                         Word Count
+                        <small className='au-text-xs au-font-light'>
+                            The number of words you want to write everyday
+                        </small>
                     </label>
-                    <input
-                        className='au-col-span-2 au-h-10 au-w-full au-rounded-md au-px-4 au-py-2 au-text-sm au-font-medium au-text-primary-foreground au-border au-border-subtle au-bg-transparent'
-                        value={wordCountTarget}
-                        name='wordCount'
-                        onChange={(e) =>
-                            setWordCountTarget(Number(e.target.value))
-                        }
-                        type='text'
-                    />
+                    <div className='au-col-span-1 au-flex au-justify-end au-items-center'>
+                        <input
+                            className='au-h-10 au-w-full au-rounded-md au-px-4 au-py-2 au-text-sm au-font-medium au-text-primary-foreground au-border au-border-subtle au-bg-transparent'
+                            value={wordCountTarget}
+                            name='wordCount'
+                            onChange={(e) =>
+                                setWordCountTarget(Number(e.target.value))
+                            }
+                            type='text'
+                        />
+                    </div>
                 </div>
             )}
             <div className='au-flex au-w-full au-items-center au-justify-end'>
@@ -598,7 +602,7 @@ function ExportSettings({
         label: '',
         icon: (
             <div
-                className='au-aspect-[8/9] au-p-1'
+                className='au-aspect-[4] au-p-0'
                 style={{
                     backgroundImage: option,
                     backgroundRepeat: 'no-repeat',
@@ -614,10 +618,13 @@ function ExportSettings({
             onSubmit={saveExportSettings}
         >
             <div className='au-grid au-grid-cols-3 au-w-full au-gap-2'>
-                <label className='au-col-span-1 au-py-2 au-text-sm au-font-medium au-text-primary-foreground'>
+                <label className='au-flex au-flex-col au-col-span-2 au-gap-2 au-py-2 au-text-sm au-font-medium au-text-primary-foreground'>
                     Background
+                    <small className='au-text-xs au-font-light'>
+                        Background of the exported image
+                    </small>
                 </label>
-                <div className='au-col-span-2 au-relative au-py-2 [&_>_div]:au-grid [&_>_div]:au-grid-cols-2 [&_>_div]:au-gap-4 [&_>_div]:au-w-full [&_button]:!au-p-2 [&_button]:!au-overflow-hidden [&_button[data-state=on]]:!au-bg-brand [&_button]:!au-rounded-lg'>
+                <div className='au-col-span-1 au-relative au-py-2 [&_>_div]:au-grid [&_>_div]:au-grid-cols-2 [&_>_div]:au-gap-4 [&_>_div]:au-w-full [&_button]:!au-p-1 [&_button]:!au-overflow-hidden [&_button[data-state=on]]:!au-bg-brand [&_button]:!au-rounded-lg'>
                     <ToggleGroup
                         defaultValue={background}
                         items={backgroundItems}
@@ -627,16 +634,22 @@ function ExportSettings({
                 </div>
             </div>
             <div className='au-grid au-grid-cols-3 au-w-full au-gap-2'>
-                <label className='au-col-span-1 au-py-2 au-text-sm au-font-medium au-text-primary-foreground'>
+                <label className='au-flex au-flex-col au-col-span-2 au-gap-2 au-py-2 au-text-sm au-font-medium au-text-primary-foreground'>
                     Footer Text
+                    <small className='au-text-xs au-font-light'>
+                        Custom text to be inserted at the bottom of the exported
+                        image
+                    </small>
                 </label>
-                <input
-                    className='au-col-span-2 au-h-10 au-w-full au-rounded-md au-px-4 au-py-2 au-text-sm au-font-medium au-text-primary-foreground au-border au-border-subtle au-bg-transparent'
-                    defaultValue={footer}
-                    name='yt'
-                    onChange={(e) => setFooter(e.target.value)}
-                    type='text'
-                />
+                <div className='au-col-span-1 au-flex au-items-center au-justify-end'>
+                    <input
+                        className='au-h-10 au-w-full au-rounded-md au-px-4 au-py-2 au-text-sm au-font-medium au-text-primary-foreground au-border au-border-subtle au-bg-transparent'
+                        defaultValue={footer}
+                        name='yt'
+                        onChange={(e) => setFooter(e.target.value)}
+                        type='text'
+                    />
+                </div>
             </div>
             {user ? (
                 <div className='au-grid au-grid-cols-3 au-w-full au-gap-2'>
@@ -695,10 +708,13 @@ function MusicSettings({
             onSubmit={saveMusicSettings}
         >
             <div className='au-grid au-grid-cols-3 au-w-full au-gap-2'>
-                <label className='au-col-span-1 au-py-2 au-text-sm au-font-medium au-text-primary-foreground'>
+                <label className='au-flex au-flex-col au-col-span-2 au-gap-2 au-py-2 au-text-sm au-font-medium au-text-primary-foreground'>
                     Channels
+                    <small className='au-text-xs au-font-light'>
+                        The genre of focus music to play in the music player
+                    </small>
                 </label>
-                <div className='au-relative'>
+                <div className='au-col-span-1 au-relative au-flex au-items-center au-justify-end'>
                     <Select
                         defaultValue={musicChannel}
                         items={CHANNELS}
@@ -708,16 +724,22 @@ function MusicSettings({
                 </div>
             </div>
             <div className='au-grid au-grid-cols-3 au-w-full au-gap-2'>
-                <label className='au-col-span-1 au-py-2 au-text-sm au-font-medium au-text-primary-foreground'>
+                <label className='au-flex au-flex-col au-col-span-2 au-gap-2 au-py-2 au-text-sm au-font-medium au-text-primary-foreground'>
                     Youtube Video/Playlist
+                    <small className='au-text-xs au-font-light'>
+                        Link of a Youtube video or playlist to play. Overrides
+                        the channel setting.
+                    </small>
                 </label>
-                <input
-                    className='au-col-span-2 au-h-10 au-w-full au-rounded-md au-px-4 au-py-2 au-text-sm au-font-medium au-text-primary-foreground au-border au-border-subtle au-bg-transparent'
-                    defaultValue={youtubeVideo}
-                    name='yt'
-                    onChange={(e) => setYoutubeVideo(e.target.value)}
-                    type='text'
-                />
+                <div className='au-col-span-1 au-flex au-items-center au-justify-end'>
+                    <input
+                        className='au-h-10 au-w-full au-rounded-md au-px-4 au-py-2 au-text-sm au-font-medium au-text-primary-foreground au-border au-border-subtle au-bg-transparent'
+                        defaultValue={youtubeVideo}
+                        name='yt'
+                        onChange={(e) => setYoutubeVideo(e.target.value)}
+                        type='text'
+                    />
+                </div>
             </div>
             <div className='au-flex au-w-full au-items-center au-justify-end'>
                 <PrimaryButton
