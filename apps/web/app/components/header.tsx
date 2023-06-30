@@ -15,6 +15,7 @@ import {
     PersonIcon,
 } from '@radix-ui/react-icons'
 import { Theme, useTheme } from '~/lib/theme'
+import Logo from './logo'
 
 interface Props {
     image: string
@@ -104,15 +105,7 @@ export default function Header({
                 <div className='hidden w-full items-center justify-between py-4 lg:flex'>
                     <div className='col-span-1 flex h-full items-center justify-start gap-2'>
                         <Link to='/'>
-                            <img
-                                className='w-24'
-                                src={
-                                    theme === Theme.DARK
-                                        ? '/images/logo_dark.png'
-                                        : '/images/logo.png'
-                                }
-                                alt='Aurelius Logo'
-                            />
+                            <Logo />
                         </Link>
                         <span className='bg-ui rounded-lg px-2 py-1 text-[0.6rem] uppercase text-primary-foreground'>
                             beta
