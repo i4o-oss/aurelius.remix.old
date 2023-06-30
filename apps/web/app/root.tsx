@@ -29,6 +29,9 @@ import nProgressStyles from 'nprogress/nprogress.css'
 import styles from '~/main.css'
 import cuiStyles from '@i4o/catalystui/main.css'
 import aureliusStyles from '@aurelius/writer/main.css'
+import rescribeStyles from '@i4o/rescribe/main.css'
+import { RescribeProvider } from '@i4o/rescribe'
+import config from './rescribe.config'
 
 interface DocumentProps {
     children: React.ReactNode
@@ -47,6 +50,7 @@ export const links: LinksFunction = () => {
         { rel: 'stylesheet', href: nProgressStyles },
         { rel: 'stylesheet', href: cuiStyles },
         { rel: 'stylesheet', href: aureliusStyles },
+        { rel: 'stylesheet', href: rescribeStyles },
         {
             rel: 'stylesheet',
             href: 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/tokyo-night-light.min.css',
@@ -240,7 +244,9 @@ const Document = ({ children }: DocumentProps) => {
 function App() {
     return (
         <Document>
-            <Outlet />
+            <RescribeProvider config={config}>
+                <Outlet />
+            </RescribeProvider>
         </Document>
     )
 }
