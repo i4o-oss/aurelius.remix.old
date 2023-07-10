@@ -3,10 +3,11 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { postStore } from '../local.client'
 
 interface LocalPost {
+    id?: string
     title: string
     content: string
     wordCount: number
-    createdAt?: Date
+    createdAt: Date
     updatedAt?: Date
 }
 
@@ -16,16 +17,17 @@ export default function useIDBPost(id = '') {
 
     useEffect(() => {
         async function readAllPosts() {
-            const localPosts: any[] = []
+            const localPosts: LocalPost[] = []
             await postStore.iterate(
-                (value: LocalPost, key: string, index: number) => {
+                (value: LocalPost, key: string) => {
                     localPosts.push({
                         id: key,
                         ...value,
                     })
                 }
             )
-            setPosts(localPosts)
+            const sortedLocalPosts = localPosts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+            setPosts(sortedLocalPosts)
         }
 
         readAllPosts().then(() => { })
@@ -37,7 +39,7 @@ export default function useIDBPost(id = '') {
             if (post) {
                 postRef.current = post as LocalPost
             } else {
-                postRef.current = { title: '', content: '', wordCount: 0 }
+                postRef.current = { title: '', content: '', wordCount: 0, createdAt: new Date() }
             }
         }
 

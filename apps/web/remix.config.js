@@ -33,6 +33,7 @@ module.exports = {
         'estree-walker',
         'evolu',
         'fault',
+        'github-slugger',
         'gray-matter',
         /^hast-util-*/,
         /^is-*/,
@@ -44,6 +45,8 @@ module.exports = {
         'periscopic',
         'property-information',
         /^remark-*/,
+        '@i4o/rescribe',
+        'slash',
         'space-separated-tokens',
         'stringify-entities',
         'trim-lines',
@@ -53,5 +56,6 @@ module.exports = {
         /^vfile*/,
         'zwitch',
     ],
+    // serverDependenciesToBundle: [/.*/],
     watchPaths: ['../../packages/aurelius'],
 }
