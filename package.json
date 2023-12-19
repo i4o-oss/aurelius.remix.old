@@ -1,27 +1,27 @@
 {
-    "name": "aurelius-monorepo",
-    "version": "0.0.0",
-    "private": true,
-    "workspaces": [
-        "apps/*",
-        "packages/*",
-        "packages/emails/.react-email"
-    ],
-    "scripts": {
-        "build": "turbo run build --filter=...@aurelius/writer",
-        "dev": "turbo run dev --filter=!react-email-preview --parallel",
-        "start": "turbo run start --scope=@aurelius/web",
-        "lint": "turbo run lint",
-        "format": "prettier --write \"**/*.{ts,tsx,md}\""
-    },
-    "devDependencies": {
-        "@aurelius/eslint-config": "workspace:*",
-        "prettier": "latest",
-        "prettier-plugin-tailwindcss": "^0.2.4",
-        "turbo": "latest"
-    },
-    "engines": {
-        "node": ">=18.0.0"
-    },
-    "packageManager": "pnpm@8.5.0"
+	"name": "aurelius-monorepo",
+	"version": "0.0.0",
+	"private": true,
+	"workspaces": [
+		"apps/*",
+		"packages/*",
+		"packages/emails/.react-email"
+	],
+	"scripts": {
+		"build": "turbo run build --filter=...@aurelius/writer",
+		"dev": "turbo run dev --filter=!react-email-preview --parallel",
+		"start": "turbo run start --scope=@aurelius/web",
+		"lint": "turbo run lint",
+		"format": "prettier --write \"**/*.{ts,tsx,md}\""
+	},
+	"devDependencies": {
+		"@aurelius/eslint-config": "workspace:*",
+		"prettier": "latest",
+		"prettier-plugin-tailwindcss": "^0.2.4",
+		"turbo": "latest"
+	},
+	"engines": {
+		"node": ">=18.0.0"
+	},
+	"packageManager": "pnpm@8.9.2"
 }
