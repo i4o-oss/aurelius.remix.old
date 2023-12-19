@@ -4,9 +4,9 @@
     "description": "",
     "sideEffects": false,
     "scripts": {
-        "build": "remix build",
+        "build": "pnpm prisma generate && remix build",
         "dev": "remix dev",
-        "start": "pnpm prisma generate && remix-serve build",
+        "start": "remix-serve build",
         "typecheck": "tsc -b"
     },
     "dependencies": {
