@@ -91,7 +91,6 @@
         "prosemirror-model": "^1.18.1",
         "prosemirror-state": "^1.4.2",
         "prosemirror-view": "^1.29.0",
-        "react-autosave": "^0.4.2",
         "react-player": "^2.11.2",
         "react-timer-hook": "^3.0.5",
         "turndown": "^7.1.1"

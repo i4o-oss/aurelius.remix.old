@@ -12,7 +12,7 @@ import SuperImage from '../extensions/super-image'
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
 import { lowlight } from 'lowlight'
 import Youtube from '@tiptap/extension-youtube'
-import { Autosave } from 'react-autosave'
+// import { useAutosave } from 'react-autosave'
 import useLocalStorage, {
     deleteFromStorage,
     writeStorage,
@@ -475,15 +475,12 @@ export default function Writer({
         setWordCount,
     }
 
+    // useAutosave({ data: autoSaveData, interval: 5000, onSave: autoSavePost })
+
     return (
         <KeystrokesProvider keystrokes={keystrokes}>
             <AureliusProvider data={data}>
                 <main className='au-flex au-h-full au-w-full au-flex-col au-items-center au-justify-start'>
-                    <Autosave
-                        data={autoSaveData}
-                        interval={5000}
-                        onSave={autoSavePost}
-                    />
                     <div
                         className={`au-absolute au-top-4 au-left-4 au-flex au-items-center au-gap-4 au-transition-all au-duration-200 hover:au-opacity-100 ${focusMode ? 'au-opacity-5' : 'au-opacity-100'
                             }`}

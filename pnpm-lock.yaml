@@ -379,9 +379,6 @@ importers:
       prosemirror-view:
         specifier: ^1.29.0
         version: 1.32.7
-      react-autosave:
-        specifier: ^0.4.2
-        version: 0.4.3(react-dom@18.2.0)(react@18.2.0)
       react-player:
         specifier: ^2.11.2
         version: 2.14.0(react@18.2.0)
@@ -13128,16 +13125,6 @@ packages:
     dependencies:
       got: 11.8.6
       p-reflect: 2.1.0
-    dev: false
-
-  /react-autosave@0.4.3(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-uiQAsQYZKfaG9uDQnZMtvM2rIohy0KbhxYYxpFqQiB7RpcsPUDG03QNwmMMcr0TbvSW3rPyHjZdWEUcUeEpRbQ==}
-    peerDependencies:
-      react: ^17.x.x || ^18.x.x
-      react-dom: ^17.x.x || ^18.x.x
-    dependencies:
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
     dev: false
 
   /react-dom@18.2.0(react@18.2.0):
